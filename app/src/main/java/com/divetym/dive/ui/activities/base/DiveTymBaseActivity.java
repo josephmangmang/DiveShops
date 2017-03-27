@@ -1,6 +1,9 @@
 package com.divetym.dive.ui.activities.base;
 
+import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +25,19 @@ public class DiveTymBaseActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
     }
 
-    protected Toolbar getToolbar(){
+    protected <T extends Fragment> T initFragment(@IdRes int target, @NonNull T fragment) {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(target, fragment)
+                .commit();
+        return fragment;
+    }
+
+    protected void showBackButton(boolean show) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(show);
+    }
+
+    protected Toolbar getToolbar() {
         return mToolbar;
     }
 }
