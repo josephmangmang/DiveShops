@@ -28,10 +28,21 @@ public class User {
     public User() {
     }
 
+    public User(int userUid, String email) {
+        this.userUid = userUid;
+        this.email = email;
+    }
+
     public User(int userUid, String email, String authKey) {
         this.userUid = userUid;
         this.email = email;
         this.authKey = authKey;
+    }
+
+    public User(int userUid, String email, UserType accountType) {
+        this.userUid = userUid;
+        this.email = email;
+        this.accountType = accountType;
     }
 
     public User(int userUid, String email, String createdTime, UserType accountType) {
