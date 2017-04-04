@@ -15,14 +15,17 @@ public class User {
     private String createdTime;
     @SerializedName("is_diver")
     private boolean isDiver;
+    @SerializedName("auth_key")
+    private String authKey;
 
     public User() {
     }
 
-    public User(int userUid, String email, boolean isDiver) {
+    public User(int userUid, String email, boolean isDiver, String authKey) {
         this.userUid = userUid;
         this.email = email;
         this.isDiver = isDiver;
+        this.authKey = authKey;
     }
 
     public User(int userUid, String email, String createdTime, boolean isDiver) {
@@ -62,5 +65,13 @@ public class User {
 
     public void setDiver(boolean diver) {
         isDiver = diver;
+    }
+
+    public String getAuthKey() {
+        return authKey;
+    }
+
+    public void setAuthKey(String authKey) {
+        this.authKey = authKey;
     }
 }
