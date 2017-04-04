@@ -14,7 +14,7 @@ public class DailyTrip {
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
-    private int diveShopUid;
+    private String diveShopUid;
     @SerializedName(ApiConstant.GROUP_SIZE)
     private int groupSize;
     @SerializedName(ApiConstant.NUMBER_OF_DIVE)
@@ -40,7 +40,7 @@ public class DailyTrip {
     public DailyTrip() {
     }
 
-    public DailyTrip(int dailyTripId, int diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote) {
+    public DailyTrip(int dailyTripId, String diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote) {
         this.dailyTripId = dailyTripId;
         this.diveShopUid = diveShopUid;
         this.groupSize = groupSize;
@@ -51,7 +51,7 @@ public class DailyTrip {
         this.priceNote = priceNote;
     }
 
-    public DailyTrip(int dailyTripId, int diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote, List<DailyTripBoat> boats, List<DailyTripDiveSite> sites, List<DailyTripGuide> guides, List<DailyTripGuest> guests) {
+    public DailyTrip(int dailyTripId, String diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote, List<DailyTripBoat> boats, List<DailyTripDiveSite> sites, List<DailyTripGuide> guides, List<DailyTripGuest> guests) {
         this.dailyTripId = dailyTripId;
         this.diveShopUid = diveShopUid;
         this.groupSize = groupSize;
@@ -74,11 +74,11 @@ public class DailyTrip {
         this.dailyTripId = dailyTripId;
     }
 
-    public int getDiveShopUid() {
+    public String getDiveShopUid() {
         return diveShopUid;
     }
 
-    public void setDiveShopUid(int diveShopUid) {
+    public void setDiveShopUid(String diveShopUid) {
         this.diveShopUid = diveShopUid;
     }
 

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     @SerializedName(ApiConstant.USER_ID)
-    private int userUid;
+    private String userUid;
     @SerializedName(ApiConstant.EMAIL)
     private String email;
     @SerializedName(ApiConstant.CREATE_TIME)
@@ -29,35 +29,35 @@ public class User {
     public User() {
     }
 
-    public User(int userUid, String email) {
+    public User(String userUid, String email) {
         this.userUid = userUid;
         this.email = email;
     }
 
-    public User(int userUid, String email, String authKey) {
+    public User(String userUid, String email, String authKey) {
         this.userUid = userUid;
         this.email = email;
         this.authKey = authKey;
     }
 
-    public User(int userUid, String email, UserType accountType) {
+    public User(String userUid, String email, UserType accountType) {
         this.userUid = userUid;
         this.email = email;
         this.accountType = accountType;
     }
 
-    public User(int userUid, String email, String createdTime, UserType accountType) {
+    public User(String userUid, String email, String createdTime, UserType accountType) {
         this.userUid = userUid;
         this.email = email;
         this.createdTime = createdTime;
         this.accountType = accountType;
     }
 
-    public int getUserUid() {
+    public String getUserUid() {
         return userUid;
     }
 
-    public void setUserUid(int userUid) {
+    public void setUserUid(String userUid) {
         this.userUid = userUid;
     }
 

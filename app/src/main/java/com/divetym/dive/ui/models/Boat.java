@@ -11,7 +11,7 @@ public class Boat {
     @SerializedName(ApiConstant.BOAT_ID)
     private int boatId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
-    private int diveShopUid;
+    private String diveShopUid;
     @SerializedName(ApiConstant.NAME)
     private String name;
     @SerializedName(ApiConstant.IMAGE)
@@ -20,7 +20,7 @@ public class Boat {
     public Boat() {
     }
 
-    public Boat(int boatId, int diveShopUid, String name, String imageUrl) {
+    public Boat(int boatId, String diveShopUid, String name, String imageUrl) {
         this.boatId = boatId;
         this.diveShopUid = diveShopUid;
         this.name = name;
@@ -35,11 +35,11 @@ public class Boat {
         this.boatId = boatId;
     }
 
-    public int getDiveShopUid() {
+    public String getDiveShopUid() {
         return diveShopUid;
     }
 
-    public void setDiveShopUid(int diveShopUid) {
+    public void setDiveShopUid(String diveShopUid) {
         this.diveShopUid = diveShopUid;
     }
 

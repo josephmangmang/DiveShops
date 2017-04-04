@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 public class DiveShop extends User {
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
-    private int diveShopUid;
+    private String diveShopUid;
     @SerializedName(ApiConstant.NAME)
     private String name;
     @SerializedName(ApiConstant.DESCRIPTION)
@@ -32,11 +32,11 @@ public class DiveShop extends User {
     public DiveShop() {
     }
 
-    public DiveShop(int userId, String email) {
+    public DiveShop(String userId, String email) {
         super(userId, email, UserType.DiveShop);
     }
 
-    public DiveShop(int userId, String email, int diveShopUid, String name, String description, String contactNumber, String address, double latitiude, double longitude, BigDecimal pricePerDive, String specialService) {
+    public DiveShop(String userId, String email, String diveShopUid, String name, String description, String contactNumber, String address, double latitiude, double longitude, BigDecimal pricePerDive, String specialService) {
         super(userId, email, UserType.DiveShop);
         this.diveShopUid = diveShopUid;
         this.name = name;
@@ -49,11 +49,11 @@ public class DiveShop extends User {
         this.specialService = specialService;
     }
 
-    public int getDiveShopUid() {
+    public String getDiveShopUid() {
         return diveShopUid;
     }
 
-    public void setDiveShopUid(int diveShopUid) {
+    public void setDiveShopUid(String diveShopUid) {
         this.diveShopUid = diveShopUid;
     }
 
