@@ -2,6 +2,7 @@ package com.divetym.dive.ui.rest;
 
 import com.divetym.dive.ui.models.Course;
 import com.divetym.dive.ui.models.DailyTrip;
+import com.divetym.dive.ui.models.response.CourseListResponse;
 import com.divetym.dive.ui.models.response.LoginResponse;
 import com.divetym.dive.ui.models.response.Response;
 
@@ -55,7 +56,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("courses")
-    Call<List<Course>> getCourses(@Query("offset") int offset, @Query("sort") String sort, @Query("order") String orderBy);
+    Call<CourseListResponse> getCourses(@Query("offset") int offset, @Query("sort") String sort, @Query("order") String orderBy);
 
     /**
      * Get a list of Dive Site base on location
