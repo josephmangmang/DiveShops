@@ -15,11 +15,11 @@ public class User {
     @SerializedName(ApiConstant.CREATE_TIME)
     private String createdTime;
     @SerializedName(ApiConstant.ACCOUNT_TYPE)
-    private UserType accountType;
+    private AccountType accountType;
     @SerializedName(ApiConstant.AUTH_KEY)
     private String authKey;
 
-    public enum UserType {
+    public enum AccountType {
         @SerializedName(ApiConstant.DIVER)
         Diver,
         @SerializedName(ApiConstant.DIVE_SHOP)
@@ -40,13 +40,13 @@ public class User {
         this.authKey = authKey;
     }
 
-    public User(String userUid, String email, UserType accountType) {
+    public User(String userUid, String email, AccountType accountType) {
         this.userUid = userUid;
         this.email = email;
         this.accountType = accountType;
     }
 
-    public User(String userUid, String email, String createdTime, UserType accountType) {
+    public User(String userUid, String email, String createdTime, AccountType accountType) {
         this.userUid = userUid;
         this.email = email;
         this.createdTime = createdTime;
@@ -85,11 +85,11 @@ public class User {
         this.authKey = authKey;
     }
 
-    public UserType getAccountType() {
+    public AccountType getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(UserType accountType) {
+    public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
