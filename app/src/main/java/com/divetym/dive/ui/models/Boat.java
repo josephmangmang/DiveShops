@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,13 +8,13 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Boat {
-    @SerializedName("boat_id")
+    @SerializedName(ApiConstant.BOAT_ID)
     private int boatId;
-    @SerializedName("dive_shop_id")
+    @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private int diveShopUid;
-    @SerializedName("name")
+    @SerializedName(ApiConstant.NAME)
     private String name;
-    @SerializedName("image")
+    @SerializedName(ApiConstant.IMAGE)
     private String imageUrl;
 
     public Boat() {

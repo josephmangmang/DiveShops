@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -9,13 +10,13 @@ import java.math.BigDecimal;
  */
 
 public class DiveShopCourse {
-    @SerializedName("dive_shop_course_id")
+    @SerializedName(ApiConstant.DIVE_SHOP_COURSE_ID)
     private int diveShopCourseId;
-    @SerializedName("dive_shop_id")
+    @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private String diveShopUid;
-    @SerializedName("course_id")
+    @SerializedName(ApiConstant.COURSE_ID)
     private int courseId;
-    @SerializedName("price")
+    @SerializedName(ApiConstant.PRICE)
     private BigDecimal price;
 
     public DiveShopCourse() {

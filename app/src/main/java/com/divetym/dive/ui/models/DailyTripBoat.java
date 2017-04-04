@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,26 +8,26 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class DailyTripBoat extends Boat{
-    @SerializedName("daily_trip_boat")
-    private int dailyTripBoat;
-    @SerializedName("daily_trip_id")
+    @SerializedName(ApiConstant.DAILY_TRIP_BOAT_ID)
+    private int dailyTripBoatId;
+    @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
 
     public DailyTripBoat() {
     }
 
-    public DailyTripBoat(int boatId, int diveShopUid, String name, String imageUrl, int dailyTripBoat, int dailyTripId) {
+    public DailyTripBoat(int boatId, int diveShopUid, String name, String imageUrl, int dailyTripBoatId, int dailyTripId) {
         super(boatId, diveShopUid, name, imageUrl);
-        this.dailyTripBoat = dailyTripBoat;
+        this.dailyTripBoatId = dailyTripBoatId;
         this.dailyTripId = dailyTripId;
     }
 
-    public int getDailyTripBoat() {
-        return dailyTripBoat;
+    public int getDailyTripBoatId() {
+        return dailyTripBoatId;
     }
 
-    public void setDailyTripBoat(int dailyTripBoat) {
-        this.dailyTripBoat = dailyTripBoat;
+    public void setDailyTripBoatId(int dailyTripBoatId) {
+        this.dailyTripBoatId = dailyTripBoatId;
     }
 
     public int getDailyTripId() {
@@ -40,7 +41,7 @@ public class DailyTripBoat extends Boat{
     @Override
     public String toString() {
         return "DailyTripBoat{" +
-                "dailyTripBoat=" + dailyTripBoat +
+                "dailyTripBoatId=" + dailyTripBoatId +
                 ", dailyTripId=" + dailyTripId +
                 '}';
     }

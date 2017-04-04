@@ -1,6 +1,7 @@
 package com.divetym.dive.ui.models.response;
 
 import com.divetym.dive.ui.models.DailyTrip;
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 public class DailyTripListResponse extends Response {
-    @SerializedName("dive_trips")
+    @SerializedName(ApiConstant.DAILY_TRIPS)
     private List<DailyTrip> dailyTrips;
 
     public List<DailyTrip> getDailyTrips() {

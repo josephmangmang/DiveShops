@@ -1,6 +1,7 @@
 package com.divetym.dive.ui.models.response;
 
 import com.divetym.dive.ui.models.Boat;
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class BoatResponse extends Response {
-    @SerializedName("boat")
+    @SerializedName(ApiConstant.BOAT)
     private Boat boat;
 
     public Boat getBoat() {

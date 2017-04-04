@@ -1,6 +1,7 @@
 package com.divetym.dive.ui.models.response;
 
 import com.divetym.dive.ui.models.DiveShop;
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class DiveShopResponse extends Response {
-    @SerializedName("dive_shop")
+    @SerializedName(ApiConstant.DIVE_SHOP)
     private DiveShop diveShop;
 
     public DiveShop getDiveShop() {

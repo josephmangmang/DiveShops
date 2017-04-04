@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -10,30 +11,30 @@ import java.util.List;
  */
 
 public class DailyTrip {
-    @SerializedName("daily_trip_id")
+    @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
-    @SerializedName("dive_shop_id")
+    @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private int diveShopUid;
-    @SerializedName("group_size")
+    @SerializedName(ApiConstant.GROUP_SIZE)
     private int groupSize;
-    @SerializedName("number_of_dive")
+    @SerializedName(ApiConstant.NUMBER_OF_DIVE)
     private int numberOfDive;
-    @SerializedName("date")
+    @SerializedName(ApiConstant.DATE)
     private String date;
-    @SerializedName("create_time")
+    @SerializedName(ApiConstant.CREATE_TIME)
     private String createTime;
-    @SerializedName("price")
+    @SerializedName(ApiConstant.PRICE)
     private BigDecimal price;
-    @SerializedName("price_note")
+    @SerializedName(ApiConstant.PRICE_NOTE)
     private String priceNote;
 
-    @SerializedName("boats")
+    @SerializedName(ApiConstant.BOATS)
     private List<DailyTripBoat> boats;
-    @SerializedName("sites")
+    @SerializedName(ApiConstant.DIVE_SITES)
     private List<DailyTripDiveSite> sites;
-    @SerializedName("guides")
+    @SerializedName(ApiConstant.GUIDES)
     private List<DailyTripGuide> guides;
-    @SerializedName("guests")
+    @SerializedName(ApiConstant.GUESTS)
     private List<DailyTripGuest> guests;
 
     public DailyTrip() {

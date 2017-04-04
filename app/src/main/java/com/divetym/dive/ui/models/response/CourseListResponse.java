@@ -1,6 +1,7 @@
 package com.divetym.dive.ui.models.response;
 
 import com.divetym.dive.ui.models.Course;
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 public class CourseListResponse extends Response{
-    @SerializedName("courses")
+    @SerializedName(ApiConstant.COURSES)
     private List<Course> courses;
 
     public List<Course> getCourses() {

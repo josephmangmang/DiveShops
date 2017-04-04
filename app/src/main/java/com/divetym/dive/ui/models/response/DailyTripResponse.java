@@ -1,6 +1,7 @@
 package com.divetym.dive.ui.models.response;
 
 import com.divetym.dive.ui.models.DailyTrip;
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class DailyTripResponse extends Response {
-    @SerializedName("daily_trip")
+    @SerializedName(ApiConstant.DAILY_TRIP)
     private DailyTrip dailyTrip;
 
     public DailyTrip getDailyTrip() {

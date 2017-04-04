@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,23 +8,34 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Course {
-    @SerializedName("course_id")
+    @SerializedName(ApiConstant.COURSE_ID)
     private int courseId;
-    @SerializedName("name")
+    @SerializedName(ApiConstant.NAME)
+    private String name;
+    @SerializedName(ApiConstant.DESCRIPTION)
     private int description;
-    @SerializedName("photo_cover")
+    @SerializedName(ApiConstant.PHOTO_COVER)
     private String photoCoverUrl;
-    @SerializedName("offered_by")
+    @SerializedName(ApiConstant.OFFERED_BY)
     private String offeredBy;
 
     public Course() {
     }
 
-    public Course(int courseId, int description, String photoCoverUrl, String offeredBy) {
+    public Course(int courseId, String name, int description, String photoCoverUrl, String offeredBy) {
         this.courseId = courseId;
+        this.name = name;
         this.description = description;
         this.photoCoverUrl = photoCoverUrl;
         this.offeredBy = offeredBy;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCourseId() {

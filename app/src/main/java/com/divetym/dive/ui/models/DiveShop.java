@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
@@ -9,23 +10,23 @@ import java.math.BigDecimal;
  */
 
 public class DiveShop extends User {
-    @SerializedName("diver_shop_id")
+    @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private int diveShopUid;
-    @SerializedName("name")
+    @SerializedName(ApiConstant.NAME)
     private String name;
-    @SerializedName("description")
+    @SerializedName(ApiConstant.DESCRIPTION)
     private String description;
-    @SerializedName("contact_number")
+    @SerializedName(ApiConstant.CONTACT_NUMBER)
     private String contactNumber;
-    @SerializedName("address")
+    @SerializedName(ApiConstant.ADDRESS)
     private String address;
-    @SerializedName("latitude")
+    @SerializedName(ApiConstant.LATITUDE)
     private double latitiude;
-    @SerializedName("longitude")
+    @SerializedName(ApiConstant.LONGITUDE)
     private double longitude;
-    @SerializedName("price_per_dive")
+    @SerializedName(ApiConstant.PRICE_PER_DIVE)
     private BigDecimal pricePerDive;
-    @SerializedName("special_service")
+    @SerializedName(ApiConstant.SPECIAL_SERVICE)
     private String specialService;
 
     public DiveShop() {

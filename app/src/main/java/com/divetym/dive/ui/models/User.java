@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,21 +8,21 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class User {
-    @SerializedName("user_id")
+    @SerializedName(ApiConstant.USER_ID)
     private int userUid;
-    @SerializedName("email")
+    @SerializedName(ApiConstant.EMAIL)
     private String email;
-    @SerializedName("create_time")
+    @SerializedName(ApiConstant.CREATE_TIME)
     private String createdTime;
-    @SerializedName("account_type")
+    @SerializedName(ApiConstant.ACCOUNT_TYPE)
     private UserType accountType;
-    @SerializedName("auth_key")
+    @SerializedName(ApiConstant.AUTH_KEY)
     private String authKey;
 
     public enum UserType {
-        @SerializedName("diver")
+        @SerializedName(ApiConstant.DIVER)
         Diver,
-        @SerializedName("dive_shop")
+        @SerializedName(ApiConstant.DIVE_SHOP)
         DiveShop
     }
 

@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.models;
 
+import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,9 +8,9 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class DailyTripGuest extends Diver{
-    @SerializedName("daily_trip_guest_id")
+    @SerializedName(ApiConstant.DAILY_TRIP_GUEST_ID)
     private int dailyTripGuestId;
-    @SerializedName("daily_trip_id")
+    @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
 
     public DailyTripGuest() {
