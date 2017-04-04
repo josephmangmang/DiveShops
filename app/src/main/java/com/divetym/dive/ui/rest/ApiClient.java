@@ -20,4 +20,8 @@ public class ApiClient {
         }
         return sRetrofit;
     }
+
+    public static ApiInterface getApiInterface() {
+        return getClient().create(ApiInterface.class);
+    }
 }
