@@ -9,22 +9,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class Diver extends User {
     @SerializedName(ApiConstant.DIVER_ID)
-    private int diverUid;
+    private String diverUid;
     @SerializedName(ApiConstant.NAME)
     private String name;
 
     public Diver() {
     }
 
-    public Diver(int userId, String email) {
+    public Diver(String userId, String email) {
         super(userId, email, UserType.Diver);
     }
 
-    public int getDiverUid() {
+    public String getDiverUid() {
         return diverUid;
     }
 
-    public void setDiverUid(int diverUid) {
+    public void setDiverUid(String diverUid) {
         this.diverUid = diverUid;
     }
 
