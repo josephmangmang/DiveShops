@@ -1,12 +1,17 @@
 package com.divetym.dive.ui.rest;
 
-import com.divetym.dive.ui.models.Course;
 import com.divetym.dive.ui.models.DailyTrip;
+import com.divetym.dive.ui.models.response.BoatListResponse;
 import com.divetym.dive.ui.models.response.CourseListResponse;
-import com.divetym.dive.ui.models.response.LoginResponse;
+import com.divetym.dive.ui.models.response.BoatResponse;
+import com.divetym.dive.ui.models.response.DailyTripListResponse;
+import com.divetym.dive.ui.models.response.DailyTripResponse;
+import com.divetym.dive.ui.models.response.DiveShopCourseResponse;
+import com.divetym.dive.ui.models.response.DiveShopListResponse;
+import com.divetym.dive.ui.models.response.DiveShopResponse;
+import com.divetym.dive.ui.models.response.DiveSiteListResponse;
+import com.divetym.dive.ui.models.response.UserResponse;
 import com.divetym.dive.ui.models.response.Response;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -45,7 +50,7 @@ public interface ApiInterface {
      */
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponse> login(@Field("email") String email, @Field("password") String password);
+    Call<UserResponse> login(@Field("email") String email, @Field("password") String password);
 
     /**
      * Get a list of Course
@@ -68,7 +73,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("sites")
-    Call getSites(@Query("lat") double lat, @Query("lng") double lng, @Query("radius") int radius, @Query("offset") int offset);
+    Call<DiveSiteListResponse> getSites(@Query("lat") double lat, @Query("lng") double lng, @Query("radius") int radius, @Query("offset") int offset);
 
     /**
      * Get a list of Dive Shop
@@ -80,8 +85,8 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops")
-    Call getDiveShops(@Query("lat") double lat, @Query("lng") double lng, @Query("radius") int radius,
-                      @Query("offset") int offset);
+    Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng, @Query("radius") int radius,
+                                            @Query("offset") int offset);
 
     /**
      * Get dive shop informations
@@ -90,7 +95,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}")
-    Call getDiveShop(@Path("shopUid") String shopUid);
+    Call<DiveShopResponse> getDiveShop(@Path("shopUid") String shopUid);
 
     /**
      * Get dive shop courses
@@ -102,7 +107,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}/courses")
-    Call getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
+    Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
                             @Query("order") String orderBy);
 
     /**
@@ -114,7 +119,7 @@ public interface ApiInterface {
      * @return
      */
     @PUT("diveshops/{shopUid}/courses/{shopCourseId}")
-    Call updateDiveShopCourse(@Path("shopUid") String shopUid, @Path("shopCourseId") int shopCourseId, @Query("price") double price);
+    Call<DiveShopCourseResponse> updateDiveShopCourse(@Path("shopUid") String shopUid, @Path("shopCourseId") int shopCourseId, @Query("price") double price);
 
     /**
      * Add course on dive shop
@@ -124,7 +129,7 @@ public interface ApiInterface {
      * @return
      */
     @POST("diveshops/{shopUid}/courses")
-    Call addDiveShopCourse(@Field("course_id") int courseId, @Field("price") double price);
+    Call<DiveShopCourseResponse> addDiveShopCourse(@Field("course_id") int courseId, @Field("price") double price);
 
     /**
      * Add new boat
@@ -133,7 +138,7 @@ public interface ApiInterface {
      * @return
      */
     @POST("diveshops/{shopUid}/boats")
-    Call addDiveShopBoat(@Path("shopUid") @Field("name") String name);
+    Call<BoatResponse> addDiveShopBoat(@Path("shopUid") @Field("name") String name);
 
     /**
      * Get a list of boats
@@ -142,7 +147,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}/boats")
-    Call getDiveShopBoats(@Path("shopUid") String shopUid, @Query("offset") int offset);
+    Call<BoatListResponse> getDiveShopBoats(@Path("shopUid") String shopUid, @Query("offset") int offset);
 
     /**
      * Update boat
@@ -153,7 +158,7 @@ public interface ApiInterface {
      * @return
      */
     @PUT("diveshops/{shopUid}/boats/{boatId}")
-    Call updateDiveShopBoat(@Path("shopUid") String shopUid, @Path("boatId") int boatId, @Field("name") String name);
+    Call<BoatResponse> updateDiveShopBoat(@Path("shopUid") String shopUid, @Path("boatId") int boatId, @Field("name") String name);
 
     /**
      * Delete boat
@@ -163,7 +168,7 @@ public interface ApiInterface {
      * @return
      */
     @DELETE("diveshops/{shopUid}/boats/{boatId}")
-    Call deleteDiveShopBoat(@Path("shopUid") String shopUid, @Path("boatId") int boatId);
+    Call<Response> deleteDiveShopBoat(@Path("shopUid") String shopUid, @Path("boatId") int boatId);
 
     /**
      * Get list of Dive Shop Dive Trips
@@ -174,7 +179,7 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}/trips")
-    Call getDiveShopTrips(@Path("shopUid") String shopUid, @Query("start_date") String startDate, @Query("end_date") String endDate);
+    Call<DailyTripListResponse> getDiveShopTrips(@Path("shopUid") String shopUid, @Query("start_date") String startDate, @Query("end_date") String endDate);
 
     /**
      * Add new Daily Trip
@@ -184,7 +189,7 @@ public interface ApiInterface {
      * @return
      */
     @POST("diveshops/{shopUid}/trips")
-    Call addDailyTrip(@Path("shopUid") String shopUid, @Body DailyTrip dailyTrip);
+    Call<DailyTripResponse> addDailyTrip(@Path("shopUid") String shopUid, @Body DailyTrip dailyTrip);
 
     /**
      * Update selected dive trip
@@ -199,7 +204,7 @@ public interface ApiInterface {
      * @return
      */
     @PUT("diveshops/{shopUid}/trips/{tripId}")
-    Call updateDailyTrip(@Path("shopUid") String shopUid, @Path("tripId") int tripId,
+    Call<DailyTripResponse> updateDailyTrip(@Path("shopUid") String shopUid, @Path("tripId") int tripId,
                          @Field("group_size") int groupSize, @Field("number_of_dive") int numberOfDives,
                          @Field("date") String date, @Field("price") double price, @Field("price_note") String priceNote);
 

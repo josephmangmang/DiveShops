@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/30/2017.
  */
 
-public class LoginResponse extends Response {
+public class UserResponse extends Response {
 
     @SerializedName("user")
     @Expose
