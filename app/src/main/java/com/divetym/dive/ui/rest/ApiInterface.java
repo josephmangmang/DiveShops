@@ -2,6 +2,7 @@ package com.divetym.dive.ui.rest;
 
 import com.divetym.dive.ui.models.Course;
 import com.divetym.dive.ui.models.DailyTrip;
+import com.divetym.dive.ui.models.response.LoginResponse;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public interface ApiInterface {
      */
     @FormUrlEncoded
     @POST("login")
-    Call login(@Field("email") String email, @Field("password") String password, @Field("type") String type);
+    Call<LoginResponse> login(@Field("email") String email, @Field("password") String password, @Field("type") String type);
 
     /**
      * Get a list of Course
