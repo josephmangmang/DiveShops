@@ -3,6 +3,7 @@ package com.divetym.dive.ui.rest;
 import com.divetym.dive.ui.models.Course;
 import com.divetym.dive.ui.models.DailyTrip;
 import com.divetym.dive.ui.models.response.LoginResponse;
+import com.divetym.dive.ui.models.response.Response;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public interface ApiInterface {
      */
     @FormUrlEncoded
     @POST("register")
-    Call register(@Field("email") String email, @Field("password") String password, @Field("type") String type);
+    Call<Response> register(@Field("email") String email, @Field("password") String password, @Field("type") String type);
 
     /**
      * Diver and Dive Shop login
