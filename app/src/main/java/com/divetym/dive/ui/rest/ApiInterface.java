@@ -40,12 +40,11 @@ public interface ApiInterface {
      *
      * @param email
      * @param password
-     * @param type
      * @return
      */
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponse> login(@Field("email") String email, @Field("password") String password, @Field("type") String type);
+    Call<LoginResponse> login(@Field("email") String email, @Field("password") String password);
 
     /**
      * Get a list of Course
