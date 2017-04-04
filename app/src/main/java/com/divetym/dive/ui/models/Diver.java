@@ -34,4 +34,12 @@ public class Diver extends User {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Diver{" +
+                "diverUid=" + diverUid +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

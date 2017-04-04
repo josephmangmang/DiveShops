@@ -57,4 +57,14 @@ public class Boat {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Boat{" +
+                "boatId=" + boatId +
+                ", diveShopUid=" + diveShopUid +
+                ", name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

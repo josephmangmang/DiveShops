@@ -20,4 +20,11 @@ public class DailyTripListResponse extends Response {
     public void setDailyTrips(List<DailyTrip> dailyTrips) {
         this.dailyTrips = dailyTrips;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "DailyTripListResponse{" +
+                "dailyTrips=" + dailyTrips +
+                '}';
+    }
 }

@@ -59,4 +59,14 @@ public class DiveShopCourse {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "DiveShopCourse{" +
+                "diveShopCourseId=" + diveShopCourseId +
+                ", diveShopUid='" + diveShopUid + '\'' +
+                ", courseId=" + courseId +
+                ", price=" + price +
+                '}';
+    }
 }

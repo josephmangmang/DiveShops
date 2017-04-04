@@ -36,4 +36,12 @@ public class DailyTripDiveSite extends DiveSite{
     public void setDailyTripId(int dailyTripId) {
         this.dailyTripId = dailyTripId;
     }
+
+    @Override
+    public String toString() {
+        return "DailyTripDiveSite{" +
+                "dailyTripDiveSite=" + dailyTripDiveSite +
+                ", dailyTripId=" + dailyTripId +
+                '}';
+    }
 }

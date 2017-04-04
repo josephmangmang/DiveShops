@@ -57,4 +57,14 @@ public class Course {
     public void setOfferedBy(String offeredBy) {
         this.offeredBy = offeredBy;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", description=" + description +
+                ", photoCoverUrl='" + photoCoverUrl + '\'' +
+                ", offeredBy='" + offeredBy + '\'' +
+                '}';
+    }
 }

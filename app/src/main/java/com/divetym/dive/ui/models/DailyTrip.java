@@ -160,4 +160,22 @@ public class DailyTrip {
     public void setGuests(List<DailyTripGuest> guests) {
         this.guests = guests;
     }
+
+    @Override
+    public String toString() {
+        return "DailyTrip{" +
+                "dailyTripId=" + dailyTripId +
+                ", diveShopUid=" + diveShopUid +
+                ", groupSize=" + groupSize +
+                ", numberOfDive=" + numberOfDive +
+                ", date='" + date + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", price=" + price +
+                ", priceNote='" + priceNote + '\'' +
+                ", boats=" + boats +
+                ", sites=" + sites +
+                ", guides=" + guides +
+                ", guests=" + guests +
+                '}';
+    }
 }

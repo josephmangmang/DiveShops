@@ -68,5 +68,16 @@ public class DiveSite {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public String toString() {
+        return "DiveSite{" +
+                "diveSiteId=" + diveSiteId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
 }
 

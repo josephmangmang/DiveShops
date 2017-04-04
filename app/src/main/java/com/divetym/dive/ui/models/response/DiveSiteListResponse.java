@@ -20,4 +20,11 @@ public class DiveSiteListResponse extends Response {
     public void setDivesites(List<DiveSite> divesites) {
         this.divesites = divesites;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nDiveSiteListResponse{" +
+                "divesites=" + divesites +
+                '}';
+    }
 }

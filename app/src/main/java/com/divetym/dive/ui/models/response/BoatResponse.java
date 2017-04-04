@@ -18,4 +18,11 @@ public class BoatResponse extends Response {
     public void setBoat(Boat boat) {
         this.boat = boat;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nBoatResponse{" +
+                "boat=" + boat +
+                '}';
+    }
 }

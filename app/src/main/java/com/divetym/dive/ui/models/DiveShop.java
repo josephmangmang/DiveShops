@@ -119,4 +119,19 @@ public class DiveShop extends User {
     public void setSpecialService(String specialService) {
         this.specialService = specialService;
     }
+
+    @Override
+    public String toString() {
+        return "DiveShop{" +
+                "diveShopUid=" + diveShopUid +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", latitiude=" + latitiude +
+                ", longitude=" + longitude +
+                ", pricePerDive=" + pricePerDive +
+                ", specialService='" + specialService + '\'' +
+                '}';
+    }
 }

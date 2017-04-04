@@ -18,4 +18,11 @@ public class DailyTripResponse extends Response {
     public void setDailyTrip(DailyTrip dailyTrip) {
         this.dailyTrip = dailyTrip;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nDailyTripResponse{" +
+                "dailyTrip=" + dailyTrip +
+                '}';
+    }
 }

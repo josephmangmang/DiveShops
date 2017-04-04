@@ -46,4 +46,13 @@ public class DailyTripGuide{
     public void setGuideName(String guideName) {
         this.guideName = guideName;
     }
+
+    @Override
+    public String toString() {
+        return "DailyTripGuide{" +
+                "dailyTripGuideId=" + dailyTripGuideId +
+                ", dailyTripId=" + dailyTripId +
+                ", guideName='" + guideName + '\'' +
+                '}';
+    }
 }

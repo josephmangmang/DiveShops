@@ -20,4 +20,11 @@ public class CourseListResponse extends Response{
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nCourseListResponse{" +
+                "courses=" + courses +
+                '}';
+    }
 }

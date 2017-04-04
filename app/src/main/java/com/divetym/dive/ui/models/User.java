@@ -80,4 +80,15 @@ public class User {
     public void setAccountType(UserType accountType) {
         this.accountType = accountType;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userUid=" + userUid +
+                ", email='" + email + '\'' +
+                ", createdTime='" + createdTime + '\'' +
+                ", accountType=" + accountType +
+                ", authKey='" + authKey + '\'' +
+                '}';
+    }
 }

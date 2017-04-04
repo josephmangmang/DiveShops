@@ -21,4 +21,11 @@ public class UserResponse extends Response {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nUserResponse{" +
+                "user=" + user +
+                '}';
+    }
 }

@@ -20,4 +20,11 @@ public class BoatListResponse extends Response {
     public void setBoats(List<Boat> boats) {
         this.boats = boats;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nBoatListResponse{" +
+                "boats=" + boats +
+                '}';
+    }
 }

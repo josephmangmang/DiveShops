@@ -36,4 +36,12 @@ public class DailyTripBoat extends Boat{
     public void setDailyTripId(int dailyTripId) {
         this.dailyTripId = dailyTripId;
     }
+
+    @Override
+    public String toString() {
+        return "DailyTripBoat{" +
+                "dailyTripBoat=" + dailyTripBoat +
+                ", dailyTripId=" + dailyTripId +
+                '}';
+    }
 }

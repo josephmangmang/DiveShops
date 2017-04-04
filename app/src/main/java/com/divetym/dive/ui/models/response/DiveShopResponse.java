@@ -18,4 +18,11 @@ public class DiveShopResponse extends Response {
     public void setDiveShop(DiveShop diveShop) {
         this.diveShop = diveShop;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nDiveShopResponse{" +
+                "diveShop=" + diveShop +
+                '}';
+    }
 }
