@@ -24,7 +24,7 @@ public class SessionManager {
         this.mEditor = this.mPreferences.edit();
     }
 
-    public SessionManager getInstance(Context context) {
+    public static SessionManager getInstance(Context context) {
         if (sSessionManager == null) {
             sSessionManager = new SessionManager(context);
         }
