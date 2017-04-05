@@ -31,6 +31,10 @@ public class SessionManager {
         return sSessionManager;
     }
 
+    public boolean isLogin() {
+        return getAuthKey() != null && getEmail() != null;
+    }
+
     public boolean login(User user) {
         setUserUid(user.getUserUid());
         setAccountType(user.getAccountType());
@@ -39,10 +43,12 @@ public class SessionManager {
         setEmail(user.getEmail());
         return save();
     }
-    public void logout(){
+
+    public void logout() {
         mEditor.clear();
         mEditor.commit();
     }
+
     private void setEmail(String email) {
         mEditor.putString(ApiConstant.EMAIL, email);
     }
