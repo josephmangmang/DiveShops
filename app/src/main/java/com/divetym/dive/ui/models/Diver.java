@@ -17,7 +17,7 @@ public class Diver extends User {
     }
 
     public Diver(String userId, String email) {
-        super(userId, email, UserType.Diver);
+        super(userId, email, AccountType.Diver);
     }
 
     public String getDiverUid() {

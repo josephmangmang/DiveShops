@@ -33,11 +33,11 @@ public class DiveShop extends User {
     }
 
     public DiveShop(String userId, String email) {
-        super(userId, email, UserType.DiveShop);
+        super(userId, email, AccountType.DiveShop);
     }
 
     public DiveShop(String userId, String email, String diveShopUid, String name, String description, String contactNumber, String address, double latitiude, double longitude, BigDecimal pricePerDive, String specialService) {
-        super(userId, email, UserType.DiveShop);
+        super(userId, email, AccountType.DiveShop);
         this.diveShopUid = diveShopUid;
         this.name = name;
         this.description = description;
