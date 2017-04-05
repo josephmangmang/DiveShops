@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    public static final String BASE_ENDPOINT_URL = "http://192.168.254.6/v1";
+    public static final String BASE_ENDPOINT_URL = "http://192.168.254.6/v1/";
     private static Retrofit sRetrofit = null;
 
     public static Retrofit getClient() {
