@@ -16,7 +16,7 @@ public class DailyTripGuest extends Diver{
     public DailyTripGuest() {
     }
 
-    public DailyTripGuest(int userId, String email, int dailyTripGuestId, int dailyTripId) {
+    public DailyTripGuest(String userId, String email, int dailyTripGuestId, int dailyTripId) {
         super(userId, email);
         this.dailyTripGuestId = dailyTripGuestId;
         this.dailyTripId = dailyTripId;

@@ -16,7 +16,7 @@ public class DailyTripBoat extends Boat{
     public DailyTripBoat() {
     }
 
-    public DailyTripBoat(int boatId, int diveShopUid, String name, String imageUrl, int dailyTripBoatId, int dailyTripId) {
+    public DailyTripBoat(int boatId, String diveShopUid, String name, String imageUrl, int dailyTripBoatId, int dailyTripId) {
         super(boatId, diveShopUid, name, imageUrl);
         this.dailyTripBoatId = dailyTripBoatId;
         this.dailyTripId = dailyTripId;
