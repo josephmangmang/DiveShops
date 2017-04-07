@@ -23,7 +23,7 @@ public class User {
         @SerializedName(ApiConstant.DIVER)
         Diver,
         @SerializedName(ApiConstant.DIVE_SHOP)
-        DiveShop
+        Dive_Shop
     }
 
     public User() {
