@@ -1,39 +1,50 @@
 package com.divetym.dive.ui.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.util.Log;
 
 import com.divetym.dive.R;
-import com.divetym.dive.ui.activities.base.DiveTymBaseActivity;
+import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
+import com.divetym.dive.ui.common.SessionManager;
+import com.divetym.dive.ui.fragments.DiveShopFragment;
+import com.divetym.dive.ui.view.ToastAlert;
 
-public class MainActivity extends DiveTymBaseActivity{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends AuthenticatedActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_collapsing);
+        ButterKnife.bind(this);
+        loadScreen();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    public CollapsingToolbarLayout getCollapsingToolbarLayout() {
+        return mCollapsingToolbarLayout;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void loadScreen() {
+        switch (SessionManager.getInstance(this).getAccountType()) {
+            case Diver:
+                // TODO: 4/6/2017 implement diver profile screen
+                Log.i(TAG, "loading Diver's screen..");
+                break;
+            case Dive_Shop:
+                Log.i(TAG, "loading Dive_Shop's screen..");
+                initFragment(R.id.content, new DiveShopFragment());
+                break;
+            default:
+                new ToastAlert(this)
+                        .setMessage(R.string.error_account_not_valid)
+                        .show();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

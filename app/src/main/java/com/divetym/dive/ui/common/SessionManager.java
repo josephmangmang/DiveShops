@@ -2,9 +2,13 @@ package com.divetym.dive.ui.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.divetym.dive.ui.models.User;
 import com.divetym.dive.ui.rest.constants.ApiConstant;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by kali_root on 4/4/2017.
@@ -12,14 +16,21 @@ import com.divetym.dive.ui.rest.constants.ApiConstant;
 
 public class SessionManager {
 
+    private static final String TAG = SessionManager.class.getSimpleName();
     private static final String SESSION_PREF_NAME = "session_pref_name";
     private static SessionManager sSessionManager;
-    private Context mContext;
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
+    public static Map<String, User.AccountType> sAccountTypeMap;
+
+    static {
+        Log.d(TAG, "static block called");
+        sAccountTypeMap = new HashMap<>(2);
+        sAccountTypeMap.put(User.AccountType.Diver.name(), User.AccountType.Diver);
+        sAccountTypeMap.put(User.AccountType.Dive_Shop.name(), User.AccountType.Dive_Shop);
+    }
 
     private SessionManager(Context context) {
-        this.mContext = context;
         this.mPreferences = context.getSharedPreferences(SESSION_PREF_NAME, Context.MODE_PRIVATE);
         this.mEditor = this.mPreferences.edit();
     }
@@ -47,26 +58,6 @@ public class SessionManager {
     public void logout() {
         mEditor.clear();
         mEditor.commit();
-    }
-
-    private void setEmail(String email) {
-        mEditor.putString(ApiConstant.EMAIL, email);
-    }
-
-    private void setCreatedTime(String createdTime) {
-        mEditor.putString(ApiConstant.CREATE_TIME, createdTime);
-    }
-
-    private void setAuthKey(String authKey) {
-        mEditor.putString(ApiConstant.AUTH_KEY, authKey);
-    }
-
-    private void setUserUid(String userUid) {
-        mEditor.putString(ApiConstant.USER_ID, userUid);
-    }
-
-    private boolean save() {
-        return mEditor.commit();
     }
 
     public void setAccountType(User.AccountType accountType) {
@@ -99,7 +90,43 @@ public class SessionManager {
         }
     }
 
+    public String getShopUid() {
+        return mPreferences.getString(ApiConstant.DIVE_SHOP_ID, null);
+    }
+
+    public String getDiverUid() {
+        return mPreferences.getString(ApiConstant.DIVER_ID, null);
+    }
+
     public String getAuthKey() {
         return mPreferences.getString(ApiConstant.AUTH_KEY, null);
+    }
+
+    public void setShopUid(String shopUid) {
+        mEditor.putString(ApiConstant.DIVE_SHOP_ID, shopUid).commit();
+    }
+
+    public void setDiverUid(String diverUid) {
+        mEditor.putString(ApiConstant.DIVER_ID, diverUid).commit();
+    }
+
+    private void setEmail(String email) {
+        mEditor.putString(ApiConstant.EMAIL, email);
+    }
+
+    private void setCreatedTime(String createdTime) {
+        mEditor.putString(ApiConstant.CREATE_TIME, createdTime);
+    }
+
+    private void setAuthKey(String authKey) {
+        mEditor.putString(ApiConstant.AUTH_KEY, authKey);
+    }
+
+    private void setUserUid(String userUid) {
+        mEditor.putString(ApiConstant.USER_ID, userUid);
+    }
+
+    private boolean save() {
+        return mEditor.commit();
     }
 }

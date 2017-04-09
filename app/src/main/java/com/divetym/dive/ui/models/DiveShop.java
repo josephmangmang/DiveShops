@@ -4,12 +4,17 @@ import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kali_root on 3/27/2017.
  */
 
 public class DiveShop extends User {
+    private static final String PREVIEW_ACTION_BOAT = "VIEW";
+    private static final String PREVIEW_ACTION_COURSE = "BOOK NOW";
+
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private String diveShopUid;
     @SerializedName(ApiConstant.NAME)
@@ -28,16 +33,26 @@ public class DiveShop extends User {
     private BigDecimal pricePerDive;
     @SerializedName(ApiConstant.SPECIAL_SERVICE)
     private String specialService;
+    @SerializedName(ApiConstant.COURSES)
+    private List<DiveShopCourse> courses;
+    @SerializedName(ApiConstant.BOATS)
+    private List<Boat> boats;
+
+    private List<ListPreview> coursePreviews;
+    private List<ListPreview> boatPreviews;
 
     public DiveShop() {
     }
 
     public DiveShop(String userId, String email) {
-        super(userId, email, AccountType.DiveShop);
+        super(userId, email, AccountType.Dive_Shop);
     }
 
-    public DiveShop(String userId, String email, String diveShopUid, String name, String description, String contactNumber, String address, double latitiude, double longitude, BigDecimal pricePerDive, String specialService) {
-        super(userId, email, AccountType.DiveShop);
+    public DiveShop(String userId, String email, String diveShopUid, String name,
+                    String description, String contactNumber, String address,
+                    double latitiude, double longitude, BigDecimal pricePerDive,
+                    String specialService, List<DiveShopCourse> courses, List<Boat> boats) {
+        super(userId, email, AccountType.Dive_Shop);
         this.diveShopUid = diveShopUid;
         this.name = name;
         this.description = description;
@@ -47,6 +62,10 @@ public class DiveShop extends User {
         this.longitude = longitude;
         this.pricePerDive = pricePerDive;
         this.specialService = specialService;
+        this.courses = courses;
+        this.boats = boats;
+        prepareBoatPreviews(boats);
+        prepareCoursePreviews(courses);
     }
 
     public String getDiveShopUid() {
@@ -121,9 +140,61 @@ public class DiveShop extends User {
         this.specialService = specialService;
     }
 
+    public List<DiveShopCourse> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<DiveShopCourse> courses) {
+        this.courses = courses;
+        prepareCoursePreviews(courses);
+    }
+
+    public List<Boat> getBoats() {
+        return boats;
+    }
+
+    public void setBoats(List<Boat> boats) {
+        this.boats = boats;
+        prepareBoatPreviews(boats);
+    }
+
+    public void prepareCoursePreviews(List<DiveShopCourse> courses) {
+        coursePreviews = new ArrayList<>();
+        if (courses != null) {
+            for (int i = 0; i < courses.size(); i++) {
+                DiveShopCourse course = courses.get(i);
+                coursePreviews.add(new ListPreview(course.getName(), course.getPrice().toString(), PREVIEW_ACTION_COURSE, course.getPhotoCoverUrl()));
+            }
+        }
+    }
+
+    public void prepareBoatPreviews(List<Boat> boats) {
+        boatPreviews = new ArrayList<>();
+        if (boats != null) {
+            for (int i = 0; i < boats.size(); i++) {
+                Boat boat = boats.get(i);
+                boatPreviews.add(new ListPreview(boat.getName(),PREVIEW_ACTION_BOAT, boat.getImageUrl()));
+            }
+        }
+    }
+
+    public List<ListPreview> getCoursePreviews() {
+        if (coursePreviews == null && courses != null && courses.size() > 0) {
+            prepareCoursePreviews(courses);
+        }
+        return coursePreviews;
+    }
+
+    public List<ListPreview> getBoatPreviews() {
+        if (boatPreviews == null && boats != null && boats.size() > 0) {
+            prepareBoatPreviews(boats);
+        }
+        return boatPreviews;
+    }
+
     @Override
     public String toString() {
-        return "DiveShop{" +
+        return "Dive_Shop{" +
                 "diveShopUid=" + diveShopUid +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

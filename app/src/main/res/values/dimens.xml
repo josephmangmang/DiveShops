@@ -5,4 +5,36 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_huge">64dp</dimen>
+    <dimen name="view_space">8dp</dimen>
+    <!--Text-->
+    <dimen name="description">21dp</dimen>
+    <dimen name="button">14sp</dimen><!-- All caps -->
+    <dimen name="caption">12sp</dimen>
+    <dimen name="body_1">14sp</dimen>
+    <dimen name="body_2">15sp</dimen>
+    <dimen name="subheading">16sp</dimen>
+    <dimen name="title">20sp</dimen>
+    <dimen name="headline">24sp</dimen>
+    <dimen name="display_1">34sp</dimen>
+    <dimen name="display_2">45sp</dimen>
+    <dimen name="display_3">56sp</dimen>
+    <dimen name="display_4">112sp</dimen>
+    <!-- Roboto text -->
+    <dimen name="roboto_display_4_light">@dimen/display_4</dimen>
+    <dimen name="roboto_display_3_regular">@dimen/display_3</dimen>
+    <dimen name="roboto_display_2_regular">@dimen/display_2</dimen>
+    <dimen name="roboto_display_1_regular">@dimen/display_1</dimen>
+    <dimen name="roboto_regular_headline">@dimen/headline</dimen>
+    <dimen name="roboto_title_medium">@dimen/title</dimen>
+    <dimen name="roboto_subheading_regular">@dimen/subheading</dimen>
+    <dimen name="roboto_body_2_medium">@dimen/body_2</dimen>
+    <dimen name="roboto_body_1_regular">@dimen/body_1</dimen>
+    <dimen name="roboto_caption_regular">@dimen/caption</dimen>
+    <dimen name="roboto_button_medium">@dimen/button</dimen>
 </resources>

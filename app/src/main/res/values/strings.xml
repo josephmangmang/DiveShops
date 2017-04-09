@@ -5,4 +5,28 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="mantra">DiveTym Mantra</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="label_login_as">Login as</string>
+    <string name="action_login">Login</string>
+    <string name="action_signup">Sign Up</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="label_diver">Diver</string>
+    <string name="label_dive_shop">Dive Shop</string>
+    <string name="label_account_type">Account Type</string>
+    <string name="toast_specify_account_type">Please specify account type</string>
+    <string name="action_view_daily_trips">View daily trips</string>
+    <string name="dummy_longtext"><![CDATA[Seaquest is one of the longest established and most experienced scuba diving operations in the Philippines. In combination with Oasis Resort in Panglao, Bohol & Sumisid Lodge in Moalboal, Cebu we offer our guest a complete diving holiday. Aside from hotel accommodations we also offer Island hopping, dive safaris, all PADI scuba diving courses in multiple languages, land tours, transfers, domestic flights, everything to suit your holiday needs. You can find all the information about our accommodations, dive centers and safari on this website.  We hope to welcome you soon in one of our locations in Cebu or Bohol.]]></string>
+    <string name="dummy_price">P2000.00</string>
+    <string name="label_per_dive">Per dive: </string>
+    <string name="title_courses">Courses</string>
+    <string name="dummy_title">Title</string>
+    <string name="action_more">More</string>
+    <string name="action_book_now">Book now</string>
+    <string name="title_special_service">Special service</string>
+    <string name="dummy_special_service">This is just a dummy special service.. The Dive Shop is an authorized, full-service dealer for Aqua Lung, Scubapro, and Henderson. You can rest assured the equipment you purchase or rent from us is of the highest quality. In addition to equipment sales and rentals, we offer equipment services. Professional care is the key to long lasting equipment!</string>
+    <string name="error_empty_account_details">Oops something is wrong.</string>
+    <string name="error_account_not_valid">Account is not valid. Try again</string>
+    <string name="title_boats">Boats</string>
 </resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.divetym.dive.ui.view.RobotoTextView
+        android:id="@+id/text_preview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/dummy_title"
+        android:textSize="@dimen/roboto_title_medium"
+        app:typeface="roboto_medium" />
+
+    <com.divetym.dive.ui.view.RobotoTextView
+        android:id="@+id/text_preview_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/action_more"
+        android:textColor="@color/text_button"
+        android:textSize="@dimen/roboto_title_medium"
+        app:typeface="roboto_thin" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_preview_more"
+        android:layout_marginTop="@dimen/view_space"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/view_item_preview">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

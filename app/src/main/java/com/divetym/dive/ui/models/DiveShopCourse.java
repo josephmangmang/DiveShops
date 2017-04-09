@@ -9,23 +9,20 @@ import java.math.BigDecimal;
  * Created by kali_root on 3/28/2017.
  */
 
-public class DiveShopCourse {
+public class DiveShopCourse extends Course{
     @SerializedName(ApiConstant.DIVE_SHOP_COURSE_ID)
     private int diveShopCourseId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private String diveShopUid;
-    @SerializedName(ApiConstant.COURSE_ID)
-    private int courseId;
     @SerializedName(ApiConstant.PRICE)
     private BigDecimal price;
 
     public DiveShopCourse() {
     }
 
-    public DiveShopCourse(int diveShopCourseId, String diveShopUid, int courseId, BigDecimal price) {
+    public DiveShopCourse(int diveShopCourseId, String diveShopUid,BigDecimal price) {
         this.diveShopCourseId = diveShopCourseId;
         this.diveShopUid = diveShopUid;
-        this.courseId = courseId;
         this.price = price;
     }
 
@@ -45,14 +42,6 @@ public class DiveShopCourse {
         this.diveShopUid = diveShopUid;
     }
 
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
@@ -66,7 +55,6 @@ public class DiveShopCourse {
         return "DiveShopCourse{" +
                 "diveShopCourseId=" + diveShopCourseId +
                 ", diveShopUid='" + diveShopUid + '\'' +
-                ", courseId=" + courseId +
                 ", price=" + price +
                 '}';
     }

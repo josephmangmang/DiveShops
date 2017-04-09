@@ -13,7 +13,7 @@ public class Course {
     @SerializedName(ApiConstant.NAME)
     private String name;
     @SerializedName(ApiConstant.DESCRIPTION)
-    private int description;
+    private String description;
     @SerializedName(ApiConstant.PHOTO_COVER)
     private String photoCoverUrl;
     @SerializedName(ApiConstant.OFFERED_BY)
@@ -22,7 +22,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(int courseId, String name, int description, String photoCoverUrl, String offeredBy) {
+    public Course(int courseId, String name, String description, String photoCoverUrl, String offeredBy) {
         this.courseId = courseId;
         this.name = name;
         this.description = description;
@@ -46,11 +46,11 @@ public class Course {
         this.courseId = courseId;
     }
 
-    public int getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

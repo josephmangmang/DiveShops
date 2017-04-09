@@ -1,6 +1,7 @@
 package com.divetym.dive.ui.rest;
 
 import com.divetym.dive.ui.models.DailyTrip;
+import com.divetym.dive.ui.models.User;
 import com.divetym.dive.ui.models.response.BoatListResponse;
 import com.divetym.dive.ui.models.response.CourseListResponse;
 import com.divetym.dive.ui.models.response.BoatResponse;
@@ -98,6 +99,15 @@ public interface ApiInterface {
     Call<DiveShopResponse> getDiveShop(@Path("shopUid") String shopUid);
 
     /**
+     * Get dive shop by uid
+     *
+     * @param uid
+     * @return
+     */
+    @GET("users/dive_shop/{uid}")
+    Call<DiveShopResponse> getDiveShopByUid(@Path("uid") String uid);
+
+    /**
      * Get dive shop courses
      *
      * @param shopUid
@@ -108,7 +118,7 @@ public interface ApiInterface {
      */
     @GET("diveshops/{shopUid}/courses")
     Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
-                            @Query("order") String orderBy);
+                                                @Query("order") String orderBy);
 
     /**
      * Update dive shop courses
@@ -205,8 +215,8 @@ public interface ApiInterface {
      */
     @PUT("diveshops/{shopUid}/trips/{tripId}")
     Call<DailyTripResponse> updateDailyTrip(@Path("shopUid") String shopUid, @Path("tripId") int tripId,
-                         @Field("group_size") int groupSize, @Field("number_of_dive") int numberOfDives,
-                         @Field("date") String date, @Field("price") double price, @Field("price_note") String priceNote);
+                                            @Field("group_size") int groupSize, @Field("number_of_dive") int numberOfDives,
+                                            @Field("date") String date, @Field("price") double price, @Field("price_note") String priceNote);
 
 
 }
