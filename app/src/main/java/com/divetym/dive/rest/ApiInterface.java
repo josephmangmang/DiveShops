@@ -124,6 +124,9 @@ public interface ApiInterface {
     Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset,
                                                 @Query("order") String orderBy);
 
+    @GET("diveshops/{shopUid}/courses")
+    Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset);
+
     /**
      * Update dive shop courses
      *
