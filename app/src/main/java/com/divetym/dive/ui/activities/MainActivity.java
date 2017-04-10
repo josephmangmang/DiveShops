@@ -1,8 +1,13 @@
 package com.divetym.dive.ui.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
@@ -13,22 +18,32 @@ import com.divetym.dive.ui.view.ToastAlert;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AuthenticatedActivity {
+public class MainActivity extends AuthenticatedActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView mNavigationView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collapsing);
+        setContentView(R.layout.activity_navigation_collapsing_toolbar);
         ButterKnife.bind(this);
         loadScreen();
+        initializeNavigation();
     }
 
-    public CollapsingToolbarLayout getCollapsingToolbarLayout() {
-        return mCollapsingToolbarLayout;
+    private void initializeNavigation() {
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     private void loadScreen() {
@@ -46,5 +61,17 @@ public class MainActivity extends AuthenticatedActivity {
                         .setMessage(R.string.error_account_not_valid)
                         .show();
         }
+    }
+
+    public CollapsingToolbarLayout getCollapsingToolbarLayout() {
+        return mCollapsingToolbarLayout;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            // TODO: 4/9/2017
+        }
+        return false;
     }
 }

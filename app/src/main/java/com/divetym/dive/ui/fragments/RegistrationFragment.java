@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
-import com.divetym.dive.ui.activities.base.DiveTymBaseFragment;
+import com.divetym.dive.ui.activities.base.DiveTymFragment;
 import com.divetym.dive.ui.models.response.Response;
 import com.divetym.dive.ui.rest.ApiClient;
 import com.divetym.dive.ui.rest.ApiInterface;
@@ -27,7 +27,7 @@ import retrofit2.Callback;
  * Created by kali_root on 4/5/2017.
  */
 
-public class RegistrationFragment extends DiveTymBaseFragment {
+public class RegistrationFragment extends DiveTymFragment {
     private static final String TAG = RegistrationFragment.class.getSimpleName();
     @BindView(R.id.edit_email)
     EditText etEmail;

@@ -16,6 +16,7 @@
         android:paddingRight="@dimen/margin_medium">
 
         <Button
+            android:layout_marginTop="@dimen/view_space"
             android:id="@+id/button_view_daily_trips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

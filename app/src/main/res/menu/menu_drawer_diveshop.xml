@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dive_shop_profile"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/title_nav_dive_shop_profile" />
+        <item
+            android:id="@+id/nav_daily_trips"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/title_nav_daily_trips" />
+        <item
+            android:id="@+id/nav_courses"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/title_nav_courses" />
+        <item
+            android:id="@+id/nav_boats"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/title_nav_boats" />
+    </group>
+</menu>

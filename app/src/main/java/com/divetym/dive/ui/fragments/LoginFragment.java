@@ -9,19 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.MainActivity;
-import com.divetym.dive.ui.activities.base.DiveTymBaseFragment;
+import com.divetym.dive.ui.activities.base.DiveTymFragment;
 import com.divetym.dive.ui.common.SessionManager;
 import com.divetym.dive.ui.models.response.UserResponse;
 import com.divetym.dive.ui.rest.ApiClient;
 import com.divetym.dive.ui.rest.ApiInterface;
-import com.divetym.dive.ui.view.ToastAlert;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +30,7 @@ import retrofit2.Response;
  * Created by kali_root on 3/27/2017.
  */
 
-public class LoginFragment extends DiveTymBaseFragment {
+public class LoginFragment extends DiveTymFragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
     @BindView(R.id.edit_email)
     EditText mEmail;

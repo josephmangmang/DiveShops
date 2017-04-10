@@ -2,7 +2,6 @@ package com.divetym.dive.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,11 @@ import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.MainActivity;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
-import com.divetym.dive.ui.activities.base.DiveTymBaseFragment;
+import com.divetym.dive.ui.activities.base.DiveTymFragment;
 import com.divetym.dive.ui.models.DiveShop;
 import com.divetym.dive.ui.models.response.DiveShopResponse;
 import com.divetym.dive.ui.rest.ApiClient;
 import com.divetym.dive.ui.rest.ApiInterface;
-import com.divetym.dive.ui.rest.constants.ApiConstant;
 import com.divetym.dive.ui.view.ListPreviewLayout;
 import com.divetym.dive.ui.view.RobotoTextView;
 import com.divetym.dive.ui.view.ToastAlert;
@@ -33,7 +31,7 @@ import retrofit2.Response;
  * Created by kali_root on 4/5/2017.
  */
 
-public class DiveShopFragment extends DiveTymBaseFragment {
+public class DiveShopFragment extends DiveTymFragment {
     private static final String TAG = DiveShopFragment.class.getSimpleName();
 
     @BindView(R.id.button_view_daily_trips)

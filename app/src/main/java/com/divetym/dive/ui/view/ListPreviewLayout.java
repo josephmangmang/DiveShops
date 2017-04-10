@@ -1,20 +1,18 @@
 package com.divetym.dive.ui.view;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.divetym.dive.R;
+import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.adapters.ListPreviewAdapter;
 import com.divetym.dive.ui.models.ListPreview;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,23 +26,25 @@ public class ListPreviewLayout extends RelativeLayout {
     private RobotoTextView tvPreviewMore;
     private ListPreviewAdapter mAdapter;
     private List<ListPreview> mPreviews;
+    private DiveTymActivity mContext;
 
     public ListPreviewLayout(Context context) {
         super(context);
-        initialize();
+        initialize(context);
     }
 
     public ListPreviewLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initialize();
+        initialize(context);
     }
 
     public ListPreviewLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initialize();
+        initialize(context);
     }
 
-    private void initialize() {
+    private void initialize(Context context) {
+        mContext = (DiveTymActivity) context;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_list_preview, this, true);
         tvPreviewTitle = (RobotoTextView) findViewById(R.id.text_preview_title);
@@ -54,13 +54,14 @@ public class ListPreviewLayout extends RelativeLayout {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(layoutManager);
         mPreviews = new ArrayList<>();
-        mAdapter = new ListPreviewAdapter(mPreviews);
+        mAdapter = new ListPreviewAdapter(mContext, mPreviews);
         mRecyclerView.setAdapter(mAdapter);
     }
 
+
     public void setPreviewList(List<ListPreview> previews) {
         mPreviews = previews;
-        mAdapter.setPreviewList(mPreviews);
+        mAdapter.setDataList(mPreviews);
     }
 
     public void setPreviewTitle(String title) {

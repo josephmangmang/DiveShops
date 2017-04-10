@@ -12,7 +12,7 @@ import com.divetym.dive.ui.view.ToastAlert;
  * Created by kali_root on 3/28/2017.
  */
 
-public class DiveTymBaseFragment extends Fragment {
+public class DiveTymFragment extends Fragment {
     protected DiveTymActivity mContext;
     protected SessionManager mSessionManager;
 

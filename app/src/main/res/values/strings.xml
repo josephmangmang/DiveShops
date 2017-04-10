@@ -29,4 +29,10 @@
     <string name="error_empty_account_details">Oops something is wrong.</string>
     <string name="error_account_not_valid">Account is not valid. Try again</string>
     <string name="title_boats">Boats</string>
+    <string name="title_nav_dive_shop_profile">Dive Shop Profile</string>
+    <string name="title_nav_daily_trips">Daily Trips</string>
+    <string name="title_nav_courses">Courses</string>
+    <string name="title_nav_boats">Boats</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 </resources>
