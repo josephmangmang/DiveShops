@@ -117,15 +117,15 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}/courses")
-    Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
+    Call<DiveShopCourseResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
                                                 @Query("order") String orderBy);
 
     @GET("diveshops/{shopUid}/courses")
-    Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset,
+    Call<DiveShopCourseResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset,
                                                 @Query("order") String orderBy);
 
     @GET("diveshops/{shopUid}/courses")
-    Call<CourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset);
+    Call<DiveShopCourseResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset);
 
     /**
      * Update dive shop courses
