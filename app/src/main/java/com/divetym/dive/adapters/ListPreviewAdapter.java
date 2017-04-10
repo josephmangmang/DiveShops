@@ -36,36 +36,34 @@ public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewHolder, L
     public void onBindViewHolder(ListPreviewHolder holder, int position) {
         ListPreview preview = getItem(position);
         holder.setData(preview.getTitle(), preview.getSubtitle(), preview.getAction(), preview.getImageUrl());
-        holder.root.setOnClickListener(holder);
-        holder.action.setOnClickListener(holder);
     }
 }
 
-class ListPreviewHolder extends DiveTymViewHolder {
-    ImageView backgroundImage;
-    RobotoTextView title;
-    RobotoTextView subtitle;
-    RobotoTextView action;
-    View root;
+class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
+    ImageView imgThumbnail;
+    RobotoTextView tvTitle;
+    RobotoTextView tvSubtitle;
+    RobotoTextView btnAction;
 
     public ListPreviewHolder(DiveTymActivity context, View view) {
         super(context, view);
-        root = view;
-        title = (RobotoTextView) view.findViewById(R.id.text_preview_item_title);
-        subtitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_subtitle);
-        backgroundImage = (ImageView) view.findViewById(R.id.image_preview_background);
-        action = (RobotoTextView) view.findViewById(R.id.text_button_preview_item_action);
+        tvTitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_title);
+        tvSubtitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_subtitle);
+        imgThumbnail = (ImageView) view.findViewById(R.id.image_preview_background);
+        btnAction = (RobotoTextView) view.findViewById(R.id.text_button_preview_item_action);
+        btnAction.setOnClickListener(this);
+        view.setOnClickListener(this);
     }
 
     public void setData(String title, String subtitle, String action, String imageUrl) {
-        this.title.setText(title);
-        this.subtitle.setText(subtitle);
-        this.action.setText(action);
+        this.tvTitle.setText(title);
+        this.tvSubtitle.setText(subtitle);
+        this.btnAction.setText(action);
         Picasso.with(mContext)
                 .load(imageUrl)
                 .error(R.drawable.dummy_image_preview)
                 .placeholder(R.drawable.dummy_image_preview)
-                .into(backgroundImage);
+                .into(imgThumbnail);
     }
 
 }
