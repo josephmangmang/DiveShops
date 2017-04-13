@@ -103,12 +103,7 @@ public class CourseListFragment extends DiveTymFragment implements OnLoadMoreLis
                         Log.d(TAG, "getDiveShopCourses onResponse: " + response.toString());
                         if (body != null && !body.isError()) {
                             List<DiveShopCourse> courses = body.getCourses();
-                            if (mCourses == null) {
-                                mCourses = courses;
-                            } else {
-                                mCourses.addAll(courses);
-                                mAdapter.notifyDataSetChanged();
-                            }
+                            mAdapter.addData(courses);
                         }
                     }
 
@@ -127,5 +122,6 @@ public class CourseListFragment extends DiveTymFragment implements OnLoadMoreLis
     public void onLoadMore(int totalItemCount) {
         Log.d(TAG, "onLoadMore: totalItemCount = " + totalItemCount);
         mOffset = totalItemCount;
+        loadCourseData();
     }
 }

@@ -54,13 +54,15 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
                     @Override
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
-                        mTotalItemCount = layoutManager.getItemCount();
-                        mLastVisibleItem = layoutManager.findLastVisibleItemPosition();
-                        if (!loading && mTotalItemCount <= (mLastVisibleItem + mVisibleThreshold)) {
-                            if (mLoadMoreListener != null) {
-                                mAdapterLoadMoreListener.onLoadMore(mDataList.size());
+                        if (dy > 0) {
+                            mTotalItemCount = layoutManager.getItemCount();
+                            mLastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                            if (!loading && mTotalItemCount <= (mLastVisibleItem + mVisibleThreshold)) {
+                                if (mLoadMoreListener != null) {
+                                    mAdapterLoadMoreListener.onLoadMore(mDataList.size());
+                                }
+                                loading = true;
                             }
-                            loading = true;
                         }
                     }
                 });
@@ -101,8 +103,6 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
 
     public void setLoaded() {
         loading = false;
-        mDataList.remove(mDataList.size() - 1);
-        notifyItemRemoved(mDataList.size());
     }
 
     public void setLoadMoreListener(OnLoadMoreListener mLoadMoreListener) {
@@ -118,12 +118,30 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
                 @Override
                 public void run() {
                     notifyItemInserted(mDataList.size() - 1);
-                    if (mLoadMoreListener != null) {
-                        mLoadMoreListener.onLoadMore(totalItemCount);
-                    }
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mLoadMoreListener != null) {
+                                mLoadMoreListener.onLoadMore(totalItemCount);
+                            }
+                        }
+                    }, 700);
                 }
             });
         }
+    }
+
+    public void removeProgress() {
+        if (!loading) return;
+        mDataList.remove(mDataList.size() - 1);
+        notifyItemRemoved(mDataList.size());
+    }
+
+    public void addData(List<DiveShopCourse> courses) {
+        removeProgress();
+        mDataList.addAll(courses);
+        notifyDataSetChanged();
+        setLoaded();
     }
 }
 
