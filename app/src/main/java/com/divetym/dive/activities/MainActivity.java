@@ -78,6 +78,7 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
                 logOut();
                 break;
         }
+        mDrawerLayout.closeDrawers();
         return false;
     }
 }
