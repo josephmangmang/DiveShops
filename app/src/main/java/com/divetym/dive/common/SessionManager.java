@@ -90,7 +90,7 @@ public class SessionManager {
         }
     }
 
-    public String getShopUid() {
+    public String getDiveShopUid() {
         return mPreferences.getString(ApiConstant.DIVE_SHOP_ID, null);
     }
 
@@ -102,7 +102,7 @@ public class SessionManager {
         return mPreferences.getString(ApiConstant.AUTH_KEY, null);
     }
 
-    public void setShopUid(String shopUid) {
+    public void setDiveShopUid(String shopUid) {
         mEditor.putString(ApiConstant.DIVE_SHOP_ID, shopUid).commit();
     }
 

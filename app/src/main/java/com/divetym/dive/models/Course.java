@@ -1,5 +1,8 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class Course {
+public class Course implements Parcelable {
     @SerializedName(ApiConstant.COURSE_ID)
     private int courseId;
     @SerializedName(ApiConstant.NAME)
@@ -79,4 +82,38 @@ public class Course {
                 ", offeredBy='" + offeredBy + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.courseId);
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeString(this.photoCoverUrl);
+        dest.writeString(this.offeredBy);
+    }
+
+    protected Course(Parcel in) {
+        this.courseId = in.readInt();
+        this.name = in.readString();
+        this.description = in.readString();
+        this.photoCoverUrl = in.readString();
+        this.offeredBy = in.readString();
+    }
+
+    public static final Creator<Course> CREATOR = new Creator<Course>() {
+        @Override
+        public Course createFromParcel(Parcel source) {
+            return new Course(source);
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    };
 }

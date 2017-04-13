@@ -1,5 +1,8 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class User {
+public class User implements Parcelable {
     @SerializedName(ApiConstant.USER_ID)
     private String userUid;
     @SerializedName(ApiConstant.EMAIL)
@@ -103,4 +106,39 @@ public class User {
                 ", authKey='" + authKey + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.userUid);
+        dest.writeString(this.email);
+        dest.writeString(this.createdTime);
+        dest.writeInt(this.accountType == null ? -1 : this.accountType.ordinal());
+        dest.writeString(this.authKey);
+    }
+
+    protected User(Parcel in) {
+        this.userUid = in.readString();
+        this.email = in.readString();
+        this.createdTime = in.readString();
+        int tmpAccountType = in.readInt();
+        this.accountType = tmpAccountType == -1 ? null : AccountType.values()[tmpAccountType];
+        this.authKey = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

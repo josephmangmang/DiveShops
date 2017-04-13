@@ -87,6 +87,7 @@ public class LoginFragment extends DiveTymFragment {
                     }else{
                         SessionManager.getInstance(mContext).login(userResponse.getUser());
                         startActivity(new Intent(mContext, MainActivity.class));
+                        mContext.finish();
                     }
                 }
             }

@@ -35,4 +35,6 @@
     <string name="title_nav_boats">Boats</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="title_logout">Logout</string>
+    <string name="title_login">Login</string>
 </resources>

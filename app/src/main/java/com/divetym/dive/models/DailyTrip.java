@@ -1,16 +1,20 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by kali_root on 3/27/2017.
  */
 
-public class DailyTrip {
+public class DailyTrip implements Parcelable {
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
@@ -179,4 +183,55 @@ public class DailyTrip {
                 ", guests=" + guests +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.dailyTripId);
+        dest.writeString(this.diveShopUid);
+        dest.writeInt(this.groupSize);
+        dest.writeInt(this.numberOfDive);
+        dest.writeString(this.date);
+        dest.writeString(this.createTime);
+        dest.writeSerializable(this.price);
+        dest.writeString(this.priceNote);
+        dest.writeTypedList(this.boats);
+        dest.writeList(this.sites);
+        dest.writeList(this.guides);
+        dest.writeList(this.guests);
+    }
+
+    protected DailyTrip(Parcel in) {
+        this.dailyTripId = in.readInt();
+        this.diveShopUid = in.readString();
+        this.groupSize = in.readInt();
+        this.numberOfDive = in.readInt();
+        this.date = in.readString();
+        this.createTime = in.readString();
+        this.price = (BigDecimal) in.readSerializable();
+        this.priceNote = in.readString();
+        this.boats = in.createTypedArrayList(DailyTripBoat.CREATOR);
+        this.sites = new ArrayList<DailyTripDiveSite>();
+        in.readList(this.sites, DailyTripDiveSite.class.getClassLoader());
+        this.guides = new ArrayList<DailyTripGuide>();
+        in.readList(this.guides, DailyTripGuide.class.getClassLoader());
+        this.guests = new ArrayList<DailyTripGuest>();
+        in.readList(this.guests, DailyTripGuest.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<DailyTrip> CREATOR = new Parcelable.Creator<DailyTrip>() {
+        @Override
+        public DailyTrip createFromParcel(Parcel source) {
+            return new DailyTrip(source);
+        }
+
+        @Override
+        public DailyTrip[] newArray(int size) {
+            return new DailyTrip[size];
+        }
+    };
 }

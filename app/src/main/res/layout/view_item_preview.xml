@@ -33,7 +33,7 @@
         android:layout_alignBottom="@+id/text_preview_item_subtitle"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/dummy_title"
+        tools:text="@string/dummy_title"
         android:textSize="@dimen/roboto_title_medium"
         app:layout_constraintBottom_toTopOf="@+id/text_button_preview_item_action"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -47,7 +47,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/dummy_price"
+        tools:text="@string/dummy_price"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 

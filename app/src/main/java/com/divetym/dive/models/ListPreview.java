@@ -1,10 +1,13 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by kali_root on 4/6/2017.
  */
 
-public class ListPreview {
+public class ListPreview implements Parcelable {
     private String title;
     private String subtitle;
     private String action;
@@ -55,4 +58,36 @@ public class ListPreview {
     public void setAction(String action) {
         this.action = action;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.subtitle);
+        dest.writeString(this.action);
+        dest.writeString(this.imageUrl);
+    }
+
+    protected ListPreview(Parcel in) {
+        this.title = in.readString();
+        this.subtitle = in.readString();
+        this.action = in.readString();
+        this.imageUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<ListPreview> CREATOR = new Parcelable.Creator<ListPreview>() {
+        @Override
+        public ListPreview createFromParcel(Parcel source) {
+            return new ListPreview(source);
+        }
+
+        @Override
+        public ListPreview[] newArray(int size) {
+            return new ListPreview[size];
+        }
+    };
 }

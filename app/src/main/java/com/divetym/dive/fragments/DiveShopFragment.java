@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.activities.CourseActivity;
 import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymFragment;
@@ -47,10 +48,12 @@ public class DiveShopFragment extends DiveTymFragment {
     @BindView(R.id.text_special_service)
     RobotoTextView tvSpecialService;
     private ApiInterface mApiService;
+    private DiveShop mDiveShop;
+
     private View.OnClickListener mPreviewCoursesMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // TODO: 4/9/2017 Start List of courses activity
+            CourseActivity.launch(mContext, mDiveShop.getCourses());
         }
     };
     private View.OnClickListener mPreviewBoatsMoreClickListener = new View.OnClickListener() {
@@ -59,7 +62,6 @@ public class DiveShopFragment extends DiveTymFragment {
             // TODO: 4/9/2017 Start list of boats activity
         }
     };
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +86,13 @@ public class DiveShopFragment extends DiveTymFragment {
             ((AuthenticatedActivity) mContext).logOut();
             return;
         }
-        String shopUid = mSessionManager.getShopUid();
+        String shopUid = mSessionManager.getDiveShopUid();
         if (shopUid != null) {
             mApiService.getDiveShop(shopUid)
                     .enqueue(new Callback<DiveShopResponse>() {
                         @Override
                         public void onResponse(Call<DiveShopResponse> call, Response<DiveShopResponse> response) {
+                            Log.d(TAG, "onResponse: " + response.toString());
                             DiveShopResponse body = response.body();
                             if (body != null && !body.isError()) {
                                 setDiveshop(body.getDiveShop());
@@ -100,6 +103,7 @@ public class DiveShopFragment extends DiveTymFragment {
                         public void onFailure(Call<DiveShopResponse> call, Throwable t) {
                             Log.e(TAG, "Failed getting user account: " + t.getMessage());
                             if (BuildConfig.DEBUG) {
+                                Log.e(TAG, call.request().toString());
                                 t.printStackTrace();
                             }
                             showToastAlert(t.getMessage());
@@ -110,6 +114,7 @@ public class DiveShopFragment extends DiveTymFragment {
                     .enqueue(new Callback<DiveShopResponse>() {
                         @Override
                         public void onResponse(Call<DiveShopResponse> call, Response<DiveShopResponse> response) {
+                            Log.d(TAG, "onResponse: " + response.toString());
                             DiveShopResponse body = response.body();
                             if (body != null && !body.isError()) {
                                 setDiveshop(body.getDiveShop());
@@ -120,6 +125,7 @@ public class DiveShopFragment extends DiveTymFragment {
                         public void onFailure(Call<DiveShopResponse> call, Throwable t) {
                             Log.e(TAG, "Failed getting user account: " + t.getMessage());
                             if (BuildConfig.DEBUG) {
+                                Log.e(TAG, call.request().toString());
                                 t.printStackTrace();
                             }
                             showToastAlert(t.getMessage());
@@ -130,7 +136,8 @@ public class DiveShopFragment extends DiveTymFragment {
 
     private void setDiveshop(DiveShop diveShop) {
         Log.d(TAG, "Dive_Shop: " + diveShop.toString());
-        mSessionManager.setDiverUid(diveShop.getDiveShopUid());
+        mDiveShop = diveShop;
+        mSessionManager.setDiveShopUid(diveShop.getDiveShopUid());
 
         mContext.setTitle(diveShop.getName());
         mContext.setSubtitle(diveShop.getAddress());

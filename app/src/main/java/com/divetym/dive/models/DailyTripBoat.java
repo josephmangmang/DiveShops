@@ -1,5 +1,7 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -45,4 +47,34 @@ public class DailyTripBoat extends Boat{
                 ", dailyTripId=" + dailyTripId +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(this.dailyTripBoatId);
+        dest.writeInt(this.dailyTripId);
+    }
+
+    protected DailyTripBoat(Parcel in) {
+        super(in);
+        this.dailyTripBoatId = in.readInt();
+        this.dailyTripId = in.readInt();
+    }
+
+    public static final Creator<DailyTripBoat> CREATOR = new Creator<DailyTripBoat>() {
+        @Override
+        public DailyTripBoat createFromParcel(Parcel source) {
+            return new DailyTripBoat(source);
+        }
+
+        @Override
+        public DailyTripBoat[] newArray(int size) {
+            return new DailyTripBoat[size];
+        }
+    };
 }

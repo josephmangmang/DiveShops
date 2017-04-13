@@ -1,5 +1,8 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DailyTripGuide{
+public class DailyTripGuide implements Parcelable {
     @SerializedName(ApiConstant.DAILY_TRIP_GUIDE_ID)
     private int dailyTripGuideId;
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
@@ -56,4 +59,34 @@ public class DailyTripGuide{
                 ", guideName='" + guideName + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.dailyTripGuideId);
+        dest.writeInt(this.dailyTripId);
+        dest.writeString(this.guideName);
+    }
+
+    protected DailyTripGuide(Parcel in) {
+        this.dailyTripGuideId = in.readInt();
+        this.dailyTripId = in.readInt();
+        this.guideName = in.readString();
+    }
+
+    public static final Parcelable.Creator<DailyTripGuide> CREATOR = new Parcelable.Creator<DailyTripGuide>() {
+        @Override
+        public DailyTripGuide createFromParcel(Parcel source) {
+            return new DailyTripGuide(source);
+        }
+
+        @Override
+        public DailyTripGuide[] newArray(int size) {
+            return new DailyTripGuide[size];
+        }
+    };
 }

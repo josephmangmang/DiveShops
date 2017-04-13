@@ -7,6 +7,7 @@ import com.divetym.dive.models.response.CourseListResponse;
 import com.divetym.dive.models.response.BoatResponse;
 import com.divetym.dive.models.response.DailyTripListResponse;
 import com.divetym.dive.models.response.DailyTripResponse;
+import com.divetym.dive.models.response.DiveShopCourseListResponse;
 import com.divetym.dive.models.response.DiveShopCourseResponse;
 import com.divetym.dive.models.response.DiveShopListResponse;
 import com.divetym.dive.models.response.DiveShopResponse;
@@ -117,15 +118,15 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}/courses")
-    Call<DiveShopCourseResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
+    Call<DiveShopCourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("sort") String sort,
+                                                        @Query("order") String orderBy);
+
+    @GET("diveshops/{shopUid}/courses")
+    Call<DiveShopCourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset,
                                                 @Query("order") String orderBy);
 
     @GET("diveshops/{shopUid}/courses")
-    Call<DiveShopCourseResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset,
-                                                @Query("order") String orderBy);
-
-    @GET("diveshops/{shopUid}/courses")
-    Call<DiveShopCourseResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset);
+    Call<DiveShopCourseListResponse> getDiveShopCourses(@Path("shopUid") String shopUid, @Query("offset") int offset);
 
     /**
      * Update dive shop courses

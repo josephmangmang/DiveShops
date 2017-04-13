@@ -1,5 +1,8 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class Diver extends User {
+public class Diver extends User implements Parcelable {
     @SerializedName(ApiConstant.DIVER_ID)
     private String diverUid;
     @SerializedName(ApiConstant.NAME)
@@ -43,4 +46,32 @@ public class Diver extends User {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.diverUid);
+        dest.writeString(this.name);
+    }
+
+    protected Diver(Parcel in) {
+        this.diverUid = in.readString();
+        this.name = in.readString();
+    }
+
+    public static final Parcelable.Creator<Diver> CREATOR = new Parcelable.Creator<Diver>() {
+        @Override
+        public Diver createFromParcel(Parcel source) {
+            return new Diver(source);
+        }
+
+        @Override
+        public Diver[] newArray(int size) {
+            return new Diver[size];
+        }
+    };
 }

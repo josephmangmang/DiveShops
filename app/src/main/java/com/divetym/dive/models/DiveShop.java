@@ -1,5 +1,8 @@
 package com.divetym.dive.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,7 +14,7 @@ import java.util.List;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DiveShop extends User {
+public class DiveShop extends User implements Parcelable {
     private static final String PREVIEW_ACTION_BOAT = "VIEW";
     private static final String PREVIEW_ACTION_COURSE = "BOOK NOW";
 
@@ -206,4 +209,56 @@ public class DiveShop extends User {
                 ", specialService='" + specialService + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.diveShopUid);
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeString(this.contactNumber);
+        dest.writeString(this.address);
+        dest.writeDouble(this.latitiude);
+        dest.writeDouble(this.longitude);
+        dest.writeSerializable(this.pricePerDive);
+        dest.writeString(this.specialService);
+        dest.writeTypedList(this.courses);
+        dest.writeTypedList(this.boats);
+        dest.writeList(this.coursePreviews);
+        dest.writeList(this.boatPreviews);
+    }
+
+    protected DiveShop(Parcel in) {
+        this.diveShopUid = in.readString();
+        this.name = in.readString();
+        this.description = in.readString();
+        this.contactNumber = in.readString();
+        this.address = in.readString();
+        this.latitiude = in.readDouble();
+        this.longitude = in.readDouble();
+        this.pricePerDive = (BigDecimal) in.readSerializable();
+        this.specialService = in.readString();
+        this.courses = in.createTypedArrayList(DiveShopCourse.CREATOR);
+        this.boats = in.createTypedArrayList(Boat.CREATOR);
+        this.coursePreviews = new ArrayList<ListPreview>();
+        in.readList(this.coursePreviews, ListPreview.class.getClassLoader());
+        this.boatPreviews = new ArrayList<ListPreview>();
+        in.readList(this.boatPreviews, ListPreview.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<DiveShop> CREATOR = new Parcelable.Creator<DiveShop>() {
+        @Override
+        public DiveShop createFromParcel(Parcel source) {
+            return new DiveShop(source);
+        }
+
+        @Override
+        public DiveShop[] newArray(int size) {
+            return new DiveShop[size];
+        }
+    };
 }

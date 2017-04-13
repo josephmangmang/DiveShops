@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/dummy_title"
+        tools:text="@string/dummy_title"
         android:textSize="@dimen/roboto_title_medium"
         app:typeface="roboto_medium" />
 

@@ -22,7 +22,7 @@
         android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dummy_title"
+        tools:text="@string/dummy_title"
         android:textSize="@dimen/roboto_regular_headline"
         app:typeface="roboto_regular"
         android:layout_marginLeft="16dp"

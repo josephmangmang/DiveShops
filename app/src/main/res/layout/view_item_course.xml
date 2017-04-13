@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginLeft="@dimen/margin_small"
+    android:layout_marginRight="@dimen/margin_small"
+    android:layout_marginTop="@dimen/margin_small"
+    app:cardCornerRadius="4dp">
 
-    <ImageView
-        android:id="@+id/image_thumbnails"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="@dimen/view_space"
-        android:layout_marginTop="0dp"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/dummy_image_preview" />
-
-    <com.divetym.dive.view.RobotoTextView
-        android:id="@+id/text_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/image_thumbnails"
-        android:text="@string/dummy_title"
-        android:textSize="@dimen/roboto_title_medium"
-        app:typeface="roboto_medium" />
-
-    <com.divetym.dive.view.RobotoTextView
-        android:id="@+id/text_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_title"
-        android:layout_toRightOf="@+id/image_thumbnails"
-        android:ellipsize="marquee"
-        android:maxLines="3"
-        android:minLines="3"
-        android:textSize="@dimen/roboto_body_1_regular"
-        tools:text="@string/dummy_longtext" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_description"
-        android:layout_toRightOf="@+id/image_thumbnails"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_thumbnails"
+            android:layout_width="115dp"
+            android:layout_height="125dp"
+            android:layout_marginRight="@dimen/margin_small"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/dummy_image_preview" />
 
         <com.divetym.dive.view.RobotoTextView
-            android:id="@+id/text_price"
+            android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="marquee"
-            android:maxLines="1"
-            tools:text="@string/dummy_price" />
+            android:layout_toRightOf="@+id/image_thumbnails"
+            tools:text="@string/dummy_title"
+            android:textSize="@dimen/roboto_title_medium"
+            app:typeface="roboto_medium" />
 
-        <Button
-            android:id="@+id/button_book_now"
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/action_book_now" />
+            android:layout_below="@+id/text_title"
+            android:layout_toRightOf="@+id/image_thumbnails"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:minLines="3"
+            android:textSize="@dimen/roboto_body_1_regular"
+            tools:text="@string/dummy_longtext" />
 
-    </LinearLayout>
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_description"
+            android:layout_toRightOf="@+id/image_thumbnails"
+            android:orientation="horizontal">
+
+            <com.divetym.dive.view.RobotoTextView
+                android:id="@+id/text_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                tools:text="@string/dummy_price" />
+
+            <Button
+                android:id="@+id/button_book_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_book_now" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

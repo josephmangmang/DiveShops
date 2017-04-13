@@ -39,6 +39,7 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     }
 
     private void initializeNavigation() {
+        mNavigationView.inflateMenu(R.menu.menu_drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -70,7 +71,12 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            // TODO: 4/9/2017
+            case R.id.nav_courses:
+                CourseActivity.launch(this, null);
+                break;
+            case R.id.nav_logout:
+                logOut();
+                break;
         }
         return false;
     }
