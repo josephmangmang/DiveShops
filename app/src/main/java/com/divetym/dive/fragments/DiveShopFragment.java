@@ -10,15 +10,13 @@ import android.widget.Button;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
-import com.divetym.dive.activities.CourseActivity;
+import com.divetym.dive.activities.CourseListActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymFragment;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
-import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.DiveShop;
-import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.models.response.DiveShopResponse;
 import com.divetym.dive.rest.ApiClient;
@@ -58,7 +56,7 @@ public class DiveShopFragment extends DiveTymFragment {
     private View.OnClickListener mPreviewCoursesMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            CourseActivity.launch(mContext, mDiveShop.getCourses());
+            CourseListActivity.launch(mContext, mDiveShop.getCourses());
         }
     };
     private View.OnClickListener mPreviewBoatsMoreClickListener = new View.OnClickListener() {

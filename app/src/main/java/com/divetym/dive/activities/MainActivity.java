@@ -75,7 +75,7 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_courses:
-                CourseActivity.launch(this, null);
+                CourseListActivity.launch(this, null);
                 break;
             case R.id.nav_logout:
                 logOut();

@@ -4,11 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
@@ -19,20 +15,17 @@ import com.divetym.dive.models.DiveShopCourse;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by kali_root on 4/9/2017.
  */
 
-public class CourseActivity extends AuthenticatedActivity {
+public class CourseListActivity extends AuthenticatedActivity {
 
-    private static final String TAG = CourseActivity.class.getSimpleName();
+    private static final String TAG = CourseListActivity.class.getSimpleName();
 
     public static void launch(DiveTymActivity context, @Nullable List<DiveShopCourse> courses) {
         Log.d(TAG, "lauching...");
-        Intent intent = new Intent(context, CourseActivity.class);
+        Intent intent = new Intent(context, CourseListActivity.class);
         intent.putParcelableArrayListExtra(DiveShopCourse.TAG, (ArrayList<? extends Parcelable>) courses);
         context.startActivity(intent);
     }

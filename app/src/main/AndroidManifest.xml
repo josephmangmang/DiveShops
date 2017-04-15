@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".activities.MainActivity"/>
         <activity
-            android:name=".activities.CourseActivity"
+            android:name=".activities.CourseListActivity"
             android:label="@string/title_courses" />
         <activity android:name=".activities.CourseDetailsActivity" />
     </application>
