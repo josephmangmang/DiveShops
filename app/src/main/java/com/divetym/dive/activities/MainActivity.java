@@ -13,6 +13,7 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.fragments.DiveShopFragment;
+import com.divetym.dive.view.RobotoTextView;
 import com.divetym.dive.view.ToastAlert;
 
 import butterknife.BindView;
@@ -28,6 +29,8 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
+    @BindView(R.id.text_subtitle)
+    RobotoTextView mToolbarSubtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +67,9 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
         }
     }
 
-    public CollapsingToolbarLayout getCollapsingToolbarLayout() {
-        return mCollapsingToolbarLayout;
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_courses:
                 CourseActivity.launch(this, null);
                 break;
@@ -80,5 +79,13 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
         }
         mDrawerLayout.closeDrawers();
         return false;
+    }
+
+    public void setToolbarTitle(String title) {
+        mCollapsingToolbarLayout.setTitle(title);
+    }
+
+    public void setToolbarSubtitle(String subtitle) {
+        mToolbarSubtitle.setText(subtitle);
     }
 }

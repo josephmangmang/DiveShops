@@ -89,6 +89,8 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
         if (getItemViewType(position) == VIEW_ITEM) {
             DiveShopCourse course = getItem(position);
             CourseHolder itemHolder = (CourseHolder) holder;
+            itemHolder.mData = course;
+            itemHolder.mItemClickListener = mItemClickListener;
             itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getPhotoCoverUrl());
         } else {
             Log.w(TAG, "onBindViewHolder: progress view");
@@ -145,7 +147,7 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
     }
 }
 
-class CourseHolder extends DiveTymViewHolder<Course> {
+class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
     ImageView imgThumbnail;
     RobotoTextView tvTitle;
     RobotoTextView tvDescription;

@@ -1,6 +1,7 @@
 package com.divetym.dive.models;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/28/2017.
  */
 
-public class DailyTripBoat extends Boat{
+public class DailyTripBoat extends Boat implements Parcelable{
     @SerializedName(ApiConstant.DAILY_TRIP_BOAT_ID)
     private int dailyTripBoatId;
     @SerializedName(ApiConstant.DAILY_TRIP_ID)

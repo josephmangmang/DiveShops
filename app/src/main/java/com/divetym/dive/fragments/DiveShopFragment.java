@@ -62,6 +62,7 @@ public class DiveShopFragment extends DiveTymFragment {
             // TODO: 4/9/2017 Start list of boats activity
         }
     };
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,8 +142,8 @@ public class DiveShopFragment extends DiveTymFragment {
 
         mContext.setTitle(diveShop.getName());
         mContext.setSubtitle(diveShop.getAddress());
-        ((MainActivity) mContext).getCollapsingToolbarLayout().setTitle(diveShop.getName());
-
+        ((MainActivity) mContext).setToolbarTitle(diveShop.getName());
+        ((MainActivity) mContext).setToolbarSubtitle(diveShop.getAddress());
         tvDescription.setText(diveShop.getDescription());
         tvPricePerDive.setText(diveShop.getPricePerDive().toString());
         tvSpecialService.setText(diveShop.getSpecialService());

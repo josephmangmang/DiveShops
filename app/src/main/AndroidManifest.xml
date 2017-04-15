@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity"></activity>
-        <activity android:name=".activities.CourseActivity"></activity>
+        <activity android:name=".activities.CourseActivity"
+            android:label="@string/title_courses"></activity>
     </application>
 
 </manifest>

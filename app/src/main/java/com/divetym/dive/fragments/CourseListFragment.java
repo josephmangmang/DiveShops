@@ -1,5 +1,6 @@
 package com.divetym.dive.fragments;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymFragment;
 import com.divetym.dive.adapters.CourseListAdapter;
+import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.response.DiveShopCourseListResponse;
@@ -34,7 +36,8 @@ import retrofit2.Response;
  * Created by kali_root on 4/10/2017.
  */
 
-public class CourseListFragment extends DiveTymFragment implements OnLoadMoreListener {
+public class CourseListFragment extends DiveTymFragment implements OnLoadMoreListener,
+        BaseRecyclerAdapter.ItemClickListener<DiveShopCourse> {
     private static final String TAG = CourseListFragment.class.getSimpleName();
     @BindView(R.id.list)
     RecyclerView mRecyclerView;
@@ -79,6 +82,7 @@ public class CourseListFragment extends DiveTymFragment implements OnLoadMoreLis
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CourseListAdapter(mContext, mCourses, mRecyclerView);
+        mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
         mRecyclerView.setAdapter(mAdapter);
         if (mCourses.size() == 0) {
@@ -123,5 +127,20 @@ public class CourseListFragment extends DiveTymFragment implements OnLoadMoreLis
         Log.d(TAG, "onLoadMore: totalItemCount = " + totalItemCount);
         mOffset = totalItemCount;
         loadCourseData();
+    }
+
+    @Override
+    public void onItemClick(DiveShopCourse object, View view) {
+        Log.d(TAG, "onItemClick " + object.toString());
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.content, CourseDetailsFragment.getInstance(object), CourseDetailsFragment.TAG)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onActionClick(DiveShopCourse object, View view) {
+        Log.d(TAG, "onActionClick " + object.toString());
     }
 }

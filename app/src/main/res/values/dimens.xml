@@ -37,4 +37,6 @@
     <dimen name="roboto_body_1_regular">@dimen/body_1</dimen>
     <dimen name="roboto_caption_regular">@dimen/caption</dimen>
     <dimen name="roboto_button_medium">@dimen/button</dimen>
+    <dimen name="toolbar_image_height">230dp</dimen>
+    <dimen name="toolbar_extended_height">128dp</dimen>
 </resources>
