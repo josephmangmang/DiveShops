@@ -11,10 +11,15 @@ import android.widget.Button;
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.CourseActivity;
+import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymFragment;
+import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
+import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.DiveShop;
+import com.divetym.dive.models.DiveShopCourse;
+import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.models.response.DiveShopResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
@@ -62,6 +67,31 @@ public class DiveShopFragment extends DiveTymFragment {
             // TODO: 4/9/2017 Start list of boats activity
         }
     };
+    private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
+        @Override
+        public void onItemClick(ListPreview object, View view) {
+            Log.d(TAG, "onItemClick " + object.toString());
+            CourseDetailsActivity.launch(mContext, mDiveShop.getCourses().get(object.getPosition()));
+        }
+
+        @Override
+        public void onActionClick(ListPreview object, View view) {
+            Log.d(TAG, "onActionClick " + object.toString());
+        }
+    };
+
+    private BaseRecyclerAdapter.ItemClickListener mBoatItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
+        @Override
+        public void onItemClick(ListPreview object, View view) {
+            Log.d(TAG, "onItemClick " + object.toString());
+        }
+
+        @Override
+        public void onActionClick(ListPreview object, View view) {
+            Log.d(TAG, "onActionClick " + object.toString());
+
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +104,12 @@ public class DiveShopFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dive_shop_profile, container, false);
         ButterKnife.bind(this, view);
+
+        mPreviewCourses.setMoreClickListener(mPreviewCoursesMoreClickListener);
+        mPreviewCourses.setItemClickListener(mCourseItemClickListener);
+        mPreviewBoats.setItemClickListener(mBoatItemClickListener);
+        mPreviewBoats.setMoreClickListener(mPreviewBoatsMoreClickListener);
+
         loadDiveShopData();
         return view;
     }
@@ -142,18 +178,18 @@ public class DiveShopFragment extends DiveTymFragment {
 
         mContext.setTitle(diveShop.getName());
         mContext.setSubtitle(diveShop.getAddress());
-        ((MainActivity) mContext).setToolbarTitle(diveShop.getName());
-        ((MainActivity) mContext).setToolbarSubtitle(diveShop.getAddress());
+        MainActivity mainActivity =  ((MainActivity) mContext);
+       mainActivity.setToolbarTitle(diveShop.getName());
+        mainActivity.setToolbarSubtitle(diveShop.getAddress());
+        mainActivity.setToolbarBackground(diveShop.getPhotoCoverUrl());
         tvDescription.setText(diveShop.getDescription());
         tvPricePerDive.setText(diveShop.getPricePerDive().toString());
         tvSpecialService.setText(diveShop.getSpecialService());
 
         mPreviewCourses.setPreviewTitle(getString(R.string.title_courses));
         mPreviewCourses.setPreviewList(diveShop.getCoursePreviews());
-        mPreviewCourses.setMoreClickListener(mPreviewCoursesMoreClickListener);
 
         mPreviewBoats.setPreviewTitle(getString(R.string.title_boats));
         mPreviewBoats.setPreviewList(diveShop.getBoatPreviews());
-        mPreviewBoats.setMoreClickListener(mPreviewBoatsMoreClickListener);
     }
 }

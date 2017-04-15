@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.divetym.dive.R;
+import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.base.DiveTymFragment;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.view.RobotoTextView;
@@ -24,12 +25,6 @@ import butterknife.OnClick;
 public class CourseDetailsFragment extends DiveTymFragment {
     private static final String BUNDLE_COURSE = "bundle_course";
     public static final String TAG = CourseDetailsFragment.class.getSimpleName();
-    @BindView(R.id.image_photo_cover)
-    ImageView ivPhotoCover;
-    @BindView(R.id.text_title)
-    RobotoTextView tvTitle;
-    @BindView(R.id.text_price)
-    RobotoTextView tvPrice;
     @BindView(R.id.text_body)
     RobotoTextView tvBody;
     private DiveShopCourse mCourse;
@@ -62,14 +57,9 @@ public class CourseDetailsFragment extends DiveTymFragment {
 
     private void setData() {
         if (mCourse != null) {
-            tvTitle.setText(mCourse.getName());
-            tvPrice.setText(mCourse.getPrice().toString());
+            ((CourseDetailsActivity) mContext).setToolbarTitle(mCourse.getName());
+            ((CourseDetailsActivity) mContext).setToolbarSubtitle(mCourse.getPrice().toString());
             tvBody.setText(mCourse.getDescription());
         }
-    }
-
-    @OnClick(R.id.button_book_now)
-    public void onBookNowClicked() {
-        Log.d(TAG, "onBookNowCLicked..");
     }
 }

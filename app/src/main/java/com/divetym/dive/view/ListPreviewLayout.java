@@ -4,12 +4,15 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.ListPreviewAdapter;
+import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.models.ListPreview;
 
 import java.util.ArrayList;
@@ -71,5 +74,7 @@ public class ListPreviewLayout extends RelativeLayout {
     public void setMoreClickListener(OnClickListener moreClickListener) {
         tvPreviewMore.setOnClickListener(moreClickListener);
     }
-
+    public void setItemClickListener(BaseRecyclerAdapter.ItemClickListener itemClickListener){
+        mAdapter.setItemClickListener(itemClickListener);
+    }
 }

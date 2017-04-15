@@ -35,6 +35,8 @@ public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewHolder, L
     @Override
     public void onBindViewHolder(ListPreviewHolder holder, int position) {
         ListPreview preview = getItem(position);
+        holder.mData = preview;
+        holder.mItemClickListener = mItemClickListener;
         holder.setData(preview.getTitle(), preview.getSubtitle(), preview.getAction(), preview.getImageUrl());
     }
 }
@@ -61,7 +63,7 @@ class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
         this.btnAction.setText(action);
         Picasso.with(mContext)
                 .load(imageUrl)
-                .error(R.drawable.dummy_image_preview)
+                .error(R.drawable.dummy_image_error)
                 .placeholder(R.drawable.dummy_image_preview)
                 .into(imgThumbnail);
     }

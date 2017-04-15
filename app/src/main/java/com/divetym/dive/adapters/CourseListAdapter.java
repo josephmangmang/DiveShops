@@ -173,7 +173,7 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
                 .load(imgUrl)
                 .centerCrop()
                 .placeholder(R.drawable.dummy_image_preview)
-                .error(R.drawable.dummy_image_preview)
+                .error(R.drawable.dummy_image_error)
                 .into(imgThumbnail);
     }
 }

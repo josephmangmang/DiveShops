@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymFragment;
 import com.divetym.dive.adapters.CourseListAdapter;
@@ -132,11 +133,7 @@ public class CourseListFragment extends DiveTymFragment implements OnLoadMoreLis
     @Override
     public void onItemClick(DiveShopCourse object, View view) {
         Log.d(TAG, "onItemClick " + object.toString());
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.content, CourseDetailsFragment.getInstance(object), CourseDetailsFragment.TAG)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit();
+        CourseDetailsActivity.launch(mContext, object);
     }
 
     @Override

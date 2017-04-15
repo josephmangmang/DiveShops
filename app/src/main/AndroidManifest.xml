@@ -21,9 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"></activity>
-        <activity android:name=".activities.CourseActivity"
-            android:label="@string/title_courses"></activity>
+        <activity android:name=".activities.MainActivity"/>
+        <activity
+            android:name=".activities.CourseActivity"
+            android:label="@string/title_courses" />
+        <activity android:name=".activities.CourseDetailsActivity" />
     </application>
 
 </manifest>

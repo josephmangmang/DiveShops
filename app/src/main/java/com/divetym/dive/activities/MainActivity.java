@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
@@ -15,6 +16,7 @@ import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.fragments.DiveShopFragment;
 import com.divetym.dive.view.RobotoTextView;
 import com.divetym.dive.view.ToastAlert;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +33,8 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     ActionBarDrawerToggle mDrawerToggle;
     @BindView(R.id.text_subtitle)
     RobotoTextView mToolbarSubtitle;
+    @BindView(R.id.image_collapsing_toolbar_background)
+    ImageView ivToolbarBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,5 +91,14 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
 
     public void setToolbarSubtitle(String subtitle) {
         mToolbarSubtitle.setText(subtitle);
+    }
+
+    public void setToolbarBackground(String imgUrl) {
+        Picasso.with(this)
+                .load(imgUrl)
+                .placeholder(R.drawable.dummy_image_preview)
+                .error(R.drawable.dummy_image_error)
+                .centerCrop()
+                .into(ivToolbarBackground);
     }
 }

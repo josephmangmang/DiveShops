@@ -8,19 +8,22 @@ import android.os.Parcelable;
  */
 
 public class ListPreview implements Parcelable {
+    private int position;
     private String title;
     private String subtitle;
     private String action;
     private String imageUrl;
 
-    public ListPreview(String title, String imageUrl) {
-        this(title, "", "", imageUrl);
+    public ListPreview(int position, String title, String imageUrl) {
+        this(position, title, "", "", imageUrl);
     }
 
-    public ListPreview(String title, String action, String imageUrl){
-        this(title, "", action, imageUrl);
+    public ListPreview(int position, String title, String action, String imageUrl) {
+        this(position, title, "", action, imageUrl);
     }
-    public ListPreview(String title, String subtitle, String action, String imageUrl) {
+
+    public ListPreview(int position, String title, String subtitle, String action, String imageUrl) {
+        this.position = position;
         this.title = title;
         this.subtitle = subtitle;
         this.action = action;
@@ -57,6 +60,24 @@ public class ListPreview implements Parcelable {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "ListPreview{" +
+                "title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", action='" + action + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 
     @Override
