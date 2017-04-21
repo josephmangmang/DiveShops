@@ -170,7 +170,6 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
         tvPrice.setText(price);
         Picasso.with(mContext)
                 .load(imgUrl)
-                .centerCrop()
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
                 .into(ivThumbnail);

@@ -64,7 +64,6 @@ public class CourseDetailsActivity extends AuthenticatedActivity {
             tvBody.setText(course.getDescription());
             Picasso.with(this)
                     .load(course.getPhotoCoverUrl())
-                    .centerCrop()
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(ivToolbarBackground);

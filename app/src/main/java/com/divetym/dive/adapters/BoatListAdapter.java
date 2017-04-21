@@ -63,7 +63,6 @@ class BoatHolder extends DiveTymViewHolder {
                 .load(imgUrl)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .centerCrop()
                 .into(ivThumbnail);
     }
 }
