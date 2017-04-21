@@ -147,7 +147,7 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
 }
 
 class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
-    ImageView imgThumbnail;
+    ImageView ivThumbnail;
     RobotoTextView tvTitle;
     RobotoTextView tvDescription;
     RobotoTextView tvPrice;
@@ -155,7 +155,7 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
 
     public CourseHolder(DiveTymActivity context, View view) {
         super(context, view);
-        imgThumbnail = (ImageView) view.findViewById(R.id.image_thumbnail);
+        ivThumbnail = (ImageView) view.findViewById(R.id.image_thumbnail);
         tvTitle = (RobotoTextView) view.findViewById(R.id.text_title);
         tvDescription = (RobotoTextView) view.findViewById(R.id.text_description);
         tvPrice = (RobotoTextView) view.findViewById(R.id.text_price);
@@ -173,7 +173,7 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
                 .centerCrop()
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(imgThumbnail);
+                .into(ivThumbnail);
     }
 }
 
