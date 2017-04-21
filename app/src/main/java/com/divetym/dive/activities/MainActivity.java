@@ -77,6 +77,9 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
             case R.id.nav_courses:
                 CourseListActivity.launch(this, null);
                 break;
+            case R.id.nav_boats:
+                BoatListActivity.launch(this, null);
+                break;
             case R.id.nav_logout:
                 logOut();
                 break;

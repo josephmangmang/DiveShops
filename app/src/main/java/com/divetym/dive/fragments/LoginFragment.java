@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.MainActivity;
-import com.divetym.dive.activities.base.DiveTymFragment;
+import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.models.response.UserResponse;
 import com.divetym.dive.rest.ApiClient;

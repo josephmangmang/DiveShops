@@ -21,11 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.MainActivity" />
         <activity
             android:name=".activities.CourseListActivity"
             android:label="@string/title_courses" />
         <activity android:name=".activities.CourseDetailsActivity" />
+        <activity
+            android:name=".activities.BoatListActivity"
+            android:label="@string/title_boats" />
     </application>
 
 </manifest>

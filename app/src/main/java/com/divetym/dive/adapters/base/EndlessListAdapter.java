@@ -1,4 +1,4 @@
-package com.divetym.dive.adapters;
+package com.divetym.dive.adapters.base;
 
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,27 +7,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
-import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
-import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.DiveShopCourse;
-import com.divetym.dive.view.RobotoTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by kali_root on 4/10/2017.
+ * Created by kali_root on 4/19/2017.
  */
 
-public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, DiveShopCourse> implements OnLoadMoreListener {
-
-    private static final String TAG = CourseListAdapter.class.getSimpleName();
+public abstract class EndlessListAdapter<DataType> extends BaseRecyclerAdapter<RecyclerView.ViewHolder, DataType>
+        implements OnLoadMoreListener {
+    public static final String TAG = EndlessListAdapter.class.getSimpleName();
     private static final int VIEW_ITEM = 0;
     private static final int VIEW_PROG = 1;
     private int mVisibleThreshold = 5;
@@ -38,12 +32,8 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
     private OnLoadMoreListener mLoadMoreListener;
     private OnLoadMoreListener mAdapterLoadMoreListener;
 
-    public CourseListAdapter(DiveTymActivity context, List<DiveShopCourse> courses) {
-        this(context, courses, null);
-    }
-
-    public CourseListAdapter(DiveTymActivity context, List<DiveShopCourse> courses, RecyclerView recyclerView) {
-        super(context, courses);
+    public EndlessListAdapter(DiveTymActivity context, List<DataType> dataList, RecyclerView recyclerView) {
+        super(context, dataList);
         mHandler = new Handler();
         if (recyclerView != null) {
             if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -71,14 +61,12 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
         RecyclerView.ViewHolder holder;
         if (viewType == VIEW_ITEM) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.view_item_course, parent, false);
-            holder = new CourseHolder(mContext, view);
+            holder = onCreateViewHolder(parent);
         } else {
-            view = LayoutInflater.from(mContext).inflate(R.layout.view_item_progress, parent, false);
-            holder = new LoadingHolder(mContext, view);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.view_item_progress, parent, false);
+            holder = new LoadingHolder(view);
         }
         return holder;
     }
@@ -86,15 +74,16 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_ITEM) {
-            DiveShopCourse course = getItem(position);
-            CourseHolder itemHolder = (CourseHolder) holder;
-            itemHolder.mData = course;
-            itemHolder.mItemClickListener = mItemClickListener;
-            itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getPhotoCoverUrl());
+            onBindViewHolder(holder, getItem(position));
         } else {
             Log.w(TAG, "onBindViewHolder: progress view");
         }
     }
+
+    protected abstract RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent);
+
+
+    public abstract void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DataType object);
 
     @Override
     public int getItemViewType(int position) {
@@ -138,49 +127,17 @@ public class CourseListAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHold
         notifyItemRemoved(mDataList.size());
     }
 
-    public void addData(List<DiveShopCourse> courses) {
+    public void addData(List<DataType> courses) {
         removeProgress();
         mDataList.addAll(courses);
         notifyDataSetChanged();
         setLoaded();
     }
-}
 
-class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
-    ImageView imgThumbnail;
-    RobotoTextView tvTitle;
-    RobotoTextView tvDescription;
-    RobotoTextView tvPrice;
-    Button btnAction;
+    class LoadingHolder extends RecyclerView.ViewHolder {
 
-    public CourseHolder(DiveTymActivity context, View view) {
-        super(context, view);
-        imgThumbnail = (ImageView) view.findViewById(R.id.image_thumbnail);
-        tvTitle = (RobotoTextView) view.findViewById(R.id.text_title);
-        tvDescription = (RobotoTextView) view.findViewById(R.id.text_description);
-        tvPrice = (RobotoTextView) view.findViewById(R.id.text_price);
-        btnAction = (Button) view.findViewById(R.id.button_book_now);
-        btnAction.setOnClickListener(this);
-        view.setOnClickListener(this);
-    }
-
-    public void setData(String title, String description, String price, String imgUrl) {
-        tvTitle.setText(title);
-        tvDescription.setText(description);
-        tvPrice.setText(price);
-        Picasso.with(mContext)
-                .load(imgUrl)
-                .centerCrop()
-                .placeholder(R.drawable.dummy_image_preview)
-                .error(R.drawable.dummy_image_error)
-                .into(imgThumbnail);
+        public LoadingHolder(View itemView) {
+            super(itemView);
+        }
     }
 }
-
-class LoadingHolder extends DiveTymViewHolder {
-
-    public LoadingHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-    }
-}
-

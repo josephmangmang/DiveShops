@@ -19,8 +19,7 @@ public class DailyTripBoat extends Boat implements Parcelable{
     public DailyTripBoat() {
     }
 
-    public DailyTripBoat(int boatId, String diveShopUid, String name, String imageUrl, int dailyTripBoatId, int dailyTripId) {
-        super(boatId, diveShopUid, name, imageUrl);
+    public DailyTripBoat(int dailyTripBoatId, int dailyTripId) {
         this.dailyTripBoatId = dailyTripBoatId;
         this.dailyTripId = dailyTripId;
     }

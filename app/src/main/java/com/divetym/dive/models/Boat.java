@@ -17,16 +17,19 @@ public class Boat implements Parcelable {
     private String diveShopUid;
     @SerializedName(ApiConstant.NAME)
     private String name;
+    @SerializedName(ApiConstant.DESCRIPTION)
+    private String description;
     @SerializedName(ApiConstant.IMAGE)
     private String imageUrl;
 
     public Boat() {
     }
 
-    public Boat(int boatId, String diveShopUid, String name, String imageUrl) {
+    public Boat(int boatId, String diveShopUid, String name, String description, String imageUrl) {
         this.boatId = boatId;
         this.diveShopUid = diveShopUid;
         this.name = name;
+        this.description = description;
         this.imageUrl = imageUrl;
     }
 
@@ -62,6 +65,14 @@ public class Boat implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Boat{" +
@@ -82,6 +93,7 @@ public class Boat implements Parcelable {
         dest.writeInt(this.boatId);
         dest.writeString(this.diveShopUid);
         dest.writeString(this.name);
+        dest.writeString(this.description);
         dest.writeString(this.imageUrl);
     }
 
@@ -89,6 +101,7 @@ public class Boat implements Parcelable {
         this.boatId = in.readInt();
         this.diveShopUid = in.readString();
         this.name = in.readString();
+        this.description = in.readString();
         this.imageUrl = in.readString();
     }
 

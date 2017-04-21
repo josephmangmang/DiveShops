@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.divetym.dive.R;
+import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.fragments.CourseDetailsFragment;
 import com.divetym.dive.models.DiveShopCourse;
@@ -25,7 +26,7 @@ import butterknife.OnClick;
  * Created by kali_root on 4/15/2017.
  */
 
-public class CourseDetailsActivity extends DiveTymActivity {
+public class CourseDetailsActivity extends AuthenticatedActivity {
     public static final String EXTRA_COURSE = "com.divetym.dive.EXTRA_COURSE";
     private static final String TAG = CourseDetailsActivity.class.getSimpleName();
     @BindView(R.id.button_book_now)

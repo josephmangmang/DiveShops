@@ -1,10 +1,11 @@
-package com.divetym.dive.activities.base;
+package com.divetym.dive.fragments.base;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.view.ToastAlert;
 

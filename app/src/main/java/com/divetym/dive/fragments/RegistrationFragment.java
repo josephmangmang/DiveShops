@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
-import com.divetym.dive.activities.base.DiveTymFragment;
+import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;

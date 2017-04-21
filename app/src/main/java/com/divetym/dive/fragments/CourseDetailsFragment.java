@@ -2,21 +2,18 @@ package com.divetym.dive.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.CourseDetailsActivity;
-import com.divetym.dive.activities.base.DiveTymFragment;
+import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.view.RobotoTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by kali_root on 4/13/2017.

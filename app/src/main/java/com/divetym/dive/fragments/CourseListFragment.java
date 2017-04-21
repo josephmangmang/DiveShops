@@ -1,6 +1,5 @@
 package com.divetym.dive.fragments;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +13,7 @@ import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
-import com.divetym.dive.activities.base.DiveTymFragment;
+import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.adapters.CourseListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
