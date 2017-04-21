@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.activities.BoatDetailsActivity;
 import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.activities.CourseListActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
@@ -83,6 +84,7 @@ public class DiveShopFragment extends DiveTymFragment {
         @Override
         public void onItemClick(ListPreview object, View view) {
             Log.d(TAG, "onItemClick " + object.toString());
+            BoatDetailsActivity.launch(mContext, mDiveShop.getBoats().get(object.getPosition()));
         }
 
         @Override

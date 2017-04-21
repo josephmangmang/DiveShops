@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.activities.BoatDetailsActivity;
 import com.divetym.dive.adapters.BoatListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
@@ -73,6 +74,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
     @Override
     public void onItemClick(Boat object, View view) {
         Log.d(TAG, "onItemClick " + object.toString());
+        BoatDetailsActivity.launch(mContext, object);
     }
 
     @Override
