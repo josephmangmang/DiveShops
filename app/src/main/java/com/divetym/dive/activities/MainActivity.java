@@ -101,6 +101,7 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
                 .load(imgUrl)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
+                .resize(ivToolbarBackground.getMeasuredWidth(), ivToolbarBackground.getMeasuredHeight())
                 .centerCrop()
                 .into(ivToolbarBackground);
     }
