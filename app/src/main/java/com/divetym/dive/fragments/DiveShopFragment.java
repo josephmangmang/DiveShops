@@ -1,5 +1,6 @@
 package com.divetym.dive.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.divetym.dive.activities.BoatDetailsActivity;
 import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.activities.CourseListActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
+import com.divetym.dive.activities.DailyTripActivity;
 import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.fragments.base.DiveTymFragment;
@@ -29,6 +31,7 @@ import com.divetym.dive.view.ToastAlert;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,8 +43,6 @@ import retrofit2.Response;
 public class DiveShopFragment extends DiveTymFragment {
     private static final String TAG = DiveShopFragment.class.getSimpleName();
 
-    @BindView(R.id.button_view_daily_trips)
-    Button btnViewDailyTrips;
     @BindView(R.id.text_description)
     RobotoTextView tvDescription;
     @BindView(R.id.text_price_per_dive)
@@ -54,6 +55,11 @@ public class DiveShopFragment extends DiveTymFragment {
     RobotoTextView tvSpecialService;
     private ApiInterface mApiService;
     private DiveShop mDiveShop;
+
+    @OnClick(R.id.button_view_daily_trips)
+    public void onViewDailyTrip() {
+        startActivity(new Intent(mContext, DailyTripActivity.class));
+    }
 
     private View.OnClickListener mPreviewCoursesMoreClickListener = new View.OnClickListener() {
         @Override
@@ -179,8 +185,8 @@ public class DiveShopFragment extends DiveTymFragment {
 
         mContext.setTitle(diveShop.getName());
         mContext.setSubtitle(diveShop.getAddress());
-        MainActivity mainActivity =  ((MainActivity) mContext);
-       mainActivity.setToolbarTitle(diveShop.getName());
+        MainActivity mainActivity = ((MainActivity) mContext);
+        mainActivity.setToolbarTitle(diveShop.getName());
         mainActivity.setToolbarSubtitle(diveShop.getAddress());
         mainActivity.setToolbarBackground(diveShop.getPhotoCoverUrl());
         tvDescription.setText(diveShop.getDescription());

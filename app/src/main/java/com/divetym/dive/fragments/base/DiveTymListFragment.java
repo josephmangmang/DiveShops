@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
+import com.divetym.dive.adapters.base.BaseRecyclerAdapter.ItemClickListener;
 import com.divetym.dive.fragments.CourseListFragment;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.response.Response;
@@ -31,12 +32,12 @@ import butterknife.ButterKnife;
  */
 
 public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, DataType extends Parcelable, Rspnse extends Response>
-        extends DiveTymFragment implements OnLoadMoreListener {
+        extends DiveTymFragment implements OnLoadMoreListener, ItemClickListener<DataType> {
     private static final String TAG = CourseListFragment.class.getSimpleName();
     public static final String EXTRA_LIST = "com.divetym.dive.EXTRA_LIST";
 
     @BindView(R.id.list)
-   protected RecyclerView mRecyclerView;
+    protected RecyclerView mRecyclerView;
     protected Adapter mAdapter;
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
@@ -54,6 +55,8 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
                 mDataList = new ArrayList<>();
             }
             mOffset = mDataList.size();
+        } else {
+            mDataList = new ArrayList<>();
         }
         mApiService = ApiClient.getApiInterface();
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -62,7 +65,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.bind(this, view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -77,22 +80,35 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected abstract void initializeAdapter();
 
     private void loadData() {
-         mShopUid = mSessionManager.getDiveShopUid();
+        mShopUid = mSessionManager.getDiveShopUid();
         if (mShopUid == null) {
             new ToastAlert(mContext)
                     .setMessage(R.string.error_empty_account_details)
                     .show();
             ((AuthenticatedActivity) mContext).logOut();
+            return;
         }
         requestData();
     }
 
     protected abstract void requestData();
+
     protected abstract void onRequestResponse(Rspnse response);
+
     @Override
     public void onLoadMore(int totalItemCount) {
         Log.d(TAG, "onLoadMore: totalItemCount = " + totalItemCount);
         mOffset = totalItemCount;
         loadData();
+    }
+
+    @Override
+    public void onItemClick(DataType object, View view) {
+
+    }
+
+    @Override
+    public void onActionClick(DataType object, View view) {
+
     }
 }

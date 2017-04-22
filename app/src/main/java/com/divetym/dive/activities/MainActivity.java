@@ -74,6 +74,9 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_daily_trips:
+                startActivity(DailyTripActivity.class);
+                break;
             case R.id.nav_courses:
                 CourseListActivity.launch(this, null);
                 break;

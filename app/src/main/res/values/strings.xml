@@ -38,4 +38,15 @@
     <string name="title_logout">Logout</string>
     <string name="title_login">Login</string>
     <string name="dummy_subtitle">Subtitle</string>
+    <string name="dummy_date">Feb 1, 2017</string>
+    <string name="text_dive_spot">Balicasag</string>
+    <string name="dummy_time">8:00AM</string>
+    <string name="label_start">Start</string>
+    <string name="title_daily_trips">Daily Trips</string>
+    <string name="title_sort">Sort</string>
+    <string name="title_price">Price</string>
+    <string name="title_rating">Rating</string>
+    <string name="label_end">End</string>
+    <string name="hint_select_dive_site">Select Dive Site</string>
+    <string name="message_empty_trip">No available trips</string>
 </resources>

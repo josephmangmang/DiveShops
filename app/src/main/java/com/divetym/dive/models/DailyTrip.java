@@ -3,11 +3,15 @@ package com.divetym.dive.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.divetym.dive.BuildConfig;
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +19,7 @@ import java.util.List;
  */
 
 public class DailyTrip implements Parcelable {
+    private static final String FORMAT_DATE_SERVER = "yyyy-mm-dd HH:mm:ss";
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
@@ -41,6 +46,10 @@ public class DailyTrip implements Parcelable {
     @SerializedName(ApiConstant.GUESTS)
     private List<DailyTripGuest> guests;
 
+    private SimpleDateFormat mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("H:m");
+    private Date mDate;
+
     public DailyTrip() {
     }
 
@@ -53,6 +62,11 @@ public class DailyTrip implements Parcelable {
         this.createTime = createTime;
         this.price = price;
         this.priceNote = priceNote;
+        try {
+            mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public DailyTrip(int dailyTripId, String diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote, List<DailyTripBoat> boats, List<DailyTripDiveSite> sites, List<DailyTripGuide> guides, List<DailyTripGuest> guests) {
@@ -68,6 +82,11 @@ public class DailyTrip implements Parcelable {
         this.sites = sites;
         this.guides = guides;
         this.guests = guests;
+        try {
+            mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getDailyTripId() {
@@ -108,6 +127,11 @@ public class DailyTrip implements Parcelable {
 
     public void setDate(String date) {
         this.date = date;
+        try {
+            mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCreateTime() {
@@ -164,6 +188,44 @@ public class DailyTrip implements Parcelable {
 
     public void setGuests(List<DailyTripGuest> guests) {
         this.guests = guests;
+    }
+
+    public String getDiveSites() {
+        StringBuilder sitesBuilder = new StringBuilder();
+        for (DailyTripDiveSite site : sites) {
+            sitesBuilder.append(site.getName());
+            sitesBuilder.append(", ");
+        }
+        int length = sitesBuilder.length();
+        if (length > 2) {
+            sitesBuilder = sitesBuilder.delete(length - 3, length - 1);
+        }
+        return sitesBuilder.toString();
+    }
+
+    public String getDateOnly() {// 2017-03-23 18:39:00
+        if (mDate == null) {
+            try {
+                mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "Invalid Date";
+            }
+        }
+        return mDateFormat.format(mDate).toString();
+
+    }
+
+    public String getTime() {
+        if (mDate == null) {
+            try {
+                mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "Invalid Date";
+            }
+        }
+        return mTimeFormat.format(mDate).toLowerCase();
     }
 
     @Override

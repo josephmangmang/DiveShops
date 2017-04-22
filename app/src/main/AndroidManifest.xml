@@ -26,10 +26,13 @@
             android:name=".activities.CourseListActivity"
             android:label="@string/title_courses" />
         <activity android:name=".activities.CourseDetailsActivity" />
-        <activity android:name=".activities.BoatDetailsActivity"/>
+        <activity android:name=".activities.BoatDetailsActivity" />
         <activity
             android:name=".activities.BoatListActivity"
             android:label="@string/title_boats" />
+        <activity
+            android:name=".activities.DailyTripActivity"
+            android:label="@string/title_daily_trips" />
     </application>
 
 </manifest>
