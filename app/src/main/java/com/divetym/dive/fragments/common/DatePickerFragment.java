@@ -1,4 +1,4 @@
-package com.divetym.dive.fragments;
+package com.divetym.dive.fragments.common;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -9,6 +9,8 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
+import static com.divetym.dive.view.DateRangeLayout.DateRange;
+
 /**
  * Created by kali_root on 4/22/2017.
  */
@@ -16,13 +18,13 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment implements OnDateSetListener {
     public static final String TAG = DatePickerFragment.class.getSimpleName();
     private Calendar calendar;
-    private int id;
+    private DateRange dateRange;
 
 
     private OnDateRangeChangedListener onDateRangeChangedListener;
 
     public interface OnDateRangeChangedListener {
-        void onDateRangeChanged(int id, Calendar calendar);
+        void onDateRangeChanged(DateRange dateRange, Calendar calendar);
     }
 
     @Override
@@ -40,8 +42,8 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
         this.calendar = calendar;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDateRange(DateRange dateRange) {
+        this.dateRange = dateRange;
     }
 
     public void setOnDateRangeChangedListener(OnDateRangeChangedListener onDateRangeChangedListener) {
@@ -53,7 +55,7 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
         if (onDateRangeChangedListener != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(y, m, d);
-            onDateRangeChangedListener.onDateRangeChanged(id, calendar);
+            onDateRangeChangedListener.onDateRangeChanged(dateRange, calendar);
         }
     }
 

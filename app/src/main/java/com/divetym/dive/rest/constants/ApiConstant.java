@@ -53,4 +53,8 @@ public class ApiConstant {
     public static final String ERROR = "error";
     public static final String MESSAGE = "message";
     public static final String USER = "user";
+    public static final String DAILY_TRIP_BOATS = "daily_trip_boats";
+    public static final String DAILY_TRIP_DIVE_SITES = "daily_trip_dive_sites";
+    public static final String DAILY_TRIP_GUIDES = "daily_trip_guides";
+    public static final String DAILY_TRIP_GUESTS = "daily_trip_guests";
 }

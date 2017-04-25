@@ -19,6 +19,7 @@ import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
+import com.divetym.dive.view.RobotoTextView;
 import com.divetym.dive.view.ToastAlert;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
 
     @BindView(R.id.list)
     protected RecyclerView mRecyclerView;
+    @BindView(R.id.text_empty)
+    protected RobotoTextView mEmptyText;
     protected Adapter mAdapter;
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
@@ -95,6 +98,12 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
 
     protected abstract void onRequestResponse(Rspnse response);
 
+    protected void setEmpty(boolean empty) {
+        mEmptyText.setVisibility(empty ? View.VISIBLE : View.GONE);
+    }
+    protected void setEmptyTextMessage(String message){
+        mEmptyText.setText(message);
+    }
     @Override
     public void onLoadMore(int totalItemCount) {
         Log.d(TAG, "onLoadMore: totalItemCount = " + totalItemCount);

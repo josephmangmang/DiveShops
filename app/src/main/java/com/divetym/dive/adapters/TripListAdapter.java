@@ -56,7 +56,7 @@ class TripHolder extends DiveTymViewHolder<DailyTrip> {
 
     public TripHolder(DiveTymActivity context, View itemView) {
         super(context, itemView);
-        ButterKnife.bind(mContext, itemView);
+        ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
     }
 }

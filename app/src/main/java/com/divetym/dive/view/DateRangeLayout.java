@@ -9,11 +9,13 @@ import android.widget.LinearLayout;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
-import com.divetym.dive.fragments.DatePickerFragment;
+import com.divetym.dive.fragments.common.DatePickerFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
+import static com.divetym.dive.fragments.TripListFragment.*;
+import static com.divetym.dive.view.DateRangeLayout.DateRange.StartDate;
 
 /**
  * Created by kali_root on 4/22/2017.
@@ -21,14 +23,18 @@ import java.util.Date;
 
 public class DateRangeLayout extends LinearLayout implements DatePickerFragment.OnDateRangeChangedListener {
     public static final String TAG = DateRangeLayout.class.getSimpleName();
-    public static final int DATE_START = 10;
-    public static final int DATE_END = 11;
     private RobotoTextView tvDateStart;
     private RobotoTextView tvDateEnd;
     private DiveTymActivity mContext;
     private SimpleDateFormat mDateFormat;
     private Calendar startCalendar;
     private Calendar endCalendar;
+
+    public enum DateRange {
+        StartDate, EndDate
+    }
+
+    private OnRefreshTripListener mOnRefreshTripListener;
 
     public DateRangeLayout(Context context) {
         super(context);
@@ -66,7 +72,7 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
                     return;
                 }
                 DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.setId(DATE_START);
+                datePicker.setDateRange(StartDate);
                 datePicker.setCalendar(startCalendar);
                 datePicker.setOnDateRangeChangedListener(DateRangeLayout.this);
                 datePicker.show(mContext.getFragmentManager(), "startdatepicker");
@@ -79,7 +85,7 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
                     return;
                 }
                 DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.setId(DATE_END);
+                datePicker.setDateRange(DateRange.EndDate);
                 datePicker.setCalendar(endCalendar);
                 datePicker.setOnDateRangeChangedListener(DateRangeLayout.this);
                 datePicker.show(mContext.getFragmentManager(), "enddatepicker");
@@ -91,15 +97,32 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
         mContext = context;
     }
 
+    public void setOnRefreshTripListener(OnRefreshTripListener onRefreshTripListener) {
+        mOnRefreshTripListener = onRefreshTripListener;
+    }
+
+    public Calendar getStartCalendar() {
+        return startCalendar;
+    }
+
+    public Calendar getEndCalendar() {
+        return endCalendar;
+    }
 
     @Override
-    public void onDateRangeChanged(int id, Calendar calendar) {
-        if (id == DATE_START) {
-            startCalendar = calendar;
-            tvDateStart.setText(mDateFormat.format(calendar.getTime()));
-        } else if (id == DATE_END) {
-            endCalendar = calendar;
-            tvDateEnd.setText(mDateFormat.format(calendar.getTime()));
+    public void onDateRangeChanged(DateRange dateRange, Calendar calendar) {
+        switch (dateRange) {
+            case StartDate:
+                startCalendar = calendar;
+                tvDateStart.setText(mDateFormat.format(calendar.getTime()));
+                break;
+            case EndDate:
+                endCalendar = calendar;
+                tvDateEnd.setText(mDateFormat.format(calendar.getTime()));
+                break;
+        }
+        if (mOnRefreshTripListener != null) {
+            mOnRefreshTripListener.onDateRangedChanged(startCalendar, endCalendar);
         }
     }
 }

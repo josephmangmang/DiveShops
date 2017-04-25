@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:drawableTop="@drawable/ic_search"
-        android:text="@string/message_empty_trip"
+        android:text="@string/message_empty_list"
         android:textSize="@dimen/roboto_regular_headline"
         android:textStyle="bold"
         android:visibility="gone"

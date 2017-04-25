@@ -12,6 +12,7 @@ import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.response.BoatListResponse;
+import com.divetym.dive.view.ToastAlert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
     protected void initializeAdapter() {
         mAdapter = new BoatListAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
+        mAdapter.setLoadMoreListener(this);
     }
 
     @Override
@@ -67,7 +69,10 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
         if (response != null && !response.isError()) {
             List<Boat> boats = response.getBoats();
             mAdapter.addData(boats);
+        } else if (response != null) {
+            ToastAlert.makeText(mContext, response.getMessage(), ToastAlert.LENGTH_SHORT);
         }
+        setEmpty(mDataList.size() == 0);
     }
 
 

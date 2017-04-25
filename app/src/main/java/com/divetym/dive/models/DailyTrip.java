@@ -37,13 +37,13 @@ public class DailyTrip implements Parcelable {
     @SerializedName(ApiConstant.PRICE_NOTE)
     private String priceNote;
 
-    @SerializedName(ApiConstant.BOATS)
+    @SerializedName(ApiConstant.DAILY_TRIP_BOATS)
     private List<DailyTripBoat> boats;
-    @SerializedName(ApiConstant.DIVE_SITES)
+    @SerializedName(ApiConstant.DAILY_TRIP_DIVE_SITES)
     private List<DailyTripDiveSite> sites;
-    @SerializedName(ApiConstant.GUIDES)
+    @SerializedName(ApiConstant.DAILY_TRIP_GUIDES)
     private List<DailyTripGuide> guides;
-    @SerializedName(ApiConstant.GUESTS)
+    @SerializedName(ApiConstant.DAILY_TRIP_GUESTS)
     private List<DailyTripGuest> guests;
 
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
@@ -192,6 +192,8 @@ public class DailyTrip implements Parcelable {
 
     public String getDiveSites() {
         StringBuilder sitesBuilder = new StringBuilder();
+        if (sites == null) return "";
+
         for (DailyTripDiveSite site : sites) {
             sitesBuilder.append(site.getName());
             sitesBuilder.append(", ");

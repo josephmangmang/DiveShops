@@ -49,4 +49,6 @@
     <string name="label_end">End</string>
     <string name="hint_select_dive_site">Select Dive Site</string>
     <string name="message_empty_trip">No available trips</string>
+    <string name="message_empty_list">No item found</string>
+    <string name="message_empty_search">No dive site found</string>
 </resources>

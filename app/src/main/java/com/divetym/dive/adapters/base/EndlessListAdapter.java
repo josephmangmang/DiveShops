@@ -134,6 +134,14 @@ public abstract class EndlessListAdapter<DataType> extends BaseRecyclerAdapter<R
         setLoaded();
     }
 
+    public void replaceData(List<DataType> data){
+        removeProgress();
+        mDataList.clear();
+        mDataList.addAll(data);
+        notifyDataSetChanged();
+        setLoaded();
+
+    }
     class LoadingHolder extends RecyclerView.ViewHolder {
 
         public LoadingHolder(View itemView) {
