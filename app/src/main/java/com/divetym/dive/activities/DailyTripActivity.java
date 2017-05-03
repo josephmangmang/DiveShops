@@ -2,18 +2,14 @@ package com.divetym.dive.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.text.Editable;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.View;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
-import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.SearchListFragment;
 import com.divetym.dive.fragments.TripListFragment;
-import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.DiveSite;
 import com.divetym.dive.view.DateRangeLayout;
 
@@ -35,6 +31,8 @@ public class DailyTripActivity extends AuthenticatedActivity implements
     SearchViewLayout mSearchViewLayout;
     @BindView(R.id.layout_date_range)
     DateRangeLayout mDateRangeLayout;
+    @BindView(R.id.fab_add)
+    FloatingActionButton mFabAdd;
 
     private DiveSite mSelectedDiveSite;
     private TripListFragment mFragment;
@@ -61,6 +59,32 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         mSearchViewLayout.setHint(getString(R.string.hint_select_dive_site));
         mSearchViewLayout.handleToolbarAnimation(getToolbar());
         mSearchViewLayout.setSearchListener(searchListFragment);
+        mSearchViewLayout.setSearchClearOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchViewLayout.showSearchClearIcon(false);
+                mSelectedDiveSite = null;
+                mSearchViewLayout.setHint(getString(R.string.hint_select_dive_site));
+                refreshTripList();
+            }
+        });
+        mSearchViewLayout.setOnToggleAnimationListener(new SearchViewLayout.OnToggleAnimationListener() {
+            @Override
+            public void onStart(boolean expanding) {
+                if (expanding) {
+                    mFabAdd.hide();
+                    if (mSelectedDiveSite != null)
+                        mSearchViewLayout.setExpandedText(mSelectedDiveSite.getName());
+                } else {
+                    mFabAdd.show();
+                }
+            }
+
+            @Override
+            public void onFinish(boolean expanded) {
+
+            }
+        });
     }
 
     @Override
@@ -79,9 +103,10 @@ public class DailyTripActivity extends AuthenticatedActivity implements
 
     @Override
     public void onDiveSiteChanged(DiveSite diveSite) {
+        mSearchViewLayout.showSearchClearIcon(true);
         mSelectedDiveSite = diveSite;
         mSearchViewLayout.collapse();
-        mSearchViewLayout.setHint(diveSite.getName());
+        mSearchViewLayout.setCollapsedHint(diveSite.getName());
         refreshTripList();
     }
 

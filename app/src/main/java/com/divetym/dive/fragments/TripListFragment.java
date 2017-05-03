@@ -1,7 +1,6 @@
 package com.divetym.dive.fragments;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -56,11 +55,13 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
                     public void onResponse(Call<DailyTripListResponse> call, Response<DailyTripListResponse> response) {
+                        showProgress(false);
                         onRequestResponse(response.body());
                     }
 
                     @Override
                     public void onFailure(Call<DailyTripListResponse> call, Throwable t) {
+                        showProgress(false);
                         if (BuildConfig.DEBUG) {
                             Log.e(TAG, call.request().toString());
                             t.printStackTrace();

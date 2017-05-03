@@ -50,12 +50,14 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
                 .enqueue(new Callback<DiveSiteListResponse>() {
                     @Override
                     public void onResponse(Call<DiveSiteListResponse> call, Response<DiveSiteListResponse> response) {
+                        showProgress(false);
                         Log.d(TAG, "onResponse: " + response.toString());
                         onRequestResponse(response.body());
                     }
 
                     @Override
                     public void onFailure(Call<DiveSiteListResponse> call, Throwable t) {
+                        showProgress(false);
                         Log.e(TAG, "getDiveShopCourses onFailiure: " + t.getMessage());
                         if (BuildConfig.DEBUG) {
                             Log.e(TAG, call.request().toString());

@@ -2,33 +2,21 @@ package com.divetym.dive.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.divetym.dive.BuildConfig;
-import com.divetym.dive.R;
 import com.divetym.dive.activities.CourseDetailsActivity;
-import com.divetym.dive.activities.base.AuthenticatedActivity;
-import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.adapters.CourseListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
-import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.response.DiveShopCourseListResponse;
-import com.divetym.dive.rest.ApiClient;
-import com.divetym.dive.rest.ApiInterface;
 import com.divetym.dive.view.ToastAlert;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,11 +50,13 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
                 .enqueue(new Callback<DiveShopCourseListResponse>() {
                     @Override
                     public void onResponse(Call<DiveShopCourseListResponse> call, Response<DiveShopCourseListResponse> response) {
+                        showProgress(false);
                         onRequestResponse(response.body());
                     }
 
                     @Override
                     public void onFailure(Call<DiveShopCourseListResponse> call, Throwable t) {
+                        showProgress(false);
                         Log.e(TAG, "getDiveShopCourses onFailiure: " + t.getMessage());
                         if (BuildConfig.DEBUG) {
                             Log.e(TAG, call.request().toString());

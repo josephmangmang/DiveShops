@@ -3,6 +3,7 @@ package com.divetym.dive.fragments.base;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,6 +42,8 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected RecyclerView mRecyclerView;
     @BindView(R.id.text_empty)
     protected RobotoTextView mEmptyText;
+    @BindView(R.id.progress)
+    ContentLoadingProgressBar mProgressBar;
     protected Adapter mAdapter;
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
@@ -91,6 +94,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
             ((AuthenticatedActivity) mContext).logOut();
             return;
         }
+        showProgress(true);
         requestData();
     }
 
@@ -101,9 +105,11 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected void setEmpty(boolean empty) {
         mEmptyText.setVisibility(empty ? View.VISIBLE : View.GONE);
     }
-    protected void setEmptyTextMessage(String message){
+
+    protected void setEmptyTextMessage(String message) {
         mEmptyText.setText(message);
     }
+
     @Override
     public void onLoadMore(int totalItemCount) {
         Log.d(TAG, "onLoadMore: totalItemCount = " + totalItemCount);
@@ -119,5 +125,13 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     @Override
     public void onActionClick(DataType object, View view) {
 
+    }
+
+    public void showProgress(boolean show) {
+        if (show) {
+            mProgressBar.show();
+        } else {
+            mProgressBar.hide();
+        }
     }
 }

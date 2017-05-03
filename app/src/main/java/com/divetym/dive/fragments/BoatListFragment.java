@@ -50,11 +50,13 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
                 .enqueue(new Callback<BoatListResponse>() {
                     @Override
                     public void onResponse(Call<BoatListResponse> call, Response<BoatListResponse> response) {
+                        showProgress(false);
                         onRequestResponse(response.body());
                     }
 
                     @Override
                     public void onFailure(Call<BoatListResponse> call, Throwable t) {
+                        showProgress(false);
                         if (BuildConfig.DEBUG) {
                             Log.e(TAG, call.request().toString());
                             t.printStackTrace();
