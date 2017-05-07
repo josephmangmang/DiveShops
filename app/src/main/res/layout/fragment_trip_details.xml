@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Time:"
+            android:textSize="@dimen/roboto_title_medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/dummy_time"
+            android:textSize="@dimen/roboto_title_medium"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/text_label_time"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Date:"
+            android:textSize="@dimen/roboto_title_medium"
+            app:layout_constraintRight_toLeftOf="@+id/text_date"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/dummy_date"
+            android:textSize="@dimen/roboto_title_medium"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Location:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_time" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_location"
+            app:layout_constraintLeft_toRightOf="@+id/text_label_location"
+            app:layout_constraintTop_toBottomOf="@+id/text_time" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_guides"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Guides:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_location" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_guides"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_guides"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_guides" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_group_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Group Size:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_guides" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_group_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_group_size"
+            app:layout_constraintLeft_toRightOf="@+id/text_label_group_size"
+            app:layout_constraintTop_toBottomOf="@+id/text_guides" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_remaining_slot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Remaining Slots:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_group_size" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_remaining_slot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="7"
+            app:layout_constraintLeft_toRightOf="@+id/text_label_remaining_slot"
+            app:layout_constraintTop_toBottomOf="@+id/text_group_size" />
+
+        <com.divetym.dive.view.ListPreviewLayout
+            android:id="@+id/preview_trip_boats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_remaining_slot" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Total Price:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preview_trip_boats" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_price"
+            app:layout_constraintLeft_toRightOf="@+id/text_label_total_price"
+            app:layout_constraintTop_toBottomOf="@+id/preview_trip_boats" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_price_summary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_price_summary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_total_price" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Guests:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_price_summary" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_guests"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_guests"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_label_guest" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

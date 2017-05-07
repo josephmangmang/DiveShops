@@ -52,4 +52,11 @@
     <string name="message_empty_list">No item found</string>
     <string name="message_empty_search">No dive site found</string>
     <string name="action_add_trip">Add trip</string>
+    <string name="label_time">Time</string>
+    <string name="dummy_location">Balicasag, Alona, Panglao Bohol</string>
+    <string name="dummy_guides">1. Joseph Mangmang\n2. Alex Zo</string>
+    <string name="dummy_group_size">9</string>
+    <string name="action_edit">Edit</string>
+    <string name="dummy_price_summary">Per Dive: P1,200\nEquipement: P300\nEnvironmental Fee: P100\nGasoline Fee: P200</string>
+    <string name="dummy_guests">1. Joseph Mangmang\n2. Joshua Lee\n3. Hanna Chan</string>
 </resources>

@@ -33,6 +33,7 @@
         <activity
             android:name=".activities.DailyTripActivity"
             android:label="@string/title_daily_trips" />
+        <activity android:name=".activities.TripDetailsActivity" />
     </application>
 
 </manifest>

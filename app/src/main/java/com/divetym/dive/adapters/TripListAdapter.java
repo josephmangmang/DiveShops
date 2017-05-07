@@ -40,7 +40,7 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
         holder.tvDate.setText(object.getDateOnly());
         holder.tvDiveSite.setText(object.getDiveSites());
         holder.tvPrice.setText(object.getPrice().toString());
-        holder.tvTime.setText(object.getTime());
+        holder.tvTime.setText(object.getTimeOnly());
     }
 }
 

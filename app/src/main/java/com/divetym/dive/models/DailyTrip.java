@@ -49,6 +49,7 @@ public class DailyTrip implements Parcelable {
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
     private SimpleDateFormat mTimeFormat = new SimpleDateFormat("H:m");
     private Date mDate;
+    private List<ListPreview> mBoatPreviews;
 
     public DailyTrip() {
     }
@@ -205,7 +206,7 @@ public class DailyTrip implements Parcelable {
         return sitesBuilder.toString();
     }
 
-    public String getDateOnly() {// 2017-03-23 18:39:00
+    public String getDateOnly() {// 2017-03-23
         if (mDate == null) {
             try {
                 mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
@@ -218,7 +219,7 @@ public class DailyTrip implements Parcelable {
 
     }
 
-    public String getTime() {
+    public String getTimeOnly() {
         if (mDate == null) {
             try {
                 mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
@@ -228,6 +229,47 @@ public class DailyTrip implements Parcelable {
             }
         }
         return mTimeFormat.format(mDate).toLowerCase();
+    }
+
+    public String getGuestNames() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (guests != null) {
+            for (int i = 0; i < guests.size(); i++) {
+                stringBuilder.append(i + 1 + ". " + guests.get(i).getName());
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    public String getGuideNames() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (guides != null) {
+            for (int i = 0; i < guides.size(); i++) {
+                stringBuilder.append(i + 1 + ". " + guides.get(i).getGuideName());
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    public int getRemainingSlot() {
+        int totalGuest = guests != null ? guests.size() : 0;
+        int remainintSlot = groupSize - totalGuest;
+        return remainintSlot;
+    }
+
+    public List<ListPreview> getBoatPreviews() {
+        if (boats != null && boats.size() > 0) {
+            mBoatPreviews = new ArrayList<>();
+            for (int i = 0; i < boats.size(); i++) {
+                DailyTripBoat boat = boats.get(i);
+                ListPreview listPreview = new ListPreview(i, boat.getName(), "VIEW", boat.getImageUrl());
+                mBoatPreviews.add(listPreview);
+            }
+        }else{
+            mBoatPreviews = new ArrayList<>();
+        }
+        return mBoatPreviews;
     }
 
     @Override
@@ -298,4 +340,5 @@ public class DailyTrip implements Parcelable {
             return new DailyTrip[size];
         }
     };
+
 }

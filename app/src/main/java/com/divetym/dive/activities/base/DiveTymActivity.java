@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -77,6 +78,11 @@ public class DiveTymActivity extends AppCompatActivity {
     }
 
     public void setTitle(String title) {
+        super.setTitle(title);
+        getSupportActionBar().setTitle(title);
+    }
+
+    public void setTitle(@StringRes int title) {
         super.setTitle(title);
         getSupportActionBar().setTitle(title);
     }

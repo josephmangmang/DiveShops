@@ -47,7 +47,9 @@ public class ListPreviewLayout extends RelativeLayout {
     }
 
     private void initialize(Context context) {
-        mContext = (DiveTymActivity) context;
+        if(!isInEditMode()) {
+            mContext = (DiveTymActivity) context;
+        }
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_list_preview, this, true);
         tvPreviewTitle = (RobotoTextView) findViewById(R.id.text_preview_title);

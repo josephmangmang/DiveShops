@@ -1,10 +1,12 @@
 package com.divetym.dive.fragments;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.activities.TripDetailsActivity;
 import com.divetym.dive.adapters.TripListAdapter;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.DailyTrip;
@@ -88,9 +90,9 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     protected void onRequestResponse(DailyTripListResponse response) {
         if (response != null && !response.isError()) {
             Log.d(TAG, response.toString());
-            if(reset) {
+            if (reset) {
                 mAdapter.replaceData(response.getDailyTrips());
-            }else{
+            } else {
                 mAdapter.addData(response.getDailyTrips());
             }
         } else if (response != null) {
@@ -103,5 +105,6 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     public void onItemClick(DailyTrip object, View view) {
         super.onItemClick(object, view);
         Log.d(TAG, "onItemClick : " + object.toString());
+        TripDetailsActivity.launch(mContext, object);
     }
 }
