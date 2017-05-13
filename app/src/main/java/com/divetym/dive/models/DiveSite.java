@@ -3,6 +3,7 @@ package com.divetym.dive.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,11 +11,9 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DiveSite implements Parcelable {
+public class DiveSite extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.DIVE_SITE_ID)
     private int diveSiteId;
-    @SerializedName(ApiConstant.NAME)
-    private String name;
     @SerializedName(ApiConstant.DESCRIPTION)
     private String description;
     @SerializedName(ApiConstant.LATITUDE)

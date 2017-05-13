@@ -75,7 +75,7 @@ public class DiveShopFragment extends DiveTymFragment {
     };
     private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
         @Override
-        public void onItemClick(ListPreview object, View view) {
+        public void onItemClick(ListPreview object, View view, int i) {
             Log.d(TAG, "onItemClick " + object.toString());
             CourseDetailsActivity.launch(mContext, mDiveShop.getCourses().get(object.getPosition()));
         }
@@ -88,7 +88,7 @@ public class DiveShopFragment extends DiveTymFragment {
 
     private BaseRecyclerAdapter.ItemClickListener mBoatItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
         @Override
-        public void onItemClick(ListPreview object, View view) {
+        public void onItemClick(ListPreview object, View view, int i) {
             Log.d(TAG, "onItemClick " + object.toString());
             BoatDetailsActivity.launch(mContext, mDiveShop.getBoats().get(object.getPosition()));
         }

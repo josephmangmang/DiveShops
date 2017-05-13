@@ -57,7 +57,7 @@ public class TripDetailsFragment extends DiveTymFragment {
     
     private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
         @Override
-        public void onItemClick(ListPreview object, View view) {
+        public void onItemClick(ListPreview object, View view, int i) {
 
         }
 

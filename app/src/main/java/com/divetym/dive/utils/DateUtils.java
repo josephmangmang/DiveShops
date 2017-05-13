@@ -20,4 +20,9 @@ public class DateUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.format(date);
     }
+
+    public static String formatDisplayDateTime(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd yyyy hh:mm a");
+        return simpleDateFormat.format(date);
+    }
 }

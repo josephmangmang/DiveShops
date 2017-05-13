@@ -118,7 +118,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     }
 
     @Override
-    public void onItemClick(DataType object, View view) {
+    public void onItemClick(DataType object, View view, int i) {
 
     }
 

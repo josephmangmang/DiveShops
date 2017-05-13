@@ -74,7 +74,7 @@ public abstract class EndlessListAdapter<DataType> extends BaseRecyclerAdapter<R
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_ITEM) {
-            onBindViewHolder(holder, getItem(position));
+            onBindViewHolder(holder, getItem(position), position);
         } else {
             Log.w(TAG, "onBindViewHolder: progress view");
         }
@@ -83,7 +83,7 @@ public abstract class EndlessListAdapter<DataType> extends BaseRecyclerAdapter<R
     protected abstract RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent);
 
 
-    public abstract void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DataType object);
+    public abstract void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DataType object, int position);
 
     @Override
     public int getItemViewType(int position) {

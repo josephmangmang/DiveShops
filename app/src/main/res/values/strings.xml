@@ -59,4 +59,17 @@
     <string name="action_edit">Edit</string>
     <string name="dummy_price_summary">Per Dive: P1,200\nEquipement: P300\nEnvironmental Fee: P100\nGasoline Fee: P200</string>
     <string name="dummy_guests">1. Joseph Mangmang\n2. Joshua Lee\n3. Hanna Chan</string>
+    <string name="hint_group_size">Group Size</string>
+    <string name="hint_time">Time</string>
+    <string name="dummy_date_time">February 4, 2017 8:00AM</string>
+    <string name="hint_number_of_dive">Number of Dive</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_price_notes">Price Notes</string>
+    <string name="label_add_more">Add More</string>
+    <string name="title_dive_sites">Dive Sites</string>
+    <string name="title_guides">Guides</string>
+    <string name="title_create_trip">Create Trip</string>
+    <string name="hint_search">Search</string>
+    <string name="hint_search_dive_site">Search Dive Site</string>
+    <string name="action_done">Done</string>
 </resources>

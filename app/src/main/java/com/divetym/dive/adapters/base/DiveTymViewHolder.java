@@ -16,6 +16,7 @@ public class DiveTymViewHolder<DataType> extends RecyclerView.ViewHolder impleme
     public BaseRecyclerAdapter.ItemClickListener<DataType> mItemClickListener;
     public DataType mData;
     protected DiveTymActivity mContext;
+    public int position;
 
     public DiveTymViewHolder(DiveTymActivity context, View itemView) {
         super(itemView);
@@ -28,7 +29,7 @@ public class DiveTymViewHolder<DataType> extends RecyclerView.ViewHolder impleme
         if (mItemClickListener != null) {
             if (view.getId() == R.id.root) {
                 // this is a root of item view
-                mItemClickListener.onItemClick(mData, view);
+                mItemClickListener.onItemClick(mData, view, position);
             } else {
                 // this is a action button
                 mItemClickListener.onActionClick(mData, view);

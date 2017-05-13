@@ -3,6 +3,7 @@ package com.divetym.dive.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,13 +11,11 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DailyTripGuide implements Parcelable {
+public class DailyTripGuide extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.DAILY_TRIP_GUIDE_ID)
     private int dailyTripGuideId;
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
-    @SerializedName(ApiConstant.GUIDE_NAME)
-    private String guideName;
 
     public DailyTripGuide() {
     }
@@ -24,7 +23,7 @@ public class DailyTripGuide implements Parcelable {
     public DailyTripGuide(int dailyTripGuideId, int dailyTripId, String guideName) {
         this.dailyTripGuideId = dailyTripGuideId;
         this.dailyTripId = dailyTripId;
-        this.guideName = guideName;
+        this.name = guideName;
     }
 
     public int getDailyTripGuideId() {
@@ -44,11 +43,11 @@ public class DailyTripGuide implements Parcelable {
     }
 
     public String getGuideName() {
-        return guideName;
+        return name;
     }
 
     public void setGuideName(String guideName) {
-        this.guideName = guideName;
+        this.name = guideName;
     }
 
     @Override
@@ -56,7 +55,7 @@ public class DailyTripGuide implements Parcelable {
         return "DailyTripGuide{" +
                 "dailyTripGuideId=" + dailyTripGuideId +
                 ", dailyTripId=" + dailyTripId +
-                ", guideName='" + guideName + '\'' +
+                ", guideName='" + name + '\'' +
                 '}';
     }
 
@@ -69,13 +68,13 @@ public class DailyTripGuide implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.dailyTripGuideId);
         dest.writeInt(this.dailyTripId);
-        dest.writeString(this.guideName);
+        dest.writeString(this.name);
     }
 
     protected DailyTripGuide(Parcel in) {
         this.dailyTripGuideId = in.readInt();
         this.dailyTripId = in.readInt();
-        this.guideName = in.readString();
+        this.name = in.readString();
     }
 
     public static final Parcelable.Creator<DailyTripGuide> CREATOR = new Parcelable.Creator<DailyTripGuide>() {

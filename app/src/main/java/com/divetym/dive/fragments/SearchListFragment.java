@@ -97,7 +97,7 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
     }
 
     @Override
-    public void onItemClick(DiveSite object, View view) {
+    public void onItemClick(DiveSite object, View view, int i) {
         if (mOnRefreshTripListener != null) {
             mOnRefreshTripListener.onDiveSiteChanged(object);
         }

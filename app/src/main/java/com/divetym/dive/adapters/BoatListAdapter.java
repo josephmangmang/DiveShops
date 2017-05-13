@@ -34,7 +34,7 @@ public class BoatListAdapter extends EndlessListAdapter<Boat> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Boat boat) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Boat boat, int i) {
         BoatHolder holder = (BoatHolder) viewHolder;
         holder.mData = boat;
         holder.mItemClickListener = mItemClickListener;
@@ -44,25 +44,25 @@ public class BoatListAdapter extends EndlessListAdapter<Boat> {
 }
 
 class BoatHolder extends DiveTymViewHolder {
-    ImageView ivThumbnail;
-    RobotoTextView tvTitle;
-    RobotoTextView tvDescription;
+    ImageView thumbnail;
+    RobotoTextView title;
+    RobotoTextView description;
 
     public BoatHolder(DiveTymActivity context, View itemView) {
         super(context, itemView);
-        ivThumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
-        tvTitle = (RobotoTextView) itemView.findViewById(R.id.text_title);
-        tvDescription = (RobotoTextView) itemView.findViewById(R.id.text_description);
+        thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
+        title = (RobotoTextView) itemView.findViewById(R.id.text_title);
+        description = (RobotoTextView) itemView.findViewById(R.id.text_description);
         itemView.setOnClickListener(this);
     }
 
     public void setData(String title, String description, String imgUrl) {
-        tvTitle.setText(title);
-        tvDescription.setText(description);
+        this.title.setText(title);
+        this.description.setText(description);
         Picasso.with(mContext)
                 .load(imgUrl)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(ivThumbnail);
+                .into(thumbnail);
     }
 }

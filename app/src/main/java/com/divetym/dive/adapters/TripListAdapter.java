@@ -33,26 +33,26 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DailyTrip object) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DailyTrip object, int i) {
         TripHolder holder = (TripHolder) viewHolder;
         holder.mData = object;
         holder.mItemClickListener = mItemClickListener;
-        holder.tvDate.setText(object.getDateOnly());
-        holder.tvDiveSite.setText(object.getDiveSites());
-        holder.tvPrice.setText(object.getPrice().toString());
-        holder.tvTime.setText(object.getTimeOnly());
+        holder.date.setText(object.getDateOnly());
+        holder.diveSite.setText(object.getDiveSites());
+        holder.price.setText(object.getPrice().toString());
+        holder.time.setText(object.getTimeOnly());
     }
 }
 
 class TripHolder extends DiveTymViewHolder<DailyTrip> {
     @BindView(R.id.text_date)
-    RobotoTextView tvDate;
+    RobotoTextView date;
     @BindView(R.id.text_dive_site)
-    RobotoTextView tvDiveSite;
+    RobotoTextView diveSite;
     @BindView(R.id.text_price)
-    RobotoTextView tvPrice;
+    RobotoTextView price;
     @BindView(R.id.text_time)
-    RobotoTextView tvTime;
+    RobotoTextView time;
 
     public TripHolder(DiveTymActivity context, View itemView) {
         super(context, itemView);

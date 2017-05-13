@@ -102,8 +102,8 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     }
 
     @Override
-    public void onItemClick(DailyTrip object, View view) {
-        super.onItemClick(object, view);
+    public void onItemClick(DailyTrip object, View view, int i) {
+        super.onItemClick(object, view, i);
         Log.d(TAG, "onItemClick : " + object.toString());
         TripDetailsActivity.launch(mContext, object);
     }

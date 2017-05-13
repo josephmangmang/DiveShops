@@ -3,6 +3,8 @@
     package="com.divetym.dive">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".DiveTymApplication"
         android:allowBackup="true"
@@ -34,6 +36,9 @@
             android:name=".activities.DailyTripActivity"
             android:label="@string/title_daily_trips" />
         <activity android:name=".activities.TripDetailsActivity" />
+        <activity
+            android:name=".activities.CreateTripActivity"
+            android:label="@string/title_create_trip" />
     </application>
 
 </manifest>

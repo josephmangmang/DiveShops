@@ -47,11 +47,10 @@ public class ListPreviewLayout extends RelativeLayout {
     }
 
     private void initialize(Context context) {
-        if(!isInEditMode()) {
+        if (!isInEditMode()) {
             mContext = (DiveTymActivity) context;
         }
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.view_list_preview, this, true);
+        inflate(context, R.layout.view_list_preview, this);
         tvPreviewTitle = (RobotoTextView) findViewById(R.id.text_preview_title);
         tvPreviewMore = (RobotoTextView) findViewById(R.id.text_preview_more);
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
@@ -76,7 +75,8 @@ public class ListPreviewLayout extends RelativeLayout {
     public void setMoreClickListener(OnClickListener moreClickListener) {
         tvPreviewMore.setOnClickListener(moreClickListener);
     }
-    public void setItemClickListener(BaseRecyclerAdapter.ItemClickListener itemClickListener){
+
+    public void setItemClickListener(BaseRecyclerAdapter.ItemClickListener itemClickListener) {
         mAdapter.setItemClickListener(itemClickListener);
     }
 }

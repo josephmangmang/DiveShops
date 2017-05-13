@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
-import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.adapters.base.EndlessListAdapter;
 import com.divetym.dive.models.DiveSite;
@@ -33,21 +32,21 @@ public class SearchListAdapter extends EndlessListAdapter<DiveSite> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DiveSite object) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DiveSite object, int position) {
         SearchHolder holder = (SearchHolder) viewHolder;
         holder.mData = object;
         holder.mItemClickListener = mItemClickListener;
-        holder.tvTitle.setText(holder.mData.getName());
+        holder.title.setText(holder.mData.getName());
     }
 }
 
 class SearchHolder extends DiveTymViewHolder<DiveSite> {
 
-    RobotoTextView tvTitle;
+    RobotoTextView title;
 
     public SearchHolder(DiveTymActivity context, View itemView) {
         super(context, itemView);
-        tvTitle = (RobotoTextView) itemView.findViewById(R.id.text_title);
+        title = (RobotoTextView) itemView.findViewById(R.id.text_title);
         itemView.setOnClickListener(this);
     }
 }

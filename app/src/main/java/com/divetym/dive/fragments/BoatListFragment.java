@@ -79,7 +79,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
 
     @Override
-    public void onItemClick(Boat object, View view) {
+    public void onItemClick(Boat object, View view, int position) {
         Log.d(TAG, "onItemClick " + object.toString());
         BoatDetailsActivity.launch(mContext, object);
     }

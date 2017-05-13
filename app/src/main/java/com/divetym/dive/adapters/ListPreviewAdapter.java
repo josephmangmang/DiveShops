@@ -42,30 +42,30 @@ public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewHolder, L
 }
 
 class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
-    ImageView imgThumbnail;
-    RobotoTextView tvTitle;
-    RobotoTextView tvSubtitle;
+    ImageView thumbnail;
+    RobotoTextView title;
+    RobotoTextView subtitle;
     RobotoTextView btnAction;
 
     public ListPreviewHolder(DiveTymActivity context, View view) {
         super(context, view);
-        tvTitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_title);
-        tvSubtitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_subtitle);
-        imgThumbnail = (ImageView) view.findViewById(R.id.image_preview_background);
+        title = (RobotoTextView) view.findViewById(R.id.text_preview_item_title);
+        subtitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_subtitle);
+        thumbnail = (ImageView) view.findViewById(R.id.image_preview_background);
         btnAction = (RobotoTextView) view.findViewById(R.id.text_button_preview_item_action);
         btnAction.setOnClickListener(this);
         view.setOnClickListener(this);
     }
 
     public void setData(String title, String subtitle, String action, String imageUrl) {
-        this.tvTitle.setText(title);
-        this.tvSubtitle.setText(subtitle);
+        this.title.setText(title);
+        this.subtitle.setText(subtitle);
         this.btnAction.setText(action);
         Picasso.with(mContext)
                 .load(imageUrl)
                 .error(R.drawable.dummy_image_error)
                 .placeholder(R.drawable.dummy_image_preview)
-                .into(imgThumbnail);
+                .into(thumbnail);
     }
 
 }
