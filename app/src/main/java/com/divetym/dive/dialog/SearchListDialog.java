@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -54,8 +55,8 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     ImageButton btnSearch;
     @BindView(R.id.edit_search)
     EditText etSearch;
-    @BindView(R.id.text_button_done)
-    TextView mDone;
+    @BindView(R.id.button_done)
+    Button mDone;
     @BindView(R.id.list)
     RecyclerView mRecyclerView;
 

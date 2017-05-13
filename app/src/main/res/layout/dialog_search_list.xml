@@ -50,6 +50,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
+        android:layout_above="@+id/button_done"
         android:layout_height="match_parent"
         android:layout_below="@+id/search_expanded_box" />
 
@@ -63,14 +64,13 @@
         android:visibility="gone"
         app:typeface="roboto_regular" />
 
-    <TextView
-        android:id="@+id/text_button_done"
+    <Button
+        android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
+        android:background="@null"
         android:text="@string/action_done"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
