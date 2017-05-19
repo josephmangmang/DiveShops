@@ -61,7 +61,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
                             Log.e(TAG, call.request().toString());
                             t.printStackTrace();
                         }
-                        Log.e(TAG, "requestData onFailiure: " + t.getMessage());
+                        Log.e(TAG, "getData onFailiure: " + t.getMessage());
                     }
                 });
     }

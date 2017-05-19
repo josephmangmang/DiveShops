@@ -12,6 +12,8 @@ import com.divetym.dive.models.response.DiveShopCourseResponse;
 import com.divetym.dive.models.response.DiveShopListResponse;
 import com.divetym.dive.models.response.DiveShopResponse;
 import com.divetym.dive.models.response.DiveSiteListResponse;
+import com.divetym.dive.models.response.GuideListResponse;
+import com.divetym.dive.models.response.GuideResponse;
 import com.divetym.dive.models.response.UserResponse;
 import com.divetym.dive.models.response.Response;
 
@@ -178,6 +180,17 @@ public interface ApiInterface {
     Call<BoatListResponse> getDiveShopBoats(@Path("shopUid") String shopUid, @Query("offset") int offset);
 
     /**
+     * Get a list of boats base on name
+     *
+     * @param shopUid
+     * @param offset
+     * @param searchName
+     * @return
+     */
+    @GET("diveshops/{shopUid}/boats")
+    Call<BoatListResponse> getDiveShopBoats(@Path("shopUid") String shopUid, @Query("offset") int offset, @Query("q") String searchName);
+
+    /**
      * Update boat
      *
      * @param shopUid
@@ -248,5 +261,62 @@ public interface ApiInterface {
                                             @Field("group_size") int groupSize, @Field("number_of_dive") int numberOfDives,
                                             @Field("date") String date, @Field("price") double price, @Field("price_note") String priceNote);
 
+    /**
+     * Get list of diveshop guides
+     *
+     * @param shopUid
+     * @param name
+     * @param offset
+     * @return
+     */
+    @GET("diveshops/{shopUid}/guides")
+    Call<GuideListResponse> getGuides(@Path("shopUid") String shopUid, @Query("q") String name, @Query("offset") int offset);
 
+    /**
+     * Get list of diveshop guides
+     * @param shopUid
+     * @param offset
+     * @return
+     */
+    @GET("diveshops/{shopUid}/guides")
+    Call<GuideListResponse> getGuides(@Path("shopUid") String shopUid,  @Query("offset") int offset);
+
+    /**
+     * Get guide
+     *
+     * @param shopUid
+     * @param guideId
+     * @return
+     */
+    @GET("diveshops/{shopUid}/guides/{guideId}")
+    Call<GuideResponse> getGuide(@Path("shopUid") String shopUid, @Path("guideId") int guideId);
+
+    /**
+     * Add new Guide
+     *
+     * @param shopUid
+     * @param name
+     * @return
+     */
+    @POST("diveshops/{shopUid}/guides")
+    Call<GuideResponse> addGuide(@Path("shopUid") String shopUid, @Query("name") String name);
+
+    /**
+     * Update Guide
+     *
+     * @param shopUid
+     * @param name
+     * @return
+     */
+    @PUT("diveshops/{shopUid}/guides/{guideId}")
+    Call<GuideResponse> updateGuide(@Path("shopUid") String shopUid, @Query("name") String name);
+
+    /**
+     * Delete Guide
+     *
+     * @param shopUid
+     * @return
+     */
+    @DELETE("diveshops/{shopUid}/guides/{guideId}")
+    Call<Response> deleteGuide(@Path("shopUid") String shopUid);
 }

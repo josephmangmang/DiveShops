@@ -68,7 +68,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
                             Log.e(TAG, call.request().toString());
                             t.printStackTrace();
                         }
-                        Log.e(TAG, "requestData onFailiure: " + t.getMessage());
+                        Log.e(TAG, "getData onFailiure: " + t.getMessage());
                     }
                 });
     }

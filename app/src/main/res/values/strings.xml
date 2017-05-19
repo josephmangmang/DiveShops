@@ -70,6 +70,9 @@
     <string name="title_guides">Guides</string>
     <string name="title_create_trip">Create Trip</string>
     <string name="hint_search">Search</string>
-    <string name="hint_search_dive_site">Search Dive Site</string>
     <string name="action_done">Done</string>
+    <string name="error_no_service_provider">No Service Provider Available</string>
+    <string name="hint_search_boat">Search Boat...</string>
+    <string name="hint_search_guide">Search Guide...</string>
+    <string name="hint_search_dive_site">Search Dive Site...</string>
 </resources>

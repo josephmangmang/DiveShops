@@ -15,8 +15,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.divetym.dive.LocationTracker;
 import com.divetym.dive.R;
+import com.divetym.dive.dialog.BoatsDialog;
 import com.divetym.dive.dialog.DiveSitesDialog;
+import com.divetym.dive.dialog.GuidesDialog;
 import com.divetym.dive.dialog.SearchListDialog;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.Boat;
@@ -55,7 +58,7 @@ public class CreateTripFragment extends DiveTymFragment {
     @BindView(R.id.list_addmore_guide)
     ListAddMoreLayout<DailyTripGuide> mAddMoreLayoutGuides;
 
-    Calendar selectedTime = Calendar.getInstance();
+    private Calendar selectedTime = Calendar.getInstance();
 
     private View.OnClickListener onDiveSiteAddClickListener = new View.OnClickListener() {
         @Override
@@ -83,12 +86,31 @@ public class CreateTripFragment extends DiveTymFragment {
         @Override
         public void onClick(View view) {
             Log.d(TAG, "onBoatAddClickListener");
+            BoatsDialog boatsDialog = new BoatsDialog();
+            boatsDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
+            boatsDialog.setSearchHint(getString(R.string.hint_search_boat));
+            boatsDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<Boat>() {
+                @Override
+                public void onSelectionDone(HashMap<Integer, Boat> selectedItems) {
+                    mAddMoreLayoutBoats.addDataList(new ArrayList<>(selectedItems.values()));
+                }
+            });
+
         }
     };
     private View.OnClickListener onGuideAddClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Log.d(TAG, "onGuideAddClickListener");
+            GuidesDialog guidesDialog = new GuidesDialog();
+            guidesDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
+            guidesDialog.setSearchHint(getString(R.string.hint_search_guide));
+            guidesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<Boat>() {
+                @Override
+                public void onSelectionDone(HashMap<Integer, Boat> selectedItems) {
+                    mAddMoreLayoutBoats.addDataList(new ArrayList<>(selectedItems.values()));
+                }
+            });
         }
     };
     private View.OnClickListener mTimeOnClickListener = new View.OnClickListener() {

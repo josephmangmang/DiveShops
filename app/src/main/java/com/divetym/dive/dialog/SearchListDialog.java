@@ -22,12 +22,10 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.SearchDialogAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
-import com.divetym.dive.interfaces.ItemClickListener;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
-import com.divetym.dive.view.RobotoTextView;
 import com.divetym.dive.view.ToastAlert;
 
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     public static final String TAG = SearchListDialog.class.getSimpleName();
     public static final String BUNDLE_DATA_LIST = "bundle_data_list";
     protected static final int REQUEST_METHOD_SEARCH = 90;
-    protected static final int REQUEST_METHOD_LIST = 90;
+    protected static final int REQUEST_METHOD_LIST = 91;
 
     @BindView(R.id.image_btn_close)
     ImageButton btnClose;
@@ -156,7 +154,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     private void onFirstRequestData() {
         mLastRequestMethod = REQUEST_METHOD_LIST;
         mOffset = 0;
-        requestData();
+        getData();
     }
 
     protected void onCloseClicked() {
@@ -177,15 +175,29 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
         mOnSelectionDoneListener = onSelectionDoneListener;
     }
 
-    protected abstract void onSearchClicked(String query);
+    protected void getData() {
+        if (mLastRequestMethod == REQUEST_METHOD_SEARCH) {
+            searchData(mLastSearchQuery);
+        } else {
+            requestData();
+        }
+    }
+
+    protected  void onSearchClicked(String query){
+        mLastRequestMethod = REQUEST_METHOD_SEARCH;
+        mOffset = 0;
+        searchData(query);
+    }
+
+    protected abstract void searchData(String query);
 
     protected abstract void requestData();
 
     protected abstract void handleResponse(ResponseType response);
 
-    protected abstract void searchData(String query);
 
     protected void handleResponseError(String message) {
+        Log.e(TAG, "Response error: " + message);
         new ToastAlert(getActivity())
                 .setMessage(message)
                 .show();
@@ -194,7 +206,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     @Override
     public void onLoadMore(int totalItemCount) {
         mOffset = totalItemCount;
-        requestData();
+        getData();
     }
 
     @Override
