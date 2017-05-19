@@ -171,7 +171,7 @@ public class DailyTrip implements Parcelable {
         return sites;
     }
 
-    public void setSites(List<DailyTripDiveSite> sites) {
+    public void setDiveSites(List<DailyTripDiveSite> sites) {
         this.sites = sites;
     }
 

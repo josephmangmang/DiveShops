@@ -7,15 +7,19 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.divetym.dive.LocationTracker;
+import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.dialog.BoatsDialog;
 import com.divetym.dive.dialog.DiveSitesDialog;
@@ -23,17 +27,29 @@ import com.divetym.dive.dialog.GuidesDialog;
 import com.divetym.dive.dialog.SearchListDialog;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.Boat;
+import com.divetym.dive.models.DailyTrip;
+import com.divetym.dive.models.DailyTripBoat;
+import com.divetym.dive.models.DailyTripDiveSite;
 import com.divetym.dive.models.DailyTripGuide;
 import com.divetym.dive.models.DiveSite;
+import com.divetym.dive.models.Guide;
+import com.divetym.dive.models.response.DailyTripResponse;
+import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.utils.DateUtils;
 import com.divetym.dive.view.ListAddMoreLayout;
+import com.divetym.dive.view.ToastAlert;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kali_root on 5/8/2017.
@@ -52,13 +68,13 @@ public class CreateTripFragment extends DiveTymFragment {
     @BindView(R.id.edit_price_note)
     EditText etPriceNote;
     @BindView(R.id.list_addmore_site)
-    ListAddMoreLayout<DiveSite> mAddMoreLayoutDiveSite;
+    ListAddMoreLayout<DailyTripDiveSite> mAddMoreLayoutDiveSite;
     @BindView(R.id.list_addmore_boat)
-    ListAddMoreLayout<Boat> mAddMoreLayoutBoats;
+    ListAddMoreLayout<DailyTripBoat> mAddMoreLayoutBoats;
     @BindView(R.id.list_addmore_guide)
     ListAddMoreLayout<DailyTripGuide> mAddMoreLayoutGuides;
 
-    private Calendar selectedTime = Calendar.getInstance();
+    private Calendar selectedTime;
 
     private View.OnClickListener onDiveSiteAddClickListener = new View.OnClickListener() {
         @Override
@@ -74,9 +90,9 @@ public class CreateTripFragment extends DiveTymFragment {
             DiveSitesDialog diveSitesDialog = new DiveSitesDialog();
             diveSitesDialog.show(mContext.getFragmentManager(), DiveSitesDialog.class.getSimpleName());
             diveSitesDialog.setSearchHint(getString(R.string.hint_search_dive_site));
-            diveSitesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DiveSite>() {
+            diveSitesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripDiveSite>() {
                 @Override
-                public void onSelectionDone(HashMap<Integer, DiveSite> selectedItems) {
+                public void onSelectionDone(HashMap<Integer, DailyTripDiveSite> selectedItems) {
                     mAddMoreLayoutDiveSite.addDataList(new ArrayList<>(selectedItems.values()));
                 }
             });
@@ -89,9 +105,9 @@ public class CreateTripFragment extends DiveTymFragment {
             BoatsDialog boatsDialog = new BoatsDialog();
             boatsDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
             boatsDialog.setSearchHint(getString(R.string.hint_search_boat));
-            boatsDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<Boat>() {
+            boatsDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripBoat>() {
                 @Override
-                public void onSelectionDone(HashMap<Integer, Boat> selectedItems) {
+                public void onSelectionDone(HashMap<Integer, DailyTripBoat> selectedItems) {
                     mAddMoreLayoutBoats.addDataList(new ArrayList<>(selectedItems.values()));
                 }
             });
@@ -105,10 +121,10 @@ public class CreateTripFragment extends DiveTymFragment {
             GuidesDialog guidesDialog = new GuidesDialog();
             guidesDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
             guidesDialog.setSearchHint(getString(R.string.hint_search_guide));
-            guidesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<Boat>() {
+            guidesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripGuide>() {
                 @Override
-                public void onSelectionDone(HashMap<Integer, Boat> selectedItems) {
-                    mAddMoreLayoutBoats.addDataList(new ArrayList<>(selectedItems.values()));
+                public void onSelectionDone(HashMap<Integer, DailyTripGuide> selectedItems) {
+                    mAddMoreLayoutGuides.addDataList(new ArrayList<>(selectedItems.values()));
                 }
             });
         }
@@ -150,6 +166,7 @@ public class CreateTripFragment extends DiveTymFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -157,8 +174,8 @@ public class CreateTripFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_trip, container, false);
         ButterKnife.bind(this, view);
-
-        etTime.setText(DateUtils.formatDisplayDateTime(Calendar.getInstance().getTime()));
+        selectedTime = Calendar.getInstance();
+        etTime.setText(DateUtils.formatDisplayDateTime(selectedTime.getTime()));
         etTime.setOnClickListener(mTimeOnClickListener);
 
         mAddMoreLayoutDiveSite.setTitle(getString(R.string.title_dive_sites));
@@ -169,5 +186,96 @@ public class CreateTripFragment extends DiveTymFragment {
         mAddMoreLayoutBoats.setAddClickListener(onBoatAddClickListener);
         mAddMoreLayoutGuides.setAddClickListener(onGuideAddClickListener);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_create_save, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            saveDailyTrip();
+        }
+        return false;
+    }
+
+    private void saveDailyTrip() {
+        boolean error = false;
+        String errorMessage = getString(R.string.error_field_required);
+
+        String dateTime = DateUtils.formatServerDateTime(selectedTime.getTime());
+        String groupSize = etGroupSize.getText().toString();
+        String numberOfDive = etNumberOfDive.getText().toString();
+        String price = etPrice.getText().toString();
+        String priceNote = etPriceNote.getText().toString();
+
+        if (TextUtils.isEmpty(dateTime)) {
+            error = true;
+            etTime.setError(errorMessage);
+        }
+        if (TextUtils.isEmpty(groupSize)) {
+            error = true;
+            etGroupSize.setError(errorMessage);
+        }
+        if (TextUtils.isEmpty(numberOfDive)) {
+            error = true;
+            etNumberOfDive.setError(errorMessage);
+        }
+        if (TextUtils.isEmpty(price)) {
+            error = true;
+            etPrice.setError(errorMessage);
+        }
+        if (TextUtils.isEmpty(priceNote)) {
+            error = true;
+            etPriceNote.setError(errorMessage);
+        }
+
+        List<DailyTripBoat> boats = mAddMoreLayoutBoats.getDataList();
+        List<DailyTripDiveSite> diveSites = mAddMoreLayoutDiveSite.getDataList();
+        List<DailyTripGuide> guides = mAddMoreLayoutGuides.getDataList();
+
+        if (!error && diveSites != null && diveSites.size() == 0) {
+            error = true;
+            new ToastAlert(mContext)
+                    .setMessage(R.string.error_empty_dive_sites)
+                    .show();
+        }
+        if (!error) {
+            DailyTrip dailyTrip = new DailyTrip();
+            dailyTrip.setDate(dateTime);
+            dailyTrip.setNumberOfDive(Integer.parseInt(numberOfDive));
+            dailyTrip.setPrice(new BigDecimal(price));
+            dailyTrip.setPriceNote(priceNote);
+            dailyTrip.setBoats(boats);
+            dailyTrip.setDiveSites(diveSites);
+            dailyTrip.setGuides(guides);
+
+            ApiClient.getApiInterface()
+                    .addDailyTrip(mSessionManager.getDiveShopUid(), dailyTrip)
+                    .enqueue(new Callback<DailyTripResponse>() {
+                        @Override
+                        public void onResponse(Call<DailyTripResponse> call, Response<DailyTripResponse> response) {
+                            Log.d(TAG, "onResponse: " + response.toString());
+                            DailyTripResponse tripResponse = response.body();
+                            if (tripResponse != null) {
+                                new ToastAlert(mContext)
+                                        .setMessage(tripResponse.getMessage())
+                                        .show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DailyTripResponse> call, Throwable t) {
+                            if (BuildConfig.DEBUG) {
+                                t.printStackTrace();
+                            }
+                            new ToastAlert(mContext)
+                                    .setMessage(t.getMessage())
+                                    .show();
+                        }
+                    });
+        }
     }
 }

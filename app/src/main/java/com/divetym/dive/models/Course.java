@@ -3,6 +3,7 @@ package com.divetym.dive.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,35 +11,15 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class Course implements Parcelable {
+public class Course extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.COURSE_ID)
     private int courseId;
-    @SerializedName(ApiConstant.NAME)
-    private String name;
     @SerializedName(ApiConstant.DESCRIPTION)
     private String description;
-    @SerializedName(ApiConstant.PHOTO_COVER)
-    private String photoCoverUrl;
     @SerializedName(ApiConstant.OFFERED_BY)
     private String offeredBy;
 
     public Course() {
-    }
-
-    public Course(int courseId, String name, String description, String photoCoverUrl, String offeredBy) {
-        this.courseId = courseId;
-        this.name = name;
-        this.description = description;
-        this.photoCoverUrl = photoCoverUrl;
-        this.offeredBy = offeredBy;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getCourseId() {
@@ -57,14 +38,6 @@ public class Course implements Parcelable {
         this.description = description;
     }
 
-    public String getPhotoCoverUrl() {
-        return photoCoverUrl;
-    }
-
-    public void setPhotoCoverUrl(String photoCoverUrl) {
-        this.photoCoverUrl = photoCoverUrl;
-    }
-
     public String getOfferedBy() {
         return offeredBy;
     }
@@ -78,7 +51,8 @@ public class Course implements Parcelable {
         return "Course{" +
                 "courseId=" + courseId +
                 ", description=" + description +
-                ", photoCoverUrl='" + photoCoverUrl + '\'' +
+                ", name=" + name +
+                ", image=" + imageUrl +
                 ", offeredBy='" + offeredBy + '\'' +
                 '}';
     }
@@ -90,18 +64,16 @@ public class Course implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.courseId);
-        dest.writeString(this.name);
         dest.writeString(this.description);
-        dest.writeString(this.photoCoverUrl);
         dest.writeString(this.offeredBy);
     }
 
     protected Course(Parcel in) {
+        super(in);
         this.courseId = in.readInt();
-        this.name = in.readString();
         this.description = in.readString();
-        this.photoCoverUrl = in.readString();
         this.offeredBy = in.readString();
     }
 

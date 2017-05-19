@@ -29,7 +29,7 @@ public class CourseDetailsActivity extends DetailsActivity {
             setToolbarSubtitle(course.getPrice().toString());
             tvBody.setText(course.getDescription());
             Picasso.with(this)
-                    .load(course.getPhotoCoverUrl())
+                    .load(course.getImageUrl())
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(ivToolbarBackground);

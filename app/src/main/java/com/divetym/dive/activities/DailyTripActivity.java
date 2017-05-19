@@ -48,13 +48,14 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         ButterKnife.bind(this);
         showBackButton(true);
 
-        mFragment = initFragment(R.id.content, new TripListFragment());
-
         mDateRangeLayout.setContext(this);
         mDateRangeLayout.setOnRefreshTripListener(this);
 
         mStartDate = mDateRangeLayout.getStartCalendar().getTime();
         mEndDate = mDateRangeLayout.getEndCalendar().getTime();
+
+        mFragment = initFragment(R.id.content, TripListFragment.getInstance(mStartDate, mEndDate));
+
 
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override

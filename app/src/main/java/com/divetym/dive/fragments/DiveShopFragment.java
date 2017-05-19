@@ -188,7 +188,7 @@ public class DiveShopFragment extends DiveTymFragment {
         MainActivity mainActivity = ((MainActivity) mContext);
         mainActivity.setToolbarTitle(diveShop.getName());
         mainActivity.setToolbarSubtitle(diveShop.getAddress());
-        mainActivity.setToolbarBackground(diveShop.getPhotoCoverUrl());
+        mainActivity.setToolbarBackground(diveShop.getImageUrl());
         tvDescription.setText(diveShop.getDescription());
         tvPricePerDive.setText(diveShop.getPricePerDive().toString());
         tvSpecialService.setText(diveShop.getSpecialService());

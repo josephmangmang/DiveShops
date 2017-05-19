@@ -78,4 +78,7 @@ public class ListAddMoreLayout<DataType extends ThumbnailEntity> extends LinearL
         mAdapter.setAddClickListener(addClickListener);
     }
 
+    public List<DataType> getDataList() {
+        return mAdapter.getDataList();
+    }
 }

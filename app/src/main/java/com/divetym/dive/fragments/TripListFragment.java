@@ -1,7 +1,10 @@
 package com.divetym.dive.fragments;
 
+import android.app.Fragment;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -28,15 +31,37 @@ import retrofit2.Response;
 
 public class TripListFragment extends DiveTymListFragment<TripListAdapter, DailyTrip, DailyTripListResponse> {
     public static final String TAG = TripListFragment.class.getSimpleName();
+    private static final String BUNDLE_START_DATE = "bundle_start_date";
+    private static final String BUNDLE_END_DATE = "bundle_end_date";
     private String mStartDate;
     private String mEndDate;
     private int mDiveSiteId;
     private boolean reset;
 
+    public static TripListFragment getInstance(Date startDate, Date endDate) {
+        TripListFragment fragment = new TripListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_START_DATE,  DateUtils.formatServerDate(startDate));
+        bundle.putString(BUNDLE_END_DATE,  DateUtils.formatServerDate(endDate));
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     public interface OnRefreshTripListener {
         void onDateRangedChanged(Calendar startDate, Calendar endDate);
 
         void onDiveSiteChanged(DiveSite diveSite);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        String startDate = args.getString(BUNDLE_START_DATE);
+        String endDate = args.getString(BUNDLE_END_DATE);
+        mDiveSiteId = -1;
+        mStartDate = startDate;
+        mEndDate = endDate;
     }
 
     @Override
@@ -57,6 +82,9 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
                     public void onResponse(Call<DailyTripListResponse> call, Response<DailyTripListResponse> response) {
+                        if(BuildConfig.DEBUG){
+                            Log.d(TAG, "onResponse: " + response.toString());
+                        }
                         showProgress(false);
                         onRequestResponse(response.body());
                     }

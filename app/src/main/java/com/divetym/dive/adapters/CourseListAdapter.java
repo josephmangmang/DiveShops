@@ -41,7 +41,7 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
         CourseHolder itemHolder = (CourseHolder) viewHolder;
         itemHolder.mData = course;
         itemHolder.mItemClickListener = mItemClickListener;
-        itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getPhotoCoverUrl());
+        itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getImageUrl());
     }
 }
 

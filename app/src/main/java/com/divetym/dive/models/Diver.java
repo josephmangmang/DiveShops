@@ -13,8 +13,6 @@ import com.google.gson.annotations.SerializedName;
 public class Diver extends User implements Parcelable {
     @SerializedName(ApiConstant.DIVER_ID)
     private String diverUid;
-    @SerializedName(ApiConstant.NAME)
-    private String name;
 
     public Diver() {
     }
@@ -29,14 +27,6 @@ public class Diver extends User implements Parcelable {
 
     public void setDiverUid(String diverUid) {
         this.diverUid = diverUid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -54,16 +44,16 @@ public class Diver extends User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeString(this.diverUid);
-        dest.writeString(this.name);
     }
 
     protected Diver(Parcel in) {
+        super(in);
         this.diverUid = in.readString();
-        this.name = in.readString();
     }
 
-    public static final Parcelable.Creator<Diver> CREATOR = new Parcelable.Creator<Diver>() {
+    public static final Creator<Diver> CREATOR = new Creator<Diver>() {
         @Override
         public Diver createFromParcel(Parcel source) {
             return new Diver(source);

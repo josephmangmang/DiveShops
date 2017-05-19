@@ -3,6 +3,7 @@ package com.divetym.dive.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class User implements Parcelable {
+public class User extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.USER_ID)
     private String userUid;
     @SerializedName(ApiConstant.EMAIL)
@@ -114,6 +115,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeString(this.userUid);
         dest.writeString(this.email);
         dest.writeString(this.createdTime);
@@ -122,6 +124,7 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
+        super(in);
         this.userUid = in.readString();
         this.email = in.readString();
         this.createdTime = in.readString();
@@ -130,4 +133,15 @@ public class User implements Parcelable {
         this.authKey = in.readString();
     }
 
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

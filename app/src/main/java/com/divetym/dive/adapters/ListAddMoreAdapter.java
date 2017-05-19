@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.commons.collections4.list.SetUniqueList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -82,7 +83,7 @@ public class ListAddMoreAdapter<DataType extends ThumbnailEntity> extends BaseRe
 
     @Override
     public int getItemCount() {
-        return mDataList.size();
+        return mUniqueDataList.size();
     }
 
     @Override
@@ -119,7 +120,11 @@ public class ListAddMoreAdapter<DataType extends ThumbnailEntity> extends BaseRe
         this.mAddClickListener = addClickListener;
     }
 
-
+    public List<DataType> getDataList(){
+        List<DataType> list = new ArrayList<>(mDataList);
+        list.remove(null);
+        return list;
+    }
 }
 
 class ListAddMoreHolder<DataType extends ThumbnailEntity> extends DiveTymViewHolder {

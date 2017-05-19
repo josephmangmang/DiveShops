@@ -20,12 +20,8 @@ public class DiveShop extends User implements Parcelable {
 
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private String diveShopUid;
-    @SerializedName(ApiConstant.NAME)
-    private String name;
     @SerializedName(ApiConstant.DESCRIPTION)
     private String description;
-    @SerializedName(ApiConstant.PHOTO_COVER)
-    private String photoCoverUrl;
     @SerializedName(ApiConstant.CONTACT_NUMBER)
     private String contactNumber;
     @SerializedName(ApiConstant.ADDRESS)
@@ -47,31 +43,6 @@ public class DiveShop extends User implements Parcelable {
     private List<ListPreview> boatPreviews;
 
     public DiveShop() {
-    }
-
-    public DiveShop(String userId, String email) {
-        super(userId, email, AccountType.Dive_Shop);
-    }
-
-    public DiveShop(String userId, String email, String diveShopUid, String name,
-                    String description, String photoCoverUrl, String contactNumber, String address,
-                    double latitiude, double longitude, BigDecimal pricePerDive,
-                    String specialService, List<DiveShopCourse> courses, List<Boat> boats) {
-        super(userId, email, AccountType.Dive_Shop);
-        this.diveShopUid = diveShopUid;
-        this.name = name;
-        this.description = description;
-        this.photoCoverUrl = photoCoverUrl;
-        this.contactNumber = contactNumber;
-        this.address = address;
-        this.latitiude = latitiude;
-        this.longitude = longitude;
-        this.pricePerDive = pricePerDive;
-        this.specialService = specialService;
-        this.courses = courses;
-        this.boats = boats;
-        prepareBoatPreviews(boats);
-        prepareCoursePreviews(courses);
     }
 
     public String getDiveShopUid() {
@@ -96,14 +67,6 @@ public class DiveShop extends User implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPhotoCoverUrl() {
-        return photoCoverUrl;
-    }
-
-    public void setPhotoCoverUrl(String photoCoverUrl) {
-        this.photoCoverUrl = photoCoverUrl;
     }
 
     public String getContactNumber() {
@@ -177,7 +140,7 @@ public class DiveShop extends User implements Parcelable {
         if (courses != null) {
             for (int i = 0; i < courses.size(); i++) {
                 DiveShopCourse course = courses.get(i);
-                coursePreviews.add(new ListPreview(i, course.getName(), course.getPrice().toString(), PREVIEW_ACTION_COURSE, course.getPhotoCoverUrl()));
+                coursePreviews.add(new ListPreview(i, course.getName(), course.getPrice().toString(), PREVIEW_ACTION_COURSE, course.getImageUrl()));
             }
         }
     }
@@ -230,9 +193,7 @@ public class DiveShop extends User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(this.diveShopUid);
-        dest.writeString(this.name);
         dest.writeString(this.description);
-        dest.writeString(this.photoCoverUrl);
         dest.writeString(this.contactNumber);
         dest.writeString(this.address);
         dest.writeDouble(this.latitiude);
@@ -248,9 +209,7 @@ public class DiveShop extends User implements Parcelable {
     protected DiveShop(Parcel in) {
         super(in);
         this.diveShopUid = in.readString();
-        this.name = in.readString();
         this.description = in.readString();
-        this.photoCoverUrl = in.readString();
         this.contactNumber = in.readString();
         this.address = in.readString();
         this.latitiude = in.readDouble();
