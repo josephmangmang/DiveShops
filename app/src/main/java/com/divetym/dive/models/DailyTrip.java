@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class DailyTrip implements Parcelable {
-    private static final String FORMAT_DATE_SERVER = "yyyy-mm-dd HH:mm:ss";
+    private static final String FORMAT_DATE_SERVER = "yyyy-MM-dd HH:mm:ss";//2017-05-19 18:14:39
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
@@ -47,7 +47,7 @@ public class DailyTrip implements Parcelable {
     private List<DailyTripGuest> guests;
 
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("H:m");
+    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("hh:mm aa");
     private Date mDate;
     private List<ListPreview> mBoatPreviews;
 
@@ -63,11 +63,6 @@ public class DailyTrip implements Parcelable {
         this.createTime = createTime;
         this.price = price;
         this.priceNote = priceNote;
-        try {
-            mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     public DailyTrip(int dailyTripId, String diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote, List<DailyTripBoat> boats, List<DailyTripDiveSite> sites, List<DailyTripGuide> guides, List<DailyTripGuest> guests) {
@@ -83,11 +78,6 @@ public class DailyTrip implements Parcelable {
         this.sites = sites;
         this.guides = guides;
         this.guests = guests;
-        try {
-            mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     public int getDailyTripId() {
