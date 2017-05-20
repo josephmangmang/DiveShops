@@ -38,6 +38,7 @@ import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.utils.DateUtils;
 import com.divetym.dive.view.ListAddMoreLayout;
 import com.divetym.dive.view.ToastAlert;
+import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -260,6 +261,7 @@ public class CreateTripFragment extends DiveTymFragment {
                             Log.d(TAG, "onResponse: " + response.toString());
                             DailyTripResponse tripResponse = response.body();
                             if (tripResponse != null) {
+                                Log.d(TAG, "DailyTripResponse: " + tripResponse.toString());
                                 new ToastAlert(mContext)
                                         .setMessage(tripResponse.getMessage())
                                         .show();
