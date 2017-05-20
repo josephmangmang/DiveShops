@@ -78,7 +78,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     }
 
     private void requestDiveShopTrips() {
-        mApiService.getDiveShopTrips(mShopUid, mDiveSiteId, mStartDate, mEndDate)
+        mApiService.getDiveShopTrips(mShopUid, mDiveSiteId, mStartDate, mEndDate, mOffset)
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
                     public void onResponse(Call<DailyTripListResponse> call, Response<DailyTripListResponse> response) {

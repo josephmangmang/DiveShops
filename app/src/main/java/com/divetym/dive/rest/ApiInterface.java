@@ -232,7 +232,25 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops/{shopUid}/trips")
-    Call<DailyTripListResponse> getDiveShopTrips(@Path("shopUid") String shopUid, @Query("dive_site_id") int diveSiteId, @Query("start_date") String startDate, @Query("end_date") String endDate);
+    Call<DailyTripListResponse> getDiveShopTrips(
+            @Path("shopUid") String shopUid, @Query("dive_site_id") int diveSiteId,
+            @Query("start_date") String startDate, @Query("end_date") String endDate);
+
+    /**
+     * Get list of Dive Shop Dive Trips
+     *
+     * @param shopUid
+     * @param diveSiteId
+     * @param startDate
+     * @param endDate
+     * @param offset
+     * @return
+     */
+    @GET("diveshops/{shopUid}/trips")
+    Call<DailyTripListResponse> getDiveShopTrips(
+            @Path("shopUid") String shopUid, @Query("dive_site_id") int diveSiteId,
+            @Query("start_date") String startDate, @Query("end_date") String endDate,
+            @Query("offset") int offset);
 
     /**
      * Add new Daily Trip
@@ -274,12 +292,13 @@ public interface ApiInterface {
 
     /**
      * Get list of diveshop guides
+     *
      * @param shopUid
      * @param offset
      * @return
      */
     @GET("diveshops/{shopUid}/guides")
-    Call<GuideListResponse> getGuides(@Path("shopUid") String shopUid,  @Query("offset") int offset);
+    Call<GuideListResponse> getGuides(@Path("shopUid") String shopUid, @Query("offset") int offset);
 
     /**
      * Get guide
