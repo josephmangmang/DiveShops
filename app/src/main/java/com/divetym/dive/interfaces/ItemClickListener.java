@@ -16,6 +16,11 @@ public class ItemClickListener<DataType> implements BaseRecyclerAdapter.ItemClic
     }
 
     @Override
+    public void onItemLongClick(DataType object, View view, int position) {
+
+    }
+
+    @Override
     public void onActionClick(DataType object, View view) {
 
     }

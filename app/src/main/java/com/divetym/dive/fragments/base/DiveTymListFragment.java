@@ -123,6 +123,11 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     }
 
     @Override
+    public void onItemLongClick(DataType object, View view, int position) {
+        
+    }
+
+    @Override
     public void onActionClick(DataType object, View view) {
 
     }

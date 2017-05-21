@@ -12,6 +12,7 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymFragment;
+import com.divetym.dive.interfaces.ItemClickListener;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.rest.ApiClient;
@@ -57,7 +58,7 @@ public class TripDetailsFragment extends DiveTymFragment {
     private ApiInterface mApiService;
     private DailyTrip mDailyTrip;
     
-    private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
+    private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewItemClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
 
@@ -68,7 +69,7 @@ public class TripDetailsFragment extends DiveTymFragment {
 
         }
     };
-    private BaseRecyclerAdapter.ItemClickListener mPreviewSiteClickListener = new BaseRecyclerAdapter.ItemClickListener() {
+    private BaseRecyclerAdapter.ItemClickListener mPreviewSiteClickListener = new ItemClickListener() {
         @Override
         public void onItemClick(Object object, View view, int position) {
 
@@ -79,7 +80,7 @@ public class TripDetailsFragment extends DiveTymFragment {
 
         }
     };
-    private BaseRecyclerAdapter.ItemClickListener mPreviewGuideClickListener = new BaseRecyclerAdapter.ItemClickListener() {
+    private BaseRecyclerAdapter.ItemClickListener mPreviewGuideClickListener = new ItemClickListener() {
         @Override
         public void onItemClick(Object object, View view, int position) {
 

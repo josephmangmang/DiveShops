@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_sort"
+        android:id="@+id/menu_sort"
         android:icon="@drawable/ic_sort_black"
         android:title="@string/title_sort"
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/action_sort_price"
+                android:id="@+id/menu_sort_price"
                 android:title="@string/title_price" />
             <item
-                android:id="@+id/action_sort_rating"
+                android:id="@+id/menu_sort_rating"
                 android:title="@string/title_rating" />
         </menu>
     </item>

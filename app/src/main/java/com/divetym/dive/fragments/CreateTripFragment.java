@@ -26,19 +26,15 @@ import com.divetym.dive.dialog.DiveSitesDialog;
 import com.divetym.dive.dialog.GuidesDialog;
 import com.divetym.dive.dialog.SearchListDialog;
 import com.divetym.dive.fragments.base.DiveTymFragment;
-import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.DailyTripBoat;
 import com.divetym.dive.models.DailyTripDiveSite;
 import com.divetym.dive.models.DailyTripGuide;
-import com.divetym.dive.models.DiveSite;
-import com.divetym.dive.models.Guide;
 import com.divetym.dive.models.response.DailyTripResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.utils.DateUtils;
 import com.divetym.dive.view.ListAddMoreLayout;
 import com.divetym.dive.view.ToastAlert;
-import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -191,12 +187,12 @@ public class CreateTripFragment extends DiveTymFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_create_save, menu);
+        inflater.inflate(R.menu.create_save, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_save) {
+        if (item.getItemId() == R.id.menu_save) {
             saveDailyTrip();
         }
         return false;

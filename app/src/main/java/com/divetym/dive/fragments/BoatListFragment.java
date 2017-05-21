@@ -25,7 +25,8 @@ import retrofit2.Response;
  * Created by kali_root on 4/15/2017.
  */
 
-public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat, BoatListResponse> implements BaseRecyclerAdapter.ItemClickListener<Boat> {
+public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat, BoatListResponse>
+        implements BaseRecyclerAdapter.ItemClickListener<Boat> {
 
     private static final String TAG = BoatListFragment.class.getSimpleName();
 
@@ -82,6 +83,11 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
     public void onItemClick(Boat object, View view, int position) {
         Log.d(TAG, "onItemClick " + object.toString());
         BoatDetailsActivity.launch(mContext, object);
+    }
+
+    @Override
+    public void onItemLongClick(Boat object, View view, int position) {
+
     }
 
     @Override

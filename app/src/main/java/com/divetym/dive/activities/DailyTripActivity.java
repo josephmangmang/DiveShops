@@ -34,7 +34,7 @@ public class DailyTripActivity extends AuthenticatedActivity implements
     @BindView(R.id.layout_date_range)
     DateRangeLayout mDateRangeLayout;
     @BindView(R.id.fab_add)
-    FloatingActionButton mFabAdd;
+    public FloatingActionButton mFabAdd;
 
     private DiveSite mSelectedDiveSite;
     private TripListFragment mFragment;
@@ -60,6 +60,12 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         mFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mFragment != null) {
+                    if (mFragment.getAdapter().isInMultiSelectMode()) {
+                        mFragment.showDeleteSelectedTripsDialog();
+                        return;
+                    }
+                }
                 startActivity(CreateTripActivity.class);
             }
         });
@@ -96,12 +102,15 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_daily_trips, menu);
-        return true;
-    }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        if (mFragment != null) {
+            mFragment.inflateToolbar(menu, getMenuInflater());
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public void onDateRangedChanged(Calendar startDate, Calendar endDate) {

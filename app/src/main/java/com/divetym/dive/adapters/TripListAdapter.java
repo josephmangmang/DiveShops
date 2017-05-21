@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
@@ -36,11 +37,24 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DailyTrip object, int i) {
         TripHolder holder = (TripHolder) viewHolder;
         holder.mData = object;
+        holder.position = i;
         holder.mItemClickListener = mItemClickListener;
         holder.date.setText(object.getDateOnly());
         holder.diveSite.setText(object.getDiveSiteNames());
         holder.price.setText(object.getPrice().toString());
         holder.time.setText(object.getTimeOnly());
+        if (isInMultiSelectMode()) {
+            holder.selected.setVisibility(View.VISIBLE);
+            if (isSelected(i)) {
+                holder.selected.setImageResource(R.drawable.ic_selected_24);
+                holder.selected.setAlpha(1f);
+            } else {
+                holder.selected.setImageResource(R.drawable.ic_unselected_24);
+                holder.selected.setAlpha(0.5f);
+            }
+        } else {
+            holder.selected.setVisibility(View.GONE);
+        }
     }
 }
 
@@ -53,6 +67,8 @@ class TripHolder extends DiveTymViewHolder<DailyTrip> {
     RobotoTextView price;
     @BindView(R.id.text_time)
     RobotoTextView time;
+    @BindView(R.id.image_selected)
+    ImageView selected;
 
     public TripHolder(DiveTymActivity context, View itemView) {
         super(context, itemView);

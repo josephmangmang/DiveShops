@@ -46,7 +46,7 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     }
 
     private void initializeNavigation() {
-        mNavigationView.inflateMenu(R.menu.menu_drawer);
+        mNavigationView.inflateMenu(R.menu.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);

@@ -20,6 +20,7 @@ import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
+import com.divetym.dive.interfaces.ItemClickListener;
 import com.divetym.dive.models.DiveShop;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.models.response.DiveShopResponse;
@@ -73,7 +74,7 @@ public class DiveShopFragment extends DiveTymFragment {
             BoatListActivity.launch(mContext, mDiveShop.getBoats());
         }
     };
-    private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
+    private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
             Log.d(TAG, "onItemClick " + object.toString());
@@ -86,7 +87,7 @@ public class DiveShopFragment extends DiveTymFragment {
         }
     };
 
-    private BaseRecyclerAdapter.ItemClickListener mBoatItemClickListener = new BaseRecyclerAdapter.ItemClickListener<ListPreview>() {
+    private BaseRecyclerAdapter.ItemClickListener mBoatItemClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
             Log.d(TAG, "onItemClick " + object.toString());

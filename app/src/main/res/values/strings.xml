@@ -78,4 +78,11 @@
     <string name="menu_save">Save</string>
     <string name="error_empty_dive_sites">Dive Site cannot be empty</string>
     <string name="title_destinations">Destinations</string>
+    <string name="title_conversations_selected">%d selected</string>
+    <string name="menu_delete">Delete</string>
+    <string name="toast_daily_trip_deleted">Daily Trips successfully deleted</string>
+    <string name="dialog_title_delete_trip">Delete selected Trip?</string>
+    <string name="dialog_message_delete_trip">This will permanently delete the selected daily trip.</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

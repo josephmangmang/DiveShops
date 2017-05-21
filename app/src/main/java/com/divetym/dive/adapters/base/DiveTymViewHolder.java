@@ -11,7 +11,7 @@ import com.divetym.dive.activities.base.DiveTymActivity;
  * Created by kali_root on 4/10/2017.
  */
 
-public class DiveTymViewHolder<DataType> extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class DiveTymViewHolder<DataType> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = DiveTymViewHolder.class.getSimpleName();
     public BaseRecyclerAdapter.ItemClickListener<DataType> mItemClickListener;
     public DataType mData;
@@ -21,6 +21,8 @@ public class DiveTymViewHolder<DataType> extends RecyclerView.ViewHolder impleme
     public DiveTymViewHolder(DiveTymActivity context, View itemView) {
         super(itemView);
         mContext = context;
+        itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
     }
 
     @Override
@@ -35,5 +37,13 @@ public class DiveTymViewHolder<DataType> extends RecyclerView.ViewHolder impleme
                 mItemClickListener.onActionClick(mData, view);
             }
         }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        if (mItemClickListener != null) {
+            mItemClickListener.onItemLongClick(mData, view, position);
+        }
+        return true;
     }
 }

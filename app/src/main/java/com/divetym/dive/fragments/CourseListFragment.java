@@ -86,6 +86,11 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
     }
 
     @Override
+    public void onItemLongClick(DiveShopCourse object, View view, int position) {
+
+    }
+
+    @Override
     public void onActionClick(DiveShopCourse object, View view) {
         Log.d(TAG, "onActionClick " + object.toString());
     }

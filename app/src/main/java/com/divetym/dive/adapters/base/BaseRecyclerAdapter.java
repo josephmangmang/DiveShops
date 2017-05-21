@@ -23,6 +23,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, Da
     public interface ItemClickListener<DataType> {
         void onItemClick(DataType object, View view, int position);
 
+        void onItemLongClick(DataType object, View view, int position);
+
         void onActionClick(DataType object, View view);
     }
 
@@ -33,9 +35,11 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, Da
 
         void onItemRemoved(int id);
     }
-    public BaseRecyclerAdapter(DiveTymActivity context){
+
+    public BaseRecyclerAdapter(DiveTymActivity context) {
         this(context, new ArrayList<DataType>());
     }
+
     public BaseRecyclerAdapter(DiveTymActivity context, List<DataType> dataList) {
         mContext = context;
         mDataList = dataList;

@@ -1,10 +1,9 @@
 package com.divetym.dive.rest;
 
 import com.divetym.dive.models.DailyTrip;
-import com.divetym.dive.models.User;
 import com.divetym.dive.models.response.BoatListResponse;
-import com.divetym.dive.models.response.CourseListResponse;
 import com.divetym.dive.models.response.BoatResponse;
+import com.divetym.dive.models.response.CourseListResponse;
 import com.divetym.dive.models.response.DailyTripListResponse;
 import com.divetym.dive.models.response.DailyTripResponse;
 import com.divetym.dive.models.response.DiveShopCourseListResponse;
@@ -14,8 +13,10 @@ import com.divetym.dive.models.response.DiveShopResponse;
 import com.divetym.dive.models.response.DiveSiteListResponse;
 import com.divetym.dive.models.response.GuideListResponse;
 import com.divetym.dive.models.response.GuideResponse;
-import com.divetym.dive.models.response.UserResponse;
 import com.divetym.dive.models.response.Response;
+import com.divetym.dive.models.response.UserResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -278,6 +279,15 @@ public interface ApiInterface {
     Call<DailyTripResponse> updateDailyTrip(@Path("shopUid") String shopUid, @Path("tripId") int tripId,
                                             @Field("group_size") int groupSize, @Field("number_of_dive") int numberOfDives,
                                             @Field("date") String date, @Field("price") double price, @Field("price_note") String priceNote);
+
+    /**
+     *
+     * @param shopUid
+     * @param dailyTripIds
+     * @return
+     */
+    @DELETE("diveshops/{shopUid}/trips")
+    Call<Response> deleteDiveShopTrips(@Path("shopUid") String shopUid, @Query("daily_trip_ids[]") List<Integer> dailyTripIds);
 
     /**
      * Get list of diveshop guides

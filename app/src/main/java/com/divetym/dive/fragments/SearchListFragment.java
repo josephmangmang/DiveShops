@@ -102,4 +102,9 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
             mOnRefreshTripListener.onDiveSiteChanged(object);
         }
     }
+
+    @Override
+    public void onItemLongClick(DiveSite object, View view, int position) {
+
+    }
 }

@@ -215,6 +215,11 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     }
 
     @Override
+    public void onItemLongClick(DataType object, View view, int position) {
+        
+    }
+
+    @Override
     public void onActionClick(DataType object, View view) {
 
     }

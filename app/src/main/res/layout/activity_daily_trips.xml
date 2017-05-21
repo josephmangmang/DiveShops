@@ -42,5 +42,5 @@
         android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
         android:text="@string/action_add_trip"
-        app:srcCompat="@drawable/ic_add_black" />
+        app:srcCompat="@drawable/ic_add" />
 </android.support.design.widget.CoordinatorLayout>
