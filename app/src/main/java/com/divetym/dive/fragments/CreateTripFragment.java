@@ -247,6 +247,7 @@ public class CreateTripFragment extends DiveTymFragment {
             DailyTrip dailyTrip = new DailyTrip();
             dailyTrip.setDate(dateTime);
             dailyTrip.setNumberOfDive(Integer.parseInt(numberOfDive));
+            dailyTrip.setGroupSize(Integer.parseInt(groupSize));
             dailyTrip.setPrice(new BigDecimal(price));
             dailyTrip.setPriceNote(priceNote);
             dailyTrip.setBoats(boats);
@@ -265,6 +266,9 @@ public class CreateTripFragment extends DiveTymFragment {
                                 new ToastAlert(mContext)
                                         .setMessage(tripResponse.getMessage())
                                         .show();
+                                if (!tripResponse.isError()) {
+                                    mContext.finish();
+                                }
                             }
                         }
 

@@ -16,6 +16,7 @@ public class CreateTripActivity extends AuthenticatedActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         showBackButton(true);
         initFragment(R.id.content, new CreateTripFragment());
     }

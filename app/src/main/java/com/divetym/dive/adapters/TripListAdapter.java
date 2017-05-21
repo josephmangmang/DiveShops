@@ -38,7 +38,7 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
         holder.mData = object;
         holder.mItemClickListener = mItemClickListener;
         holder.date.setText(object.getDateOnly());
-        holder.diveSite.setText(object.getDiveSites());
+        holder.diveSite.setText(object.getDiveSiteNames());
         holder.price.setText(object.getPrice().toString());
         holder.time.setText(object.getTimeOnly());
     }

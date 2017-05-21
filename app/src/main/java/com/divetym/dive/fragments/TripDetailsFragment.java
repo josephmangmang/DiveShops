@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.DailyTrip;
-import com.divetym.dive.models.DailyTripBoat;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
@@ -35,14 +35,16 @@ public class TripDetailsFragment extends DiveTymFragment {
     RobotoTextView tvTime;
     @BindView(R.id.text_date)
     RobotoTextView tvDate;
-    @BindView(R.id.text_location)
-    RobotoTextView tvLocation;
-    @BindView(R.id.text_guides)
-    RobotoTextView tvGuides;
+    @BindView(R.id.text_number_dives)
+    RobotoTextView tvNumberOfDives;
     @BindView(R.id.text_group_size)
     RobotoTextView tvGroupSize;
     @BindView(R.id.text_remaining_slot)
     RobotoTextView tvRemainingSlot;
+    @BindView(R.id.preview_trip_sites)
+    ListPreviewLayout mPreViewTripSites;
+    @BindView(R.id.preview_trip_guides)
+    ListPreviewLayout mPreviewTripGuides;
     @BindView(R.id.preview_trip_boats)
     ListPreviewLayout mPreviewTripBoats;
     @BindView(R.id.text_total_price)
@@ -63,6 +65,28 @@ public class TripDetailsFragment extends DiveTymFragment {
 
         @Override
         public void onActionClick(ListPreview object, View view) {
+
+        }
+    };
+    private BaseRecyclerAdapter.ItemClickListener mPreviewSiteClickListener = new BaseRecyclerAdapter.ItemClickListener() {
+        @Override
+        public void onItemClick(Object object, View view, int position) {
+
+        }
+
+        @Override
+        public void onActionClick(Object object, View view) {
+
+        }
+    };
+    private BaseRecyclerAdapter.ItemClickListener mPreviewGuideClickListener = new BaseRecyclerAdapter.ItemClickListener() {
+        @Override
+        public void onItemClick(Object object, View view, int position) {
+
+        }
+
+        @Override
+        public void onActionClick(Object object, View view) {
 
         }
     };
@@ -94,23 +118,43 @@ public class TripDetailsFragment extends DiveTymFragment {
     private void loadDailyTripData() {
         tvDate.setText(mDailyTrip.getDateOnly());
         tvTime.setText(mDailyTrip.getTimeOnly());
+        tvNumberOfDives.setText(""+ mDailyTrip.getNumberOfDive());
         tvGroupSize.setText("" + mDailyTrip.getGroupSize());
-        tvLocation.setText(mDailyTrip.getDiveSites());
-        tvGuides.setText(mDailyTrip.getGuideNames());
         tvTotalPrice.setText(mDailyTrip.getPrice().toString());
         tvPriceSummary.setText(mDailyTrip.getPriceNote());
         tvRemainingSlot.setText("" + mDailyTrip.getRemainingSlot());
         tvTripGuests.setText(mDailyTrip.getGuestNames());
 
+        mPreViewTripSites.setPreviewTitle(getString(R.string.title_destinations));
+        mPreViewTripSites.setPreviewList(mDailyTrip.getDiveSitePreviews());
+        mPreViewTripSites.setItemClickListener(mPreviewSiteClickListener);
+        mPreViewTripSites.setMoreClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+        mPreviewTripGuides.setPreviewTitle(getString(R.string.title_guides));
+        mPreviewTripGuides.setPreviewList(mDailyTrip.getGuidePreviews());
+        mPreviewTripGuides.setItemClickListener(mPreviewGuideClickListener);
+        mPreviewTripGuides.setMoreClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        mPreviewTripBoats.setPreviewTitle(getString(R.string.title_boats));
+        mPreviewTripBoats.setPreviewList(mDailyTrip.getBoatPreviews());
         mPreviewTripBoats.setItemClickListener(mPreviewItemClickListener);
         mPreviewTripBoats.setMoreClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "More clicked!", Toast.LENGTH_SHORT).show();
+                BoatListActivity.launch(mContext, mDailyTrip.getBoats());
             }
         });
-        mPreviewTripBoats.setPreviewTitle(getString(R.string.title_boats));
-        mPreviewTripBoats.setPreviewList(mDailyTrip.getBoatPreviews());
 
     }
 

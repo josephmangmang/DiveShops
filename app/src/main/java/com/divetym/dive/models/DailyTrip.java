@@ -47,9 +47,11 @@ public class DailyTrip implements Parcelable {
     private List<DailyTripGuest> guests;
 
     private SimpleDateFormat mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("hh:mm aa");
+    private SimpleDateFormat mTimeFormat = new SimpleDateFormat("hh:mm aaa");
     private Date mDate;
     private List<ListPreview> mBoatPreviews;
+    private List<ListPreview> mDiveSitePreviews;
+    private List<ListPreview> mGuidePreviews;
 
     public DailyTrip() {
     }
@@ -181,7 +183,7 @@ public class DailyTrip implements Parcelable {
         this.guests = guests;
     }
 
-    public String getDiveSites() {
+    public String getDiveSiteNames() {
         StringBuilder sitesBuilder = new StringBuilder();
         if (sites == null) return "";
 
@@ -256,10 +258,38 @@ public class DailyTrip implements Parcelable {
                 ListPreview listPreview = new ListPreview(i, boat.getName(), "VIEW", boat.getImageUrl());
                 mBoatPreviews.add(listPreview);
             }
-        }else{
+        } else {
             mBoatPreviews = new ArrayList<>();
         }
         return mBoatPreviews;
+    }
+
+    public List<ListPreview> getDiveSitePreviews() {
+        if (sites != null && sites.size() > 0) {
+            mDiveSitePreviews = new ArrayList<>();
+            for (int i = 0; i < sites.size(); i++) {
+                DailyTripDiveSite diveSite = sites.get(i);
+                ListPreview listPreview = new ListPreview(i, diveSite.getName(), "VIEW", diveSite.getImageUrl());
+                mDiveSitePreviews.add(listPreview);
+            }
+        } else {
+            mDiveSitePreviews = new ArrayList<>();
+        }
+        return mDiveSitePreviews;
+    }
+
+    public List<ListPreview> getGuidePreviews() {
+        if (guides != null && guides.size() > 0) {
+            mGuidePreviews = new ArrayList<>();
+            for (int i = 0; i < guides.size(); i++) {
+                DailyTripGuide guide = guides.get(i);
+                ListPreview listPreview = new ListPreview(i, guide.getName(), "VIEW", guide.getImageUrl());
+                mGuidePreviews.add(listPreview);
+            }
+        } else {
+            mGuidePreviews = new ArrayList<>();
+        }
+        return mGuidePreviews;
     }
 
     @Override

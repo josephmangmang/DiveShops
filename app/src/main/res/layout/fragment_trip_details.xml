@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -54,47 +55,37 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.divetym.dive.view.RobotoTextView
-            android:id="@+id/text_label_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Location:"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_time" />
-
-        <com.divetym.dive.view.RobotoTextView
-            android:id="@+id/text_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/dummy_location"
-            app:layout_constraintLeft_toRightOf="@+id/text_label_location"
-            app:layout_constraintTop_toBottomOf="@+id/text_time" />
-
-        <com.divetym.dive.view.RobotoTextView
-            android:id="@+id/text_label_guides"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Guides:"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_location" />
-
-        <com.divetym.dive.view.RobotoTextView
-            android:id="@+id/text_guides"
+        <com.divetym.dive.view.ListPreviewLayout
+            android:id="@+id/preview_trip_sites"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/dummy_guides"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_guides" />
+            app:layout_constraintTop_toBottomOf="@+id/text_label_time" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_label_number_dives"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Number of Dives:"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preview_trip_sites" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_number_dives"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dummy_group_size"
+            app:layout_constraintLeft_toRightOf="@+id/text_label_number_dives"
+            app:layout_constraintTop_toBottomOf="@+id/preview_trip_sites" />
 
         <com.divetym.dive.view.RobotoTextView
             android:id="@+id/text_label_group_size"
@@ -104,7 +95,7 @@
             android:layout_marginTop="8dp"
             android:text="Group Size:"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_guides" />
+            app:layout_constraintTop_toBottomOf="@+id/text_number_dives" />
 
         <com.divetym.dive.view.RobotoTextView
             android:id="@+id/text_group_size"
@@ -114,7 +105,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/dummy_group_size"
             app:layout_constraintLeft_toRightOf="@+id/text_label_group_size"
-            app:layout_constraintTop_toBottomOf="@+id/text_guides" />
+            app:layout_constraintTop_toBottomOf="@+id/text_number_dives" />
 
         <com.divetym.dive.view.RobotoTextView
             android:id="@+id/text_label_remaining_slot"
@@ -186,8 +177,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="Guests:"
+            android:textSize="@dimen/roboto_title_medium"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_price_summary" />
+            app:layout_constraintTop_toBottomOf="@+id/preview_trip_guides"
+            app:typeface="roboto_medium" />
 
         <com.divetym.dive.view.RobotoTextView
             android:id="@+id/text_guests"
@@ -200,6 +193,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_label_guest" />
+
+        <com.divetym.dive.view.ListPreviewLayout
+            android:id="@+id/preview_trip_guides"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_price_summary" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.NestedScrollView>

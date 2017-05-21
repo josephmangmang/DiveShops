@@ -26,7 +26,7 @@ public class BoatListActivity extends AuthenticatedActivity {
     private static final String TAG = BoatListActivity.class.getSimpleName();
     public static final String EXTRA_BOATS = "com.divetym.dive.EXTRA_BOATS";
 
-    public static void launch(DiveTymActivity context, @Nullable List<Boat> courses) {
+    public static<Data extends Boat> void launch(DiveTymActivity context, @Nullable List<Data> courses) {
         Log.d(TAG, "lauching...");
         Intent intent = new Intent(context, BoatListActivity.class);
         intent.putParcelableArrayListExtra(EXTRA_BOATS, (ArrayList<? extends Parcelable>) courses);

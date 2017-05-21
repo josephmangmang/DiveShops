@@ -20,7 +20,7 @@
             android:minHeight="?attr/actionBarSize"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginBottom="50dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/image_collapsing_toolbar_background"
