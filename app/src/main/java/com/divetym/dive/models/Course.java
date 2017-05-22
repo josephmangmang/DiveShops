@@ -19,8 +19,6 @@ public class Course extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.OFFERED_BY)
     private String offeredBy;
 
-    public Course() {
-    }
 
     public int getCourseId() {
         return courseId;
@@ -70,6 +68,9 @@ public class Course extends ThumbnailEntity implements Parcelable {
         dest.writeString(this.offeredBy);
     }
 
+    public Course() {
+    }
+
     protected Course(Parcel in) {
         super(in);
         this.courseId = in.readInt();
@@ -77,15 +78,4 @@ public class Course extends ThumbnailEntity implements Parcelable {
         this.offeredBy = in.readString();
     }
 
-    public static final Creator<Course> CREATOR = new Creator<Course>() {
-        @Override
-        public Course createFromParcel(Parcel source) {
-            return new Course(source);
-        }
-
-        @Override
-        public Course[] newArray(int size) {
-            return new Course[size];
-        }
-    };
 }

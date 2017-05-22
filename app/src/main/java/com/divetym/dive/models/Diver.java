@@ -14,13 +14,6 @@ public class Diver extends User implements Parcelable {
     @SerializedName(ApiConstant.DIVER_ID)
     private String diverUid;
 
-    public Diver() {
-    }
-
-    public Diver(String userId, String email) {
-        super(userId, email, AccountType.Diver);
-    }
-
     public String getDiverUid() {
         return diverUid;
     }
@@ -46,6 +39,9 @@ public class Diver extends User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(this.diverUid);
+    }
+
+    public Diver() {
     }
 
     protected Diver(Parcel in) {

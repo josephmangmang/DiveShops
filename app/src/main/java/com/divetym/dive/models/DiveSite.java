@@ -21,31 +21,12 @@ public class DiveSite extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.LONGITUDE)
     private double longitude;
 
-    public DiveSite() {
-    }
-
-    public DiveSite(int diveSiteId, String name, String description, double latitude, double longitude) {
-        this.diveSiteId = diveSiteId;
-        this.name = name;
-        this.description = description;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
     public int getDiveSiteId() {
         return diveSiteId;
     }
 
     public void setDiveSiteId(int diveSiteId) {
         this.diveSiteId = diveSiteId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -83,6 +64,9 @@ public class DiveSite extends ThumbnailEntity implements Parcelable {
                 '}';
     }
 
+    public DiveSite() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -90,22 +74,22 @@ public class DiveSite extends ThumbnailEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.diveSiteId);
-        dest.writeString(this.name);
         dest.writeString(this.description);
         dest.writeDouble(this.latitude);
         dest.writeDouble(this.longitude);
     }
 
     protected DiveSite(Parcel in) {
+        super(in);
         this.diveSiteId = in.readInt();
-        this.name = in.readString();
         this.description = in.readString();
         this.latitude = in.readDouble();
         this.longitude = in.readDouble();
     }
 
-    public static final Parcelable.Creator<DiveSite> CREATOR = new Parcelable.Creator<DiveSite>() {
+    public static final Creator<DiveSite> CREATOR = new Creator<DiveSite>() {
         @Override
         public DiveSite createFromParcel(Parcel source) {
             return new DiveSite(source);

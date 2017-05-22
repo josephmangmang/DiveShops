@@ -16,13 +16,6 @@ public class DailyTripBoat extends Boat implements Parcelable{
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
 
-    public DailyTripBoat() {
-    }
-
-    public DailyTripBoat(int dailyTripBoatId, int dailyTripId) {
-        this.dailyTripBoatId = dailyTripBoatId;
-        this.dailyTripId = dailyTripId;
-    }
 
     public int getDailyTripBoatId() {
         return dailyTripBoatId;
@@ -58,6 +51,9 @@ public class DailyTripBoat extends Boat implements Parcelable{
         super.writeToParcel(dest, flags);
         dest.writeInt(this.dailyTripBoatId);
         dest.writeInt(this.dailyTripId);
+    }
+
+    public DailyTripBoat() {
     }
 
     protected DailyTripBoat(Parcel in) {

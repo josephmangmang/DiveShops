@@ -53,35 +53,6 @@ public class DailyTrip implements Parcelable {
     private List<ListPreview> mDiveSitePreviews;
     private List<ListPreview> mGuidePreviews;
 
-    public DailyTrip() {
-    }
-
-    public DailyTrip(int dailyTripId, String diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote) {
-        this.dailyTripId = dailyTripId;
-        this.diveShopUid = diveShopUid;
-        this.groupSize = groupSize;
-        this.numberOfDive = numberOfDive;
-        this.date = date;
-        this.createTime = createTime;
-        this.price = price;
-        this.priceNote = priceNote;
-    }
-
-    public DailyTrip(int dailyTripId, String diveShopUid, int groupSize, int numberOfDive, String date, String createTime, BigDecimal price, String priceNote, List<DailyTripBoat> boats, List<DailyTripDiveSite> sites, List<DailyTripGuide> guides, List<DailyTripGuest> guests) {
-        this.dailyTripId = dailyTripId;
-        this.diveShopUid = diveShopUid;
-        this.groupSize = groupSize;
-        this.numberOfDive = numberOfDive;
-        this.date = date;
-        this.createTime = createTime;
-        this.price = price;
-        this.priceNote = priceNote;
-        this.boats = boats;
-        this.sites = sites;
-        this.guides = guides;
-        this.guests = guests;
-    }
-
     public int getDailyTripId() {
         return dailyTripId;
     }
@@ -296,7 +267,7 @@ public class DailyTrip implements Parcelable {
     public String toString() {
         return "DailyTrip{" +
                 "dailyTripId=" + dailyTripId +
-                ", diveShopUid=" + diveShopUid +
+                ", diveShopUid='" + diveShopUid + '\'' +
                 ", groupSize=" + groupSize +
                 ", numberOfDive=" + numberOfDive +
                 ", date='" + date + '\'' +
@@ -307,6 +278,12 @@ public class DailyTrip implements Parcelable {
                 ", sites=" + sites +
                 ", guides=" + guides +
                 ", guests=" + guests +
+                ", mDateFormat=" + mDateFormat +
+                ", mTimeFormat=" + mTimeFormat +
+                ", mDate=" + mDate +
+                ", mBoatPreviews=" + mBoatPreviews +
+                ", mDiveSitePreviews=" + mDiveSitePreviews +
+                ", mGuidePreviews=" + mGuidePreviews +
                 '}';
     }
 
@@ -326,9 +303,18 @@ public class DailyTrip implements Parcelable {
         dest.writeSerializable(this.price);
         dest.writeString(this.priceNote);
         dest.writeTypedList(this.boats);
-        dest.writeList(this.sites);
-        dest.writeList(this.guides);
-        dest.writeList(this.guests);
+        dest.writeTypedList(this.sites);
+        dest.writeTypedList(this.guides);
+        dest.writeTypedList(this.guests);
+        dest.writeSerializable(this.mDateFormat);
+        dest.writeSerializable(this.mTimeFormat);
+        dest.writeLong(this.mDate != null ? this.mDate.getTime() : -1);
+        dest.writeTypedList(this.mBoatPreviews);
+        dest.writeTypedList(this.mDiveSitePreviews);
+        dest.writeTypedList(this.mGuidePreviews);
+    }
+
+    public DailyTrip() {
     }
 
     protected DailyTrip(Parcel in) {
@@ -341,15 +327,19 @@ public class DailyTrip implements Parcelable {
         this.price = (BigDecimal) in.readSerializable();
         this.priceNote = in.readString();
         this.boats = in.createTypedArrayList(DailyTripBoat.CREATOR);
-        this.sites = new ArrayList<DailyTripDiveSite>();
-        in.readList(this.sites, DailyTripDiveSite.class.getClassLoader());
-        this.guides = new ArrayList<DailyTripGuide>();
-        in.readList(this.guides, DailyTripGuide.class.getClassLoader());
-        this.guests = new ArrayList<DailyTripGuest>();
-        in.readList(this.guests, DailyTripGuest.class.getClassLoader());
+        this.sites = in.createTypedArrayList(DailyTripDiveSite.CREATOR);
+        this.guides = in.createTypedArrayList(DailyTripGuide.CREATOR);
+        this.guests = in.createTypedArrayList(DailyTripGuest.CREATOR);
+        this.mDateFormat = (SimpleDateFormat) in.readSerializable();
+        this.mTimeFormat = (SimpleDateFormat) in.readSerializable();
+        long tmpMDate = in.readLong();
+        this.mDate = tmpMDate == -1 ? null : new Date(tmpMDate);
+        this.mBoatPreviews = in.createTypedArrayList(ListPreview.CREATOR);
+        this.mDiveSitePreviews = in.createTypedArrayList(ListPreview.CREATOR);
+        this.mGuidePreviews = in.createTypedArrayList(ListPreview.CREATOR);
     }
 
-    public static final Parcelable.Creator<DailyTrip> CREATOR = new Parcelable.Creator<DailyTrip>() {
+    public static final Creator<DailyTrip> CREATOR = new Creator<DailyTrip>() {
         @Override
         public DailyTrip createFromParcel(Parcel source) {
             return new DailyTrip(source);
@@ -360,5 +350,4 @@ public class DailyTrip implements Parcelable {
             return new DailyTrip[size];
         }
     };
-
 }

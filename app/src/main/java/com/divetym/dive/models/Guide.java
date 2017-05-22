@@ -32,8 +32,6 @@ public class Guide extends ThumbnailEntity {
         this.diveShopUid = diveShopUid;
     }
 
-    public Guide() {
-    }
 
     @Override
     public int describeContents() {
@@ -45,6 +43,9 @@ public class Guide extends ThumbnailEntity {
         super.writeToParcel(dest, flags);
         dest.writeInt(this.guideId);
         dest.writeString(this.diveShopUid);
+    }
+
+    public Guide() {
     }
 
     protected Guide(Parcel in) {

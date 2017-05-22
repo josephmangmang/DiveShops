@@ -16,15 +16,6 @@ public class DailyTripDiveSite extends DiveSite implements Parcelable {
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
 
-    public DailyTripDiveSite() {
-    }
-
-    public DailyTripDiveSite(int diveSiteId, String name, String description, double latitude, double longitude, int dailyTripDiveSiteId, int dailyTripId) {
-        super(diveSiteId, name, description, latitude, longitude);
-        this.dailyTripDiveSiteId = dailyTripDiveSiteId;
-        this.dailyTripId = dailyTripId;
-    }
-
     public int getDailyTripDiveSiteId() {
         return dailyTripDiveSiteId;
     }
@@ -43,11 +34,12 @@ public class DailyTripDiveSite extends DiveSite implements Parcelable {
 
     @Override
     public String toString() {
-        return "DailyTripDiveSite{" +
+        return super.toString() + "DailyTripDiveSite{" +
                 "dailyTripDiveSiteId=" + dailyTripDiveSiteId +
                 ", dailyTripId=" + dailyTripId +
                 '}';
     }
+
 
     @Override
     public int describeContents() {
@@ -56,16 +48,21 @@ public class DailyTripDiveSite extends DiveSite implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.dailyTripDiveSiteId);
         dest.writeInt(this.dailyTripId);
     }
 
+    public DailyTripDiveSite() {
+    }
+
     protected DailyTripDiveSite(Parcel in) {
+        super(in);
         this.dailyTripDiveSiteId = in.readInt();
         this.dailyTripId = in.readInt();
     }
 
-    public static final Parcelable.Creator<DailyTripDiveSite> CREATOR = new Parcelable.Creator<DailyTripDiveSite>() {
+    public static final Creator<DailyTripDiveSite> CREATOR = new Creator<DailyTripDiveSite>() {
         @Override
         public DailyTripDiveSite createFromParcel(Parcel source) {
             return new DailyTripDiveSite(source);

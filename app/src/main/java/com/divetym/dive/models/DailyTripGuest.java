@@ -16,14 +16,6 @@ public class DailyTripGuest extends Diver implements Parcelable {
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
 
-    public DailyTripGuest() {
-    }
-
-    public DailyTripGuest(String userId, String email, int dailyTripGuestId, int dailyTripId) {
-        super(userId, email);
-        this.dailyTripGuestId = dailyTripGuestId;
-        this.dailyTripId = dailyTripId;
-    }
 
     public int getDailyTripGuestId() {
         return dailyTripGuestId;
@@ -56,16 +48,19 @@ public class DailyTripGuest extends Diver implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.dailyTripGuestId);
         dest.writeInt(this.dailyTripId);
     }
 
+
     protected DailyTripGuest(Parcel in) {
+        super(in);
         this.dailyTripGuestId = in.readInt();
         this.dailyTripId = in.readInt();
     }
 
-    public static final Parcelable.Creator<DailyTripGuest> CREATOR = new Parcelable.Creator<DailyTripGuest>() {
+    public static final Creator<DailyTripGuest> CREATOR = new Creator<DailyTripGuest>() {
         @Override
         public DailyTripGuest createFromParcel(Parcel source) {
             return new DailyTripGuest(source);

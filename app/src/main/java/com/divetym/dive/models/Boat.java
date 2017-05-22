@@ -19,16 +19,6 @@ public class Boat extends ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.DESCRIPTION)
     private String description;
 
-    public Boat() {
-    }
-
-    public Boat(int boatId, String diveShopUid, String name, String description, String imageUrl) {
-        this.boatId = boatId;
-        this.diveShopUid = diveShopUid;
-        this.name = name;
-        this.description = description;
-        this.imageUrl = imageUrl;
-    }
 
     public int getBoatId() {
         return boatId;
@@ -65,6 +55,9 @@ public class Boat extends ThumbnailEntity implements Parcelable {
                 '}';
     }
 
+    public Boat() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -72,19 +65,17 @@ public class Boat extends ThumbnailEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.boatId);
         dest.writeString(this.diveShopUid);
-        dest.writeString(this.name);
         dest.writeString(this.description);
-        dest.writeString(this.imageUrl);
     }
 
     protected Boat(Parcel in) {
+        super(in);
         this.boatId = in.readInt();
         this.diveShopUid = in.readString();
-        this.name = in.readString();
         this.description = in.readString();
-        this.imageUrl = in.readString();
     }
 
     public static final Creator<Boat> CREATOR = new Creator<Boat>() {

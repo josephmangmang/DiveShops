@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * Created by kali_root on 3/28/2017.
  */
 
-public class DiveShopCourse extends Course implements Parcelable{
+public class DiveShopCourse extends Course implements Parcelable {
     public static final String TAG = DiveShopCourse.class.getSimpleName();
     @SerializedName(ApiConstant.DIVE_SHOP_COURSE_ID)
     private int diveShopCourseId;
@@ -21,14 +21,6 @@ public class DiveShopCourse extends Course implements Parcelable{
     @SerializedName(ApiConstant.PRICE)
     private BigDecimal price;
 
-    public DiveShopCourse() {
-    }
-
-    public DiveShopCourse(int diveShopCourseId, String diveShopUid, BigDecimal price) {
-        this.diveShopCourseId = diveShopCourseId;
-        this.diveShopUid = diveShopUid;
-        this.price = price;
-    }
 
     public int getDiveShopCourseId() {
         return diveShopCourseId;
@@ -74,6 +66,9 @@ public class DiveShopCourse extends Course implements Parcelable{
         dest.writeInt(this.diveShopCourseId);
         dest.writeString(this.diveShopUid);
         dest.writeSerializable(this.price);
+    }
+
+    public DiveShopCourse() {
     }
 
     protected DiveShopCourse(Parcel in) {

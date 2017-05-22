@@ -17,15 +17,6 @@ public class DailyTripGuide extends Guide implements Parcelable {
     @SerializedName(ApiConstant.DAILY_TRIP_ID)
     private int dailyTripId;
 
-    public DailyTripGuide() {
-    }
-
-    public DailyTripGuide(int dailyTripGuideId, int dailyTripId, String guideName) {
-        this.dailyTripGuideId = dailyTripGuideId;
-        this.dailyTripId = dailyTripId;
-        this.name = guideName;
-    }
-
     public int getDailyTripGuideId() {
         return dailyTripGuideId;
     }
@@ -59,6 +50,7 @@ public class DailyTripGuide extends Guide implements Parcelable {
                 '}';
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -66,18 +58,18 @@ public class DailyTripGuide extends Guide implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeInt(this.dailyTripGuideId);
         dest.writeInt(this.dailyTripId);
-        dest.writeString(this.name);
     }
 
     protected DailyTripGuide(Parcel in) {
+        super(in);
         this.dailyTripGuideId = in.readInt();
         this.dailyTripId = in.readInt();
-        this.name = in.readString();
     }
 
-    public static final Parcelable.Creator<DailyTripGuide> CREATOR = new Parcelable.Creator<DailyTripGuide>() {
+    public static final Creator<DailyTripGuide> CREATOR = new Creator<DailyTripGuide>() {
         @Override
         public DailyTripGuide createFromParcel(Parcel source) {
             return new DailyTripGuide(source);

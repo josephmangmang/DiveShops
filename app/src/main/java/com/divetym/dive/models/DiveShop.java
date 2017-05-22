@@ -42,9 +42,6 @@ public class DiveShop extends User implements Parcelable {
     private List<ListPreview> coursePreviews;
     private List<ListPreview> boatPreviews;
 
-    public DiveShop() {
-    }
-
     public String getDiveShopUid() {
         return diveShopUid;
     }
@@ -204,6 +201,9 @@ public class DiveShop extends User implements Parcelable {
         dest.writeTypedList(this.boats);
         dest.writeTypedList(this.coursePreviews);
         dest.writeTypedList(this.boatPreviews);
+    }
+
+    public DiveShop() {
     }
 
     protected DiveShop(Parcel in) {
