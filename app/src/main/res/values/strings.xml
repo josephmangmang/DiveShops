@@ -85,4 +85,5 @@
     <string name="dialog_message_delete_trip">This will permanently delete the selected daily trip.</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="title_no_item">No item</string>
 </resources>

@@ -27,6 +27,7 @@ public class ListPreviewLayout extends RelativeLayout {
     private RecyclerView mRecyclerView;
     private RobotoTextView tvPreviewTitle;
     private RobotoTextView tvPreviewMore;
+    private View emptyItem;
     private ListPreviewAdapter mAdapter;
     private List<ListPreview> mPreviews;
     private DiveTymActivity mContext;
@@ -53,6 +54,7 @@ public class ListPreviewLayout extends RelativeLayout {
         inflate(context, R.layout.view_list_preview, this);
         tvPreviewTitle = (RobotoTextView) findViewById(R.id.text_preview_title);
         tvPreviewMore = (RobotoTextView) findViewById(R.id.text_preview_more);
+        emptyItem = findViewById(R.id.empty_item);
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setHasFixedSize(true);
@@ -66,6 +68,11 @@ public class ListPreviewLayout extends RelativeLayout {
     public void setPreviewList(List<ListPreview> previews) {
         mPreviews = previews;
         mAdapter.setDataList(mPreviews);
+        if (previews != null && previews.size() > 0) {
+            emptyItem.setVisibility(GONE);
+        } else {
+            emptyItem.setVisibility(VISIBLE);
+        }
     }
 
     public void setPreviewTitle(String title) {
