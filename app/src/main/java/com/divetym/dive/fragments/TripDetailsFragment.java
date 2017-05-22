@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.activities.BoatDetailsActivity;
 import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymFragment;
@@ -58,15 +58,15 @@ public class TripDetailsFragment extends DiveTymFragment {
     private ApiInterface mApiService;
     private DailyTrip mDailyTrip;
     
-    private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewItemClickListener = new ItemClickListener<ListPreview>() {
+    private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewBoatClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
-
+            BoatDetailsActivity.launch(mContext, mDailyTrip.getBoats().get(i));
         }
 
         @Override
         public void onActionClick(ListPreview object, View view) {
-
+            BoatDetailsActivity.launch(mContext, mDailyTrip.getBoats().get(object.getPosition()));
         }
     };
     private BaseRecyclerAdapter.ItemClickListener mPreviewSiteClickListener = new ItemClickListener() {
@@ -149,11 +149,13 @@ public class TripDetailsFragment extends DiveTymFragment {
 
         mPreviewTripBoats.setPreviewTitle(getString(R.string.title_boats));
         mPreviewTripBoats.setPreviewList(mDailyTrip.getBoatPreviews());
-        mPreviewTripBoats.setItemClickListener(mPreviewItemClickListener);
+        mPreviewTripBoats.setItemClickListener(mPreviewBoatClickListener);
         mPreviewTripBoats.setMoreClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BoatListActivity.launch(mContext, mDailyTrip.getBoats());
+                if (!mPreviewTripBoats.isEmpty()) {
+                    BoatListActivity.launch(mContext, mDailyTrip.getBoats());
+                }
             }
         });
 

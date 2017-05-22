@@ -86,4 +86,8 @@ public class ListPreviewLayout extends RelativeLayout {
     public void setItemClickListener(BaseRecyclerAdapter.ItemClickListener itemClickListener) {
         mAdapter.setItemClickListener(itemClickListener);
     }
+
+    public boolean isEmpty() {
+        return mPreviews.isEmpty();
+    }
 }
