@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -350,4 +351,10 @@ public class DailyTrip implements Parcelable {
             return new DailyTrip[size];
         }
     };
+
+    public Calendar getCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mDate);
+        return calendar;
+    }
 }

@@ -1,6 +1,5 @@
 package com.divetym.dive.activities;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +8,7 @@ import android.view.View;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
-import com.divetym.dive.fragments.CreateTripFragment;
+import com.divetym.dive.activities.common.Mode;
 import com.divetym.dive.fragments.SearchListFragment;
 import com.divetym.dive.fragments.TripListFragment;
 import com.divetym.dive.models.DiveSite;
@@ -66,7 +65,7 @@ public class DailyTripActivity extends AuthenticatedActivity implements
                         return;
                     }
                 }
-                startActivity(CreateTripActivity.class);
+                ModifyTripActivity.launch(DailyTripActivity.this, Mode.CREATE, null);
             }
         });
         SearchListFragment searchListFragment = new SearchListFragment();

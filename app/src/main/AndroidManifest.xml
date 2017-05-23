@@ -37,7 +37,7 @@
             android:label="@string/title_daily_trips" />
         <activity android:name=".activities.TripDetailsActivity" />
         <activity
-            android:name=".activities.CreateTripActivity"
+            android:name=".activities.ModifyTripActivity"
             android:label="@string/title_create_trip" />
     </application>
 

@@ -268,17 +268,12 @@ public interface ApiInterface {
      *
      * @param shopUid
      * @param tripId
-     * @param groupSize
-     * @param numberOfDives
-     * @param date
-     * @param price
-     * @param priceNote
+     * @param newDailyTrip
      * @return
      */
     @PUT("diveshops/{shopUid}/trips/{tripId}")
     Call<DailyTripResponse> updateDailyTrip(@Path("shopUid") String shopUid, @Path("tripId") int tripId,
-                                            @Field("group_size") int groupSize, @Field("number_of_dive") int numberOfDives,
-                                            @Field("date") String date, @Field("price") double price, @Field("price_note") String priceNote);
+                                           @Body DailyTrip newDailyTrip);
 
     /**
      *
