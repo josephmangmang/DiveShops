@@ -165,7 +165,7 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         Bundle args = getArguments();
-        mDailyTrip = args.getParcelable(BUNDLE_DAILY_TRIP);
+        mDailyTrip = args == null ? null : (DailyTrip) args.getParcelable(BUNDLE_DAILY_TRIP);
         if (mDailyTrip == null) {
             mDailyTrip = new DailyTrip();
         }
