@@ -1,10 +1,12 @@
 package com.divetym.dive.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.R;
@@ -22,13 +24,18 @@ import butterknife.ButterKnife;
  */
 
 public class TripDetailsActivity extends AuthenticatedActivity {
+    public static final String EXTRA_DAILY_TRIP = "com.divetym.dive.EXTRA_DAILY_TRIP";
+    public static final int REQUEST_EDIT = 1;
+
     @BindView(R.id.fab)
     FloatingActionButton mFab;
+    private TripDetailsFragment mFragment;
+    private boolean edited;
 
     public static void launch(DiveTymActivity context, DailyTrip dailyTrip) {
         Intent intent = new Intent(context, TripDetailsActivity.class);
-        intent.putExtra(TripDetailsFragment.EXTRA_DAILY_TRIP, dailyTrip);
-        context.startActivity(intent);
+        intent.putExtra(EXTRA_DAILY_TRIP, dailyTrip);
+        context.startActivityForResult(intent, DailyTripActivity.REQUEST_REFRESH);
     }
 
     @Override
@@ -36,10 +43,10 @@ public class TripDetailsActivity extends AuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details);
         ButterKnife.bind(this);
-        final DailyTrip dailyTrip = getIntent().getParcelableExtra(TripDetailsFragment.EXTRA_DAILY_TRIP);
+        final DailyTrip dailyTrip = getIntent().getParcelableExtra(EXTRA_DAILY_TRIP);
         showBackButton(true);
         setTitle(dailyTrip.getDateOnly());
-        initFragment(R.id.content, TripDetailsFragment.getInstance(dailyTrip));
+        mFragment = initFragment(R.id.content, TripDetailsFragment.getInstance(dailyTrip));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,4 +55,21 @@ public class TripDetailsActivity extends AuthenticatedActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_EDIT && resultCode == RESULT_OK) {
+            edited = true;
+            DailyTrip newDailyTrip = data.getParcelableExtra(EXTRA_DAILY_TRIP);
+            mFragment.setDailyTrip(newDailyTrip);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (edited) {
+            setResult(RESULT_OK);
+        }
+        super.onBackPressed();
+    }
 }

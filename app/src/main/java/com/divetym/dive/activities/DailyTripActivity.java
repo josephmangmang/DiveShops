@@ -1,8 +1,10 @@
 package com.divetym.dive.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -28,6 +30,7 @@ import xyz.sahildave.widget.SearchViewLayout;
 public class DailyTripActivity extends AuthenticatedActivity implements
         TripListFragment.OnRefreshTripListener {
     private static final String TAG = DailyTripActivity.class.getSimpleName();
+    public static final int REQUEST_REFRESH = 1;
     @BindView(R.id.search_view_container)
     SearchViewLayout mSearchViewLayout;
     @BindView(R.id.layout_date_range)
@@ -133,4 +136,10 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_REFRESH && resultCode == RESULT_OK) {
+            refreshTripList();
+        }
+    }
 }

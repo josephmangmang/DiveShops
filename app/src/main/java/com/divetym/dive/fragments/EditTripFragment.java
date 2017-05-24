@@ -1,5 +1,6 @@
 package com.divetym.dive.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -17,6 +18,9 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
+import static com.divetym.dive.activities.TripDetailsActivity.EXTRA_DAILY_TRIP;
 
 /**
  * Created by kali_root on 5/22/2017.
@@ -57,9 +61,20 @@ public class EditTripFragment extends ModifyTripFragment {
                             Log.d(TAG, "onResponse: " + response.toString());
                         }
                         if (response.body() != null) {
-                            new ToastAlert(mContext)
-                                    .setMessage(response.body().getMessage())
-                                    .show();
+                            if(response.body().isError()){
+                                new ToastAlert(mContext)
+                                        .setMessage(response.body().getMessage())
+                                        .show();
+                            }else{
+                                new ToastAlert(mContext)
+                                        .setMessage(R.string.toast_saved)
+                                        .show();
+                                Intent resturnIntent = new Intent();
+                                resturnIntent.putExtra(EXTRA_DAILY_TRIP, response.body().getDailyTrip());
+                                mContext.setResult(RESULT_OK, resturnIntent);
+                                mContext.finish();
+                            }
+
                         }
                     }
 

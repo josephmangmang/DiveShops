@@ -13,19 +13,20 @@ import com.divetym.dive.fragments.CreateTripFragment;
 import com.divetym.dive.fragments.EditTripFragment;
 import com.divetym.dive.models.DailyTrip;
 
+import static com.divetym.dive.activities.TripDetailsActivity.EXTRA_DAILY_TRIP;
+import static com.divetym.dive.activities.TripDetailsActivity.REQUEST_EDIT;
+
 /**
  * Created by kali_root on 5/9/2017.
  */
 
 public class ModifyTripActivity extends AuthenticatedActivity {
 
-    public static final String EXTRA_DAILY_TRIP = "extra_daily_trip";
-
     public static void launch(DiveTymActivity context, Mode actionMode, @Nullable DailyTrip dailyTrip) {
         Intent intent = new Intent(context, ModifyTripActivity.class);
         intent.setAction(actionMode.name());
         intent.putExtra(EXTRA_DAILY_TRIP, dailyTrip);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, REQUEST_EDIT);
     }
 
     @Override

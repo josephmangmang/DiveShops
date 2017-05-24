@@ -1,8 +1,10 @@
 package com.divetym.dive.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +17,15 @@ import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.interfaces.ItemClickListener;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.ListPreview;
-import com.divetym.dive.rest.ApiClient;
-import com.divetym.dive.rest.ApiInterface;
 import com.divetym.dive.view.ListPreviewLayout;
 import com.divetym.dive.view.RobotoTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.app.Activity.RESULT_OK;
+import static com.divetym.dive.activities.TripDetailsActivity.EXTRA_DAILY_TRIP;
+import static com.divetym.dive.activities.TripDetailsActivity.REQUEST_EDIT;
 
 /**
  * Created by kali_root on 5/5/2017.
@@ -30,8 +34,6 @@ import butterknife.ButterKnife;
 public class TripDetailsFragment extends DiveTymFragment {
 
     public static final String TAG = TripDetailsFragment.class.getSimpleName();
-    public static final String EXTRA_DAILY_TRIP = "com.divetym.dive.EXTRA_DAILY_TRIP";
-
     @BindView(R.id.text_time)
     RobotoTextView tvTime;
     @BindView(R.id.text_date)
@@ -55,9 +57,8 @@ public class TripDetailsFragment extends DiveTymFragment {
     @BindView(R.id.text_guests)
     RobotoTextView tvTripGuests;
 
-    private ApiInterface mApiService;
     private DailyTrip mDailyTrip;
-    
+
     private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewBoatClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
@@ -92,8 +93,8 @@ public class TripDetailsFragment extends DiveTymFragment {
         }
     };
 
-    public static Fragment getInstance(DailyTrip dailyTrip) {
-        Fragment fragment = new TripDetailsFragment();
+    public static TripDetailsFragment getInstance(DailyTrip dailyTrip) {
+        TripDetailsFragment fragment = new TripDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_DAILY_TRIP, dailyTrip);
         fragment.setArguments(bundle);
@@ -103,7 +104,6 @@ public class TripDetailsFragment extends DiveTymFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = ApiClient.getApiInterface();
         mDailyTrip = getArguments().getParcelable(EXTRA_DAILY_TRIP);
     }
 
@@ -112,22 +112,9 @@ public class TripDetailsFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trip_details, container, false);
         ButterKnife.bind(this, view);
+
         loadDailyTripData();
-        return view;
-    }
 
-    private void loadDailyTripData() {
-        tvDate.setText(mDailyTrip.getDateOnly());
-        tvTime.setText(mDailyTrip.getTimeOnly());
-        tvNumberOfDives.setText(""+ mDailyTrip.getNumberOfDive());
-        tvGroupSize.setText("" + mDailyTrip.getGroupSize());
-        tvTotalPrice.setText(mDailyTrip.getPrice().toString());
-        tvPriceSummary.setText(mDailyTrip.getPriceNote());
-        tvRemainingSlot.setText("" + mDailyTrip.getRemainingSlot());
-        tvTripGuests.setText(mDailyTrip.getGuestNames());
-
-        mPreViewTripSites.setPreviewTitle(getString(R.string.title_destinations));
-        mPreViewTripSites.setPreviewList(mDailyTrip.getDiveSitePreviews());
         mPreViewTripSites.setItemClickListener(mPreviewSiteClickListener);
         mPreViewTripSites.setMoreClickListener(new View.OnClickListener() {
             @Override
@@ -135,10 +122,6 @@ public class TripDetailsFragment extends DiveTymFragment {
 
             }
         });
-
-
-        mPreviewTripGuides.setPreviewTitle(getString(R.string.title_guides));
-        mPreviewTripGuides.setPreviewList(mDailyTrip.getGuidePreviews());
         mPreviewTripGuides.setItemClickListener(mPreviewGuideClickListener);
         mPreviewTripGuides.setMoreClickListener(new View.OnClickListener() {
             @Override
@@ -146,9 +129,6 @@ public class TripDetailsFragment extends DiveTymFragment {
 
             }
         });
-
-        mPreviewTripBoats.setPreviewTitle(getString(R.string.title_boats));
-        mPreviewTripBoats.setPreviewList(mDailyTrip.getBoatPreviews());
         mPreviewTripBoats.setItemClickListener(mPreviewBoatClickListener);
         mPreviewTripBoats.setMoreClickListener(new View.OnClickListener() {
             @Override
@@ -158,8 +138,31 @@ public class TripDetailsFragment extends DiveTymFragment {
                 }
             }
         });
-
+        return view;
     }
 
+    private void loadDailyTripData() {
+        tvDate.setText(mDailyTrip.getDateOnly());
+        tvTime.setText(mDailyTrip.getTimeOnly());
+        tvNumberOfDives.setText("" + mDailyTrip.getNumberOfDive());
+        tvGroupSize.setText("" + mDailyTrip.getGroupSize());
+        tvTotalPrice.setText(mDailyTrip.getPrice().toString());
+        tvPriceSummary.setText(mDailyTrip.getPriceNote());
+        tvRemainingSlot.setText("" + mDailyTrip.getRemainingSlot());
+        tvTripGuests.setText(mDailyTrip.getGuestNames());
 
+        mPreViewTripSites.setPreviewTitle(getString(R.string.title_destinations));
+        mPreViewTripSites.setPreviewList(mDailyTrip.getDiveSitePreviews());
+
+        mPreviewTripGuides.setPreviewTitle(getString(R.string.title_guides));
+        mPreviewTripGuides.setPreviewList(mDailyTrip.getGuidePreviews());
+
+        mPreviewTripBoats.setPreviewTitle(getString(R.string.title_boats));
+        mPreviewTripBoats.setPreviewList(mDailyTrip.getBoatPreviews());
+
+    }
+    public void setDailyTrip(DailyTrip dailyTrip){
+        mDailyTrip = dailyTrip;
+        loadDailyTripData();
+    }
 }
