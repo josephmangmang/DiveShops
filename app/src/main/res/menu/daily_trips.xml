@@ -8,12 +8,27 @@
         android:title="@string/title_sort"
         app:showAsAction="ifRoom">
         <menu>
-            <item
-                android:id="@+id/menu_sort_price"
-                android:title="@string/title_price" />
-            <item
-                android:id="@+id/menu_sort_rating"
-                android:title="@string/title_rating" />
+            <group
+                android:id="@+id/menu_group_short_option"
+                android:checkableBehavior="single">
+                <item
+                    android:checked="true"
+                    android:id="@+id/menu_sort_date"
+                    android:title="@string/menu_date" />
+                <item
+                    android:id="@+id/menu_sort_price_low_high"
+                    android:title="@string/menu_price_low_high" />
+
+                <item
+                    android:id="@+id/menu_sort_price_high_low"
+                    android:title="@string/menu_price_high_low" />
+                <item
+                    android:id="@+id/menu_sort_rating_low_high"
+                    android:title="@string/menu_rating_low_high" />
+                <item
+                    android:id="@+id/menu_sort_rating_high_low"
+                    android:title="@string/menu_rating_high_low" />
+            </group>
         </menu>
     </item>
 </menu>

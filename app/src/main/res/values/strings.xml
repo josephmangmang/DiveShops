@@ -44,8 +44,8 @@
     <string name="label_start">Start</string>
     <string name="title_daily_trips">Daily Trips</string>
     <string name="title_sort">Sort</string>
-    <string name="title_price">Price</string>
-    <string name="title_rating">Rating</string>
+    <string name="menu_price_low_high">Price (low - high)</string>
+    <string name="menu_rating_low_high">Rating (low - high)</string>
     <string name="label_end">End</string>
     <string name="hint_select_dive_site">Select Dive Site</string>
     <string name="message_empty_trip">No available trips</string>
@@ -88,4 +88,7 @@
     <string name="title_no_item">No item</string>
     <string name="title_edit_trip">Edit Trip</string>
     <string name="toast_saved">Saved</string>
+    <string name="menu_price_high_low">Price (high - low)</string>
+    <string name="menu_rating_high_low">Rating (high - low)</string>
+    <string name="menu_date">Date</string>
 </resources>

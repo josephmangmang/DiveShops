@@ -1,5 +1,6 @@
 package com.divetym.dive.rest;
 
+import com.divetym.dive.common.SortOption;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.response.BoatListResponse;
 import com.divetym.dive.models.response.BoatResponse;
@@ -254,6 +255,24 @@ public interface ApiInterface {
             @Query("offset") int offset);
 
     /**
+     * Get list of Dive Shop Dive Trips
+     *
+     * @param shopUid
+     * @param diveSiteId
+     * @param startDate
+     * @param endDate
+     * @param offset
+     * @param sort
+     * @param orderBy
+     * @return
+     */
+    @GET("diveshops/{shopUid}/trips")
+    Call<DailyTripListResponse> getDiveShopTrips(
+            @Path("shopUid") String shopUid, @Query("dive_site_id") int diveSiteId,
+            @Query("start_date") String startDate, @Query("end_date") String endDate,
+            @Query("offset") int offset, @Query("sort") String sort, @Query("order") String orderBy);
+
+    /**
      * Add new Daily Trip
      *
      * @param shopUid
@@ -273,10 +292,9 @@ public interface ApiInterface {
      */
     @PUT("diveshops/{shopUid}/trips/{tripId}")
     Call<DailyTripResponse> updateDailyTrip(@Path("shopUid") String shopUid, @Path("tripId") int tripId,
-                                           @Body DailyTrip newDailyTrip);
+                                            @Body DailyTrip newDailyTrip);
 
     /**
-     *
      * @param shopUid
      * @param dailyTripIds
      * @return

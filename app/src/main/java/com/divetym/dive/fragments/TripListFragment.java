@@ -16,6 +16,7 @@ import com.divetym.dive.activities.DailyTripActivity;
 import com.divetym.dive.activities.TripDetailsActivity;
 import com.divetym.dive.adapters.TripListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
+import com.divetym.dive.common.SortOption;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.DiveSite;
@@ -33,6 +34,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import static com.divetym.dive.common.SortOption.*;
+
 /**
  * Created by kali_root on 4/22/2017.
  */
@@ -49,6 +52,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     private DiveSite mSelectedDiveSite;
     private Date mStartDate;
     private Date mEndDate;
+    private SortOption mSortOption;
 
     public static TripListFragment getInstance(Date startDate, Date endDate) {
         TripListFragment fragment = new TripListFragment();
@@ -77,6 +81,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         mEndDate = new Date(endDate);
         this.startDate = DateUtils.formatServerDate(mStartDate);
         this.endDate = DateUtils.formatServerDate(mEndDate);
+        mSortOption = new SortOption(Order.date, Sort.ASC);
     }
 
     public void inflateToolbar(Menu menu, MenuInflater inflater) {
@@ -93,8 +98,35 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_delete) {
-            showDeleteSelectedTripsDialog();
+        boolean refresh = false;
+
+        switch (item.getItemId()) {
+            case R.id.menu_delete:
+                showDeleteSelectedTripsDialog();
+                return true;
+            case R.id.menu_sort_date:
+                refresh = true;
+                mSortOption.setOrder(Order.date);
+                mSortOption.setSort(Sort.ASC);
+                break;
+            case R.id.menu_sort_price_low_high:
+                refresh = true;
+                mSortOption.setOrder(Order.price);
+                mSortOption.setSort(Sort.ASC);
+                break;
+            case R.id.menu_sort_price_high_low:
+                refresh = true;
+                mSortOption.setOrder(Order.price);
+                mSortOption.setSort(Sort.DESC);
+                break;
+            case R.id.menu_sort_rating_low_high:
+            case R.id.menu_sort_rating_high_low:
+                // TODO: 5/24/2017 rating
+                return true;
+        }
+        if(refresh) {
+            item.setChecked(true);
+            refreshTripList(mSelectedDiveSite, mStartDate, mEndDate);
             return true;
         }
         return false;
@@ -162,7 +194,8 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     }
 
     private void requestDiveShopTrips() {
-        mApiService.getDiveShopTrips(mShopUid, mDiveSiteId, startDate, endDate, mOffset)
+        mApiService.getDiveShopTrips(mShopUid, mDiveSiteId, startDate, endDate,
+                mOffset, mSortOption.getSort().name(), mSortOption.getOrder().name())
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
                     public void onResponse(Call<DailyTripListResponse> call, retrofit2.Response<DailyTripListResponse> response) {
@@ -210,7 +243,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     @Override
     protected void onRequestResponse(DailyTripListResponse response) {
         if (response != null && !response.isError()) {
-            Log.d(TAG,"reset: " + reset + " response: " +  response.toString());
+            Log.d(TAG, "reset: " + reset + " response: " + response.toString());
             if (reset) {
                 mAdapter.replaceData(response.getDailyTrips());
             } else {
