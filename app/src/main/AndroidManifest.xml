@@ -39,6 +39,9 @@
         <activity
             android:name=".activities.ModifyTripActivity"
             android:label="@string/title_create_trip" />
+        <activity
+            android:name=".activities.GuideListActivity"
+            android:label="@string/title_guides" />
     </application>
 
 </manifest>

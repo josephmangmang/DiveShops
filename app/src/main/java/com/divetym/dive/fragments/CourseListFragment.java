@@ -29,12 +29,15 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         BaseRecyclerAdapter.ItemClickListener<DiveShopCourse> {
     private static final String TAG = CourseListFragment.class.getSimpleName();
 
-    public static CourseListFragment getInstance(@Nullable ArrayList<DiveShopCourse> courses) {
+    public static CourseListFragment getInstance(Bundle bundle) {
         CourseListFragment fragment = new CourseListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(DiveShopCourse.TAG, courses);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    protected void onFabClicked() {
+
     }
 
     @Override

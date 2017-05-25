@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
-import com.divetym.dive.fragments.CourseListFragment;
-import com.divetym.dive.models.DiveShopCourse;
+import com.divetym.dive.fragments.GuideListFragment;
+import com.divetym.dive.models.Guide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +18,14 @@ import static com.divetym.dive.fragments.base.DiveTymListFragment.EXTRA_ADD_BUTT
 import static com.divetym.dive.fragments.base.DiveTymListFragment.EXTRA_LIST;
 
 /**
- * Created by kali_root on 4/9/2017.
+ * Created by kali_root on 5/24/2017.
  */
 
-public class CourseListActivity extends AuthenticatedActivity {
+public class GuideListActivity extends AuthenticatedActivity {
 
-    private static final String TAG = CourseListActivity.class.getSimpleName();
-
-    public static void launch(DiveTymActivity context, @Nullable List<DiveShopCourse> courses, boolean showFab) {
-        Log.d(TAG, "lauching...");
-        Intent intent = new Intent(context, CourseListActivity.class);
-        intent.putParcelableArrayListExtra(EXTRA_LIST, (ArrayList<? extends Parcelable>) courses);
+    public static void launch(DiveTymActivity context, @Nullable List<Guide> guides, boolean showFab) {
+        Intent intent = new Intent(context, GuideListActivity.class);
+        intent.putParcelableArrayListExtra(EXTRA_LIST, (ArrayList<? extends Parcelable>) guides);
         intent.putExtra(EXTRA_ADD_BUTTON, showFab);
         context.startActivity(intent);
     }
@@ -39,6 +35,6 @@ public class CourseListActivity extends AuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showBackButton(true);
-        initFragment(R.id.content, CourseListFragment.getInstance(getIntent().getExtras()));
+        initFragment(R.id.content, GuideListFragment.getInstance(getIntent().getExtras()));
     }
 }

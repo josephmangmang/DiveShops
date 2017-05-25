@@ -12,8 +12,9 @@ import android.view.View;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
-import com.divetym.dive.activities.DailyTripActivity;
+import com.divetym.dive.activities.ModifyTripActivity;
 import com.divetym.dive.activities.TripDetailsActivity;
+import com.divetym.dive.activities.common.Mode;
 import com.divetym.dive.adapters.TripListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.common.SortOption;
@@ -34,7 +35,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static com.divetym.dive.common.SortOption.*;
+import static com.divetym.dive.common.SortOption.Order;
+import static com.divetym.dive.common.SortOption.Sort;
 
 /**
  * Created by kali_root on 4/22/2017.
@@ -84,6 +86,15 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         mSortOption = new SortOption(Order.date, Sort.ASC);
     }
 
+    @Override
+    protected void onFabClicked() {
+        if (mAdapter.isInMultiSelectMode()) {
+            showDeleteSelectedTripsDialog();
+            return;
+        }
+        ModifyTripActivity.launch(mContext, Mode.CREATE, null);
+    }
+
     public void inflateToolbar(Menu menu, MenuInflater inflater) {
         if (mAdapter.isInMultiSelectMode()) {
             inflater.inflate(R.menu.daily_trip_selection, menu);
@@ -124,7 +135,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
                 // TODO: 5/24/2017 rating
                 return true;
         }
-        if(refresh) {
+        if (refresh) {
             item.setChecked(true);
             refreshTripList(mSelectedDiveSite, mStartDate, mEndDate);
             return true;
@@ -185,6 +196,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         mAdapter.setItemClickListener(this);
         mAdapter.setMultiSelectListener(this);
         mAdapter.setLoadMoreListener(this);
+        showFab(true);
     }
 
     @Override
@@ -273,7 +285,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     @Override
     public void onMultiSelectStateChanged(boolean enabled) {
         mContext.invalidateOptionsMenu();
-        ((DailyTripActivity) mContext).mFabAdd.setImageResource(enabled ? R.drawable.ic_delete : R.drawable.ic_add);
+        mFab.setImageResource(enabled ? R.drawable.ic_delete : R.drawable.ic_add);
     }
 
     @Override
@@ -286,7 +298,4 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         mContext.invalidateOptionsMenu();
     }
 
-    public TripListAdapter getAdapter() {
-        return mAdapter;
-    }
 }

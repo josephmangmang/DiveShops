@@ -46,7 +46,7 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
     }
 
     private void initializeNavigation() {
-        mNavigationView.inflateMenu(R.menu.drawer);
+        mNavigationView.inflateMenu(R.menu.drawer_login);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -78,10 +78,13 @@ public class MainActivity extends AuthenticatedActivity implements NavigationVie
                 startActivity(DailyTripActivity.class);
                 break;
             case R.id.nav_courses:
-                CourseListActivity.launch(this, null);
+                CourseListActivity.launch(this, null, true);
                 break;
             case R.id.nav_boats:
-                BoatListActivity.launch(this, null);
+                BoatListActivity.launch(this, null, true);
+                break;
+            case R.id.nav_guides:
+                GuideListActivity.launch(this, null, true);
                 break;
             case R.id.nav_logout:
                 logOut();

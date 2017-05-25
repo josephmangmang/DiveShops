@@ -38,9 +38,12 @@ public class DiveShop extends User implements Parcelable {
     private List<DiveShopCourse> courses;
     @SerializedName(ApiConstant.BOATS)
     private List<Boat> boats;
+    @SerializedName(ApiConstant.GUIDES)
+    private List<Guide> guides;
 
     private List<ListPreview> coursePreviews;
     private List<ListPreview> boatPreviews;
+    private List<ListPreview> guidePreviews;
 
     public String getDiveShopUid() {
         return diveShopUid;
@@ -132,6 +135,25 @@ public class DiveShop extends User implements Parcelable {
         prepareBoatPreviews(boats);
     }
 
+    public List<Guide> getGuides() {
+        return guides;
+    }
+
+    public void setGuides(List<Guide> guides) {
+        this.guides = guides;
+        prepareGuidePreviews(guides);
+    }
+
+    private void prepareGuidePreviews(List<Guide> guides) {
+        guidePreviews = new ArrayList<>();
+        if (guides != null) {
+            for (int i = 0; i < guides.size(); i++) {
+                Guide guide = guides.get(i);
+                guidePreviews.add(new ListPreview(i, guide.getName(), guide.getImageUrl()));
+            }
+        }
+    }
+
     public void prepareCoursePreviews(List<DiveShopCourse> courses) {
         coursePreviews = new ArrayList<>();
         if (courses != null) {
@@ -153,17 +175,24 @@ public class DiveShop extends User implements Parcelable {
     }
 
     public List<ListPreview> getCoursePreviews() {
-        if (coursePreviews == null && courses != null && courses.size() > 0) {
+        if (coursePreviews == null) {
             prepareCoursePreviews(courses);
         }
         return coursePreviews;
     }
 
     public List<ListPreview> getBoatPreviews() {
-        if (boatPreviews == null && boats != null && boats.size() > 0) {
+        if (boatPreviews == null) {
             prepareBoatPreviews(boats);
         }
         return boatPreviews;
+    }
+
+    public List<ListPreview> getGuidePreviews() {
+        if (guidePreviews == null) {
+            prepareGuidePreviews(guides);
+        }
+        return guidePreviews;
     }
 
     @Override
@@ -179,6 +208,9 @@ public class DiveShop extends User implements Parcelable {
                 ", pricePerDive=" + pricePerDive +
                 ", specialService='" + specialService + '\'' +
                 '}';
+    }
+
+    public DiveShop() {
     }
 
     @Override
@@ -199,11 +231,10 @@ public class DiveShop extends User implements Parcelable {
         dest.writeString(this.specialService);
         dest.writeTypedList(this.courses);
         dest.writeTypedList(this.boats);
+        dest.writeTypedList(this.guides);
         dest.writeTypedList(this.coursePreviews);
         dest.writeTypedList(this.boatPreviews);
-    }
-
-    public DiveShop() {
+        dest.writeTypedList(this.guidePreviews);
     }
 
     protected DiveShop(Parcel in) {
@@ -218,8 +249,10 @@ public class DiveShop extends User implements Parcelable {
         this.specialService = in.readString();
         this.courses = in.createTypedArrayList(DiveShopCourse.CREATOR);
         this.boats = in.createTypedArrayList(Boat.CREATOR);
+        this.guides = in.createTypedArrayList(Guide.CREATOR);
         this.coursePreviews = in.createTypedArrayList(ListPreview.CREATOR);
         this.boatPreviews = in.createTypedArrayList(ListPreview.CREATOR);
+        this.guidePreviews = in.createTypedArrayList(ListPreview.CREATOR);
     }
 
     public static final Creator<DiveShop> CREATOR = new Creator<DiveShop>() {

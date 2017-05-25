@@ -15,6 +15,8 @@ public class Guide extends ThumbnailEntity {
     private int guideId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)
     private String diveShopUid;
+    @SerializedName(ApiConstant.DESCRIPTION)
+    private String description;
 
     public int getGuideId() {
         return guideId;
@@ -32,6 +34,16 @@ public class Guide extends ThumbnailEntity {
         this.diveShopUid = diveShopUid;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Guide() {
+    }
 
     @Override
     public int describeContents() {
@@ -43,15 +55,14 @@ public class Guide extends ThumbnailEntity {
         super.writeToParcel(dest, flags);
         dest.writeInt(this.guideId);
         dest.writeString(this.diveShopUid);
-    }
-
-    public Guide() {
+        dest.writeString(this.description);
     }
 
     protected Guide(Parcel in) {
         super(in);
         this.guideId = in.readInt();
         this.diveShopUid = in.readString();
+        this.description = in.readString();
     }
 
     public static final Creator<Guide> CREATOR = new Creator<Guide>() {

@@ -3,8 +3,8 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:checked="true"
             android:id="@+id/nav_dive_shop_profile"
+            android:checked="true"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/title_nav_dive_shop_profile" />
         <item
@@ -19,5 +19,9 @@
             android:id="@+id/nav_boats"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/title_nav_boats" />
+        <item
+            android:id="@+id/nav_guides"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/title_nav_guides" />
     </group>
 </menu>

@@ -75,10 +75,3 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
     }
 }
 
-class LoadingHolder extends DiveTymViewHolder {
-
-    public LoadingHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-    }
-}
-

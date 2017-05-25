@@ -3,6 +3,7 @@ package com.divetym.dive.fragments.base;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter.ItemClickListener;
 import com.divetym.dive.fragments.CourseListFragment;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
+import com.divetym.dive.models.User;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
@@ -37,6 +39,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         extends DiveTymFragment implements OnLoadMoreListener, ItemClickListener<DataType> {
     private static final String TAG = CourseListFragment.class.getSimpleName();
     public static final String EXTRA_LIST = "com.divetym.dive.EXTRA_LIST";
+    public static final String EXTRA_ADD_BUTTON = "com.divetym.dive.EXTRA_ADD_BUTTON";
 
     @BindView(R.id.list)
     protected RecyclerView mRecyclerView;
@@ -44,12 +47,15 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected RobotoTextView mEmptyText;
     @BindView(R.id.progress)
     ContentLoadingProgressBar mProgressBar;
+    @BindView(R.id.fab_add)
+    protected FloatingActionButton mFab;
     protected Adapter mAdapter;
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
     protected ApiInterface mApiService;
     protected int mOffset = 0;
     protected String mShopUid;
+    protected boolean showAddButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +63,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         Bundle args = getArguments();
         if (args != null) {
             mDataList = args.getParcelableArrayList(EXTRA_LIST);
+            showAddButton = args.getBoolean(EXTRA_ADD_BUTTON, false);
             if (mDataList == null) {
                 mDataList = new ArrayList<>();
             }
@@ -66,6 +73,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         }
         mApiService = ApiClient.getApiInterface();
         mLayoutManager = new LinearLayoutManager(mContext);
+        mShopUid = mSessionManager.getDiveShopUid();
     }
 
     @Nullable
@@ -75,18 +83,27 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         ButterKnife.bind(this, view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mFab.setVisibility(showAddButton ? View.VISIBLE : View.GONE);
         initializeAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClicked();
+            }
+        });
         if (mDataList.size() == 0) {
             loadData();
         }
         return view;
     }
 
+    protected abstract void onFabClicked();
+
     protected abstract void initializeAdapter();
 
     private void loadData() {
-        mShopUid = mSessionManager.getDiveShopUid();
         if (mShopUid == null) {
             new ToastAlert(mContext)
                     .setMessage(R.string.error_empty_account_details)
@@ -124,7 +141,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
 
     @Override
     public void onItemLongClick(DataType object, View view, int position) {
-        
+
     }
 
     @Override
@@ -137,6 +154,14 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
             mProgressBar.show();
         } else {
             mProgressBar.hide();
+        }
+    }
+
+    public void showFab(boolean show) {
+        if (show) {
+            mFab.show();
+        } else {
+            mFab.hide();
         }
     }
 }

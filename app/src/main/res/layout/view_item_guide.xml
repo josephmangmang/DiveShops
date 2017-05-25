@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginLeft="@dimen/margin_small"
+    android:layout_marginRight="@dimen/margin_small"
+    android:layout_marginTop="@dimen/margin_small"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_thumbnail"
+            android:layout_width="115dp"
+            android:layout_height="125dp"
+            android:layout_marginRight="@dimen/margin_small"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/dummy_image_preview" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image_thumbnail"
+            android:textSize="@dimen/roboto_title_medium"
+            app:typeface="roboto_medium"
+            tools:text="@string/dummy_title" />
+
+        <com.divetym.dive.view.RobotoTextView
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_title"
+            android:layout_toRightOf="@+id/image_thumbnail"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:minLines="5"
+            android:textSize="@dimen/roboto_body_1_regular"
+            tools:text="@string/dummy_longtext" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

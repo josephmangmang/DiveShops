@@ -134,7 +134,7 @@ public class TripDetailsFragment extends DiveTymFragment {
             @Override
             public void onClick(View view) {
                 if (!mPreviewTripBoats.isEmpty()) {
-                    BoatListActivity.launch(mContext, mDailyTrip.getBoats());
+                    BoatListActivity.launch(mContext, mDailyTrip.getBoats(), false);
                 }
             }
         });

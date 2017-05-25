@@ -17,6 +17,9 @@ import com.divetym.dive.models.DiveShopCourse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.divetym.dive.fragments.base.DiveTymListFragment.EXTRA_ADD_BUTTON;
+import static com.divetym.dive.fragments.base.DiveTymListFragment.EXTRA_LIST;
+
 /**
  * Created by kali_root on 4/15/2017.
  */
@@ -24,12 +27,12 @@ import java.util.List;
 public class BoatListActivity extends AuthenticatedActivity {
 
     private static final String TAG = BoatListActivity.class.getSimpleName();
-    public static final String EXTRA_BOATS = "com.divetym.dive.EXTRA_BOATS";
 
-    public static<Data extends Boat> void launch(DiveTymActivity context, @Nullable List<Data> courses) {
+    public static<Data extends Boat> void launch(DiveTymActivity context, @Nullable List<Data> boats, boolean showFab) {
         Log.d(TAG, "lauching...");
         Intent intent = new Intent(context, BoatListActivity.class);
-        intent.putParcelableArrayListExtra(EXTRA_BOATS, (ArrayList<? extends Parcelable>) courses);
+        intent.putParcelableArrayListExtra(EXTRA_LIST, (ArrayList<? extends Parcelable>) boats);
+        intent.putExtra(EXTRA_ADD_BUTTON, showFab);
         context.startActivity(intent);
     }
 
@@ -38,7 +41,6 @@ public class BoatListActivity extends AuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showBackButton(true);
-        ArrayList<Boat> previewBoats = getIntent().getParcelableArrayListExtra(EXTRA_BOATS);
-        initFragment(R.id.content, BoatListFragment.getInstance(previewBoats));
+        initFragment(R.id.content, BoatListFragment.getInstance(getIntent().getExtras()));
     }
 }

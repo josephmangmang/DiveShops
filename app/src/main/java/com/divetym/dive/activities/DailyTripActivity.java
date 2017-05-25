@@ -35,8 +35,6 @@ public class DailyTripActivity extends AuthenticatedActivity implements
     SearchViewLayout mSearchViewLayout;
     @BindView(R.id.layout_date_range)
     DateRangeLayout mDateRangeLayout;
-    @BindView(R.id.fab_add)
-    public FloatingActionButton mFabAdd;
 
     private DiveSite mSelectedDiveSite;
     private TripListFragment mFragment;
@@ -59,18 +57,6 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         mFragment = initFragment(R.id.content, TripListFragment.getInstance(mStartDate, mEndDate));
 
 
-        mFabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mFragment != null) {
-                    if (mFragment.getAdapter().isInMultiSelectMode()) {
-                        mFragment.showDeleteSelectedTripsDialog();
-                        return;
-                    }
-                }
-                ModifyTripActivity.launch(DailyTripActivity.this, Mode.CREATE, null);
-            }
-        });
         SearchListFragment searchListFragment = new SearchListFragment();
         mSearchViewLayout.setExpandedContentFragment(this, searchListFragment);
         mSearchViewLayout.setHint(getString(R.string.hint_select_dive_site));
@@ -89,11 +75,11 @@ public class DailyTripActivity extends AuthenticatedActivity implements
             @Override
             public void onStart(boolean expanding) {
                 if (expanding) {
-                    mFabAdd.hide();
+                    mFragment.showFab(false);
                     if (mSelectedDiveSite != null)
                         mSearchViewLayout.setExpandedText(mSelectedDiveSite.getName());
                 } else {
-                    mFabAdd.show();
+                    mFragment.showFab(true);
                 }
             }
 

@@ -16,6 +16,7 @@ import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.activities.CourseListActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.DailyTripActivity;
+import com.divetym.dive.activities.GuideListActivity;
 import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.fragments.base.DiveTymFragment;
@@ -52,10 +53,29 @@ public class DiveShopFragment extends DiveTymFragment {
     ListPreviewLayout mPreviewCourses;
     @BindView(R.id.preview_boats)
     ListPreviewLayout mPreviewBoats;
+    @BindView(R.id.preview_guides)
+    ListPreviewLayout mPreviewGuides;
     @BindView(R.id.text_special_service)
     RobotoTextView tvSpecialService;
     private ApiInterface mApiService;
     private DiveShop mDiveShop;
+
+    private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<ListPreview>() {
+        public void onItemClick(ListPreview object, View view, int i) {
+            Log.d(TAG, "onItemClick " + object.toString());
+        }
+
+        @Override
+        public void onActionClick(ListPreview object, View view) {
+            Log.d(TAG, "onActionClick " + object.toString());
+        }
+    };
+    private View.OnClickListener mPreviewGuideMoreClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            GuideListActivity.launch(mContext, mDiveShop.getGuides(), true);
+        }
+    };
 
     @OnClick(R.id.button_view_daily_trips)
     public void onViewDailyTrip() {
@@ -65,13 +85,13 @@ public class DiveShopFragment extends DiveTymFragment {
     private View.OnClickListener mPreviewCoursesMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            CourseListActivity.launch(mContext, mDiveShop.getCourses());
+            CourseListActivity.launch(mContext, mDiveShop.getCourses(), true);
         }
     };
     private View.OnClickListener mPreviewBoatsMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            BoatListActivity.launch(mContext, mDiveShop.getBoats());
+            BoatListActivity.launch(mContext, mDiveShop.getBoats(), true);
         }
     };
     private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new ItemClickListener<ListPreview>() {
@@ -117,6 +137,8 @@ public class DiveShopFragment extends DiveTymFragment {
         mPreviewCourses.setItemClickListener(mCourseItemClickListener);
         mPreviewBoats.setItemClickListener(mBoatItemClickListener);
         mPreviewBoats.setMoreClickListener(mPreviewBoatsMoreClickListener);
+        mPreviewGuides.setItemClickListener(mGuideItemClickListener);
+        mPreviewGuides.setMoreClickListener(mPreviewGuideMoreClickListener);
 
         loadDiveShopData();
         return view;
@@ -199,5 +221,8 @@ public class DiveShopFragment extends DiveTymFragment {
 
         mPreviewBoats.setPreviewTitle(getString(R.string.title_boats));
         mPreviewBoats.setPreviewList(diveShop.getBoatPreviews());
+
+        mPreviewGuides.setPreviewTitle(getString(R.string.title_guides));
+        mPreviewGuides.setPreviewList(diveShop.getGuidePreviews());
     }
 }

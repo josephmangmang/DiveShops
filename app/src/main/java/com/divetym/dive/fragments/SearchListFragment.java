@@ -36,6 +36,11 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
     }
 
     @Override
+    protected void onFabClicked() {
+
+    }
+
+    @Override
     protected void initializeAdapter() {
         mAdapter = new SearchListAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
