@@ -1,6 +1,7 @@
 package com.divetym.dive.view;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -22,7 +23,7 @@ import java.util.List;
  * Created by kali_root on 4/6/2017.
  */
 
-public class ListPreviewLayout extends RelativeLayout {
+public class ListPreviewLayout extends CardView {
     public static final String TAG = ListPreviewLayout.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private RobotoTextView tvPreviewTitle;

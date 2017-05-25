@@ -11,14 +11,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_medium"
-        android:paddingRight="@dimen/margin_medium">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/button_view_daily_trips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="@dimen/view_space"
             android:text="@string/action_view_daily_trips"
             android:textSize="@dimen/roboto_button_medium" />
@@ -27,6 +27,8 @@
             android:id="@+id/text_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="@dimen/view_space"
             android:inputType="textCapSentences|textMultiLine"
             android:textSize="@dimen/roboto_body_1_regular"
@@ -35,6 +37,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="@dimen/view_space"
             android:orientation="horizontal">
 
@@ -78,6 +82,8 @@
         <com.divetym.dive.view.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="@dimen/view_space"
             android:text="@string/title_special_service"
             android:textSize="@dimen/roboto_title_medium"
@@ -88,6 +94,8 @@
             android:id="@+id/text_special_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="@dimen/view_space"
             android:textSize="@dimen/roboto_body_1_regular"
             tools:text="@string/dummy_special_service" />
