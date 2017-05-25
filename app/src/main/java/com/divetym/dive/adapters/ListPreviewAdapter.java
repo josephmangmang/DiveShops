@@ -1,6 +1,7 @@
 package com.divetym.dive.adapters;
 
 import android.support.design.widget.CoordinatorLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,9 @@ class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
         this.title.setText(title);
         this.subtitle.setText(subtitle);
         this.btnAction.setText(action);
+        if(TextUtils.isEmpty(action)){
+            this.btnAction.setVisibility(View.GONE);
+        }
         Picasso.with(mContext)
                 .load(imageUrl)
                 .error(R.drawable.dummy_image_error)
