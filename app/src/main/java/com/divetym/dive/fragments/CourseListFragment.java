@@ -1,11 +1,13 @@
 package com.divetym.dive.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.activities.AddCourseActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.adapters.CourseListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
@@ -37,7 +39,7 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
 
     @Override
     protected void onFabClicked() {
-
+        startActivity(new Intent(mContext, AddCourseActivity.class));
     }
 
     @Override

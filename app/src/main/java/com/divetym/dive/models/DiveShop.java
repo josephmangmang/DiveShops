@@ -169,7 +169,7 @@ public class DiveShop extends User implements Parcelable {
         if (boats != null) {
             for (int i = 0; i < boats.size(); i++) {
                 Boat boat = boats.get(i);
-                boatPreviews.add(new ListPreview(i, boat.getName(), PREVIEW_ACTION_BOAT, boat.getImageUrl()));
+                boatPreviews.add(new ListPreview(i, boat.getName(), boat.getImageUrl()));
             }
         }
     }

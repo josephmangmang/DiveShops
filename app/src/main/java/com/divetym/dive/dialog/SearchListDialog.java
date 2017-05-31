@@ -66,6 +66,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     protected int mLastRequestMethod;
     protected int mOffset = 0;
     private String mSearchHint;
+    private boolean multiSelectEnable;
 
     public interface OnSelectionDoneListener<DataType> {
         void onSelectionDone(HashMap<Integer, DataType> selectedItems);
@@ -165,6 +166,10 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
         mSearchHint = hint;
     }
 
+    public void setMultiSelectEnable(boolean multiSelectEnable) {
+        this.multiSelectEnable = multiSelectEnable;
+    }
+
     public void setDataList(List dataList) {
         mDataList = dataList;
         mAdapter.disableMultiSelectMode(true);
@@ -183,7 +188,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
         }
     }
 
-    protected  void onSearchClicked(String query){
+    protected void onSearchClicked(String query) {
         mLastRequestMethod = REQUEST_METHOD_SEARCH;
         mOffset = 0;
         searchData(query);
@@ -211,12 +216,17 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
 
     @Override
     public void onItemClick(DataType object, View view, int position) {
-        mAdapter.toggleSelection(position, object);
+        if (!multiSelectEnable) {
+            mAdapter.toggleSelection(0, object);
+            mDone.callOnClick();
+        }else{
+            mAdapter.toggleSelection(position, object);
+        }
     }
 
     @Override
     public void onItemLongClick(DataType object, View view, int position) {
-        
+
     }
 
     @Override

@@ -13,7 +13,7 @@ public class SortOption {
         ASC, DESC
     }
     public enum Order{
-        date, price, group_size, rating
+        date, price, group_size, rating, name
     }
 
     public SortOption(Order order, Sort sort) {

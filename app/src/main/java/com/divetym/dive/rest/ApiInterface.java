@@ -69,6 +69,9 @@ public interface ApiInterface {
     @GET("courses")
     Call<CourseListResponse> getCourses(@Query("offset") int offset, @Query("sort") String sort, @Query("order") String orderBy);
 
+    @GET("courses")
+    Call<CourseListResponse> getCourses(@Query("q") String searchName, @Query("offset") int offset, @Query("sort") String sort, @Query("order") String orderBy);
+
     /**
      * Get a list of Dive Site base on location
      *
@@ -160,8 +163,9 @@ public interface ApiInterface {
      * @param price
      * @return
      */
+    @FormUrlEncoded
     @POST("diveshops/{shopUid}/courses")
-    Call<DiveShopCourseResponse> addDiveShopCourse(@Field("course_id") int courseId, @Field("price") double price);
+    Call<DiveShopCourseResponse> addDiveShopCourse(@Path("shopUid") String shopUid, @Field("course_id") int courseId, @Field("price") double price);
 
     /**
      * Add new boat

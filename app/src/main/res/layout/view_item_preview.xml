@@ -61,7 +61,7 @@
         android:background="#ffffff"
         android:padding="5dp"
         android:textColor="@color/text_button"
-        android:textSize="@dimen/roboto_title_medium"
+        android:textSize="@dimen/roboto_button_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="@string/action_book_now" />

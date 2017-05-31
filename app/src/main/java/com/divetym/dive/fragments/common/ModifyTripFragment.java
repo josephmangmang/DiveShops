@@ -87,6 +87,7 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
             }
             DiveSitesDialog diveSitesDialog = new DiveSitesDialog();
             diveSitesDialog.show(mContext.getFragmentManager(), DiveSitesDialog.class.getSimpleName());
+            diveSitesDialog.setMultiSelectEnable(true);
             diveSitesDialog.setSearchHint(getString(R.string.hint_search_dive_site));
             diveSitesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripDiveSite>() {
                 @Override
@@ -102,6 +103,7 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
             Log.d(TAG, "onBoatAddClickListener");
             BoatsDialog boatsDialog = new BoatsDialog();
             boatsDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
+            boatsDialog.setMultiSelectEnable(true);
             boatsDialog.setSearchHint(getString(R.string.hint_search_boat));
             boatsDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripBoat>() {
                 @Override
@@ -118,6 +120,7 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
             Log.d(TAG, "onGuideAddClickListener");
             GuidesDialog guidesDialog = new GuidesDialog();
             guidesDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
+            guidesDialog.setMultiSelectEnable(true);
             guidesDialog.setSearchHint(getString(R.string.hint_search_guide));
             guidesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripGuide>() {
                 @Override

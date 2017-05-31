@@ -94,4 +94,7 @@
     <string name="title_nav_guides">Guides</string>
     <string name="action_add_guide">Add guide</string>
     <string name="action_add">Add</string>
+    <string name="hint_course">Course</string>
+    <string name="hint_search_course">Search Course</string>
+    <string name="title_add_course">Add Course</string>
 </resources>
