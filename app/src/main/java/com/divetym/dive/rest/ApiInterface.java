@@ -153,8 +153,12 @@ public interface ApiInterface {
      * @param price
      * @return
      */
+    @FormUrlEncoded
     @PUT("diveshops/{shopUid}/courses/{shopCourseId}")
-    Call<DiveShopCourseResponse> updateDiveShopCourse(@Path("shopUid") String shopUid, @Path("shopCourseId") int shopCourseId, @Query("price") double price);
+    Call<DiveShopCourseResponse> updateDiveShopCourse(@Path("shopUid") String shopUid,
+                                                      @Path("shopCourseId") int shopCourseId,
+                                                      @Field("course_id") int courseId,
+                                                      @Field("price") double price);
 
     /**
      * Add course on dive shop

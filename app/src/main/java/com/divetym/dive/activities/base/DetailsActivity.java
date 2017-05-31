@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.divetym.dive.R;
+import com.divetym.dive.common.SessionManager;
+import com.divetym.dive.models.User;
 import com.divetym.dive.view.RobotoTextView;
 
 import butterknife.BindView;
@@ -21,8 +23,8 @@ import butterknife.OnClick;
 public abstract class DetailsActivity extends AuthenticatedActivity {
     public static final String EXTRA_DATA = "com.divetym.dive.EXTRA_DATA";
     private static final String TAG = DetailsActivity.class.getSimpleName();
-    @BindView(R.id.button_book_now)
-    FloatingActionButton fabBuyNow;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
     @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout mCollapsingLayout;
     @BindView(R.id.text_subtitle)
@@ -31,12 +33,14 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
     protected RobotoTextView tvBody;
     @BindView(R.id.image_collapsing_toolbar_background)
     protected ImageView ivToolbarBackground;
+    private boolean diveshop;
 
-
-    @OnClick(R.id.button_book_now)
-    public void onBookNowClick() {
-        Log.d(TAG, "onBookNowClick");
+    @OnClick(R.id.fab)
+    public void onFabClicked() {
+        Log.d(TAG, "onFabClicked");
+        onFabClicked(diveshop);
     }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +48,13 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
         setContentView(R.layout.activity_course_details);
         showBackButton(true);
         ButterKnife.bind(this);
+        diveshop = SessionManager.getInstance(this).getAccountType() == User.AccountType.Dive_Shop;
+        if (diveshop) {
+            mFab.setImageResource(R.drawable.ic_edit);
+        }
         setData();
     }
+    protected abstract void onFabClicked(boolean isDiveShop);
 
     protected abstract void setData();
 

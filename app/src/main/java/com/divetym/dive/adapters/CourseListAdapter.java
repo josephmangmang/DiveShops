@@ -11,8 +11,10 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.adapters.base.EndlessListAdapter;
+import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.DiveShopCourse;
+import com.divetym.dive.models.User;
 import com.divetym.dive.view.RobotoTextView;
 import com.squareup.picasso.Picasso;
 
@@ -61,6 +63,9 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
         btnAction = (Button) view.findViewById(R.id.button_book_now);
         btnAction.setOnClickListener(this);
         view.setOnClickListener(this);
+        if(SessionManager.getInstance(mContext).getAccountType() == User.AccountType.Dive_Shop){
+            btnAction.setVisibility(View.GONE);
+        }
     }
 
     public void setData(String title, String description, String price, String imgUrl) {

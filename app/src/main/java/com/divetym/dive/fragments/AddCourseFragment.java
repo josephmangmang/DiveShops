@@ -13,10 +13,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.activities.AddCourseActivity;
 import com.divetym.dive.dialog.CourseDialog;
 import com.divetym.dive.dialog.SearchListDialog;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.Course;
+import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.response.DiveShopCourseResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
@@ -41,6 +43,16 @@ public class AddCourseFragment extends DiveTymFragment {
     @BindView(R.id.edit_price)
     EditText mPriceEdit;
     private Course mCourse;
+    private DiveShopCourse mDiveShopCourse;
+    private boolean edit;
+
+    public static AddCourseFragment getInstance(DiveShopCourse course) {
+        AddCourseFragment fragment = new AddCourseFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(AddCourseActivity.EXTRA_COURSE, course);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @OnClick(R.id.edit_course)
     public void onSelectCourseClicked() {
@@ -63,6 +75,9 @@ public class AddCourseFragment extends DiveTymFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            mDiveShopCourse = getArguments().getParcelable(AddCourseActivity.EXTRA_COURSE);
+        }
     }
 
     @Nullable
@@ -70,6 +85,12 @@ public class AddCourseFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_course, container, false);
         ButterKnife.bind(this, view);
+        if (mDiveShopCourse != null) {
+            edit = true;
+            mCourse = mDiveShopCourse;
+            mCourseEdit.setText(mDiveShopCourse.getName());
+            mPriceEdit.setText(mDiveShopCourse.getPrice().toString());
+        }
         return view;
     }
 
@@ -95,24 +116,56 @@ public class AddCourseFragment extends DiveTymFragment {
             mPriceEdit.setError(getString(R.string.error_field_required));
             return;
         }
-        ApiClient.getApiInterface().addDiveShopCourse(mSessionManager.getDiveShopUid(), mCourse.getCourseId(), Double.parseDouble(price))
-                .enqueue(new Callback<DiveShopCourseResponse>() {
-                    @Override
-                    public void onResponse(Call<DiveShopCourseResponse> call, Response<DiveShopCourseResponse> response) {
-                        if (response.body() != null && !response.body().isError()) {
-                            new ToastAlert(mContext)
-                                    .setMessage(response.body().getMessage())
-                                    .show();
-                            mContext.finish();
-                        } else {
-                            Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+        if (edit) {
+            ApiClient.getApiInterface().updateDiveShopCourse(mSessionManager.getDiveShopUid(),
+                    mDiveShopCourse.getDiveShopCourseId(), mCourse.getCourseId(), Double.parseDouble(price))
+                    .enqueue(new Callback<DiveShopCourseResponse>() {
+                        @Override
+                        public void onResponse(Call<DiveShopCourseResponse> call, Response<DiveShopCourseResponse> response) {
+                            if (response.body() != null) {
+                                if (!response.body().isError()) {
+                                    new ToastAlert(mContext)
+                                            .setMessage(response.body().getMessage())
+                                            .show();
+                                    mContext.finish();
+                                } else {
+                                    Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(mContext, "Error adding Course: " + response.raw(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<DiveShopCourseResponse> call, Throwable t) {
-                        Toast.makeText(mContext, "Error adding Course: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<DiveShopCourseResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Error adding Course: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            ApiClient.getApiInterface().addDiveShopCourse(mSessionManager.getDiveShopUid(),
+                    mCourse.getCourseId(), Double.parseDouble(price))
+                    .enqueue(new Callback<DiveShopCourseResponse>() {
+                        @Override
+                        public void onResponse(Call<DiveShopCourseResponse> call, Response<DiveShopCourseResponse> response) {
+                            if (response.body() != null) {
+                                if (!response.body().isError()) {
+                                    new ToastAlert(mContext)
+                                            .setMessage(response.body().getMessage())
+                                            .show();
+                                    mContext.finish();
+                                } else {
+                                    Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(mContext, "Error adding Course: " + response.raw(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DiveShopCourseResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Error adding Course: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

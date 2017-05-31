@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 public class CourseDetailsActivity extends DetailsActivity {
     private static final String TAG = CourseDetailsActivity.class.getSimpleName();
+    private DiveShopCourse mCourse;
 
     public static void launch(DiveTymActivity context, DiveShopCourse course) {
         Intent intent = new Intent(context, CourseDetailsActivity.class);
@@ -22,14 +23,24 @@ public class CourseDetailsActivity extends DetailsActivity {
     }
 
     @Override
+    protected void onFabClicked(boolean isDiveShop) {
+        if(isDiveShop){
+            // edit
+            AddCourseActivity.launch(this, mCourse);
+        }else{
+            // do something useful
+        }
+    }
+
+    @Override
     protected void setData() {
-        DiveShopCourse course = getIntent().getParcelableExtra(EXTRA_DATA);
-        if (course != null) {
-            setToolbarTitle(course.getName());
-            setToolbarSubtitle(course.getPrice().toString());
-            tvBody.setText(course.getDescription());
+         mCourse = getIntent().getParcelableExtra(EXTRA_DATA);
+        if (mCourse != null) {
+            setToolbarTitle(mCourse.getName());
+            setToolbarSubtitle(mCourse.getPrice().toString());
+            tvBody.setText(mCourse.getDescription());
             Picasso.with(this)
-                    .load(course.getImageUrl())
+                    .load(mCourse.getImageUrl())
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(ivToolbarBackground);

@@ -19,6 +19,12 @@ public class BoatDetailsActivity extends DetailsActivity {
         intent.putExtra(EXTRA_DATA, course);
         context.startActivity(intent);
     }
+
+    @Override
+    protected void onFabClicked(boolean isDiveShop) {
+
+    }
+
     @Override
     protected void setData() {
         Boat boat = getIntent().getParcelableExtra(EXTRA_DATA);
