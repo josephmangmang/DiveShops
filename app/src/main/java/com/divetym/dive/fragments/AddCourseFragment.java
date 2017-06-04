@@ -78,6 +78,9 @@ public class AddCourseFragment extends DiveTymFragment {
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             mDiveShopCourse = getArguments().getParcelable(AddCourseActivity.EXTRA_COURSE);
+            if (mDiveShopCourse != null) {
+                mContext.setTitle(R.string.title_edit_course);
+            }
         }
     }
 

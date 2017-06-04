@@ -100,4 +100,6 @@
     <string name="hint_name">Name</string>
     <string name="hint_description">Description</string>
     <string name="title_add_boat">Add Boat</string>
+    <string name="title_edit_boat">Edit Boat</string>
+    <string name="title_edit_course">Edit Course</string>
 </resources>

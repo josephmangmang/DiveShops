@@ -55,6 +55,9 @@ public class AddBoatFragment extends DiveTymFragment {
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             mBoat = getArguments().getParcelable(AddBoatActivity.EXTRA_BOAT);
+            if (mBoat != null) {
+                mContext.setTitle(R.string.title_edit_boat);
+            }
         }
     }
 
