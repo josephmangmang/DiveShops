@@ -45,6 +45,8 @@
         <activity
             android:name=".activities.AddCourseActivity"
             android:label="@string/title_add_course" />
+        <activity android:name=".activities.AddBoatActivity"
+            android:label="@string/title_add_boat"/>
     </application>
 
 </manifest>

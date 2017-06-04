@@ -174,11 +174,14 @@ public interface ApiInterface {
     /**
      * Add new boat
      *
+     * @param shopUid
      * @param name
+     * @param description
      * @return
      */
+    @FormUrlEncoded
     @POST("diveshops/{shopUid}/boats")
-    Call<BoatResponse> addDiveShopBoat(@Path("shopUid") @Field("name") String name);
+    Call<BoatResponse> addDiveShopBoat(@Path("shopUid") String shopUid, @Field("name") String name, @Field("description") String description);
 
     /**
      * Get a list of boats

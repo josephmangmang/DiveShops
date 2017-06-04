@@ -97,4 +97,7 @@
     <string name="hint_course">Course</string>
     <string name="hint_search_course">Search Course</string>
     <string name="title_add_course">Add Course</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_description">Description</string>
+    <string name="title_add_boat">Add Boat</string>
 </resources>

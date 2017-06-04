@@ -1,11 +1,13 @@
 package com.divetym.dive.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.activities.AddBoatActivity;
 import com.divetym.dive.activities.BoatDetailsActivity;
 import com.divetym.dive.adapters.BoatListAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
@@ -21,6 +23,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by kali_root on 4/15/2017.
  */
@@ -28,6 +32,7 @@ import retrofit2.Response;
 public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat, BoatListResponse> {
 
     private static final String TAG = BoatListFragment.class.getSimpleName();
+    private static final int REQUEST_ADD_BOAT = 1;
 
     public static BoatListFragment getInstance(Bundle bundle) {
         BoatListFragment fragment = new BoatListFragment();
@@ -37,7 +42,8 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     @Override
     protected void onFabClicked() {
-
+        Intent intent = new Intent(mContext, AddBoatActivity.class);
+        startActivityForResult(intent, REQUEST_ADD_BOAT);
     }
 
     @Override
@@ -46,7 +52,17 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: ");
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_BOAT ) {
+            // refresh the list..
+            mAdapter.resetList();
+            mOffset = 0;
+            requestData();
+        }
+    }
     @Override
     protected void requestData() {
         mApiService.getDiveShopBoats(mShopUid, mOffset)
