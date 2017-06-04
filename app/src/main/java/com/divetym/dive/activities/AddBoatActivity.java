@@ -18,7 +18,7 @@ public class AddBoatActivity extends AuthenticatedActivity {
     public static final String EXTRA_BOAT = "com.divetym.dive.EXTRA_BOAT";
 
     public static void launch(DiveTymActivity context, Boat boat) {
-        Intent intent = new Intent(context, AddCourseActivity.class);
+        Intent intent = new Intent(context, AddBoatActivity.class);
         intent.putExtra(EXTRA_BOAT, boat);
         context.startActivity(intent);
     }

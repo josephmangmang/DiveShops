@@ -211,8 +211,12 @@ public interface ApiInterface {
      * @param name
      * @return
      */
+    @FormUrlEncoded
     @PUT("diveshops/{shopUid}/boats/{boatId}")
-    Call<BoatResponse> updateDiveShopBoat(@Path("shopUid") String shopUid, @Path("boatId") int boatId, @Field("name") String name);
+    Call<BoatResponse> updateDiveShopBoat(@Path("shopUid") String shopUid,
+                                          @Path("boatId") int boatId,
+                                          @Field("name") String name,
+                                          @Field("description") String description);
 
     /**
      * Delete boat

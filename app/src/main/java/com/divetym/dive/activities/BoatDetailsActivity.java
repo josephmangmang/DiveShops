@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 public class BoatDetailsActivity extends DetailsActivity {
 
+    private Boat mBoat;
+
     public static void launch(DiveTymActivity context, Boat course) {
         Intent intent = new Intent(context, BoatDetailsActivity.class);
         intent.putExtra(EXTRA_DATA, course);
@@ -22,17 +24,19 @@ public class BoatDetailsActivity extends DetailsActivity {
 
     @Override
     protected void onFabClicked(boolean isDiveShop) {
-
+        if (isDiveShop) {
+            AddBoatActivity.launch(this, mBoat);
+        }
     }
 
     @Override
     protected void setData() {
-        Boat boat = getIntent().getParcelableExtra(EXTRA_DATA);
-        if (boat != null) {
-            setToolbarTitle(boat.getName());
-            tvBody.setText(boat.getDescription());
+        mBoat = getIntent().getParcelableExtra(EXTRA_DATA);
+        if (mBoat != null) {
+            setToolbarTitle(mBoat.getName());
+            tvBody.setText(mBoat.getDescription());
             Picasso.with(this)
-                    .load(boat.getImageUrl())
+                    .load(mBoat.getImageUrl())
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(ivToolbarBackground);

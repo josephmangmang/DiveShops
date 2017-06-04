@@ -39,6 +39,7 @@ public class AddBoatFragment extends DiveTymFragment {
     @BindView(R.id.edit_description)
     EditText mDescription;
     private Boat mBoat;
+    private boolean edit;
 
     public static AddBoatFragment getInstance(Boat boat) {
         AddBoatFragment fragment = new AddBoatFragment();
@@ -62,6 +63,11 @@ public class AddBoatFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_boat, container, false);
         ButterKnife.bind(this, view);
+        if (mBoat != null) {
+            edit = true;
+            mName.setText(mBoat.getName());
+            mDescription.setText(mBoat.getDescription());
+        }
         return view;
     }
 
@@ -88,31 +94,48 @@ public class AddBoatFragment extends DiveTymFragment {
             mDescription.setError(getString(R.string.error_field_required));
             return;
         }
-
-        ApiClient.getApiInterface().addDiveShopBoat(mSessionManager.getDiveShopUid(), name, description)
-                .enqueue(new Callback<BoatResponse>() {
-                    @Override
-                    public void onResponse(Call<BoatResponse> call, Response<BoatResponse> response) {
-                        if (response.body() != null) {
-                            if (!response.body().isError()) {
-                                new ToastAlert(mContext)
-                                        .setMessage(response.body().getMessage())
-                                        .show();
-                                mContext.setResult(Activity.RESULT_OK);
-                                mContext.finish();
-                            } else {
-                                Toast.makeText(mContext, "Error adding Boat: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(mContext, "Error adding Boat: " + response.raw(), Toast.LENGTH_SHORT).show();
+        if (edit) {
+            ApiClient.getApiInterface().updateDiveShopBoat(mSessionManager.getDiveShopUid(), mBoat.getBoatId(), name, description)
+                    .enqueue(new Callback<BoatResponse>() {
+                        @Override
+                        public void onResponse(Call<BoatResponse> call, Response<BoatResponse> response) {
+                            handleResponse(response);
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<BoatResponse> call, Throwable t) {
-                        Toast.makeText(mContext, "Error adding Boat: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<BoatResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Error adding Boat: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            ApiClient.getApiInterface().addDiveShopBoat(mSessionManager.getDiveShopUid(), name, description)
+                    .enqueue(new Callback<BoatResponse>() {
+                        @Override
+                        public void onResponse(Call<BoatResponse> call, Response<BoatResponse> response) {
+                            handleResponse(response);
+                        }
 
+                        @Override
+                        public void onFailure(Call<BoatResponse> call, Throwable t) {
+                            Toast.makeText(mContext, "Error adding Boat: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void handleResponse(Response<BoatResponse> response) {
+        if (response.body() != null) {
+            if (!response.body().isError()) {
+                new ToastAlert(mContext)
+                        .setMessage(response.body().getMessage())
+                        .show();
+                mContext.setResult(Activity.RESULT_OK);
+                mContext.finish();
+            } else {
+                Toast.makeText(mContext, "Error adding Boat: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(mContext, "Error adding Boat: " + response.raw(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
