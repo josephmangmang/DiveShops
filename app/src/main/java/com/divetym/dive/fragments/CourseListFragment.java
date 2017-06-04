@@ -23,6 +23,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by kali_root on 4/10/2017.
  */
@@ -30,6 +32,7 @@ import retrofit2.Response;
 public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, DiveShopCourse, DiveShopCourseListResponse> implements
         BaseRecyclerAdapter.ItemClickListener<DiveShopCourse> {
     private static final String TAG = CourseListFragment.class.getSimpleName();
+    private static final int REQUEST_ADD_COURSE = 1;
 
     public static CourseListFragment getInstance(Bundle bundle) {
         CourseListFragment fragment = new CourseListFragment();
@@ -39,7 +42,8 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
 
     @Override
     protected void onFabClicked() {
-        startActivity(new Intent(mContext, AddCourseActivity.class));
+        Intent intent = new Intent(mContext, AddCourseActivity.class);
+        startActivityForResult(intent, REQUEST_ADD_COURSE);
     }
 
     @Override
@@ -47,6 +51,18 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         mAdapter = new CourseListAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: ");
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_COURSE ) {
+            // refresh the list..
+            mAdapter.resetList();
+            mOffset = 0;
+            requestData();
+        }
     }
 
     @Override

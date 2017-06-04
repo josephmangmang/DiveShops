@@ -79,6 +79,12 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, Da
         notifyDataSetChanged();
     }
 
+    public void resetList() {
+        if (mDataList != null) {
+            mDataList.clear();
+        }
+    }
+
     public boolean isInMultiSelectMode() {
         return mSelectedItems.size() > 0;
     }

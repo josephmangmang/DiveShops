@@ -1,5 +1,6 @@
 package com.divetym.dive.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -127,6 +128,7 @@ public class AddCourseFragment extends DiveTymFragment {
                                     new ToastAlert(mContext)
                                             .setMessage(response.body().getMessage())
                                             .show();
+                                    mContext.setResult(Activity.RESULT_OK);
                                     mContext.finish();
                                 } else {
                                     Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -152,6 +154,7 @@ public class AddCourseFragment extends DiveTymFragment {
                                     new ToastAlert(mContext)
                                             .setMessage(response.body().getMessage())
                                             .show();
+                                    mContext.setResult(Activity.RESULT_OK);
                                     mContext.finish();
                                 } else {
                                     Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
