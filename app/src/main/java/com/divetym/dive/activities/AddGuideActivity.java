@@ -7,25 +7,25 @@ import android.support.annotation.Nullable;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
-import com.divetym.dive.fragments.AddBoatFragment;
+import com.divetym.dive.fragments.AddGuideFragment;
 import com.divetym.dive.fragments.base.DiveTymFragment;
-import com.divetym.dive.models.Boat;
+import com.divetym.dive.models.Guide;
 
 /**
  * Created by kali_root on 6/4/2017.
  */
 
-public class AddBoatActivity extends AuthenticatedActivity {
-    public static final String EXTRA_BOAT = "com.divetym.dive.EXTRA_BOAT";
+public class AddGuideActivity extends AuthenticatedActivity{
+    public static final String EXTRA_GUIDE = "com.divetym.dive.EXTRA_GUIDE";
 
-    public static void launch(DiveTymActivity context, Boat boat, int requestCode) {
-        Intent intent = new Intent(context, AddBoatActivity.class);
-        intent.putExtra(EXTRA_BOAT, boat);
+    public static void launch(DiveTymActivity context, Guide guide, int requestCode) {
+        Intent intent = new Intent(context, AddGuideActivity.class);
+        intent.putExtra(EXTRA_GUIDE, guide);
         context.startActivityForResult(intent, requestCode);
     }
-    public static void launch(DiveTymFragment context, Boat boat, int requestCode) {
-        Intent intent = new Intent(context.getActivity(), AddBoatActivity.class);
-        intent.putExtra(EXTRA_BOAT, boat);
+    public static void launch(DiveTymFragment context, Guide guide, int requestCode) {
+        Intent intent = new Intent(context.getActivity(), AddGuideActivity.class);
+        intent.putExtra(EXTRA_GUIDE, guide);
         context.startActivityForResult(intent, requestCode);
     }
     @Override
@@ -34,7 +34,7 @@ public class AddBoatActivity extends AuthenticatedActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         showBackButton(true);
-        Boat boat = getIntent().getParcelableExtra(EXTRA_BOAT);
-        initFragment(R.id.content, AddBoatFragment.getInstance(boat));
+        Guide guide = getIntent().getParcelableExtra(EXTRA_GUIDE);
+        initFragment(R.id.content, AddGuideFragment.getInstance(guide));
     }
 }

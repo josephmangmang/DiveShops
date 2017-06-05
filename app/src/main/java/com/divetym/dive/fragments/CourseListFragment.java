@@ -42,8 +42,7 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
 
     @Override
     protected void onFabClicked() {
-        Intent intent = new Intent(mContext, AddCourseActivity.class);
-        startActivityForResult(intent, REQUEST_ADD_COURSE);
+        AddCourseActivity.launch(this, null, REQUEST_ADD_COURSE);
     }
 
     @Override

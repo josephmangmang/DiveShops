@@ -1,6 +1,8 @@
 package com.divetym.dive.activities.base;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,8 +23,9 @@ import butterknife.OnClick;
  */
 
 public abstract class DetailsActivity extends AuthenticatedActivity {
-    public static final String EXTRA_DATA = "com.divetym.dive.EXTRA_DATA";
     private static final String TAG = DetailsActivity.class.getSimpleName();
+    public static final String EXTRA_DATA = "com.divetym.dive.EXTRA_DATA";
+    protected static final int REQUEST_UPDATE_DETAILS = 1;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
     @BindView(R.id.collapsing_toolbar_layout)
@@ -54,6 +57,21 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
         }
         setData();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_UPDATE_DETAILS) {
+            // update details
+            if (data != null) updateDetails(data);
+        }
+    }
+
+    private void updateDetails(Intent data) {
+        setIntent(data);
+        setData();
+    }
+
     protected abstract void onFabClicked(boolean isDiveShop);
 
     protected abstract void setData();

@@ -355,8 +355,11 @@ public interface ApiInterface {
      * @param name
      * @return
      */
+    @FormUrlEncoded
     @POST("diveshops/{shopUid}/guides")
-    Call<GuideResponse> addGuide(@Path("shopUid") String shopUid, @Query("name") String name);
+    Call<GuideResponse> addGuide(@Path("shopUid") String shopUid,
+                                 @Field("name") String name,
+                                 @Field("description") String description);
 
     /**
      * Update Guide
@@ -365,8 +368,12 @@ public interface ApiInterface {
      * @param name
      * @return
      */
+    @FormUrlEncoded
     @PUT("diveshops/{shopUid}/guides/{guideId}")
-    Call<GuideResponse> updateGuide(@Path("shopUid") String shopUid, @Query("name") String name);
+    Call<GuideResponse> updateGuide(@Path("shopUid") String shopUid,
+                                    @Path("guideId") int guideId,
+                                    @Field("name") String name,
+                                    @Field("description") String description);
 
     /**
      * Delete Guide

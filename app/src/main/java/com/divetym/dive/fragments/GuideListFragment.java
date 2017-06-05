@@ -1,23 +1,26 @@
 package com.divetym.dive.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.activities.AddGuideActivity;
+import com.divetym.dive.activities.GuideDetailsActivity;
 import com.divetym.dive.adapters.GuideListAdapter;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.Guide;
-import com.divetym.dive.models.User;
 import com.divetym.dive.models.response.GuideListResponse;
 import com.divetym.dive.view.ToastAlert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by kali_root on 5/24/2017.
@@ -26,6 +29,7 @@ import retrofit2.Response;
 public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Guide, GuideListResponse> {
 
     private static final String TAG = GuideListFragment.class.getSimpleName();
+    private static final int REQUEST_ADD_GUIDE = 1;
 
     public static GuideListFragment getInstance(Bundle bundle) {
         GuideListFragment fragment = new GuideListFragment();
@@ -35,7 +39,7 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
 
     @Override
     protected void onFabClicked() {
-
+        AddGuideActivity.launch(this, null, REQUEST_ADD_GUIDE);
     }
 
     @Override
@@ -43,6 +47,18 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
         mAdapter = new GuideListAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: ");
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_GUIDE) {
+            // refresh the list..
+            mAdapter.resetList();
+            mOffset = 0;
+            requestData();
+        }
     }
 
     @Override
@@ -76,5 +92,10 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
             ToastAlert.makeText(mContext, response.getMessage(), ToastAlert.LENGTH_SHORT);
         }
         setEmpty(mDataList.size() == 0);
+    }
+
+    @Override
+    public void onItemClick(Guide object, View view, int i) {
+        GuideDetailsActivity.launch(mContext, object);
     }
 }

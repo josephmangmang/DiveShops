@@ -1,5 +1,6 @@
 package com.divetym.dive.models.response;
 
+import com.divetym.dive.models.Guide;
 import com.divetym.dive.rest.constants.ApiConstant;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,44 +9,15 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class GuideResponse extends Response {
-    @SerializedName(ApiConstant.GUIDE_ID)
-    private int guideId;
-    @SerializedName(ApiConstant.DIVE_SHOP_ID)
-    private String shopUid;
-    @SerializedName(ApiConstant.NAME)
-    private String name;
-    @SerializedName(ApiConstant.IMAGE)
-    private String image;
 
-    public int getGuideId() {
-        return guideId;
+    @SerializedName(ApiConstant.GUIDE)
+    private Guide guide;
+
+    public Guide getGuide() {
+        return guide;
     }
 
-    public void setGuideId(int guideId) {
-        this.guideId = guideId;
-    }
-
-    public String getShopUid() {
-        return shopUid;
-    }
-
-    public void setShopUid(String shopUid) {
-        this.shopUid = shopUid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setGuide(Guide guide) {
+        this.guide = guide;
     }
 }

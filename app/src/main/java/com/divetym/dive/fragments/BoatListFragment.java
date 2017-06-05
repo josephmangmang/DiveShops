@@ -42,8 +42,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     @Override
     protected void onFabClicked() {
-        Intent intent = new Intent(mContext, AddBoatActivity.class);
-        startActivityForResult(intent, REQUEST_ADD_BOAT);
+        AddBoatActivity.launch(this, null,REQUEST_ADD_BOAT );
     }
 
     @Override

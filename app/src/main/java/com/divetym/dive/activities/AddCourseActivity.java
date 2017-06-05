@@ -8,6 +8,7 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.fragments.AddCourseFragment;
+import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.DiveShopCourse;
 
 /**
@@ -18,10 +19,15 @@ public class AddCourseActivity extends AuthenticatedActivity {
 
     public static final String EXTRA_COURSE = "com.divetym.dive.EXTRA_COURSE";
 
-    public static void launch(DiveTymActivity context, DiveShopCourse course) {
+    public static void launch(DiveTymActivity context, DiveShopCourse course, int requestCode) {
         Intent intent = new Intent(context, AddCourseActivity.class);
         intent.putExtra(EXTRA_COURSE, course);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, requestCode);
+    }
+    public static void launch(DiveTymFragment context, DiveShopCourse course, int requestCode) {
+        Intent intent = new Intent(context.getActivity(), AddCourseActivity.class);
+        intent.putExtra(EXTRA_COURSE, course);
+        context.startActivityForResult(intent, requestCode);
     }
 
     @Override

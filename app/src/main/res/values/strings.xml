@@ -102,4 +102,6 @@
     <string name="title_add_boat">Add Boat</string>
     <string name="title_edit_boat">Edit Boat</string>
     <string name="title_edit_course">Edit Course</string>
+    <string name="title_edit_guide">Edit Guide</string>
+    <string name="title_add_guide">Add Guide</string>
 </resources>

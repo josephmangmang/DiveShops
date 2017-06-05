@@ -1,6 +1,7 @@
 package com.divetym.dive.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.AddCourseActivity;
+import com.divetym.dive.activities.base.DetailsActivity;
 import com.divetym.dive.dialog.CourseDialog;
 import com.divetym.dive.dialog.SearchListDialog;
 import com.divetym.dive.fragments.base.DiveTymFragment;
@@ -126,19 +128,7 @@ public class AddCourseFragment extends DiveTymFragment {
                     .enqueue(new Callback<DiveShopCourseResponse>() {
                         @Override
                         public void onResponse(Call<DiveShopCourseResponse> call, Response<DiveShopCourseResponse> response) {
-                            if (response.body() != null) {
-                                if (!response.body().isError()) {
-                                    new ToastAlert(mContext)
-                                            .setMessage(response.body().getMessage())
-                                            .show();
-                                    mContext.setResult(Activity.RESULT_OK);
-                                    mContext.finish();
-                                } else {
-                                    Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(mContext, "Error adding Course: " + response.raw(), Toast.LENGTH_SHORT).show();
-                            }
+                            handleResponse(response);
                         }
 
                         @Override
@@ -152,19 +142,7 @@ public class AddCourseFragment extends DiveTymFragment {
                     .enqueue(new Callback<DiveShopCourseResponse>() {
                         @Override
                         public void onResponse(Call<DiveShopCourseResponse> call, Response<DiveShopCourseResponse> response) {
-                            if (response.body() != null) {
-                                if (!response.body().isError()) {
-                                    new ToastAlert(mContext)
-                                            .setMessage(response.body().getMessage())
-                                            .show();
-                                    mContext.setResult(Activity.RESULT_OK);
-                                    mContext.finish();
-                                } else {
-                                    Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(mContext, "Error adding Course: " + response.raw(), Toast.LENGTH_SHORT).show();
-                            }
+                            handleResponse(response);
                         }
 
                         @Override
@@ -172,6 +150,24 @@ public class AddCourseFragment extends DiveTymFragment {
                             Toast.makeText(mContext, "Error adding Course: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+        }
+    }
+
+    private void handleResponse(Response<DiveShopCourseResponse> response) {
+        if (response.body() != null) {
+            if (!response.body().isError()) {
+                new ToastAlert(mContext)
+                        .setMessage(response.body().getMessage())
+                        .show();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(DetailsActivity.EXTRA_DATA, response.body().getDiveShopCourse());
+                mContext.setResult(Activity.RESULT_OK, resultIntent);
+                mContext.finish();
+            } else {
+                Toast.makeText(mContext, "Error adding Course: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(mContext, "Error adding Course: " + response.raw(), Toast.LENGTH_SHORT).show();
         }
     }
 }

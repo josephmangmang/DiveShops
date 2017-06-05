@@ -25,7 +25,7 @@ public class BoatDetailsActivity extends DetailsActivity {
     @Override
     protected void onFabClicked(boolean isDiveShop) {
         if (isDiveShop) {
-            AddBoatActivity.launch(this, mBoat);
+            AddBoatActivity.launch(this, mBoat, REQUEST_UPDATE_DETAILS);
         }
     }
 

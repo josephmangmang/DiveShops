@@ -58,4 +58,5 @@ public class ApiConstant {
     public static final String DAILY_TRIP_GUIDES = "daily_trip_guides";
     public static final String DAILY_TRIP_GUESTS = "daily_trip_guests";
     public static final String GUIDE_ID = "guide_id";
+    public static final String GUIDE = "guide";
 }
