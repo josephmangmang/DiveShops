@@ -1,6 +1,7 @@
 package com.divetym.dive.dialog;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
@@ -67,6 +69,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     protected int mOffset = 0;
     private String mSearchHint;
     private boolean multiSelectEnable;
+    private Context mContext;
 
     public interface OnSelectionDoneListener<DataType> {
         void onSelectionDone(HashMap<Integer, DataType> selectedItems);
@@ -116,6 +119,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getActivity();
         mApiService = ApiClient.getApiInterface();
         mDataList = new ArrayList<>();
         mAdapter = new SearchDialogAdapter((DiveTymActivity) getActivity(), mDataList, mRecyclerView);
@@ -203,9 +207,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
 
     protected void handleResponseError(String message) {
         Log.e(TAG, "Response error: " + message);
-        new ToastAlert(getActivity())
-                .setMessage(message)
-                .show();
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -219,7 +221,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
         if (!multiSelectEnable) {
             mAdapter.toggleSelection(0, object);
             mDone.callOnClick();
-        }else{
+        } else {
             mAdapter.toggleSelection(position, object);
         }
     }

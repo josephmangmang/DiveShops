@@ -43,7 +43,7 @@ public class DiveSitesDialog extends SearchListDialog<DiveSite, DiveSiteListResp
 
     @Override
     public void onDestroy() {
-        mLocationTracker.stopLocationService();
+        if (mLocationTracker != null) mLocationTracker.stopLocationService();
         super.onDestroy();
     }
 

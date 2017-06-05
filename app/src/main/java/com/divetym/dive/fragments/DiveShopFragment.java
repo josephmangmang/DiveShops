@@ -125,6 +125,7 @@ public class DiveShopFragment extends DiveTymFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = ApiClient.getApiInterface();
+        mDiveShop = new DiveShop();
     }
 
     @Nullable
