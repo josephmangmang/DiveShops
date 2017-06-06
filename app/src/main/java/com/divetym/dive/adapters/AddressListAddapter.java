@@ -11,6 +11,7 @@ import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.common.DiveShopAddress;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +35,6 @@ public class AddressListAddapter extends BaseRecyclerAdapter<AddressHolder, Addr
     @Override
     public void onBindViewHolder(AddressHolder holder, int position) {
         Address address = getItem(position);
-        holder.mData = address;
         holder.mItemClickListener = mItemClickListener;
         int maxIndex = address.getMaxAddressLineIndex() + 1;
         StringBuilder builder = new StringBuilder();
@@ -42,13 +42,16 @@ public class AddressListAddapter extends BaseRecyclerAdapter<AddressHolder, Addr
             builder.append(address.getAddressLine(i));
             builder.append(", ");
         }
-
-        holder.title.setText(builder.toString());
+        builder.delete(builder.length() - 2, builder.length());
+        holder.fullAddress = builder.toString();
+        holder.title.setText(holder.fullAddress);
+        holder.mData = new DiveShopAddress(holder.fullAddress, new LatLng(address.getLatitude(), address.getLongitude()));
     }
 }
 
-class AddressHolder extends DiveTymViewHolder<Address> {
+class AddressHolder extends DiveTymViewHolder<DiveShopAddress> {
     TextView title;
+    String fullAddress;
 
     public AddressHolder(DiveTymActivity context, View itemView) {
         super(context, itemView);

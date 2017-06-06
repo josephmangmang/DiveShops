@@ -1,12 +1,13 @@
-package com.divetym.dive.fragments;
-
+package com.divetym.dive.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,50 +22,68 @@ import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.AddressListAddapter;
 import com.divetym.dive.common.DiveShopAddress;
 import com.divetym.dive.interfaces.ItemClickListener;
-import com.divetym.dive.interfaces.LocationChangedListener;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+
 /**
- * Created by kali_root on 6/5/2017.
+ * Created by kali_root on 6/6/2017.
  */
 
-public class SearchMap extends MapFragment implements OnMapReadyCallback {
-    private static final String TAG = SearchMap.class.getSimpleName();
+public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCallback, PlaceSelectionListener {
     private static final int MAX_RESULTS = 5;
+    private static final String TAG = SearchMapActivity.class.getSimpleName();
+    private static final float DEFAULT_ZOOM = 13.0f;
     private GoogleMap mMap;
-    private LocationTracker mLocationTracker;
     private LatLng mSelectedLocation;
     private Geocoder mGeocoder;
     private List<Address> mAddresses;
-    private LocationChangedListener mLocationChangedListener;
+    private DiveShopAddress mDiveShopAddress;
 
     @Override
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        mLocationTracker = new LocationTracker(getActivity());
-        mGeocoder = new Geocoder(getActivity(), Locale.getDefault());
-        getMapAsync(this);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_map);
+        getSupportActionBar().hide();
+        if (getIntent() != null) {
+            mDiveShopAddress = getIntent().getParcelableExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS);
+        }
+        mGeocoder = new Geocoder(this, Locale.getDefault());
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.fragment_map);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.fragment_autocomplete);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+        if (autocompleteFragment != null) {
+            autocompleteFragment.setOnPlaceSelectedListener(this);
+        }
     }
 
-    @Override
-    public void onDestroy() {
-        mLocationTracker.stopLocationService();
-        super.onDestroy();
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (mDiveShopAddress != null) {
+            MarkerOptions markerOption = new MarkerOptions()
+                    .position(mDiveShopAddress.getLatLng())
+                    .title(mDiveShopAddress.getFullAddress())
+                    .draggable(true)
+                    .snippet(mDiveShopAddress.toString());
+            mMap.addMarker(markerOption);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDiveShopAddress.getLatLng(), DEFAULT_ZOOM));
+        }
         resetMapCamera();
     }
 
@@ -81,22 +100,18 @@ public class SearchMap extends MapFragment implements OnMapReadyCallback {
         }
     }
 
+
     private void resetMapCamera() {
         if (mMap == null) return;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
             ActivityCompat.requestPermissions(
-                    getActivity(),
+                    this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     0);
-        }
-        if (mLocationTracker.isCanGetLocation()) {
-            LatLng latLng = new LatLng(mLocationTracker.getLatitude(), mLocationTracker.getLongitude());
-            Log.d(TAG, "LatLng: " + latLng.toString());
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -118,16 +133,12 @@ public class SearchMap extends MapFragment implements OnMapReadyCallback {
                 Log.d(TAG, "address: " + address.toString());
             }
         }
-        AddressListAddapter adapter = new AddressListAddapter((DiveTymActivity) getActivity(), addresses);
-        final AlertDialog listDialog = new AlertDialog.Builder(getActivity()).create();
-        adapter.setItemClickListener(new ItemClickListener<Address>() {
+        AddressListAddapter adapter = new AddressListAddapter(this, addresses);
+        final AlertDialog listDialog = new AlertDialog.Builder(this).create();
+        adapter.setItemClickListener(new ItemClickListener<DiveShopAddress>() {
             @Override
-            public void onItemClick(Address address, View view, int i) {
-                if (BuildConfig.DEBUG) {
-                    Log.d(TAG, "address: " + address.getAddressLine(0) + " | " + address.toString());
-                }
+            public void onItemClick(DiveShopAddress diveShopAddress, View view, int i) {
                 mMap.clear();
-                DiveShopAddress diveShopAddress = new DiveShopAddress(address);
                 diveShopAddress.setLatLng(mSelectedLocation);
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(diveShopAddress.getLatLng())
@@ -136,15 +147,17 @@ public class SearchMap extends MapFragment implements OnMapReadyCallback {
                         .snippet(diveShopAddress.toString());
                 mMap.addMarker(markerOption);
                 listDialog.dismiss();
-                if (mLocationChangedListener != null) {
-                    mLocationChangedListener.onLocationChanged(diveShopAddress);
-                }
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(diveShopAddress.getLatLng(), DEFAULT_ZOOM));
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS, diveShopAddress);
+                setResult(RESULT_OK, resultIntent);
             }
         });
         listDialog.setTitle(R.string.dialog_title_select_address);
 
-        RecyclerView recyclerView = (RecyclerView) getActivity().getLayoutInflater().inflate(R.layout.view_recycler_view, null, false);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView recyclerView = (RecyclerView) getLayoutInflater().inflate(R.layout.view_recycler_view, null, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -153,7 +166,15 @@ public class SearchMap extends MapFragment implements OnMapReadyCallback {
         listDialog.show();
     }
 
-    public void setLocationChangedListener(LocationChangedListener locationChangedListener) {
-        this.mLocationChangedListener = locationChangedListener;
+    @Override
+    public void onPlaceSelected(Place place) {
+        if (mMap != null) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), DEFAULT_ZOOM));
+        }
+    }
+
+    @Override
+    public void onError(Status status) {
+        Log.e(TAG, "onError: " + status.getStatusMessage());
     }
 }

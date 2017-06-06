@@ -49,6 +49,7 @@ public class SearchViewLayout extends FrameLayout {
 
     private ViewGroup mCollapsed;
     private ViewGroup mExpanded;
+    private ViewGroup mSearchBox;
     private EditText mSearchEditText;
     private View mSearchIcon;
     private View mSearchClearIcon;
@@ -138,6 +139,8 @@ public class SearchViewLayout extends FrameLayout {
         mSearchEditText = (EditText) mExpanded.findViewById(R.id.search_expanded_edit_text);
         mBackButtonView = mExpanded.findViewById(R.id.search_expanded_back_button);
         mExpandedSearchIcon = findViewById(R.id.search_expanded_magnifying_glass);
+
+        mSearchBox = (ViewGroup) findViewById(R.id.search_expanded_box);
 
         // Convert a long click into a click to expand the search box, and then long click on the
         // search view. This accelerates the long-press scenario for copy/paste.
@@ -549,5 +552,9 @@ public class SearchViewLayout extends FrameLayout {
 
     public void showSearchClearIcon(boolean show) {
         mSearchClearIcon.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    public void setSearchBoxVisibility(int visibility) {
+        mSearchBox.setVisibility(visibility);
     }
 }

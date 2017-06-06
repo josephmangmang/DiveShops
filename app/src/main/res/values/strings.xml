@@ -112,4 +112,6 @@
     <string name="menu_edit">Edit</string>
     <string name="title_edit_dive_shop">Edit Dive Shop</string>
     <string name="dialog_title_select_address">Select Address</string>
+    <string name="hint_location">Location</string>
+    <string name="title_select_location">Select Location</string>
 </resources>

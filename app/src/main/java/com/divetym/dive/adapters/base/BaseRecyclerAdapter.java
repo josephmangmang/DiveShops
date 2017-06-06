@@ -54,10 +54,10 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, Da
         return mDataList.get(position);
     }
 
-    protected ItemClickListener<DataType> mItemClickListener;
+    protected ItemClickListener mItemClickListener;
     protected MultiSelectListener mMultiSelectListener;
 
-    public void setItemClickListener(ItemClickListener<DataType> itemClickListener) {
+    public void setItemClickListener(ItemClickListener itemClickListener) {
         this.mItemClickListener = itemClickListener;
     }
 

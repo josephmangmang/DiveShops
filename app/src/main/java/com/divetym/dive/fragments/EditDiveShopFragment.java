@@ -1,7 +1,5 @@
 package com.divetym.dive.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,22 +15,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.activities.SearchMapActivity;
 import com.divetym.dive.common.DiveShopAddress;
 import com.divetym.dive.fragments.base.DiveTymFragment;
-import com.divetym.dive.interfaces.LocationChangedListener;
 import com.divetym.dive.models.DiveShop;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
-import com.divetym.dive.view.ToastAlert;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
-import xyz.sahildave.widget.SearchViewLayout;
 
+import static android.app.Activity.RESULT_OK;
 import static com.divetym.dive.fragments.DiveShopFragment.EXTRA_DIVE_SHOP;
 
 /**
@@ -41,6 +40,7 @@ import static com.divetym.dive.fragments.DiveShopFragment.EXTRA_DIVE_SHOP;
 
 public class EditDiveShopFragment extends DiveTymFragment {
     private static final String TAG = EditDiveShopFragment.class.getSimpleName();
+    public static final int REQUEST_SELECT_LOCATION = 1;
     @BindView(R.id.edit_name)
     EditText mName;
     @BindView(R.id.edit_contact_number)
@@ -51,20 +51,17 @@ public class EditDiveShopFragment extends DiveTymFragment {
     EditText mDescription;
     @BindView(R.id.edit_special_service)
     EditText mSpecialService;
-    @BindView(R.id.search_view_container)
-    SearchViewLayout mSearchViewLayout;
-    private DiveShopAddress mAddress;
-
+    @BindView(R.id.edit_address)
+    EditText mAddressLocation;
+    private DiveShopAddress mDiveShopAddress;
     private DiveShop mDiveShop;
-    private LocationChangedListener mLocationChangedListener = new LocationChangedListener() {
-        @Override
-        public void onLocationChanged(DiveShopAddress address) {
-            mAddress = address;
-            mSearchViewLayout.setCollapsedHint(mAddress.getFullAddress());
-            mSearchViewLayout.setExpandedText(mAddress.getFullAddress());
-            mSearchViewLayout.moveExpandedTextCursorToEnd();
-        }
-    };
+
+    @OnClick(R.id.edit_address)
+    public void changedLocation() {
+        Intent intent = new Intent(mContext, SearchMapActivity.class);
+        intent.putExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS, mDiveShopAddress);
+        startActivityForResult(intent, REQUEST_SELECT_LOCATION);
+    }
 
     public static EditDiveShopFragment newInstance(DiveShop diveShop) {
         EditDiveShopFragment fragment = new EditDiveShopFragment();
@@ -74,10 +71,6 @@ public class EditDiveShopFragment extends DiveTymFragment {
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,25 +86,33 @@ public class EditDiveShopFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dive_shop_profile_edit, container, false);
         ButterKnife.bind(this, view);
-        SearchMap searchMap = new SearchMap();
-        searchMap.setLocationChangedListener(mLocationChangedListener);
-        mSearchViewLayout.setExpandedContentFragment(mContext, searchMap);
-        mSearchViewLayout.setHint(getString(R.string.hint_search_address));
-        mSearchViewLayout.handleToolbarAnimation(mContext.getToolbar());
         if (mDiveShop != null) {
             try {
                 mName.setText(mDiveShop.getName());
-                mSearchViewLayout.setCollapsedHint(mDiveShop.getAddress());
-                mSearchViewLayout.setExpandedText(mDiveShop.getAddress());
+                mAddressLocation.setText(mDiveShop.getAddress());
                 mContactNumber.setText(mDiveShop.getContactNumber());
                 mPricePerDive.setText(mDiveShop.getPricePerDive().toString());
                 mDescription.setText(mDiveShop.getDescription());
                 mSpecialService.setText(mDiveShop.getSpecialService());
+                mDiveShopAddress = new DiveShopAddress(mDiveShop.getAddress(), new LatLng(mDiveShop.getLatitiude(), mDiveShop.getLongitude()));
             } catch (NullPointerException e) {
                 Log.e(TAG, "Diveshop: " + e.getMessage());
             }
         }
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SELECT_LOCATION) {
+            if (resultCode == RESULT_OK) {
+                if (data == null) return;
+                mDiveShopAddress = data.getParcelableExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS);
+                mAddressLocation.setText(mDiveShopAddress.getFullAddress());
+                mAddressLocation.setSelection(mAddressLocation.length());
+            }
+        }
     }
 
     @Override
@@ -144,10 +145,10 @@ public class EditDiveShopFragment extends DiveTymFragment {
             mPricePerDive.requestFocus();
             return;
         }
-        if (mAddress != null) {
-            mDiveShop.setAddress(mAddress.getFullAddress());
-            mDiveShop.setLatitiude(mAddress.getLatitude());
-            mDiveShop.setLongitude(mAddress.getLongitude());
+        if (mDiveShopAddress != null) {
+            mDiveShop.setAddress(mDiveShopAddress.getFullAddress());
+            mDiveShop.setLatitiude(mDiveShopAddress.getLatLng().latitude);
+            mDiveShop.setLongitude(mDiveShopAddress.getLatLng().longitude);
         } else if (mDiveShop.getAddress() == null) {
             Toast.makeText(mContext, "No address selected", Toast.LENGTH_SHORT).show();
             return;
@@ -166,7 +167,7 @@ public class EditDiveShopFragment extends DiveTymFragment {
                             if (!response.body().isError()) {
                                 Intent resultData = new Intent();
                                 resultData.putExtra(EXTRA_DIVE_SHOP, mDiveShop);
-                                mContext.setResult(Activity.RESULT_OK, resultData);
+                                mContext.setResult(RESULT_OK, resultData);
                                 mContext.finish();
                             } else {
                                 Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
