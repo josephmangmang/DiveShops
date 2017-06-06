@@ -159,7 +159,7 @@ public class EditDiveShopFragment extends DiveTymFragment {
         mDiveShop.setDescription(description);
         mDiveShop.setSpecialService(specialService);
 
-        ApiClient.getApiInterface().updateDiveShop(mDiveShop.getDiveShopUid(), mDiveShop)
+        ApiClient.getApiInterface().updateDiveShop(mSessionManager.getDiveShopUid(), mDiveShop)
                 .enqueue(new Callback<Response>() {
                     @Override
                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
