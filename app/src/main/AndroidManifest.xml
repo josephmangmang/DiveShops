@@ -52,6 +52,12 @@
             android:name=".activities.AddGuideActivity"
             android:label="@string/title_add_guide" />
         <activity android:name=".activities.GuideDetailsActivity" />
+        <activity
+            android:name=".activities.EditDiveShopActivity"
+            android:label="@string/title_edit_dive_shop" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>

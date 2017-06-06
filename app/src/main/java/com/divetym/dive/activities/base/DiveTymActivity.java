@@ -70,7 +70,7 @@ public class DiveTymActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(show);
     }
 
-    protected Toolbar getToolbar() {
+    public Toolbar getToolbar() {
         if (mToolbar == null) {
             mToolbar = (Toolbar) findViewById(R.id.toolbar);
         }

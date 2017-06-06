@@ -2,6 +2,7 @@ package com.divetym.dive.rest;
 
 import com.divetym.dive.common.SortOption;
 import com.divetym.dive.models.DailyTrip;
+import com.divetym.dive.models.DiveShop;
 import com.divetym.dive.models.response.BoatListResponse;
 import com.divetym.dive.models.response.BoatResponse;
 import com.divetym.dive.models.response.CourseListResponse;
@@ -115,6 +116,16 @@ public interface ApiInterface {
      */
     @GET("diveshops/{shopUid}")
     Call<DiveShopResponse> getDiveShop(@Path("shopUid") String shopUid);
+
+    /**
+     * Update diveshop details
+     *
+     * @param shopUid
+     * @param diveShop
+     * @return
+     */
+    @PUT("diveshops/{shopUid}")
+    Call<Response> updateDiveShop(@Path("shopUid") String shopUid, @Body DiveShop diveShop);
 
     /**
      * Get dive shop by uid
@@ -383,4 +394,5 @@ public interface ApiInterface {
      */
     @DELETE("diveshops/{shopUid}/guides/{guideId}")
     Call<Response> deleteGuide(@Path("shopUid") String shopUid);
+
 }

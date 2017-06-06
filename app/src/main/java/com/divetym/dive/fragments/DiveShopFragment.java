@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.activities.CourseListActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.DailyTripActivity;
+import com.divetym.dive.activities.EditDiveShopActivity;
 import com.divetym.dive.activities.GuideListActivity;
 import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
@@ -38,13 +42,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by kali_root on 4/5/2017.
  */
 
 public class DiveShopFragment extends DiveTymFragment {
     private static final String TAG = DiveShopFragment.class.getSimpleName();
-
+    public static final int REQUEST_UPDATE = 1;
+    public static final String EXTRA_DIVE_SHOP = "com.divetym.dive.EXTRA_DIVE_SHOP";
     @BindView(R.id.text_description)
     RobotoTextView tvDescription;
     @BindView(R.id.text_price_per_dive)
@@ -124,6 +131,7 @@ public class DiveShopFragment extends DiveTymFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         mApiService = ApiClient.getApiInterface();
         mDiveShop = new DiveShop();
     }
@@ -144,6 +152,33 @@ public class DiveShopFragment extends DiveTymFragment {
         loadDiveShopData();
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_UPDATE && resultCode == RESULT_OK) {
+            mDiveShop = data.getParcelableExtra(EXTRA_DIVE_SHOP);
+            setDiveshop(mDiveShop);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.edit, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_edit) {
+            onEditClicked();
+        }
+        return false;
+    }
+
+    private void onEditClicked() {
+        EditDiveShopActivity.launch(this, mDiveShop, REQUEST_UPDATE);
+    }
+
 
     private void loadDiveShopData() {
         String uid = mSessionManager.getUid();

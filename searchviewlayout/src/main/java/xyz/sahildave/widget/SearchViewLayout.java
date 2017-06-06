@@ -336,6 +336,10 @@ public class SearchViewLayout extends FrameLayout {
         }
     }
 
+    public void moveExpandedTextCursorToEnd() {
+        mSearchEditText.setSelection(mSearchEditText.length());
+    }
+
     public void expand(boolean requestFocus) {
         mCollapsedHeight = getHeight();
         toggleToolbar(true);

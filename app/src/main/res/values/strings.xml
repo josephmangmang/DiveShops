@@ -104,4 +104,12 @@
     <string name="title_edit_course">Edit Course</string>
     <string name="title_edit_guide">Edit Guide</string>
     <string name="title_add_guide">Add Guide</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_price_per_dive">Price Per Dive</string>
+    <string name="hint_special_service">Special Service</string>
+    <string name="hint_contact_number">Contact Number</string>
+    <string name="hint_search_address">Search Address</string>
+    <string name="menu_edit">Edit</string>
+    <string name="title_edit_dive_shop">Edit Dive Shop</string>
+    <string name="dialog_title_select_address">Select Address</string>
 </resources>
