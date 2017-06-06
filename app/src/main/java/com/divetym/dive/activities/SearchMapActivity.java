@@ -79,8 +79,7 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
             MarkerOptions markerOption = new MarkerOptions()
                     .position(mDiveShopAddress.getLatLng())
                     .title(mDiveShopAddress.getFullAddress())
-                    .draggable(true)
-                    .snippet(mDiveShopAddress.toString());
+                    .draggable(true);
             mMap.addMarker(markerOption);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDiveShopAddress.getLatLng(), DEFAULT_ZOOM));
         }
@@ -137,8 +136,7 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(diveShopAddress.getLatLng())
                         .title(diveShopAddress.getFullAddress())
-                        .draggable(true)
-                        .snippet(diveShopAddress.toString());
+                        .draggable(true);
                 mMap.addMarker(markerOption);
                 listDialog.dismiss();
 
