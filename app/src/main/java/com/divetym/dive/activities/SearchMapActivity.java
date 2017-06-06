@@ -49,7 +49,6 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private LatLng mSelectedLocation;
     private Geocoder mGeocoder;
-    private List<Address> mAddresses;
     private DiveShopAddress mDiveShopAddress;
 
     @Override
@@ -57,12 +56,13 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_map);
         getSupportActionBar().hide();
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.fragment_map);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.fragment_autocomplete);
+        mGeocoder = new Geocoder(this, Locale.getDefault());
+
         if (getIntent() != null) {
             mDiveShopAddress = getIntent().getParcelableExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS);
         }
-        mGeocoder = new Geocoder(this, Locale.getDefault());
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.fragment_map);
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.fragment_autocomplete);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
@@ -118,8 +118,7 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
             public void onMapClick(LatLng latLng) {
                 mSelectedLocation = latLng;
                 try {
-                    mAddresses = mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, MAX_RESULTS);
-                    showAddressSelectionDialog(mAddresses);
+                    showAddressSelectionDialog(mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, MAX_RESULTS));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -128,11 +127,6 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
     }
 
     private void showAddressSelectionDialog(List<Address> addresses) {
-        if (BuildConfig.DEBUG) {
-            for (Address address : addresses) {
-                Log.d(TAG, "address: " + address.toString());
-            }
-        }
         AddressListAddapter adapter = new AddressListAddapter(this, addresses);
         final AlertDialog listDialog = new AlertDialog.Builder(this).create();
         adapter.setItemClickListener(new ItemClickListener<DiveShopAddress>() {
