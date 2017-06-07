@@ -73,7 +73,7 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (mDiveShopAddress != null) {
+        if (mDiveShopAddress.getFullAddress() != null) {
             MarkerOptions markerOption = new MarkerOptions()
                     .position(mDiveShopAddress.getLatLng())
                     .title(mDiveShopAddress.getFullAddress())
