@@ -98,6 +98,9 @@ public class TypefaceManager {
             case Typefaces.ROBOTO_CONDENSED_BOLD:
                 return Typeface.createFromAsset(context.getAssets(), "fonts/RobotoCondensed-Bold.ttf");
 
+            case Typefaces.ROBOTO_BOLD:
+                return Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Bold.ttf");
+
             case Typefaces.DEFAULT_REGULAR:
                 return Typeface.DEFAULT;
 
@@ -121,6 +124,7 @@ public class TypefaceManager {
 
         public final static int DEFAULT_REGULAR = 7;
         public final static int DEFAULT_BOLD = 8;
+        public final static int ROBOTO_BOLD = 9;
     }
 
     public class FontFamily {
