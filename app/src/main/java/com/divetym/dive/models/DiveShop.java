@@ -14,7 +14,7 @@ import java.util.List;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DiveShop extends User implements Parcelable {
+public class DiveShop extends User  {
     private static final String PREVIEW_ACTION_BOAT = "VIEW";
     private static final String PREVIEW_ACTION_COURSE = "BOOK NOW";
 

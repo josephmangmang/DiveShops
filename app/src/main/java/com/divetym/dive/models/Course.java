@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class Course extends ThumbnailEntity implements Parcelable {
+public class Course extends ThumbnailEntity{
     @SerializedName(ApiConstant.COURSE_ID)
     private int courseId;
     @SerializedName(ApiConstant.DESCRIPTION)
@@ -55,6 +55,9 @@ public class Course extends ThumbnailEntity implements Parcelable {
                 '}';
     }
 
+    public Course() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -68,9 +71,6 @@ public class Course extends ThumbnailEntity implements Parcelable {
         dest.writeString(this.offeredBy);
     }
 
-    public Course() {
-    }
-
     protected Course(Parcel in) {
         super(in);
         this.courseId = in.readInt();
@@ -78,4 +78,15 @@ public class Course extends ThumbnailEntity implements Parcelable {
         this.offeredBy = in.readString();
     }
 
+    public static final Creator<Course> CREATOR = new Creator<Course>() {
+        @Override
+        public Course createFromParcel(Parcel source) {
+            return new Course(source);
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    };
 }

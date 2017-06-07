@@ -65,4 +65,15 @@ public class ThumbnailEntity implements Parcelable {
         this.imageUrl = in.readString();
     }
 
+    public static final Creator<ThumbnailEntity> CREATOR = new Creator<ThumbnailEntity>() {
+        @Override
+        public ThumbnailEntity createFromParcel(Parcel source) {
+            return new ThumbnailEntity(source);
+        }
+
+        @Override
+        public ThumbnailEntity[] newArray(int size) {
+            return new ThumbnailEntity[size];
+        }
+    };
 }

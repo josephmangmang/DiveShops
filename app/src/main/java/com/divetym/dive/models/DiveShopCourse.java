@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * Created by kali_root on 3/28/2017.
  */
 
-public class DiveShopCourse extends Course implements Parcelable {
+public class DiveShopCourse extends Course {
     public static final String TAG = DiveShopCourse.class.getSimpleName();
     @SerializedName(ApiConstant.DIVE_SHOP_COURSE_ID)
     private int diveShopCourseId;

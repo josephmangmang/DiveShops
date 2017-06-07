@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DailyTripGuest extends Diver implements Parcelable {
+public class DailyTripGuest extends Diver {
     @SerializedName(ApiConstant.DAILY_TRIP_GUEST_ID)
     private int dailyTripGuestId;
     @SerializedName(ApiConstant.DAILY_TRIP_ID)

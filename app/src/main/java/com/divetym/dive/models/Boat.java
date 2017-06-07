@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class Boat extends ThumbnailEntity implements Parcelable {
+public class Boat extends ThumbnailEntity{
     @SerializedName(ApiConstant.BOAT_ID)
     private int boatId;
     @SerializedName(ApiConstant.DIVE_SHOP_ID)

@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DiveSite extends ThumbnailEntity implements Parcelable {
+public class DiveSite extends ThumbnailEntity {
     @SerializedName(ApiConstant.DIVE_SITE_ID)
     private int diveSiteId;
     @SerializedName(ApiConstant.DESCRIPTION)

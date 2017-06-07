@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DailyTripGuide extends Guide implements Parcelable {
+public class DailyTripGuide extends Guide  {
     @SerializedName(ApiConstant.DAILY_TRIP_GUIDE_ID)
     private int dailyTripGuideId;
     @SerializedName(ApiConstant.DAILY_TRIP_ID)

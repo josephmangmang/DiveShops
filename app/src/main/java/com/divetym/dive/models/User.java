@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class User extends ThumbnailEntity implements Parcelable {
+public class User extends ThumbnailEntity{
     @SerializedName(ApiConstant.USER_ID)
     private String userUid;
     @SerializedName(ApiConstant.EMAIL)
@@ -133,4 +133,15 @@ public class User extends ThumbnailEntity implements Parcelable {
         this.authKey = in.readString();
     }
 
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
