@@ -39,7 +39,7 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_collapsing_toolbar);
+        setContentView(R.layout.activity_dive_shop);
         ButterKnife.bind(this);
         loadScreen();
         initializeNavigation();
