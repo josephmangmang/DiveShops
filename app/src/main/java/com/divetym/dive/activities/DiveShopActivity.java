@@ -1,13 +1,16 @@
 package com.divetym.dive.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.divetym.dive.R;
@@ -34,7 +37,32 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
     @BindView(R.id.text_subtitle)
     RobotoTextView mToolbarSubtitle;
     @BindView(R.id.image_collapsing_toolbar_background)
-    ImageView ivToolbarBackground;
+    ImageView mToolbarBackgroundImageView;
+    private View.OnClickListener mToolbarBackgrounClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            AlertDialog.Builder optionDialog = new AlertDialog.Builder(DiveShopActivity.this);
+            optionDialog.setTitle(R.string.dialog_title_change_profile_cover);
+            optionDialog.setItems(R.array.change_profile_cover_options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Log.d(TAG, "user click option " +i);
+                    // TODO: 6/7/2017 implement change profile cover image
+                    switch (i) {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                    }
+                }
+            });
+            optionDialog.show();
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +71,7 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
         ButterKnife.bind(this);
         loadScreen();
         initializeNavigation();
+        mToolbarBackgroundImageView.setOnClickListener(mToolbarBackgrounClickListener);
     }
 
     private void initializeNavigation() {
@@ -107,6 +136,6 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
                 .load(imgUrl)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(ivToolbarBackground);
+                .into(mToolbarBackgroundImageView);
     }
 }

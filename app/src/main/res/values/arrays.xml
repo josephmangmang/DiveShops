@@ -4,4 +4,9 @@
         <item>Diver</item>
         <item>Dive Shop</item>
     </string-array>
+    <string-array name="change_profile_cover_options">
+        <item>Choose from Gallery</item>
+        <item>Take photo</item>
+        <item>Clear profile cover</item>
+    </string-array>
 </resources>

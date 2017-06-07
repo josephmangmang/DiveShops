@@ -114,4 +114,5 @@
     <string name="dialog_title_select_address">Select Address</string>
     <string name="hint_location">Location</string>
     <string name="title_select_location">Select Location</string>
+    <string name="dialog_title_change_profile_cover">Change profile cover</string>
 </resources>
