@@ -1,4 +1,4 @@
-package com.divetym.dive.common;
+package com.divetym.dive.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

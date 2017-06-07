@@ -1,8 +1,6 @@
 package com.divetym.dive.interfaces;
 
-import android.location.Address;
-
-import com.divetym.dive.common.DiveShopAddress;
+import com.divetym.dive.models.DiveShopAddress;
 
 /**
  * Created by kali_root on 6/6/2017.

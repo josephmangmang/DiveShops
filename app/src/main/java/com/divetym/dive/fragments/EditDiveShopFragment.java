@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.SearchMapActivity;
-import com.divetym.dive.common.DiveShopAddress;
+import com.divetym.dive.models.DiveShopAddress;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.DiveShop;
 import com.divetym.dive.models.response.Response;

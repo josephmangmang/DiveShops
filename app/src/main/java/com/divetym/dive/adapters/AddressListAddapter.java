@@ -10,11 +10,10 @@ import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
-import com.divetym.dive.common.DiveShopAddress;
+import com.divetym.dive.models.DiveShopAddress;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by kali_root on 6/5/2017.

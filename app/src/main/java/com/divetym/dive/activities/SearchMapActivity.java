@@ -15,12 +15,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.divetym.dive.BuildConfig;
-import com.divetym.dive.LocationTracker;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.AddressListAddapter;
-import com.divetym.dive.common.DiveShopAddress;
+import com.divetym.dive.models.DiveShopAddress;
 import com.divetym.dive.interfaces.ItemClickListener;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
