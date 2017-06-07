@@ -2,7 +2,6 @@ package com.divetym.dive.fragments.common;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -20,15 +19,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.dialog.BoatsDialog;
 import com.divetym.dive.dialog.DiveSitesDialog;
 import com.divetym.dive.dialog.GuidesDialog;
 import com.divetym.dive.dialog.SearchListDialog;
-import com.divetym.dive.fragments.EditTripFragment;
 import com.divetym.dive.fragments.base.DiveTymFragment;
-import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.DailyTripBoat;
 import com.divetym.dive.models.DailyTripDiveSite;
@@ -36,7 +32,6 @@ import com.divetym.dive.models.DailyTripGuide;
 import com.divetym.dive.utils.DateUtils;
 import com.divetym.dive.view.ListAddMoreLayout;
 import com.divetym.dive.view.ToastAlert;
-import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -55,15 +50,15 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
     public static final String TAG = ModifyTripFragment.class.getSimpleName();
     public static final String BUNDLE_DAILY_TRIP = "bundle_daily_trip";
     @BindView(R.id.edit_time)
-    EditText etTime;
+    EditText mTimeEditText;
     @BindView(R.id.edit_group_size)
-    EditText etGroupSize;
+    EditText mGroupSizeEditText;
     @BindView(R.id.edit_number_of_dive)
-    EditText etNumberOfDive;
+    EditText mNumberOfDiveEditText;
     @BindView(R.id.edit_price)
-    EditText etPrice;
+    EditText mPriceEditText;
     @BindView(R.id.edit_price_note)
-    EditText etPriceNote;
+    EditText mPriceNoteEditText;
     @BindView(R.id.list_addmore_site)
     ListAddMoreLayout<DailyTripDiveSite> mAddMoreLayoutDiveSite;
     @BindView(R.id.list_addmore_boat)
@@ -72,7 +67,7 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
     ListAddMoreLayout<DailyTripGuide> mAddMoreLayoutGuides;
     protected DailyTrip mDailyTrip;
 
-    private Calendar selectedTime;
+    private Calendar mSelectedTime;
 
     private View.OnClickListener onDiveSiteAddClickListener = new View.OnClickListener() {
         @Override
@@ -133,27 +128,27 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
     private View.OnClickListener mTimeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            int y = selectedTime.get(Calendar.YEAR);
-            int m = selectedTime.get(Calendar.MONTH);
-            int d = selectedTime.get(Calendar.DAY_OF_MONTH);
+            int y = mSelectedTime.get(Calendar.YEAR);
+            int m = mSelectedTime.get(Calendar.MONTH);
+            int d = mSelectedTime.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int nY, int nM, int nD) {
-                    selectedTime.set(nY, nM, nD);
-                    int hour = selectedTime.get(Calendar.HOUR_OF_DAY);
-                    int minute = selectedTime.get(Calendar.MINUTE);
+                    mSelectedTime.set(nY, nM, nD);
+                    int hour = mSelectedTime.get(Calendar.HOUR_OF_DAY);
+                    int minute = mSelectedTime.get(Calendar.MINUTE);
 
                     TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int nH, int nM) {
-                            selectedTime.set(
-                                    selectedTime.get(Calendar.YEAR),
-                                    selectedTime.get(Calendar.MONTH),
-                                    selectedTime.get(Calendar.DAY_OF_MONTH),
+                            mSelectedTime.set(
+                                    mSelectedTime.get(Calendar.YEAR),
+                                    mSelectedTime.get(Calendar.MONTH),
+                                    mSelectedTime.get(Calendar.DAY_OF_MONTH),
                                     nH,
                                     nM);
-                            etTime.setText(DateUtils.formatDisplayDateTime(selectedTime.getTime()));
+                            mTimeEditText.setText(DateUtils.formatDisplayDateTime(mSelectedTime.getTime()));
                         }
                     }, hour, minute, false);
                     timePickerDialog.show();
@@ -180,14 +175,14 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_trip, container, false);
         ButterKnife.bind(this, view);
-        selectedTime = Calendar.getInstance();
-        etTime.setText(DateUtils.formatDisplayDateTime(selectedTime.getTime()));
+        mSelectedTime = Calendar.getInstance();
+        mTimeEditText.setText(DateUtils.formatDisplayDateTime(mSelectedTime.getTime()));
 
         mAddMoreLayoutDiveSite.setTitle(getString(R.string.title_dive_sites));
         mAddMoreLayoutBoats.setTitle(getString(R.string.title_boats));
         mAddMoreLayoutGuides.setTitle(getString(R.string.title_guides));
 
-        etTime.setOnClickListener(mTimeOnClickListener);
+        mTimeEditText.setOnClickListener(mTimeOnClickListener);
         mAddMoreLayoutDiveSite.setAddClickListener(onDiveSiteAddClickListener);
         mAddMoreLayoutBoats.setAddClickListener(onBoatAddClickListener);
         mAddMoreLayoutGuides.setAddClickListener(onGuideAddClickListener);
@@ -204,12 +199,12 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
 
     protected void setDefaultData(Calendar time, int groupSize, int numberOfDive, String price, String priceNote,
                                   List<DailyTripBoat> boats, List<DailyTripDiveSite> diveSites, List<DailyTripGuide> guides) {
-        selectedTime = time;
-        etTime.setText(DateUtils.formatDisplayDateTime(selectedTime.getTime()));
-        etGroupSize.setText(String.valueOf(groupSize));
-        etNumberOfDive.setText(String.valueOf(numberOfDive));
-        etPrice.setText(String.valueOf(price));
-        etPriceNote.setText(priceNote);
+        mSelectedTime = time;
+        mTimeEditText.setText(DateUtils.formatDisplayDateTime(mSelectedTime.getTime()));
+        mGroupSizeEditText.setText(String.valueOf(groupSize));
+        mNumberOfDiveEditText.setText(String.valueOf(numberOfDive));
+        mPriceEditText.setText(String.valueOf(price));
+        mPriceNoteEditText.setText(priceNote);
 
         if (boats != null) {
             mAddMoreLayoutBoats.setDataList(boats);
@@ -239,31 +234,31 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
         boolean error = false;
         String errorMessage = getString(R.string.error_field_required);
 
-        String dateTime = DateUtils.formatServerDateTime(selectedTime.getTime());
-        String groupSize = etGroupSize.getText().toString();
-        String numberOfDive = etNumberOfDive.getText().toString();
-        String price = etPrice.getText().toString();
-        String priceNote = etPriceNote.getText().toString();
+        String dateTime = DateUtils.formatServerDateTime(mSelectedTime.getTime());
+        String groupSize = mGroupSizeEditText.getText().toString();
+        String numberOfDive = mNumberOfDiveEditText.getText().toString();
+        String price = mPriceEditText.getText().toString();
+        String priceNote = mPriceNoteEditText.getText().toString();
 
         if (TextUtils.isEmpty(dateTime)) {
             error = true;
-            etTime.setError(errorMessage);
+            mTimeEditText.setError(errorMessage);
         }
         if (TextUtils.isEmpty(groupSize)) {
             error = true;
-            etGroupSize.setError(errorMessage);
+            mGroupSizeEditText.setError(errorMessage);
         }
         if (TextUtils.isEmpty(numberOfDive)) {
             error = true;
-            etNumberOfDive.setError(errorMessage);
+            mNumberOfDiveEditText.setError(errorMessage);
         }
         if (TextUtils.isEmpty(price)) {
             error = true;
-            etPrice.setError(errorMessage);
+            mPriceEditText.setError(errorMessage);
         }
         if (TextUtils.isEmpty(priceNote)) {
             error = true;
-            etPriceNote.setError(errorMessage);
+            mPriceNoteEditText.setError(errorMessage);
         }
 
         List<DailyTripBoat> boats = mAddMoreLayoutBoats.getDataList();

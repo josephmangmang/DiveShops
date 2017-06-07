@@ -56,14 +56,14 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
         if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_GUIDE) {
             // refresh the list..
             mAdapter.resetList();
-            mOffset = 0;
+            offset = 0;
             requestData();
         }
     }
 
     @Override
     protected void requestData() {
-        mApiService.getGuides(mShopUid, mOffset)
+        mApiService.getGuides(shopUid, offset)
                 .enqueue(new Callback<GuideListResponse>() {
                     @Override
                     public void onResponse(Call<GuideListResponse> call, Response<GuideListResponse> response) {

@@ -1,10 +1,7 @@
 package com.divetym.dive.fragments;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +20,7 @@ import com.divetym.dive.view.RobotoTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.app.Activity.RESULT_OK;
 import static com.divetym.dive.activities.TripDetailsActivity.EXTRA_DAILY_TRIP;
-import static com.divetym.dive.activities.TripDetailsActivity.REQUEST_EDIT;
 
 /**
  * Created by kali_root on 5/5/2017.
@@ -35,15 +30,15 @@ public class TripDetailsFragment extends DiveTymFragment {
 
     public static final String TAG = TripDetailsFragment.class.getSimpleName();
     @BindView(R.id.text_time)
-    RobotoTextView tvTime;
+    RobotoTextView mTimeTextView;
     @BindView(R.id.text_date)
-    RobotoTextView tvDate;
+    RobotoTextView mDateTextView;
     @BindView(R.id.text_number_dives)
-    RobotoTextView tvNumberOfDives;
+    RobotoTextView mNumberOfDivesTextView;
     @BindView(R.id.text_group_size)
-    RobotoTextView tvGroupSize;
+    RobotoTextView mGroupSizeTextView;
     @BindView(R.id.text_remaining_slot)
-    RobotoTextView tvRemainingSlot;
+    RobotoTextView mRemainingSlotTextView;
     @BindView(R.id.preview_trip_sites)
     ListPreviewLayout mPreViewTripSites;
     @BindView(R.id.preview_trip_guides)
@@ -51,11 +46,11 @@ public class TripDetailsFragment extends DiveTymFragment {
     @BindView(R.id.preview_trip_boats)
     ListPreviewLayout mPreviewTripBoats;
     @BindView(R.id.text_total_price)
-    RobotoTextView tvTotalPrice;
+    RobotoTextView mTotalPriceTextView;
     @BindView(R.id.text_price_summary)
-    RobotoTextView tvPriceSummary;
+    RobotoTextView mPriceSummaryTextView;
     @BindView(R.id.text_guests)
-    RobotoTextView tvTripGuests;
+    RobotoTextView mTripGuestsTextView;
 
     private DailyTrip mDailyTrip;
 
@@ -142,14 +137,14 @@ public class TripDetailsFragment extends DiveTymFragment {
     }
 
     private void loadDailyTripData() {
-        tvDate.setText(mDailyTrip.getDateOnly());
-        tvTime.setText(mDailyTrip.getTimeOnly());
-        tvNumberOfDives.setText("" + mDailyTrip.getNumberOfDive());
-        tvGroupSize.setText("" + mDailyTrip.getGroupSize());
-        tvTotalPrice.setText(mDailyTrip.getPrice().toString());
-        tvPriceSummary.setText(mDailyTrip.getPriceNote());
-        tvRemainingSlot.setText("" + mDailyTrip.getRemainingSlot());
-        tvTripGuests.setText(mDailyTrip.getGuestNames());
+        mDateTextView.setText(mDailyTrip.getDateOnly());
+        mTimeTextView.setText(mDailyTrip.getTimeOnly());
+        mNumberOfDivesTextView.setText("" + mDailyTrip.getNumberOfDive());
+        mGroupSizeTextView.setText("" + mDailyTrip.getGroupSize());
+        mTotalPriceTextView.setText(mDailyTrip.getPrice().toString());
+        mPriceSummaryTextView.setText(mDailyTrip.getPriceNote());
+        mRemainingSlotTextView.setText("" + mDailyTrip.getRemainingSlot());
+        mTripGuestsTextView.setText(mDailyTrip.getGuestNames());
 
         mPreViewTripSites.setPreviewTitle(getString(R.string.title_destinations));
         mPreViewTripSites.setPreviewList(mDailyTrip.getDiveSitePreviews());

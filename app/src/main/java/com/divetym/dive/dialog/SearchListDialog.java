@@ -28,7 +28,6 @@ import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
-import com.divetym.dive.view.ToastAlert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,11 +49,11 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     protected static final int REQUEST_METHOD_LIST = 91;
 
     @BindView(R.id.image_btn_close)
-    ImageButton btnClose;
+    ImageButton mCloseImageButton;
     @BindView(R.id.image_btn_search)
-    ImageButton btnSearch;
+    ImageButton mSearchImageButton;
     @BindView(R.id.edit_search)
-    EditText etSearch;
+    EditText mSearchEditText;
     @BindView(R.id.button_done)
     Button mDone;
     @BindView(R.id.list)
@@ -65,9 +64,9 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     private OnSelectionDoneListener mOnSelectionDoneListener;
     protected ApiInterface mApiService;
     protected String mLastSearchQuery;
-    protected int mLastRequestMethod;
-    protected int mOffset = 0;
-    private String mSearchHint;
+    protected int lastRequestMethod;
+    protected int offset = 0;
+    private String searchHint;
     private boolean multiSelectEnable;
     private Context mContext;
 
@@ -85,7 +84,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     private View.OnClickListener btnSearchListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            mLastSearchQuery = etSearch.getText().toString();
+            mLastSearchQuery = mSearchEditText.getText().toString();
             onSearchClicked(mLastSearchQuery);
         }
     };
@@ -98,7 +97,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            btnSearch.setVisibility(charSequence.length() > 0 ? View.VISIBLE : View.INVISIBLE);
+            mSearchImageButton.setVisibility(charSequence.length() > 0 ? View.VISIBLE : View.INVISIBLE);
         }
 
         @Override
@@ -130,20 +129,20 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_search_list, container, false);
         ButterKnife.bind(this, view);
-        etSearch.setHint(mSearchHint);
-        etSearch.addTextChangedListener(searchQueryChangedListener);
-        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mSearchEditText.setHint(searchHint);
+        mSearchEditText.addTextChangedListener(searchQueryChangedListener);
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    btnSearch.performClick();
+                    mSearchImageButton.performClick();
                     return true;
                 }
                 return false;
             }
         });
-        btnClose.setOnClickListener(btnCloseClickListener);
-        btnSearch.setOnClickListener(btnSearchListener);
+        mCloseImageButton.setOnClickListener(btnCloseClickListener);
+        mSearchImageButton.setOnClickListener(btnSearchListener);
         mDone.setOnClickListener(doneClickListener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
@@ -157,8 +156,8 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     }
 
     private void onFirstRequestData() {
-        mLastRequestMethod = REQUEST_METHOD_LIST;
-        mOffset = 0;
+        lastRequestMethod = REQUEST_METHOD_LIST;
+        offset = 0;
         getData();
     }
 
@@ -167,7 +166,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     }
 
     public void setSearchHint(String hint) {
-        mSearchHint = hint;
+        searchHint = hint;
     }
 
     public void setMultiSelectEnable(boolean multiSelectEnable) {
@@ -185,7 +184,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     }
 
     protected void getData() {
-        if (mLastRequestMethod == REQUEST_METHOD_SEARCH) {
+        if (lastRequestMethod == REQUEST_METHOD_SEARCH) {
             searchData(mLastSearchQuery);
         } else {
             requestData();
@@ -193,8 +192,8 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     }
 
     protected void onSearchClicked(String query) {
-        mLastRequestMethod = REQUEST_METHOD_SEARCH;
-        mOffset = 0;
+        lastRequestMethod = REQUEST_METHOD_SEARCH;
+        offset = 0;
         searchData(query);
     }
 
@@ -212,7 +211,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
 
     @Override
     public void onLoadMore(int totalItemCount) {
-        mOffset = totalItemCount;
+        offset = totalItemCount;
         getData();
     }
 

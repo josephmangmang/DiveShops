@@ -34,12 +34,12 @@ public class BoatDetailsActivity extends DetailsActivity {
         mBoat = getIntent().getParcelableExtra(EXTRA_DATA);
         if (mBoat != null) {
             setToolbarTitle(mBoat.getName());
-            tvBody.setText(mBoat.getDescription());
+            mBodyText.setText(mBoat.getDescription());
             Picasso.with(this)
                     .load(mBoat.getImageUrl())
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
-                    .into(ivToolbarBackground);
+                    .into(mToolbarBackgroundImage);
         }
     }
 }

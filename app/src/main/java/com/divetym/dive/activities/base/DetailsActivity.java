@@ -33,9 +33,9 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
     @BindView(R.id.text_subtitle)
     RobotoTextView mToolbarSubtitle;
     @BindView(R.id.text_body)
-    protected RobotoTextView tvBody;
+    protected RobotoTextView mBodyText;
     @BindView(R.id.image_collapsing_toolbar_background)
-    protected ImageView ivToolbarBackground;
+    protected ImageView mToolbarBackgroundImage;
     private boolean diveshop;
 
     @OnClick(R.id.fab)

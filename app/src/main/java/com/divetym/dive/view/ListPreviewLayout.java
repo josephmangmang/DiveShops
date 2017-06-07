@@ -5,10 +5,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
@@ -26,9 +23,9 @@ import java.util.List;
 public class ListPreviewLayout extends CardView {
     public static final String TAG = ListPreviewLayout.class.getSimpleName();
     private RecyclerView mRecyclerView;
-    private RobotoTextView tvPreviewTitle;
-    private RobotoTextView tvPreviewMore;
-    private View emptyItem;
+    private RobotoTextView mPreviewTitleTextView;
+    private RobotoTextView mPreviewMoreTextView;
+    private View mEmptyItemView;
     private ListPreviewAdapter mAdapter;
     private List<ListPreview> mPreviews;
     private DiveTymActivity mContext;
@@ -53,9 +50,9 @@ public class ListPreviewLayout extends CardView {
             mContext = (DiveTymActivity) context;
         }
         inflate(context, R.layout.view_list_preview, this);
-        tvPreviewTitle = (RobotoTextView) findViewById(R.id.text_preview_title);
-        tvPreviewMore = (RobotoTextView) findViewById(R.id.text_preview_more);
-        emptyItem = findViewById(R.id.empty_item);
+        mPreviewTitleTextView = (RobotoTextView) findViewById(R.id.text_preview_title);
+        mPreviewMoreTextView = (RobotoTextView) findViewById(R.id.text_preview_more);
+        mEmptyItemView = findViewById(R.id.empty_item);
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setHasFixedSize(true);
@@ -70,18 +67,18 @@ public class ListPreviewLayout extends CardView {
         mPreviews = previews;
         mAdapter.setDataList(mPreviews);
         if (previews != null && previews.size() > 0) {
-            emptyItem.setVisibility(GONE);
+            mEmptyItemView.setVisibility(GONE);
         } else {
-            emptyItem.setVisibility(VISIBLE);
+            mEmptyItemView.setVisibility(VISIBLE);
         }
     }
 
     public void setPreviewTitle(String title) {
-        tvPreviewTitle.setText(title);
+        mPreviewTitleTextView.setText(title);
     }
 
     public void setMoreClickListener(OnClickListener moreClickListener) {
-        tvPreviewMore.setOnClickListener(moreClickListener);
+        mPreviewMoreTextView.setOnClickListener(moreClickListener);
     }
 
     public void setItemClickListener(BaseRecyclerAdapter.ItemClickListener itemClickListener) {

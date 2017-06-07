@@ -37,12 +37,12 @@ public class GuideDetailsActivity extends DetailsActivity {
         mGuide = getIntent().getParcelableExtra(EXTRA_DATA);
         if (mGuide != null) {
             setToolbarTitle(mGuide.getName());
-            tvBody.setText(mGuide.getDescription());
+            mBodyText.setText(mGuide.getDescription());
             Picasso.with(this)
                     .load(mGuide.getImageUrl())
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
-                    .into(ivToolbarBackground);
+                    .into(mToolbarBackgroundImage);
         }
     }
 }

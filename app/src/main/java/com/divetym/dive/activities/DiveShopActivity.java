@@ -37,7 +37,7 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
     @BindView(R.id.text_subtitle)
     RobotoTextView mToolbarSubtitle;
     @BindView(R.id.image_collapsing_toolbar_background)
-    ImageView mToolbarBackgroundImageView;
+    ImageView mToolbarBackgroundImage;
     private View.OnClickListener mToolbarBackgrounClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -71,7 +71,7 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
         ButterKnife.bind(this);
         loadScreen();
         initializeNavigation();
-        mToolbarBackgroundImageView.setOnClickListener(mToolbarBackgrounClickListener);
+        mToolbarBackgroundImage.setOnClickListener(mToolbarBackgrounClickListener);
     }
 
     private void initializeNavigation() {
@@ -136,6 +136,6 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
                 .load(imgUrl)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(mToolbarBackgroundImageView);
+                .into(mToolbarBackgroundImage);
     }
 }

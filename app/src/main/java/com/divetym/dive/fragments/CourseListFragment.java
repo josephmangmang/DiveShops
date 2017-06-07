@@ -2,7 +2,6 @@ package com.divetym.dive.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -16,7 +15,6 @@ import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.response.DiveShopCourseListResponse;
 import com.divetym.dive.view.ToastAlert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -59,14 +57,14 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_COURSE ) {
             // refresh the list..
             mAdapter.resetList();
-            mOffset = 0;
+            offset = 0;
             requestData();
         }
     }
 
     @Override
     protected void requestData() {
-        mApiService.getDiveShopCourses(mShopUid, mOffset)
+        mApiService.getDiveShopCourses(shopUid, offset)
                 .enqueue(new Callback<DiveShopCourseListResponse>() {
                     @Override
                     public void onResponse(Call<DiveShopCourseListResponse> call, Response<DiveShopCourseListResponse> response) {

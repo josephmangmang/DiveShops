@@ -165,7 +165,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         for (int i = 0; i < dailyTrips.size(); i++) {
             dailyTripIds.add(dailyTrips.get(i).getDailyTripId());
         }
-        mApiService.deleteDiveShopTrips(mShopUid, dailyTripIds)
+        mApiService.deleteDiveShopTrips(shopUid, dailyTripIds)
                 .enqueue(new Callback<Response>() {
                     @Override
                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -206,8 +206,8 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     }
 
     private void requestDiveShopTrips() {
-        mApiService.getDiveShopTrips(mShopUid, mDiveSiteId, startDate, endDate,
-                mOffset, mSortOption.getSort().name(), mSortOption.getOrder().name())
+        mApiService.getDiveShopTrips(shopUid, mDiveSiteId, startDate, endDate,
+                offset, mSortOption.getSort().name(), mSortOption.getOrder().name())
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
                     public void onResponse(Call<DailyTripListResponse> call, retrofit2.Response<DailyTripListResponse> response) {
@@ -240,7 +240,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         mSelectedDiveSite = diveSite;
         mStartDate = startDate;
         mEndDate = endDate;
-        mOffset = 0;
+        offset = 0;
         reset = true;
         if (diveSite != null) {
             mDiveSiteId = diveSite.getDiveSiteId();

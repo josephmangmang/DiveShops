@@ -18,7 +18,6 @@ import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter.ItemClickListener;
 import com.divetym.dive.fragments.CourseListFragment;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
-import com.divetym.dive.models.User;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
@@ -53,8 +52,8 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
     protected ApiInterface mApiService;
-    protected int mOffset = 0;
-    protected String mShopUid;
+    protected int offset = 0;
+    protected String shopUid;
     protected boolean showAddButton;
 
     @Override
@@ -67,13 +66,13 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
             if (mDataList == null) {
                 mDataList = new ArrayList<>();
             }
-            mOffset = mDataList.size();
+            offset = mDataList.size();
         } else {
             mDataList = new ArrayList<>();
         }
         mApiService = ApiClient.getApiInterface();
         mLayoutManager = new LinearLayoutManager(mContext);
-        mShopUid = mSessionManager.getDiveShopUid();
+        shopUid = mSessionManager.getDiveShopUid();
     }
 
     @Nullable
@@ -104,7 +103,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected abstract void initializeAdapter();
 
     private void loadData() {
-        if (mShopUid == null) {
+        if (shopUid == null) {
             new ToastAlert(mContext)
                     .setMessage(R.string.error_empty_account_details)
                     .show();
@@ -130,7 +129,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     @Override
     public void onLoadMore(int totalItemCount) {
         Log.d(TAG, "onLoadMore: totalItemCount = " + totalItemCount);
-        mOffset = totalItemCount;
+        offset = totalItemCount;
         loadData();
     }
 

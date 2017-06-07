@@ -28,7 +28,7 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
         implements BaseRecyclerAdapter.ItemClickListener<DiveSite>, SearchViewLayout.SearchListener {
 
     private static final String TAG = SearchListFragment.class.getSimpleName();
-    private String mSearchName = "";
+    private String searchName = "";
     private boolean searchRequest;
     private OnRefreshTripListener mOnRefreshTripListener;
 
@@ -51,7 +51,7 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
 
     @Override
     protected void requestData() {
-        mApiService.getSites(mSearchName, mOffset)
+        mApiService.getSites(searchName, offset)
                 .enqueue(new Callback<DiveSiteListResponse>() {
                     @Override
                     public void onResponse(Call<DiveSiteListResponse> call, Response<DiveSiteListResponse> response) {
@@ -90,13 +90,13 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
 
     @Override
     public void onFinished(String searchKeyword) {
-        mSearchName = searchKeyword;
+        searchName = searchKeyword;
         Log.d(TAG, "onFinised search : " + searchKeyword);
         requestDiveSiteByName();
     }
 
     private void requestDiveSiteByName() {
-        mOffset = 0;
+        offset = 0;
         searchRequest = true;
         requestData();
     }

@@ -20,7 +20,7 @@ public class CourseDialog extends SearchListDialog<Course, CourseListResponse> {
 
     @Override
     protected void searchData(String query) {
-        mApiService.getCourses(query, mOffset, mSortOption.getSort().name(), mSortOption.getOrder().name())
+        mApiService.getCourses(query, offset, mSortOption.getSort().name(), mSortOption.getOrder().name())
                 .enqueue(new Callback<CourseListResponse>() {
                     @Override
                     public void onResponse(Call<CourseListResponse> call, Response<CourseListResponse> response) {
@@ -36,7 +36,7 @@ public class CourseDialog extends SearchListDialog<Course, CourseListResponse> {
 
     @Override
     protected void requestData() {
-        mApiService.getCourses(mOffset, mSortOption.getSort().name(), mSortOption.getOrder().name())
+        mApiService.getCourses(offset, mSortOption.getSort().name(), mSortOption.getOrder().name())
                 .enqueue(new Callback<CourseListResponse>() {
                     @Override
                     public void onResponse(Call<CourseListResponse> call, Response<CourseListResponse> response) {

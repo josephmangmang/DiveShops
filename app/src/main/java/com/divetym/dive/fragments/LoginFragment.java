@@ -33,9 +33,9 @@ import retrofit2.Response;
 public class LoginFragment extends DiveTymFragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
     @BindView(R.id.edit_email)
-    EditText mEmail;
+    EditText mEmailEditText;
     @BindView(R.id.edit_password)
-    EditText mPassword;
+    EditText mPasswordEditText;
     @BindView(R.id.button_login)
     Button mLoginButton;
     @BindView(R.id.button_signup)
@@ -46,16 +46,16 @@ public class LoginFragment extends DiveTymFragment {
     private View.OnClickListener mLoginButtonClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String email = mEmail.getText().toString();
-            String password = mPassword.getText().toString();
+            String email = mEmailEditText.getText().toString();
+            String password = mPasswordEditText.getText().toString();
             boolean error = false;
             if (TextUtils.isEmpty(email)) {
-                mEmail.setError(getString(R.string.error_field_required));
-                mEmail.requestFocus();
+                mEmailEditText.setError(getString(R.string.error_field_required));
+                mEmailEditText.requestFocus();
                 error = true;
             } else if (TextUtils.isEmpty(password)) {
-                mPassword.setError(getString(R.string.error_field_required));
-                mPassword.requestFocus();
+                mPasswordEditText.setError(getString(R.string.error_field_required));
+                mPasswordEditText.requestFocus();
                 error = true;
             }
             if (!error) {

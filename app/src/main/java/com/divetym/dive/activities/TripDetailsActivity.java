@@ -1,12 +1,9 @@
 package com.divetym.dive.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -32,7 +29,7 @@ public class TripDetailsActivity extends AuthenticatedActivity {
     @BindView(R.id.fab)
     FloatingActionButton mFab;
     @BindView(R.id.image_collapsing_toolbar_background)
-    protected ImageView mToolbarBackground;
+    protected ImageView mToolbarBackgroundImage;
     private TripDetailsFragment mFragment;
     private boolean edited;
 
@@ -54,7 +51,7 @@ public class TripDetailsActivity extends AuthenticatedActivity {
                 .load(dailyTrip.getSites().get(0).getImageUrl())
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(mToolbarBackground);
+                .into(mToolbarBackgroundImage);
         mFragment = initFragment(R.id.content, TripDetailsFragment.getInstance(dailyTrip));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override

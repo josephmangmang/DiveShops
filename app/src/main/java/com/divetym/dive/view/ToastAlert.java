@@ -17,7 +17,7 @@ import com.divetym.dive.R;
  */
 
 public class ToastAlert extends Toast {
-    private TextView tvMessage;
+    private TextView mMessageTextView;
     private LinearLayout root;
     private Context mContext;
 
@@ -29,7 +29,7 @@ public class ToastAlert extends Toast {
 
     private void init(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.view_toast, null);
-        tvMessage = (TextView) view.findViewById(R.id.message);
+        mMessageTextView = (TextView) view.findViewById(R.id.message);
         root = (LinearLayout) view.findViewById(R.id.background);
         setGravity(Gravity.BOTTOM, 0, 50);
         setDuration(LENGTH_SHORT);
@@ -47,7 +47,7 @@ public class ToastAlert extends Toast {
     }
 
     public ToastAlert setMessage(String message) {
-        tvMessage.setText(message);
+        mMessageTextView.setText(message);
         return this;
     }
 

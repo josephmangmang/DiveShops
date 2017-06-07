@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,7 +12,6 @@ import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.ListAddMoreAdapter;
 import com.divetym.dive.models.common.ThumbnailEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +20,7 @@ import java.util.List;
 
 public class ListAddMoreLayout<DataType extends ThumbnailEntity> extends LinearLayout {
     private RecyclerView mRecyclerView;
-    private RobotoTextView mTitle;
+    private RobotoTextView mTitleTextView;
     private ListAddMoreAdapter mAdapter;
     private DiveTymActivity mContext;
 
@@ -47,7 +45,7 @@ public class ListAddMoreLayout<DataType extends ThumbnailEntity> extends LinearL
             mContext = (DiveTymActivity) context;
         }
         inflate(context, R.layout.view_list_add_more, this);
-        mTitle = (RobotoTextView) findViewById(R.id.text_title);
+        mTitleTextView = (RobotoTextView) findViewById(R.id.text_title);
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -59,7 +57,7 @@ public class ListAddMoreLayout<DataType extends ThumbnailEntity> extends LinearL
     }
 
     public void setTitle(String title) {
-        mTitle.setText(title);
+        mTitleTextView.setText(title);
     }
 
     public void setDataList(List<DataType> list) {

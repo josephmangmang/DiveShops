@@ -27,7 +27,7 @@ public class BoatsDialog extends SearchListDialog<Boat, BoatListResponse> {
 
     @Override
     protected void searchData(String query) {
-        mApiService.getDiveShopBoats(mDiveShopUid, mOffset, query)
+        mApiService.getDiveShopBoats(mDiveShopUid, offset, query)
                 .enqueue(new Callback<BoatListResponse>() {
                     @Override
                     public void onResponse(Call<BoatListResponse> call, Response<BoatListResponse> response) {
@@ -43,7 +43,7 @@ public class BoatsDialog extends SearchListDialog<Boat, BoatListResponse> {
 
     @Override
     protected void requestData() {
-        mApiService.getDiveShopBoats(mDiveShopUid, mOffset)
+        mApiService.getDiveShopBoats(mDiveShopUid, offset)
                 .enqueue(new Callback<BoatListResponse>() {
                     @Override
                     public void onResponse(Call<BoatListResponse> call, Response<BoatListResponse> response) {

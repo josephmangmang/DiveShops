@@ -15,7 +15,6 @@ import retrofit2.Response;
 /**
  * Created by kali_root on 5/16/2017.
  */
-// TODO: 5/17/2017 create api for guide list
 public class GuidesDialog extends SearchListDialog<Guide, GuideListResponse> {
 
     private String mDiveShopUid;
@@ -28,7 +27,7 @@ public class GuidesDialog extends SearchListDialog<Guide, GuideListResponse> {
 
     @Override
     protected void searchData(String query) {
-        mApiService.getGuides(mDiveShopUid, query, mOffset)
+        mApiService.getGuides(mDiveShopUid, query, offset)
                 .enqueue(new Callback<GuideListResponse>() {
                     @Override
                     public void onResponse(Call<GuideListResponse> call, Response<GuideListResponse> response) {
@@ -47,7 +46,7 @@ public class GuidesDialog extends SearchListDialog<Guide, GuideListResponse> {
 
     @Override
     protected void requestData() {
-        mApiService.getGuides(mDiveShopUid, mOffset)
+        mApiService.getGuides(mDiveShopUid, offset)
                 .enqueue(new Callback<GuideListResponse>() {
                     @Override
                     public void onResponse(Call<GuideListResponse> call, Response<GuideListResponse> response) {

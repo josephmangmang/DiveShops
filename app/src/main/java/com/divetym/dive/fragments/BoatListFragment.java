@@ -2,7 +2,6 @@ package com.divetym.dive.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
@@ -10,13 +9,11 @@ import com.divetym.dive.BuildConfig;
 import com.divetym.dive.activities.AddBoatActivity;
 import com.divetym.dive.activities.BoatDetailsActivity;
 import com.divetym.dive.adapters.BoatListAdapter;
-import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.response.BoatListResponse;
 import com.divetym.dive.view.ToastAlert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,13 +55,13 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
         if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_BOAT ) {
             // refresh the list..
             mAdapter.resetList();
-            mOffset = 0;
+            offset = 0;
             requestData();
         }
     }
     @Override
     protected void requestData() {
-        mApiService.getDiveShopBoats(mShopUid, mOffset)
+        mApiService.getDiveShopBoats(shopUid, offset)
                 .enqueue(new Callback<BoatListResponse>() {
                     @Override
                     public void onResponse(Call<BoatListResponse> call, Response<BoatListResponse> response) {

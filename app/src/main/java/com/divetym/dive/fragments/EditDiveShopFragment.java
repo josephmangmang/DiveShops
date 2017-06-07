@@ -42,13 +42,13 @@ public class EditDiveShopFragment extends DiveTymFragment {
     private static final String TAG = EditDiveShopFragment.class.getSimpleName();
     public static final int REQUEST_SELECT_LOCATION = 1;
     @BindView(R.id.edit_name)
-    EditText mName;
+    EditText mNameEditText;
     @BindView(R.id.edit_contact_number)
-    EditText mContactNumber;
+    EditText mContactNumberEditText;
     @BindView(R.id.edit_price_per_dive)
-    EditText mPricePerDive;
+    EditText mPricePerDiveEditText;
     @BindView(R.id.edit_description)
-    EditText mDescription;
+    EditText mDescriptionEditText;
     @BindView(R.id.edit_special_service)
     EditText mSpecialService;
     @BindView(R.id.edit_address)
@@ -88,11 +88,11 @@ public class EditDiveShopFragment extends DiveTymFragment {
         ButterKnife.bind(this, view);
         if (mDiveShop != null) {
             try {
-                mName.setText(mDiveShop.getName());
+                mNameEditText.setText(mDiveShop.getName());
                 mAddressLocation.setText(mDiveShop.getAddress());
-                mContactNumber.setText(mDiveShop.getContactNumber());
-                mPricePerDive.setText(mDiveShop.getPricePerDive().toString());
-                mDescription.setText(mDiveShop.getDescription());
+                mContactNumberEditText.setText(mDiveShop.getContactNumber());
+                mPricePerDiveEditText.setText(mDiveShop.getPricePerDive().toString());
+                mDescriptionEditText.setText(mDiveShop.getDescription());
                 mSpecialService.setText(mDiveShop.getSpecialService());
                 mDiveShopAddress = new DiveShopAddress(mDiveShop.getAddress(), new LatLng(mDiveShop.getLatitiude(), mDiveShop.getLongitude()));
             } catch (NullPointerException e) {
@@ -130,19 +130,19 @@ public class EditDiveShopFragment extends DiveTymFragment {
 
     private void onSaveClicked() {
         if (mDiveShop == null) return;
-        String name = mName.getText().toString();
-        String contactNumber = mContactNumber.getText().toString();
-        String pricePerDive = mPricePerDive.getText().toString();
-        String description = mDescription.getText().toString();
+        String name = mNameEditText.getText().toString();
+        String contactNumber = mContactNumberEditText.getText().toString();
+        String pricePerDive = mPricePerDiveEditText.getText().toString();
+        String description = mDescriptionEditText.getText().toString();
         String specialService = mSpecialService.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            mName.setError(getString(R.string.error_field_required));
-            mName.requestFocus();
+            mNameEditText.setError(getString(R.string.error_field_required));
+            mNameEditText.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(pricePerDive)) {
-            mPricePerDive.setError(getString(R.string.error_field_required));
-            mPricePerDive.requestFocus();
+            mPricePerDiveEditText.setError(getString(R.string.error_field_required));
+            mPricePerDiveEditText.requestFocus();
             return;
         }
         if (mDiveShopAddress != null) {

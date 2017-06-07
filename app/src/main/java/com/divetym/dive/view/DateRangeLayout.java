@@ -23,8 +23,8 @@ import static com.divetym.dive.view.DateRangeLayout.DateRange.StartDate;
 
 public class DateRangeLayout extends LinearLayout implements DatePickerFragment.OnDateRangeChangedListener {
     public static final String TAG = DateRangeLayout.class.getSimpleName();
-    private RobotoTextView tvDateStart;
-    private RobotoTextView tvDateEnd;
+    private RobotoTextView mDateStartTextView;
+    private RobotoTextView mDateEndTextView;
     private DiveTymActivity mContext;
     private SimpleDateFormat mDateFormat;
     private Calendar startCalendar;
@@ -54,18 +54,18 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
     private void initialize() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_date_range, this, true);
-        tvDateStart = (RobotoTextView) findViewById(R.id.text_date_start);
-        tvDateEnd = (RobotoTextView) findViewById(R.id.text_date_end);
+        mDateStartTextView = (RobotoTextView) findViewById(R.id.text_date_start);
+        mDateEndTextView = (RobotoTextView) findViewById(R.id.text_date_end);
 
         mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
         endCalendar.add(Calendar.DAY_OF_MONTH, 30);
 
-        tvDateStart.setText(mDateFormat.format(startCalendar.getTime()));
-        tvDateEnd.setText(mDateFormat.format(endCalendar.getTime()));
+        mDateStartTextView.setText(mDateFormat.format(startCalendar.getTime()));
+        mDateEndTextView.setText(mDateFormat.format(endCalendar.getTime()));
 
-        tvDateStart.setOnClickListener(new OnClickListener() {
+        mDateStartTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mContext == null) {
@@ -78,7 +78,7 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
                 datePicker.show(mContext.getFragmentManager(), "startdatepicker");
             }
         });
-        tvDateEnd.setOnClickListener(new OnClickListener() {
+        mDateEndTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mContext == null) {
@@ -114,11 +114,11 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
         switch (dateRange) {
             case StartDate:
                 startCalendar = calendar;
-                tvDateStart.setText(mDateFormat.format(calendar.getTime()));
+                mDateStartTextView.setText(mDateFormat.format(calendar.getTime()));
                 break;
             case EndDate:
                 endCalendar = calendar;
-                tvDateEnd.setText(mDateFormat.format(calendar.getTime()));
+                mDateEndTextView.setText(mDateFormat.format(calendar.getTime()));
                 break;
         }
         if (mOnRefreshTripListener != null) {
