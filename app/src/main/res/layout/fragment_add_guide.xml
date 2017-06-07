@@ -25,6 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_description"
+            android:minLines="5"
+            android:gravity="top"
             android:inputType="textCapSentences|textMultiLine" />
     </android.support.design.widget.TextInputLayout>
 

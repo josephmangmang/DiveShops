@@ -70,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
+                android:minLines="3"
                 android:hint="@string/hint_price_notes"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLines="5" />
