@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.divetym.dive.R;
-import com.divetym.dive.activities.MainActivity;
+import com.divetym.dive.activities.DiveShopActivity;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.models.response.UserResponse;
@@ -86,7 +86,7 @@ public class LoginFragment extends DiveTymFragment {
                         showToastAlert(userResponse.getMessage());
                     }else{
                         SessionManager.getInstance(mContext).login(userResponse.getUser());
-                        startActivity(new Intent(mContext, MainActivity.class));
+                        startActivity(new Intent(mContext, DiveShopActivity.class));
                         mContext.finish();
                     }
                 }

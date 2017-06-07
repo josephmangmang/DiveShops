@@ -25,7 +25,7 @@ public class LoginActivity extends DiveTymActivity {
 
     private void checkSession() {
         if (SessionManager.getInstance(this).isLogin()) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, DiveShopActivity.class));
             finish();
         }
     }

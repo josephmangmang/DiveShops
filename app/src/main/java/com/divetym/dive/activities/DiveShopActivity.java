@@ -21,9 +21,9 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AuthenticatedActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DiveShopActivity extends AuthenticatedActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = DiveShopActivity.class.getSimpleName();
     @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     @BindView(R.id.navigation_view)

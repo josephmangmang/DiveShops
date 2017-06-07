@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
@@ -19,9 +18,9 @@ import com.divetym.dive.activities.BoatListActivity;
 import com.divetym.dive.activities.CourseListActivity;
 import com.divetym.dive.activities.CourseDetailsActivity;
 import com.divetym.dive.activities.DailyTripActivity;
+import com.divetym.dive.activities.DiveShopActivity;
 import com.divetym.dive.activities.EditDiveShopActivity;
 import com.divetym.dive.activities.GuideListActivity;
-import com.divetym.dive.activities.MainActivity;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
@@ -244,10 +243,10 @@ public class DiveShopFragment extends DiveTymFragment {
 
         mContext.setTitle(diveShop.getName());
         mContext.setSubtitle(diveShop.getAddress());
-        MainActivity mainActivity = ((MainActivity) mContext);
-        mainActivity.setToolbarTitle(diveShop.getName());
-        mainActivity.setToolbarSubtitle(diveShop.getAddress());
-        mainActivity.setToolbarBackground(diveShop.getImageUrl());
+        DiveShopActivity diveShopActivity = ((DiveShopActivity) mContext);
+        diveShopActivity.setToolbarTitle(diveShop.getName());
+        diveShopActivity.setToolbarSubtitle(diveShop.getAddress());
+        diveShopActivity.setToolbarBackground(diveShop.getImageUrl());
         tvDescription.setText(diveShop.getDescription());
         tvPricePerDive.setText(diveShop.getPricePerDive().toString());
         tvSpecialService.setText(diveShop.getSpecialService());
