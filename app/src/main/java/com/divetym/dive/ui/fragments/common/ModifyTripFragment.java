@@ -69,93 +69,60 @@ public abstract class ModifyTripFragment extends DiveTymFragment {
 
     private Calendar mSelectedTime;
 
-    private View.OnClickListener onDiveSiteAddClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Log.d(TAG, "onDiveSiteAddClickListener");
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                        getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                        0);
-            }
-            DiveSitesDialog diveSitesDialog = new DiveSitesDialog();
-            diveSitesDialog.show(mContext.getFragmentManager(), DiveSitesDialog.class.getSimpleName());
-            diveSitesDialog.setMultiSelectEnable(true);
-            diveSitesDialog.setSearchHint(getString(R.string.hint_search_dive_site));
-            diveSitesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripDiveSite>() {
-                @Override
-                public void onSelectionDone(HashMap<Integer, DailyTripDiveSite> selectedItems) {
-                    mAddMoreLayoutDiveSite.addDataList(new ArrayList<>(selectedItems.values()));
-                }
-            });
+    private View.OnClickListener onDiveSiteAddClickListener = view -> {
+        Log.d(TAG, "onDiveSiteAddClickListener");
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                    0);
         }
+        DiveSitesDialog diveSitesDialog = new DiveSitesDialog();
+        diveSitesDialog.show(mContext.getFragmentManager(), DiveSitesDialog.class.getSimpleName());
+        diveSitesDialog.setMultiSelectEnable(true);
+        diveSitesDialog.setSearchHint(getString(R.string.hint_search_dive_site));
+        diveSitesDialog.setOnSelectionDoneListener(selectedItems -> mAddMoreLayoutDiveSite.addDataList(new ArrayList<>(selectedItems.values())));
     };
-    private View.OnClickListener onBoatAddClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Log.d(TAG, "onBoatAddClickListener");
-            BoatsDialog boatsDialog = new BoatsDialog();
-            boatsDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
-            boatsDialog.setMultiSelectEnable(true);
-            boatsDialog.setSearchHint(getString(R.string.hint_search_boat));
-            boatsDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripBoat>() {
-                @Override
-                public void onSelectionDone(HashMap<Integer, DailyTripBoat> selectedItems) {
-                    mAddMoreLayoutBoats.addDataList(new ArrayList<>(selectedItems.values()));
-                }
-            });
-
-        }
+    private View.OnClickListener onBoatAddClickListener = view -> {
+        Log.d(TAG, "onBoatAddClickListener");
+        BoatsDialog boatsDialog = new BoatsDialog();
+        boatsDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
+        boatsDialog.setMultiSelectEnable(true);
+        boatsDialog.setSearchHint(getString(R.string.hint_search_boat));
+        boatsDialog.setOnSelectionDoneListener(selectedItems -> mAddMoreLayoutBoats.addDataList(new ArrayList<>(selectedItems.values())));
     };
-    private View.OnClickListener onGuideAddClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Log.d(TAG, "onGuideAddClickListener");
-            GuidesDialog guidesDialog = new GuidesDialog();
-            guidesDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
-            guidesDialog.setMultiSelectEnable(true);
-            guidesDialog.setSearchHint(getString(R.string.hint_search_guide));
-            guidesDialog.setOnSelectionDoneListener(new SearchListDialog.OnSelectionDoneListener<DailyTripGuide>() {
-                @Override
-                public void onSelectionDone(HashMap<Integer, DailyTripGuide> selectedItems) {
-                    mAddMoreLayoutGuides.addDataList(new ArrayList<>(selectedItems.values()));
-                }
-            });
-        }
+    private View.OnClickListener onGuideAddClickListener = view -> {
+        Log.d(TAG, "onGuideAddClickListener");
+        GuidesDialog guidesDialog = new GuidesDialog();
+        guidesDialog.show(mContext.getFragmentManager(), BoatsDialog.TAG);
+        guidesDialog.setMultiSelectEnable(true);
+        guidesDialog.setSearchHint(getString(R.string.hint_search_guide));
+        guidesDialog.setOnSelectionDoneListener(selectedItems -> mAddMoreLayoutGuides.addDataList(new ArrayList<>(selectedItems.values())));
     };
-    private View.OnClickListener mTimeOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int y = mSelectedTime.get(Calendar.YEAR);
-            int m = mSelectedTime.get(Calendar.MONTH);
-            int d = mSelectedTime.get(Calendar.DAY_OF_MONTH);
+    private View.OnClickListener mTimeOnClickListener = view -> {
+        int y = mSelectedTime.get(Calendar.YEAR);
+        int m = mSelectedTime.get(Calendar.MONTH);
+        int d = mSelectedTime.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int nY, int nM, int nD) {
-                    mSelectedTime.set(nY, nM, nD);
-                    int hour = mSelectedTime.get(Calendar.HOUR_OF_DAY);
-                    int minute = mSelectedTime.get(Calendar.MINUTE);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, (datePicker, nY, nM, nD) -> {
+            mSelectedTime.set(nY, nM, nD);
+            int hour = mSelectedTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mSelectedTime.get(Calendar.MINUTE);
 
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int nH, int nM) {
-                            mSelectedTime.set(
-                                    mSelectedTime.get(Calendar.YEAR),
-                                    mSelectedTime.get(Calendar.MONTH),
-                                    mSelectedTime.get(Calendar.DAY_OF_MONTH),
-                                    nH,
-                                    nM);
-                            timeEditText.setText(DateUtils.formatDisplayDateTime(mSelectedTime.getTime()));
-                        }
-                    }, hour, minute, false);
-                    timePickerDialog.show();
-                }
-            }, y, m, d);
-            datePickerDialog.show();
-        }
+            TimePickerDialog timePickerDialog = new TimePickerDialog(mContext, (timePicker, nH, nM1) -> {
+                mSelectedTime.set(
+                        mSelectedTime.get(Calendar.YEAR),
+                        mSelectedTime.get(Calendar.MONTH),
+                        mSelectedTime.get(Calendar.DAY_OF_MONTH),
+                        nH,
+                        nM1);
+                timeEditText.setText(DateUtils.formatDisplayDateTime(mSelectedTime.getTime()));
+            }, hour, minute, false);
+            timePickerDialog.show();
+        }, y, m, d);
+        datePickerDialog.show();
+
     };
 
     @Override

@@ -38,29 +38,23 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
     RobotoTextView toolbarSubtitle;
     @BindView(R.id.image_collapsing_toolbar_background)
     ImageView toolbarBackgroundImage;
-    private View.OnClickListener mToolbarBackgrounClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            AlertDialog.Builder optionDialog = new AlertDialog.Builder(DiveShopActivity.this);
-            optionDialog.setTitle(R.string.dialog_title_change_profile_cover);
-            optionDialog.setItems(R.array.change_profile_cover_options, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Log.d(TAG, "user click option " +i);
-                    // TODO: 6/7/2017 implement change profile cover image
-                    switch (i) {
-                        case 0:
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                    }
-                }
-            });
-            optionDialog.show();
+    private View.OnClickListener mToolbarBackgrounClickListener = view -> {
+        AlertDialog.Builder optionDialog = new AlertDialog.Builder(DiveShopActivity.this);
+        optionDialog.setTitle(R.string.dialog_title_change_profile_cover);
+        optionDialog.setItems(R.array.change_profile_cover_options, (dialogInterface, i) -> {
+            Log.d(TAG, "user click option " +i);
+            // TODO: 6/7/2017 implement change profile cover image
+            switch (i) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+        });
+        optionDialog.show();
 
-        }
     };
 
 

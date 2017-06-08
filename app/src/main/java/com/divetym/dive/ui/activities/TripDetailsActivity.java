@@ -54,12 +54,7 @@ public class TripDetailsActivity extends AuthenticatedActivity {
                 .error(R.drawable.dummy_image_error)
                 .into(toolbarBackgroundImage);
         mFragment = initFragment(R.id.content, TripDetailsFragment.getInstance(dailyTrip));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ModifyTripActivity.launch(TripDetailsActivity.this, Mode.EDIT, dailyTrip);
-            }
-        });
+        fab.setOnClickListener(view -> ModifyTripActivity.launch(TripDetailsActivity.this, Mode.EDIT, dailyTrip));
     }
 
     @Override

@@ -64,16 +64,11 @@ public class LoginFragment extends DiveTymFragment {
         }
     };
 
-    private View.OnClickListener mSignUpButtonClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.content, new RegistrationFragment())
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit();
-        }
-    };
+    private View.OnClickListener mSignUpButtonClick = view -> getFragmentManager().beginTransaction()
+            .replace(R.id.content, new RegistrationFragment())
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit();
 
     private void login(String email, String password) {
         mApiService.login(email, password).enqueue(new Callback<UserResponse>() {
@@ -84,7 +79,7 @@ public class LoginFragment extends DiveTymFragment {
                     Log.i(TAG, "login response: " + userResponse.getMessage());
                     if (userResponse.isError()) {
                         showToastAlert(userResponse.getMessage());
-                    }else{
+                    } else {
                         SessionManager.getInstance(mContext).login(userResponse.getUser());
                         startActivity(new Intent(mContext, DiveShopActivity.class));
                         mContext.finish();

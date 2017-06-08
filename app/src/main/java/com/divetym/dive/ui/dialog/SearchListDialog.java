@@ -74,19 +74,11 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
         void onSelectionDone(HashMap<Integer, DataType> selectedItems);
     }
 
-    private View.OnClickListener btnCloseClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            onCloseClicked();
-        }
-    };
+    private View.OnClickListener btnCloseClickListener = view -> onCloseClicked();
 
-    private View.OnClickListener btnSearchListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            mLastSearchQuery = searchEditText.getText().toString();
-            onSearchClicked(mLastSearchQuery);
-        }
+    private View.OnClickListener btnSearchListener = view -> {
+        mLastSearchQuery = searchEditText.getText().toString();
+        onSearchClicked(mLastSearchQuery);
     };
 
     private TextWatcher searchQueryChangedListener = new TextWatcher() {
@@ -131,15 +123,12 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
         ButterKnife.bind(this, view);
         searchEditText.setHint(searchHint);
         searchEditText.addTextChangedListener(searchQueryChangedListener);
-        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    searchImageButton.performClick();
-                    return true;
-                }
-                return false;
+        searchEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                searchImageButton.performClick();
+                return true;
             }
+            return false;
         });
         closeImageButton.setOnClickListener(btnCloseClickListener);
         searchImageButton.setOnClickListener(btnSearchListener);

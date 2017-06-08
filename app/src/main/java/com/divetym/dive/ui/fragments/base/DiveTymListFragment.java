@@ -86,12 +86,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         initializeAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onFabClicked();
-            }
-        });
+        fab.setOnClickListener(view1 -> onFabClicked());
         if (mDataList.size() == 0) {
             loadData();
         }

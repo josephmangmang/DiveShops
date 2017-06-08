@@ -59,14 +59,11 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
         searchViewLayout.handleToolbarAnimation(getToolbar());
         searchViewLayout.setSearchListener(searchListFragment);
-        searchViewLayout.setSearchClearOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchViewLayout.showSearchClearIcon(false);
-                mSelectedDiveSite = null;
-                searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
-                refreshTripList();
-            }
+        searchViewLayout.setSearchClearOnClickListener(view -> {
+            searchViewLayout.showSearchClearIcon(false);
+            mSelectedDiveSite = null;
+            searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
+            refreshTripList();
         });
         searchViewLayout.setOnToggleAnimationListener(new SearchViewLayout.OnToggleAnimationListener() {
             @Override

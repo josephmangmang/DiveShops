@@ -110,15 +110,12 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     0);
         }
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                mSelectedLocation = latLng;
-                try {
-                    showAddressSelectionDialog(mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, MAX_RESULTS));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        mMap.setOnMapClickListener(latLng -> {
+            mSelectedLocation = latLng;
+            try {
+                showAddressSelectionDialog(mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, MAX_RESULTS));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }

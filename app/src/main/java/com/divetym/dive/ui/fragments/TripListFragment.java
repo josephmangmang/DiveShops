@@ -148,12 +148,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         deleteDialog.setTitle(R.string.dialog_title_delete_trip)
                 .setMessage(R.string.dialog_message_delete_trip)
                 .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        deleteSelectedTrips();
-                    }
-                })
+                .setPositiveButton(R.string.delete, (dialogInterface, i) -> deleteSelectedTrips())
                 .show();
 
     }

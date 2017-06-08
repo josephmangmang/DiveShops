@@ -65,31 +65,25 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
         dateStartTextView.setText(mDateFormat.format(startCalendar.getTime()));
         dateEndTextView.setText(mDateFormat.format(endCalendar.getTime()));
 
-        dateStartTextView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mContext == null) {
-                    return;
-                }
-                DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.setDateRange(StartDate);
-                datePicker.setCalendar(startCalendar);
-                datePicker.setOnDateRangeChangedListener(DateRangeLayout.this);
-                datePicker.show(mContext.getFragmentManager(), "startdatepicker");
+        dateStartTextView.setOnClickListener(view -> {
+            if (mContext == null) {
+                return;
             }
+            DatePickerFragment datePicker = new DatePickerFragment();
+            datePicker.setDateRange(StartDate);
+            datePicker.setCalendar(startCalendar);
+            datePicker.setOnDateRangeChangedListener(DateRangeLayout.this);
+            datePicker.show(mContext.getFragmentManager(), "startdatepicker");
         });
-        dateEndTextView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mContext == null) {
-                    return;
-                }
-                DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.setDateRange(DateRange.EndDate);
-                datePicker.setCalendar(endCalendar);
-                datePicker.setOnDateRangeChangedListener(DateRangeLayout.this);
-                datePicker.show(mContext.getFragmentManager(), "enddatepicker");
+        dateEndTextView.setOnClickListener(view -> {
+            if (mContext == null) {
+                return;
             }
+            DatePickerFragment datePicker = new DatePickerFragment();
+            datePicker.setDateRange(DateRange.EndDate);
+            datePicker.setCalendar(endCalendar);
+            datePicker.setOnDateRangeChangedListener(DateRangeLayout.this);
+            datePicker.show(mContext.getFragmentManager(), "enddatepicker");
         });
     }
 
