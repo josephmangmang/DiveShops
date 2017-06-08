@@ -38,13 +38,13 @@ public class CourseDetailsActivity extends DetailsActivity {
         if (mCourse != null) {
             setToolbarTitle(mCourse.getName());
             setToolbarSubtitle(mCourse.getPrice().toString());
-            mBodyText.setText(mCourse.getDescription());
+            detailBody.setText(mCourse.getDescription());
             GlideApp.with(this)
                     .load(mCourse.getImageUrl())
                     .thumbnail(0.1f)
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
-                    .into(mToolbarBackgroundImage);
+                    .into(toolbarBackgroundImage);
         }
     }
 }

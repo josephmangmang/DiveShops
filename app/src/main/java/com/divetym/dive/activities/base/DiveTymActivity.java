@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.divetym.dive.R;
-import com.divetym.dive.common.SessionManager;
 
 /**
  * Created by kali_root on 3/25/2017.

@@ -37,13 +37,13 @@ public class GuideDetailsActivity extends DetailsActivity {
         mGuide = getIntent().getParcelableExtra(EXTRA_DATA);
         if (mGuide != null) {
             setToolbarTitle(mGuide.getName());
-            mBodyText.setText(mGuide.getDescription());
+            detailBody.setText(mGuide.getDescription());
             GlideApp.with(this)
                     .load(mGuide.getImageUrl())
                     .thumbnail(0.1f)
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
-                    .into(mToolbarBackgroundImage);
+                    .into(toolbarBackgroundImage);
         }
     }
 }

@@ -285,7 +285,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     @Override
     public void onMultiSelectStateChanged(boolean enabled) {
         mContext.invalidateOptionsMenu();
-        mFab.setImageResource(enabled ? R.drawable.ic_delete : R.drawable.ic_add);
+        fab.setImageResource(enabled ? R.drawable.ic_delete : R.drawable.ic_add);
     }
 
     @Override

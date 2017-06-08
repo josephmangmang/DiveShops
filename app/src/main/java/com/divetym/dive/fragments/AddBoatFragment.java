@@ -3,7 +3,6 @@ package com.divetym.dive.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -37,9 +36,9 @@ import retrofit2.Response;
 public class AddBoatFragment extends DiveTymFragment {
 
     @BindView(R.id.edit_name)
-    EditText mName;
+    EditText nameEditText;
     @BindView(R.id.edit_description)
-    EditText mDescription;
+    EditText descriptionEditText;
     private Boat mBoat;
     private boolean edit;
 
@@ -70,8 +69,8 @@ public class AddBoatFragment extends DiveTymFragment {
         ButterKnife.bind(this, view);
         if (mBoat != null) {
             edit = true;
-            mName.setText(mBoat.getName());
-            mDescription.setText(mBoat.getDescription());
+            nameEditText.setText(mBoat.getName());
+            descriptionEditText.setText(mBoat.getDescription());
         }
         return view;
     }
@@ -90,13 +89,13 @@ public class AddBoatFragment extends DiveTymFragment {
     }
 
     private void onSaveClicked() {
-        String name = mName.getText().toString();
-        String description = mDescription.getText().toString();
+        String name = nameEditText.getText().toString();
+        String description = descriptionEditText.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            mName.setError(getString(R.string.error_field_required));
+            nameEditText.setError(getString(R.string.error_field_required));
             return;
         } else if (TextUtils.isEmpty(description)) {
-            mDescription.setError(getString(R.string.error_field_required));
+            descriptionEditText.setError(getString(R.string.error_field_required));
             return;
         }
         if (edit) {

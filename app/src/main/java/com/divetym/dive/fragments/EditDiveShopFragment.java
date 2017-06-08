@@ -42,22 +42,22 @@ public class EditDiveShopFragment extends DiveTymFragment {
     private static final String TAG = EditDiveShopFragment.class.getSimpleName();
     public static final int REQUEST_SELECT_LOCATION = 1;
     @BindView(R.id.edit_name)
-    EditText mNameEditText;
+    EditText nameEditText;
     @BindView(R.id.edit_contact_number)
-    EditText mContactNumberEditText;
+    EditText contactNumberEditText;
     @BindView(R.id.edit_price_per_dive)
-    EditText mPricePerDiveEditText;
+    EditText pricePerDiveEditText;
     @BindView(R.id.edit_description)
-    EditText mDescriptionEditText;
+    EditText descriptionEditText;
     @BindView(R.id.edit_special_service)
-    EditText mSpecialService;
+    EditText specialServiceEditText;
     @BindView(R.id.edit_address)
-    EditText mAddressLocation;
+    EditText addressEditText;
     private DiveShopAddress mDiveShopAddress;
     private DiveShop mDiveShop;
 
     @OnClick(R.id.edit_address)
-    public void changedLocation() {
+    public void changedLocationClick() {
         Intent intent = new Intent(mContext, SearchMapActivity.class);
         intent.putExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS, mDiveShopAddress);
         startActivityForResult(intent, REQUEST_SELECT_LOCATION);
@@ -88,12 +88,12 @@ public class EditDiveShopFragment extends DiveTymFragment {
         ButterKnife.bind(this, view);
         if (mDiveShop != null) {
             try {
-                mNameEditText.setText(mDiveShop.getName());
-                mAddressLocation.setText(mDiveShop.getAddress());
-                mContactNumberEditText.setText(mDiveShop.getContactNumber());
-                mPricePerDiveEditText.setText(mDiveShop.getPricePerDive().toString());
-                mDescriptionEditText.setText(mDiveShop.getDescription());
-                mSpecialService.setText(mDiveShop.getSpecialService());
+                nameEditText.setText(mDiveShop.getName());
+                addressEditText.setText(mDiveShop.getAddress());
+                contactNumberEditText.setText(mDiveShop.getContactNumber());
+                pricePerDiveEditText.setText(mDiveShop.getPricePerDive().toString());
+                descriptionEditText.setText(mDiveShop.getDescription());
+                specialServiceEditText.setText(mDiveShop.getSpecialService());
                 mDiveShopAddress = new DiveShopAddress(mDiveShop.getAddress(), new LatLng(mDiveShop.getLatitiude(), mDiveShop.getLongitude()));
             } catch (NullPointerException e) {
                 Log.e(TAG, "Diveshop: " + e.getMessage());
@@ -109,8 +109,8 @@ public class EditDiveShopFragment extends DiveTymFragment {
             if (resultCode == RESULT_OK) {
                 if (data == null) return;
                 mDiveShopAddress = data.getParcelableExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS);
-                mAddressLocation.setText(mDiveShopAddress.getFullAddress());
-                mAddressLocation.setSelection(mAddressLocation.length());
+                addressEditText.setText(mDiveShopAddress.getFullAddress());
+                addressEditText.setSelection(addressEditText.length());
             }
         }
     }
@@ -130,19 +130,19 @@ public class EditDiveShopFragment extends DiveTymFragment {
 
     private void onSaveClicked() {
         if (mDiveShop == null) return;
-        String name = mNameEditText.getText().toString();
-        String contactNumber = mContactNumberEditText.getText().toString();
-        String pricePerDive = mPricePerDiveEditText.getText().toString();
-        String description = mDescriptionEditText.getText().toString();
-        String specialService = mSpecialService.getText().toString();
+        String name = nameEditText.getText().toString();
+        String contactNumber = contactNumberEditText.getText().toString();
+        String pricePerDive = pricePerDiveEditText.getText().toString();
+        String description = descriptionEditText.getText().toString();
+        String specialService = specialServiceEditText.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            mNameEditText.setError(getString(R.string.error_field_required));
-            mNameEditText.requestFocus();
+            nameEditText.setError(getString(R.string.error_field_required));
+            nameEditText.requestFocus();
             return;
         }
         if (TextUtils.isEmpty(pricePerDive)) {
-            mPricePerDiveEditText.setError(getString(R.string.error_field_required));
-            mPricePerDiveEditText.requestFocus();
+            pricePerDiveEditText.setError(getString(R.string.error_field_required));
+            pricePerDiveEditText.requestFocus();
             return;
         }
         if (mDiveShopAddress != null) {

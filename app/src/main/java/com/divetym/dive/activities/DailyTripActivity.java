@@ -3,14 +3,11 @@ package com.divetym.dive.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
-import com.divetym.dive.activities.common.Mode;
 import com.divetym.dive.fragments.SearchListFragment;
 import com.divetym.dive.fragments.TripListFragment;
 import com.divetym.dive.models.DiveSite;
@@ -32,9 +29,9 @@ public class DailyTripActivity extends AuthenticatedActivity implements
     private static final String TAG = DailyTripActivity.class.getSimpleName();
     public static final int REQUEST_REFRESH = 1;
     @BindView(R.id.search_view_container)
-    SearchViewLayout mSearchViewLayout;
+    SearchViewLayout searchViewLayout;
     @BindView(R.id.layout_date_range)
-    DateRangeLayout mDateRangeLayout;
+    DateRangeLayout dateRangeLayout;
 
     private DiveSite mSelectedDiveSite;
     private TripListFragment mFragment;
@@ -48,36 +45,36 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         ButterKnife.bind(this);
         showBackButton(true);
 
-        mDateRangeLayout.setContext(this);
-        mDateRangeLayout.setOnRefreshTripListener(this);
+        dateRangeLayout.setContext(this);
+        dateRangeLayout.setOnRefreshTripListener(this);
 
-        mStartDate = mDateRangeLayout.getStartCalendar().getTime();
-        mEndDate = mDateRangeLayout.getEndCalendar().getTime();
+        mStartDate = dateRangeLayout.getStartCalendar().getTime();
+        mEndDate = dateRangeLayout.getEndCalendar().getTime();
 
         mFragment = initFragment(R.id.content, TripListFragment.getInstance(mStartDate, mEndDate));
 
 
         SearchListFragment searchListFragment = new SearchListFragment();
-        mSearchViewLayout.setExpandedContentFragment(this, searchListFragment);
-        mSearchViewLayout.setHint(getString(R.string.hint_select_dive_site));
-        mSearchViewLayout.handleToolbarAnimation(getToolbar());
-        mSearchViewLayout.setSearchListener(searchListFragment);
-        mSearchViewLayout.setSearchClearOnClickListener(new View.OnClickListener() {
+        searchViewLayout.setExpandedContentFragment(this, searchListFragment);
+        searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
+        searchViewLayout.handleToolbarAnimation(getToolbar());
+        searchViewLayout.setSearchListener(searchListFragment);
+        searchViewLayout.setSearchClearOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchViewLayout.showSearchClearIcon(false);
+                searchViewLayout.showSearchClearIcon(false);
                 mSelectedDiveSite = null;
-                mSearchViewLayout.setHint(getString(R.string.hint_select_dive_site));
+                searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
                 refreshTripList();
             }
         });
-        mSearchViewLayout.setOnToggleAnimationListener(new SearchViewLayout.OnToggleAnimationListener() {
+        searchViewLayout.setOnToggleAnimationListener(new SearchViewLayout.OnToggleAnimationListener() {
             @Override
             public void onStart(boolean expanding) {
                 if (expanding) {
                     mFragment.showFab(false);
                     if (mSelectedDiveSite != null)
-                        mSearchViewLayout.setExpandedText(mSelectedDiveSite.getName());
+                        searchViewLayout.setExpandedText(mSelectedDiveSite.getName());
                 } else {
                     mFragment.showFab(true);
                 }
@@ -109,10 +106,10 @@ public class DailyTripActivity extends AuthenticatedActivity implements
 
     @Override
     public void onDiveSiteChanged(DiveSite diveSite) {
-        mSearchViewLayout.showSearchClearIcon(true);
+        searchViewLayout.showSearchClearIcon(true);
         mSelectedDiveSite = diveSite;
-        mSearchViewLayout.collapse();
-        mSearchViewLayout.setCollapsedHint(diveSite.getName());
+        searchViewLayout.collapse();
+        searchViewLayout.setCollapsedHint(diveSite.getName());
         refreshTripList();
     }
 

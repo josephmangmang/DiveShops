@@ -43,11 +43,11 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     @BindView(R.id.list)
     protected RecyclerView mRecyclerView;
     @BindView(R.id.text_empty)
-    protected RobotoTextView mEmptyText;
+    protected RobotoTextView emptyText;
     @BindView(R.id.progress)
-    ContentLoadingProgressBar mProgressBar;
+    ContentLoadingProgressBar progressBar;
     @BindView(R.id.fab_add)
-    protected FloatingActionButton mFab;
+    protected FloatingActionButton fab;
     protected Adapter mAdapter;
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
@@ -82,11 +82,11 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         ButterKnife.bind(this, view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mFab.setVisibility(showAddButton ? View.VISIBLE : View.GONE);
+        fab.setVisibility(showAddButton ? View.VISIBLE : View.GONE);
         initializeAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        mFab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onFabClicked();
@@ -119,11 +119,11 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected abstract void onRequestResponse(Rspnse response);
 
     protected void setEmpty(boolean empty) {
-        mEmptyText.setVisibility(empty ? View.VISIBLE : View.GONE);
+        emptyText.setVisibility(empty ? View.VISIBLE : View.GONE);
     }
 
     protected void setEmptyTextMessage(String message) {
-        mEmptyText.setText(message);
+        emptyText.setText(message);
     }
 
     @Override
@@ -150,17 +150,17 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
 
     public void showProgress(boolean show) {
         if (show) {
-            mProgressBar.show();
+            progressBar.show();
         } else {
-            mProgressBar.hide();
+            progressBar.hide();
         }
     }
 
     public void showFab(boolean show) {
         if (show) {
-            mFab.show();
+            fab.show();
         } else {
-            mFab.hide();
+            fab.hide();
         }
     }
 }

@@ -30,9 +30,9 @@ import retrofit2.Callback;
 public class RegistrationFragment extends DiveTymFragment {
     private static final String TAG = RegistrationFragment.class.getSimpleName();
     @BindView(R.id.edit_email)
-    EditText mEmailEditText;
+    EditText emailEditText;
     @BindView(R.id.edit_password)
-    EditText mPasswordEditText;
+    EditText passwordEditText;
     private ApiInterface mApiService;
     private String mAccountType = null;
 
@@ -59,17 +59,17 @@ public class RegistrationFragment extends DiveTymFragment {
 
     @OnClick(R.id.btn_register)
     public void onRegisterClicked() {
-        String email = mEmailEditText.getText().toString();
-        String password = mPasswordEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
         Log.d(TAG, "onRegisterClicked email: " + email + " pass: " + password);
         // Verify inputs
         if (TextUtils.isEmpty(email)) {
-            mEmailEditText.setError(getString(R.string.error_field_required));
-            mEmailEditText.requestFocus();
+            emailEditText.setError(getString(R.string.error_field_required));
+            emailEditText.requestFocus();
             return;
         } else if (TextUtils.isEmpty(password)) {
-            mPasswordEditText.setError(getString(R.string.error_field_required));
-            mPasswordEditText.requestFocus();
+            passwordEditText.setError(getString(R.string.error_field_required));
+            passwordEditText.requestFocus();
             return;
         } else if (mAccountType == null) {
             Toast.makeText(mContext, R.string.toast_specify_account_type, Toast.LENGTH_SHORT).show();

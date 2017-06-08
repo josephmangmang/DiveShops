@@ -27,9 +27,9 @@ public class TripDetailsActivity extends AuthenticatedActivity {
     public static final int REQUEST_EDIT = 1;
 
     @BindView(R.id.fab)
-    FloatingActionButton mFab;
+    FloatingActionButton fab;
     @BindView(R.id.image_collapsing_toolbar_background)
-    protected ImageView mToolbarBackgroundImage;
+    protected ImageView toolbarBackgroundImage;
     private TripDetailsFragment mFragment;
     private boolean edited;
 
@@ -52,9 +52,9 @@ public class TripDetailsActivity extends AuthenticatedActivity {
                 .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(mToolbarBackgroundImage);
+                .into(toolbarBackgroundImage);
         mFragment = initFragment(R.id.content, TripDetailsFragment.getInstance(dailyTrip));
-        mFab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ModifyTripActivity.launch(TripDetailsActivity.this, Mode.EDIT, dailyTrip);

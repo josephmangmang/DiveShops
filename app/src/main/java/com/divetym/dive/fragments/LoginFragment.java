@@ -33,29 +33,29 @@ import retrofit2.Response;
 public class LoginFragment extends DiveTymFragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
     @BindView(R.id.edit_email)
-    EditText mEmailEditText;
+    EditText emailEditText;
     @BindView(R.id.edit_password)
-    EditText mPasswordEditText;
+    EditText passwordEditText;
     @BindView(R.id.button_login)
-    Button mLoginButton;
+    Button loginButton;
     @BindView(R.id.button_signup)
-    Button mSignUpButton;
+    Button signUpButton;
 
     private ApiInterface mApiService;
 
     private View.OnClickListener mLoginButtonClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String email = mEmailEditText.getText().toString();
-            String password = mPasswordEditText.getText().toString();
+            String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
             boolean error = false;
             if (TextUtils.isEmpty(email)) {
-                mEmailEditText.setError(getString(R.string.error_field_required));
-                mEmailEditText.requestFocus();
+                emailEditText.setError(getString(R.string.error_field_required));
+                emailEditText.requestFocus();
                 error = true;
             } else if (TextUtils.isEmpty(password)) {
-                mPasswordEditText.setError(getString(R.string.error_field_required));
-                mPasswordEditText.requestFocus();
+                passwordEditText.setError(getString(R.string.error_field_required));
+                passwordEditText.requestFocus();
                 error = true;
             }
             if (!error) {
@@ -117,8 +117,8 @@ public class LoginFragment extends DiveTymFragment {
     }
 
     private void initializeResources() {
-        mLoginButton.setOnClickListener(mLoginButtonClick);
-        mSignUpButton.setOnClickListener(mSignUpButtonClick);
+        loginButton.setOnClickListener(mLoginButtonClick);
+        signUpButton.setOnClickListener(mSignUpButtonClick);
     }
 
 }

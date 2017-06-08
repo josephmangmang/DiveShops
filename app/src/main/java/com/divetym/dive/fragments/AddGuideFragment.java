@@ -19,7 +19,6 @@ import com.divetym.dive.activities.AddGuideActivity;
 import com.divetym.dive.activities.base.DetailsActivity;
 import com.divetym.dive.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.Guide;
-import com.divetym.dive.models.response.BoatResponse;
 import com.divetym.dive.models.response.GuideResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.view.ToastAlert;
@@ -36,9 +35,9 @@ import retrofit2.Response;
 
 public class AddGuideFragment extends DiveTymFragment {
     @BindView(R.id.edit_name)
-    EditText mName;
+    EditText nameEditText;
     @BindView(R.id.edit_description)
-    EditText mDescription;
+    EditText descriptionEditText;
     private Guide mGuide;
     private boolean edit;
 
@@ -69,8 +68,8 @@ public class AddGuideFragment extends DiveTymFragment {
         View view = inflater.inflate(R.layout.fragment_add_guide, container, false);
         ButterKnife.bind(this, view);
         if (mGuide != null) {
-            mName.setText(mGuide.getName());
-            mDescription.setText(mGuide.getDescription());
+            nameEditText.setText(mGuide.getName());
+            descriptionEditText.setText(mGuide.getDescription());
         }
         return view;
     }
@@ -89,13 +88,13 @@ public class AddGuideFragment extends DiveTymFragment {
     }
 
     private void onSaveClicked() {
-        String name = mName.getText().toString();
-        String description = mDescription.getText().toString();
+        String name = nameEditText.getText().toString();
+        String description = descriptionEditText.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            mName.setError(getString(R.string.error_field_required));
+            nameEditText.setError(getString(R.string.error_field_required));
             return;
         } else if (TextUtils.isEmpty(description)) {
-            mDescription.setError(getString(R.string.error_field_required));
+            descriptionEditText.setError(getString(R.string.error_field_required));
             return;
         }
         if (edit) {

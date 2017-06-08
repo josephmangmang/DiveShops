@@ -2,7 +2,6 @@ package com.divetym.dive.activities;
 
 import android.content.Intent;
 
-import com.bumptech.glide.Glide;
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DetailsActivity;
@@ -35,13 +34,13 @@ public class BoatDetailsActivity extends DetailsActivity {
         mBoat = getIntent().getParcelableExtra(EXTRA_DATA);
         if (mBoat != null) {
             setToolbarTitle(mBoat.getName());
-            mBodyText.setText(mBoat.getDescription());
+            detailBody.setText(mBoat.getDescription());
             GlideApp.with(this)
                     .load(mBoat.getImageUrl())
                     .thumbnail(0.1f)
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
-                    .into(mToolbarBackgroundImage);
+                    .into(toolbarBackgroundImage);
         }
     }
 }

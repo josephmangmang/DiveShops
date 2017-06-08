@@ -2,7 +2,6 @@ package com.divetym.dive.activities.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -27,21 +26,21 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
     public static final String EXTRA_DATA = "com.divetym.dive.EXTRA_DATA";
     protected static final int REQUEST_UPDATE_DETAILS = 1;
     @BindView(R.id.fab)
-    FloatingActionButton mFab;
+    FloatingActionButton fab;
     @BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout mCollapsingLayout;
+    CollapsingToolbarLayout collapsingLayout;
     @BindView(R.id.text_subtitle)
-    RobotoTextView mToolbarSubtitle;
+    RobotoTextView toolbarSubtitle;
     @BindView(R.id.text_body)
-    protected RobotoTextView mBodyText;
+    protected RobotoTextView detailBody;
     @BindView(R.id.image_collapsing_toolbar_background)
-    protected ImageView mToolbarBackgroundImage;
-    private boolean diveshop;
+    protected ImageView toolbarBackgroundImage;
+    private boolean isDiveshop;
 
     @OnClick(R.id.fab)
     public void onFabClicked() {
         Log.d(TAG, "onFabClicked");
-        onFabClicked(diveshop);
+        onFabClicked(isDiveshop);
     }
 
 
@@ -51,9 +50,9 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
         setContentView(R.layout.activity_course_details);
         showBackButton(true);
         ButterKnife.bind(this);
-        diveshop = SessionManager.getInstance(this).getAccountType() == User.AccountType.Dive_Shop;
-        if (diveshop) {
-            mFab.setImageResource(R.drawable.ic_edit);
+        isDiveshop = SessionManager.getInstance(this).getAccountType() == User.AccountType.Dive_Shop;
+        if (isDiveshop) {
+            fab.setImageResource(R.drawable.ic_edit);
         }
         setData();
     }
@@ -77,10 +76,10 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
     protected abstract void setData();
 
     public void setToolbarTitle(String title) {
-        mCollapsingLayout.setTitle(title);
+        collapsingLayout.setTitle(title);
     }
 
     public void setToolbarSubtitle(String subtitle) {
-        mToolbarSubtitle.setText(subtitle);
+        toolbarSubtitle.setText(subtitle);
     }
 }

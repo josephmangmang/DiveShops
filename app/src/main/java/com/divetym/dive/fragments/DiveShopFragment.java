@@ -52,9 +52,9 @@ public class DiveShopFragment extends DiveTymFragment {
     public static final int REQUEST_UPDATE = 1;
     public static final String EXTRA_DIVE_SHOP = "com.divetym.dive.EXTRA_DIVE_SHOP";
     @BindView(R.id.text_description)
-    RobotoTextView mDescriptionTextView;
+    RobotoTextView descriptionTextView;
     @BindView(R.id.text_price_per_dive)
-    RobotoTextView mPricePerDiveTextView;
+    RobotoTextView pricePerDiveTextView;
     @BindView(R.id.preview_courses)
     ListPreviewLayout mPreviewCourses;
     @BindView(R.id.preview_boats)
@@ -62,7 +62,7 @@ public class DiveShopFragment extends DiveTymFragment {
     @BindView(R.id.preview_guides)
     ListPreviewLayout mPreviewGuides;
     @BindView(R.id.text_special_service)
-    RobotoTextView mSpecialServiceTextView;
+    RobotoTextView specialServiceTextView;
     private ApiInterface mApiService;
     private DiveShop mDiveShop;
 
@@ -247,9 +247,9 @@ public class DiveShopFragment extends DiveTymFragment {
         diveShopActivity.setToolbarTitle(diveShop.getName());
         diveShopActivity.setToolbarSubtitle(diveShop.getAddress());
         diveShopActivity.setToolbarBackground(diveShop.getImageUrl());
-        mDescriptionTextView.setText(diveShop.getDescription());
-        mPricePerDiveTextView.setText(diveShop.getPricePerDive().toString());
-        mSpecialServiceTextView.setText(diveShop.getSpecialService());
+        descriptionTextView.setText(diveShop.getDescription());
+        pricePerDiveTextView.setText(diveShop.getPricePerDive().toString());
+        specialServiceTextView.setText(diveShop.getSpecialService());
 
         mPreviewCourses.setPreviewTitle(getString(R.string.title_courses));
         mPreviewCourses.setPreviewList(diveShop.getCoursePreviews());

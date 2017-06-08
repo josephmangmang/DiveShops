@@ -19,8 +19,8 @@ import java.util.List;
  */
 
 public class ListAddMoreLayout<DataType extends ThumbnailEntity> extends LinearLayout {
-    private RecyclerView mRecyclerView;
-    private RobotoTextView mTitleTextView;
+    private RecyclerView recyclerView;
+    private RobotoTextView titleTextView;
     private ListAddMoreAdapter mAdapter;
     private DiveTymActivity mContext;
 
@@ -45,19 +45,19 @@ public class ListAddMoreLayout<DataType extends ThumbnailEntity> extends LinearL
             mContext = (DiveTymActivity) context;
         }
         inflate(context, R.layout.view_list_add_more, this);
-        mTitleTextView = (RobotoTextView) findViewById(R.id.text_title);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        titleTextView = (RobotoTextView) findViewById(R.id.text_title);
+        recyclerView = (RecyclerView) findViewById(R.id.list);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         mAdapter = new ListAddMoreAdapter(mContext);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(mAdapter);
     }
 
     public void setTitle(String title) {
-        mTitleTextView.setText(title);
+        titleTextView.setText(title);
     }
 
     public void setDataList(List<DataType> list) {

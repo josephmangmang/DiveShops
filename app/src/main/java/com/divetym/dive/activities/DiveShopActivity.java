@@ -28,16 +28,16 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
 
     private static final String TAG = DiveShopActivity.class.getSimpleName();
     @BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout mCollapsingToolbarLayout;
+    CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.navigation_view)
-    NavigationView mNavigationView;
+    NavigationView navigationView;
     @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
+    DrawerLayout drawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
     @BindView(R.id.text_subtitle)
-    RobotoTextView mToolbarSubtitle;
+    RobotoTextView toolbarSubtitle;
     @BindView(R.id.image_collapsing_toolbar_background)
-    ImageView mToolbarBackgroundImage;
+    ImageView toolbarBackgroundImage;
     private View.OnClickListener mToolbarBackgrounClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -71,16 +71,16 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
         ButterKnife.bind(this);
         loadScreen();
         initializeNavigation();
-        mToolbarBackgroundImage.setOnClickListener(mToolbarBackgrounClickListener);
+        toolbarBackgroundImage.setOnClickListener(mToolbarBackgrounClickListener);
     }
 
     private void initializeNavigation() {
-        mNavigationView.inflateMenu(R.menu.drawer_login);
+        navigationView.inflateMenu(R.menu.drawer_login);
         mDrawerToggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
+                this, drawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        mNavigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void loadScreen() {
@@ -119,16 +119,16 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
                 logOut();
                 break;
         }
-        mDrawerLayout.closeDrawers();
+        drawerLayout.closeDrawers();
         return false;
     }
 
     public void setToolbarTitle(String title) {
-        mCollapsingToolbarLayout.setTitle(title);
+        collapsingToolbarLayout.setTitle(title);
     }
 
     public void setToolbarSubtitle(String subtitle) {
-        mToolbarSubtitle.setText(subtitle);
+        toolbarSubtitle.setText(subtitle);
     }
 
     public void setToolbarBackground(String imgUrl) {
@@ -137,6 +137,6 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
                 .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(mToolbarBackgroundImage);
+                .into(toolbarBackgroundImage);
     }
 }

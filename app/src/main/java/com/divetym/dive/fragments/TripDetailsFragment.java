@@ -30,15 +30,15 @@ public class TripDetailsFragment extends DiveTymFragment {
 
     public static final String TAG = TripDetailsFragment.class.getSimpleName();
     @BindView(R.id.text_time)
-    RobotoTextView mTimeTextView;
+    RobotoTextView timeTextView;
     @BindView(R.id.text_date)
-    RobotoTextView mDateTextView;
+    RobotoTextView dateTextView;
     @BindView(R.id.text_number_dives)
-    RobotoTextView mNumberOfDivesTextView;
+    RobotoTextView numberOfDivesTextView;
     @BindView(R.id.text_group_size)
-    RobotoTextView mGroupSizeTextView;
+    RobotoTextView groupSizeTextView;
     @BindView(R.id.text_remaining_slot)
-    RobotoTextView mRemainingSlotTextView;
+    RobotoTextView remainingSlotTextView;
     @BindView(R.id.preview_trip_sites)
     ListPreviewLayout mPreViewTripSites;
     @BindView(R.id.preview_trip_guides)
@@ -46,11 +46,11 @@ public class TripDetailsFragment extends DiveTymFragment {
     @BindView(R.id.preview_trip_boats)
     ListPreviewLayout mPreviewTripBoats;
     @BindView(R.id.text_total_price)
-    RobotoTextView mTotalPriceTextView;
+    RobotoTextView totalPriceTextView;
     @BindView(R.id.text_price_summary)
-    RobotoTextView mPriceSummaryTextView;
+    RobotoTextView priceSummaryTextView;
     @BindView(R.id.text_guests)
-    RobotoTextView mTripGuestsTextView;
+    RobotoTextView tripGuestsTextView;
 
     private DailyTrip mDailyTrip;
 
@@ -137,14 +137,14 @@ public class TripDetailsFragment extends DiveTymFragment {
     }
 
     private void loadDailyTripData() {
-        mDateTextView.setText(mDailyTrip.getDateOnly());
-        mTimeTextView.setText(mDailyTrip.getTimeOnly());
-        mNumberOfDivesTextView.setText("" + mDailyTrip.getNumberOfDive());
-        mGroupSizeTextView.setText("" + mDailyTrip.getGroupSize());
-        mTotalPriceTextView.setText(mDailyTrip.getPrice().toString());
-        mPriceSummaryTextView.setText(mDailyTrip.getPriceNote());
-        mRemainingSlotTextView.setText("" + mDailyTrip.getRemainingSlot());
-        mTripGuestsTextView.setText(mDailyTrip.getGuestNames());
+        dateTextView.setText(mDailyTrip.getDateOnly());
+        timeTextView.setText(mDailyTrip.getTimeOnly());
+        numberOfDivesTextView.setText("" + mDailyTrip.getNumberOfDive());
+        groupSizeTextView.setText("" + mDailyTrip.getGroupSize());
+        totalPriceTextView.setText(mDailyTrip.getPrice().toString());
+        priceSummaryTextView.setText(mDailyTrip.getPriceNote());
+        remainingSlotTextView.setText("" + mDailyTrip.getRemainingSlot());
+        tripGuestsTextView.setText(mDailyTrip.getGuestNames());
 
         mPreViewTripSites.setPreviewTitle(getString(R.string.title_destinations));
         mPreViewTripSites.setPreviewList(mDailyTrip.getDiveSitePreviews());
@@ -156,7 +156,8 @@ public class TripDetailsFragment extends DiveTymFragment {
         mPreviewTripBoats.setPreviewList(mDailyTrip.getBoatPreviews());
 
     }
-    public void setDailyTrip(DailyTrip dailyTrip){
+
+    public void setDailyTrip(DailyTrip dailyTrip) {
         mDailyTrip = dailyTrip;
         loadDailyTripData();
     }

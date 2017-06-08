@@ -49,13 +49,13 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     protected static final int REQUEST_METHOD_LIST = 91;
 
     @BindView(R.id.image_btn_close)
-    ImageButton mCloseImageButton;
+    ImageButton closeImageButton;
     @BindView(R.id.image_btn_search)
-    ImageButton mSearchImageButton;
+    ImageButton searchImageButton;
     @BindView(R.id.edit_search)
-    EditText mSearchEditText;
+    EditText searchEditText;
     @BindView(R.id.button_done)
-    Button mDone;
+    Button doneButton;
     @BindView(R.id.list)
     RecyclerView mRecyclerView;
 
@@ -84,7 +84,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     private View.OnClickListener btnSearchListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            mLastSearchQuery = mSearchEditText.getText().toString();
+            mLastSearchQuery = searchEditText.getText().toString();
             onSearchClicked(mLastSearchQuery);
         }
     };
@@ -97,7 +97,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            mSearchImageButton.setVisibility(charSequence.length() > 0 ? View.VISIBLE : View.INVISIBLE);
+            searchImageButton.setVisibility(charSequence.length() > 0 ? View.VISIBLE : View.INVISIBLE);
         }
 
         @Override
@@ -129,21 +129,21 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_search_list, container, false);
         ButterKnife.bind(this, view);
-        mSearchEditText.setHint(searchHint);
-        mSearchEditText.addTextChangedListener(searchQueryChangedListener);
-        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        searchEditText.setHint(searchHint);
+        searchEditText.addTextChangedListener(searchQueryChangedListener);
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH) {
-                    mSearchImageButton.performClick();
+                    searchImageButton.performClick();
                     return true;
                 }
                 return false;
             }
         });
-        mCloseImageButton.setOnClickListener(btnCloseClickListener);
-        mSearchImageButton.setOnClickListener(btnSearchListener);
-        mDone.setOnClickListener(doneClickListener);
+        closeImageButton.setOnClickListener(btnCloseClickListener);
+        searchImageButton.setOnClickListener(btnSearchListener);
+        doneButton.setOnClickListener(doneClickListener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -219,7 +219,7 @@ public abstract class SearchListDialog<DataType extends ThumbnailEntity, Respons
     public void onItemClick(DataType object, View view, int position) {
         if (!multiSelectEnable) {
             mAdapter.toggleSelection(0, object);
-            mDone.callOnClick();
+            doneButton.callOnClick();
         } else {
             mAdapter.toggleSelection(position, object);
         }

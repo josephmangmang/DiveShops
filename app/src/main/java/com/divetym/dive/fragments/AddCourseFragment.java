@@ -24,7 +24,6 @@ import com.divetym.dive.models.Course;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.response.DiveShopCourseResponse;
 import com.divetym.dive.rest.ApiClient;
-import com.divetym.dive.rest.ApiInterface;
 import com.divetym.dive.view.ToastAlert;
 
 import java.util.HashMap;
@@ -42,9 +41,9 @@ import retrofit2.Response;
 
 public class AddCourseFragment extends DiveTymFragment {
     @BindView(R.id.edit_course)
-    EditText mCourseEdit;
+    EditText courseEditText;
     @BindView(R.id.edit_price)
-    EditText mPriceEdit;
+    EditText priceEditText;
     private Course mCourse;
     private DiveShopCourse mDiveShopCourse;
     private boolean edit;
@@ -68,7 +67,7 @@ public class AddCourseFragment extends DiveTymFragment {
             public void onSelectionDone(HashMap<Integer, Course> selectedItems) {
                 mCourse = selectedItems.get(0);
                 if (mCourse != null) {
-                    mCourseEdit.setText(mCourse.getName());
+                    courseEditText.setText(mCourse.getName());
                 }
             }
         });
@@ -94,8 +93,8 @@ public class AddCourseFragment extends DiveTymFragment {
         if (mDiveShopCourse != null) {
             edit = true;
             mCourse = mDiveShopCourse;
-            mCourseEdit.setText(mDiveShopCourse.getName());
-            mPriceEdit.setText(mDiveShopCourse.getPrice().toString());
+            courseEditText.setText(mDiveShopCourse.getName());
+            priceEditText.setText(mDiveShopCourse.getPrice().toString());
         }
         return view;
     }
@@ -114,12 +113,12 @@ public class AddCourseFragment extends DiveTymFragment {
     }
 
     private void onSaveClicked() {
-        String price = mPriceEdit.getText().toString();
+        String price = priceEditText.getText().toString();
         if (mCourse == null) {
-            mCourseEdit.setError(getString(R.string.error_field_required));
+            courseEditText.setError(getString(R.string.error_field_required));
             return;
         } else if (TextUtils.isEmpty(price)) {
-            mPriceEdit.setError(getString(R.string.error_field_required));
+            priceEditText.setError(getString(R.string.error_field_required));
             return;
         }
         if (edit) {
