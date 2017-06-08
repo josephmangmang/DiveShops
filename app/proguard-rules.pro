@@ -35,7 +35,7 @@
 
 -dontwarn okio.**\
 
-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
@@ -43,3 +43,7 @@ keep public class * implements com.bumptech.glide.module.GlideModule
 
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+# Retrolambda
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*
