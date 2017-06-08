@@ -57,7 +57,7 @@ public class TripDetailsFragment extends DiveTymFragment {
     private BaseRecyclerAdapter.ItemClickListener<ListPreview> mPreviewBoatClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
-            BoatDetailsActivity.launch(mContext, mDailyTrip.getBoats().get(i));
+            BoatDetailsActivity.launch(mContext, mDailyTrip.getBoats().get(object.getPosition()));
         }
 
         @Override
