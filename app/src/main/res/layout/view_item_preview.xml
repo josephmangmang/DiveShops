@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:src="@drawable/dummy_image_preview" />
 
-    <com.divetym.dive.view.RobotoTextView
+    <com.divetym.dive.ui.view.RobotoTextView
         android:id="@+id/text_preview_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         app:typeface="roboto_medium"
         tools:text="@string/dummy_title" />
 
-    <com.divetym.dive.view.RobotoTextView
+    <com.divetym.dive.ui.view.RobotoTextView
         android:id="@+id/text_preview_item_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         tools:text="@string/dummy_price" />
 
-    <com.divetym.dive.view.RobotoTextView
+    <com.divetym.dive.ui.view.RobotoTextView
         android:id="@+id/text_button_preview_item_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

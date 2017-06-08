@@ -23,7 +23,7 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/dummy_image_preview" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             app:typeface="roboto_medium"
             tools:text="@string/dummy_title" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

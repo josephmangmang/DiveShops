@@ -21,7 +21,7 @@
 
         <include layout="@layout/widget_search_bar" />
 
-        <com.divetym.dive.view.DateRangeLayout
+        <com.divetym.dive.ui.view.DateRangeLayout
             android:id="@+id/layout_date_range"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

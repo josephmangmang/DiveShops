@@ -2,7 +2,7 @@ package com.divetym.dive.interfaces;
 
 import android.view.View;
 
-import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
+import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 
 /**
  * Created by kali_root on 5/11/2017.

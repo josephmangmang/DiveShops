@@ -24,7 +24,7 @@
             app:layout_collapseMode="parallax"
             tools:src="@drawable/dummy_image_preview" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

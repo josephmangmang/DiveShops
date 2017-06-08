@@ -76,17 +76,17 @@
                 android:maxLines="5" />
         </android.support.design.widget.TextInputLayout>
 
-        <com.divetym.dive.view.ListAddMoreLayout
+        <com.divetym.dive.ui.view.ListAddMoreLayout
             android:id="@+id/list_addmore_site"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.divetym.dive.view.ListAddMoreLayout
+        <com.divetym.dive.ui.view.ListAddMoreLayout
             android:id="@+id/list_addmore_boat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.divetym.dive.view.ListAddMoreLayout
+        <com.divetym.dive.ui.view.ListAddMoreLayout
             android:id="@+id/list_addmore_guide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

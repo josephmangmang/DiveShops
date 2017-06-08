@@ -12,7 +12,7 @@
         android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_medium">
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_preview_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:typeface="roboto_medium"
             tools:text="@string/dummy_title" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_preview_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_preview_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

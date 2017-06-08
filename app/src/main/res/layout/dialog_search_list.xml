@@ -54,7 +54,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/search_expanded_box" />
 
-    <com.divetym.dive.view.RobotoTextView
+    <com.divetym.dive.ui.view.RobotoTextView
         android:id="@+id/text_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

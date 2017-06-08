@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_small">
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 app:typeface="roboto_regular"
                 tools:text="@string/dummy_date" />
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_dive_site"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 app:typeface="roboto_regular"
                 tools:text="@string/text_dive_spot" />
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 app:typeface="roboto_regular"
                 tools:text="@string/dummy_price" />
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

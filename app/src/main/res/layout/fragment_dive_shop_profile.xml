@@ -23,7 +23,7 @@
             android:text="@string/action_view_daily_trips"
             android:textSize="@dimen/roboto_button_medium" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_marginTop="@dimen/view_space"
             android:orientation="horizontal">
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/robotoTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:textStyle="bold"
                 app:typeface="roboto_medium" />
 
-            <com.divetym.dive.view.RobotoTextView
+            <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_price_per_dive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,25 +61,25 @@
                 tools:text="@string/dummy_price" />
         </LinearLayout>
 
-        <com.divetym.dive.view.ListPreviewLayout
+        <com.divetym.dive.ui.view.ListPreviewLayout
             android:id="@+id/preview_courses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/view_space" />
 
-        <com.divetym.dive.view.ListPreviewLayout
+        <com.divetym.dive.ui.view.ListPreviewLayout
             android:id="@+id/preview_boats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/view_space" />
 
-        <com.divetym.dive.view.ListPreviewLayout
+        <com.divetym.dive.ui.view.ListPreviewLayout
             android:id="@+id/preview_guides"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/view_space" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_small"
@@ -90,7 +90,7 @@
             android:textStyle="bold"
             app:typeface="roboto_medium" />
 
-        <com.divetym.dive.view.RobotoTextView
+        <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_special_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
