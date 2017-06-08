@@ -2,11 +2,12 @@ package com.divetym.dive.activities;
 
 import android.content.Intent;
 
+import com.bumptech.glide.Glide;
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DetailsActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.models.Boat;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by kali_root on 4/21/2017.
@@ -35,8 +36,9 @@ public class BoatDetailsActivity extends DetailsActivity {
         if (mBoat != null) {
             setToolbarTitle(mBoat.getName());
             mBodyText.setText(mBoat.getDescription());
-            Picasso.with(this)
+            GlideApp.with(this)
                     .load(mBoat.getImageUrl())
+                    .thumbnail(0.1f)
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(mToolbarBackgroundImage);

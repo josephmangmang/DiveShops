@@ -7,13 +7,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.activities.common.Mode;
 import com.divetym.dive.fragments.TripDetailsFragment;
 import com.divetym.dive.models.DailyTrip;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +47,9 @@ public class TripDetailsActivity extends AuthenticatedActivity {
         final DailyTrip dailyTrip = getIntent().getParcelableExtra(EXTRA_DAILY_TRIP);
         showBackButton(true);
         setTitle(dailyTrip.getDateOnly());
-        Picasso.with(this)
+        GlideApp.with(this)
                 .load(dailyTrip.getSites().get(0).getImageUrl())
+                .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
                 .into(mToolbarBackgroundImage);

@@ -13,13 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.AuthenticatedActivity;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.fragments.DiveShopFragment;
 import com.divetym.dive.view.RobotoTextView;
 import com.divetym.dive.view.ToastAlert;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,8 +132,9 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
     }
 
     public void setToolbarBackground(String imgUrl) {
-        Picasso.with(this)
+        GlideApp.with(this)
                 .load(imgUrl)
+                .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
                 .into(mToolbarBackgroundImage);

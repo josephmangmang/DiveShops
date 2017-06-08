@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
@@ -16,7 +17,6 @@ import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.User;
 import com.divetym.dive.view.RobotoTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -72,8 +72,9 @@ class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
         this.title.setText(title);
         this.description.setText(description);
         this.price.setText(price);
-        Picasso.with(mContext)
+        GlideApp.with(mContext)
                 .load(imgUrl)
+                .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
                 .into(thumbnail);

@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.adapters.base.EndlessListAdapter;
 import com.divetym.dive.models.Guide;
 import com.divetym.dive.view.RobotoTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -56,8 +56,9 @@ class GuideHolder extends DiveTymViewHolder<Guide> {
     public void setData(String title, String description, String imgUrl) {
         this.title.setText(title);
         this.description.setText(description);
-        Picasso.with(mContext)
+        GlideApp.with(mContext)
                 .load(imgUrl)
+                .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
                 .into(thumbnail);

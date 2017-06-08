@@ -1,28 +1,23 @@
 package com.divetym.dive.adapters;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.view.RobotoTextView;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.collections4.list.SetUniqueList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by kali_root on 5/7/2017.
@@ -141,8 +136,9 @@ class ListAddMoreHolder<DataType extends ThumbnailEntity> extends DiveTymViewHol
 
     public void setData(DataType data) {
         name.setText(data.getName());
-        Picasso.with(mContext)
+        GlideApp.with(mContext)
                 .load(data.getImageUrl())
+                .thumbnail(0.1f)
                 .error(R.drawable.dummy_image_error)
                 .placeholder(R.drawable.dummy_image_preview)
                 .into(thumbnail);

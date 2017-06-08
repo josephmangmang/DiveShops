@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.adapters.base.EndlessListAdapter;
 import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.view.RobotoTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,8 +41,9 @@ public class SearchDialogAdapter<DataType extends ThumbnailEntity> extends Endle
         holder.position = position;
         holder.title.setText(object.getName());
         holder.mItemClickListener = mItemClickListener;
-        Picasso.with(mContext)
+        GlideApp.with(mContext)
                 .load(object.getImageUrl())
+                .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
                 .into(holder.thumbnail);

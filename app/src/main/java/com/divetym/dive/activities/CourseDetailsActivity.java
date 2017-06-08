@@ -2,11 +2,11 @@ package com.divetym.dive.activities;
 
 import android.content.Intent;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DetailsActivity;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.models.DiveShopCourse;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by kali_root on 4/15/2017.
@@ -39,8 +39,9 @@ public class CourseDetailsActivity extends DetailsActivity {
             setToolbarTitle(mCourse.getName());
             setToolbarSubtitle(mCourse.getPrice().toString());
             mBodyText.setText(mCourse.getDescription());
-            Picasso.with(this)
+            GlideApp.with(this)
                     .load(mCourse.getImageUrl())
+                    .thumbnail(0.1f)
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(mToolbarBackgroundImage);

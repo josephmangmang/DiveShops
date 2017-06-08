@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.activities.base.DiveTymActivity;
 import com.divetym.dive.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.view.RobotoTextView;
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 /**
@@ -66,8 +65,9 @@ class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
         if(TextUtils.isEmpty(action)){
             this.btnAction.setVisibility(View.GONE);
         }
-        Picasso.with(mContext)
+        GlideApp.with(mContext)
                 .load(imageUrl)
+                .thumbnail(0.1f)
                 .error(R.drawable.dummy_image_error)
                 .placeholder(R.drawable.dummy_image_preview)
                 .into(thumbnail);
