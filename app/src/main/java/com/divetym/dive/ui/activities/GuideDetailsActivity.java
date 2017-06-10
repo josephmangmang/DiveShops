@@ -33,7 +33,7 @@ public class GuideDetailsActivity extends DetailsActivity<Guide> {
     protected void onFabClicked(boolean isDiveShop) {
         if (isDiveShop) {
             // edit
-            AddGuideActivity.launch(this, mData, REQUEST_UPDATE_DETAILS);
+            AddGuideActivity.launch(this, mData);
         } else {
             // do something useful
         }

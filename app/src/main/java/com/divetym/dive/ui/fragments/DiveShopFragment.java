@@ -255,7 +255,7 @@ public class DiveShopFragment extends DiveTymFragment {
     }
 
     private void onEditClicked() {
-        EditDiveShopActivity.launch(this, mDiveShop, REQUEST_UPDATE);
+        EditDiveShopActivity.launch(mContext, mDiveShop);
     }
 
 

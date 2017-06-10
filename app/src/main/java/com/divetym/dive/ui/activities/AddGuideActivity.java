@@ -18,16 +18,12 @@ import com.divetym.dive.models.Guide;
 public class AddGuideActivity extends AuthenticatedActivity{
     public static final String EXTRA_GUIDE = "com.divetym.dive.EXTRA_GUIDE";
 
-    public static void launch(DiveTymActivity context, Guide guide, int requestCode) {
+    public static void launch(DiveTymActivity context, Guide guide) {
         Intent intent = new Intent(context, AddGuideActivity.class);
         intent.putExtra(EXTRA_GUIDE, guide);
-        context.startActivityForResult(intent, requestCode);
+        context.startActivity(intent);
     }
-    public static void launch(DiveTymFragment context, Guide guide, int requestCode) {
-        Intent intent = new Intent(context.getActivity(), AddGuideActivity.class);
-        intent.putExtra(EXTRA_GUIDE, guide);
-        context.startActivityForResult(intent, requestCode);
-    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

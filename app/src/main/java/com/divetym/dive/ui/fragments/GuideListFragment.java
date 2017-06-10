@@ -46,7 +46,7 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
 
     @Override
     protected void onFabClicked() {
-        AddGuideActivity.launch(this, null, REQUEST_ADD_GUIDE);
+        AddGuideActivity.launch(mContext, null);
     }
 
     @Override

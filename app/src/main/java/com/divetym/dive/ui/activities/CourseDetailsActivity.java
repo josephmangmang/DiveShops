@@ -31,7 +31,7 @@ public class CourseDetailsActivity extends DetailsActivity<DiveShopCourse> {
     protected void onFabClicked(boolean isDiveShop) {
         if (isDiveShop) {
             // edit
-            AddCourseActivity.launch(this, mData, REQUEST_UPDATE_DETAILS);
+            AddCourseActivity.launch(this, mData);
         } else {
             // do something useful
         }

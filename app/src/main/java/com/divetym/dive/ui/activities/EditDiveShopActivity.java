@@ -19,16 +19,10 @@ import static com.divetym.dive.ui.fragments.DiveShopFragment.EXTRA_DIVE_SHOP;
 
 public class EditDiveShopActivity extends AuthenticatedActivity {
 
-    public static void launch(DiveTymActivity context, DiveShop diveShop, int requestCode) {
+    public static void launch(DiveTymActivity context, DiveShop diveShop) {
         Intent intent = new Intent(context, EditDiveShopActivity.class);
         intent.putExtra(EXTRA_DIVE_SHOP, diveShop);
-        context.startActivityForResult(intent, requestCode);
-    }
-
-    public static void launch(DiveTymFragment context, DiveShop diveShop, int requestCode) {
-        Intent intent = new Intent(context.getActivity(), EditDiveShopActivity.class);
-        intent.putExtra(EXTRA_DIVE_SHOP, diveShop);
-        context.startActivityForResult(intent, requestCode);
+        context.startActivity(intent);
     }
 
     @Override

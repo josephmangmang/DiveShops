@@ -43,7 +43,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     @Override
     protected void onFabClicked() {
-        AddBoatActivity.launch(this, null, REQUEST_ADD_BOAT);
+        AddBoatActivity.launch(mContext, null);
     }
 
     @Override
