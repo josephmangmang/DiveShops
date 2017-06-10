@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.divetym.dive.R;
+import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
+import com.divetym.dive.ui.activities.GuideDetailsActivity;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.interfaces.ItemClickListener;
@@ -76,15 +78,10 @@ public class TripDetailsFragment extends DiveTymFragment {
 
         }
     };
-    private BaseRecyclerAdapter.ItemClickListener mPreviewGuideClickListener = new ItemClickListener() {
+    private BaseRecyclerAdapter.ItemClickListener mPreviewGuideClickListener = new ItemClickListener<ListPreview>() {
         @Override
-        public void onItemClick(Object object, View view, int position) {
-
-        }
-
-        @Override
-        public void onActionClick(Object object, View view) {
-
+        public void onItemClick(ListPreview object, View view, int i) {
+            GuideDetailsActivity.launch(mContext, mDailyTrip.getGuides().get(object.getPosition()));
         }
     };
 
@@ -111,11 +108,8 @@ public class TripDetailsFragment extends DiveTymFragment {
         loadDailyTripData();
 
         mPreViewTripSites.setItemClickListener(mPreviewSiteClickListener);
-        mPreViewTripSites.setMoreClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mPreViewTripSites.setMoreClickListener(view13 -> {
 
-            }
         });
         mPreviewTripGuides.setItemClickListener(mPreviewGuideClickListener);
         mPreviewTripGuides.setMoreClickListener(view1 -> {
