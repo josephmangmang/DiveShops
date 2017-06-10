@@ -35,6 +35,7 @@ public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewHolder, L
     @Override
     public void onBindViewHolder(ListPreviewHolder holder, int position) {
         ListPreview preview = getItem(position);
+        holder.position = position;
         holder.mData = preview;
         holder.mItemClickListener = mItemClickListener;
         holder.setData(preview.getTitle(), preview.getSubtitle(), preview.getAction(), preview.getImageUrl());
