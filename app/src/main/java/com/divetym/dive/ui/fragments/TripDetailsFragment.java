@@ -11,6 +11,7 @@ import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
 import com.divetym.dive.ui.activities.GuideDetailsActivity;
+import com.divetym.dive.ui.activities.GuideListActivity;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.interfaces.ItemClickListener;
@@ -18,6 +19,8 @@ import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.ui.view.ListPreviewLayout;
 import com.divetym.dive.ui.view.RobotoTextView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,11 +112,15 @@ public class TripDetailsFragment extends DiveTymFragment {
 
         mPreViewTripSites.setItemClickListener(mPreviewSiteClickListener);
         mPreViewTripSites.setMoreClickListener(view13 -> {
-
+            if (!mPreViewTripSites.isEmpty()) {
+                // TODO: 6/10/2017 open dive site list
+            }
         });
         mPreviewTripGuides.setItemClickListener(mPreviewGuideClickListener);
         mPreviewTripGuides.setMoreClickListener(view1 -> {
-
+            if (!mPreviewTripGuides.isEmpty()) {
+                GuideListActivity.launch(mContext, mDailyTrip.getGuides(), false);
+            }
         });
         mPreviewTripBoats.setItemClickListener(mPreviewBoatClickListener);
         mPreviewTripBoats.setMoreClickListener(view12 -> {

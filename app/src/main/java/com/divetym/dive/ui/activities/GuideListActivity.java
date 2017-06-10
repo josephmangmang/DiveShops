@@ -23,7 +23,7 @@ import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_LIST;
 
 public class GuideListActivity extends AuthenticatedActivity {
 
-    public static void launch(DiveTymActivity context, @Nullable List<Guide> guides, boolean showFab) {
+    public static void launch(DiveTymActivity context, @Nullable List guides, boolean showFab) {
         Intent intent = new Intent(context, GuideListActivity.class);
         intent.putParcelableArrayListExtra(EXTRA_LIST, (ArrayList<? extends Parcelable>) guides);
         intent.putExtra(EXTRA_ADD_BUTTON, showFab);
