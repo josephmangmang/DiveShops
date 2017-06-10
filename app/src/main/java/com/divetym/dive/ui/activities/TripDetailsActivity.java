@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.view.View;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
+import com.divetym.dive.event.DailyTripEvent;
+import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.activities.common.Mode;
 import com.divetym.dive.ui.fragments.TripDetailsFragment;
-import com.divetym.dive.models.DailyTrip;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +28,7 @@ import butterknife.ButterKnife;
  */
 
 public class TripDetailsActivity extends AuthenticatedActivity {
+    private static final String TAG = TripDetailsActivity.class.getSimpleName();
     public static final String EXTRA_DAILY_TRIP = "com.divetym.dive.EXTRA_DAILY_TRIP";
     public static final int REQUEST_EDIT = 1;
 
@@ -31,7 +37,6 @@ public class TripDetailsActivity extends AuthenticatedActivity {
     @BindView(R.id.image_collapsing_toolbar_background)
     protected ImageView toolbarBackgroundImage;
     private TripDetailsFragment mFragment;
-    private boolean edited;
 
     public static void launch(DiveTymActivity context, DailyTrip dailyTrip) {
         Intent intent = new Intent(context, TripDetailsActivity.class);
@@ -58,20 +63,21 @@ public class TripDetailsActivity extends AuthenticatedActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_EDIT && resultCode == RESULT_OK) {
-            edited = true;
-            DailyTrip newDailyTrip = data.getParcelableExtra(EXTRA_DAILY_TRIP);
-            mFragment.setDailyTrip(newDailyTrip);
-        }
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onBackPressed() {
-        if (edited) {
-            setResult(RESULT_OK);
-        }
-        super.onBackPressed();
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDailyTripChanged(DailyTripEvent event) {
+        Log.d(TAG, "onDailyTripChanged: " + event);
+        mFragment.setDailyTrip(event.getDailyTrip());
+    }
+
 }

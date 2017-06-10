@@ -1,17 +1,21 @@
 package com.divetym.dive.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 
 import com.divetym.dive.R;
+import com.divetym.dive.event.DailyTripEvent;
+import com.divetym.dive.models.DiveSite;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
 import com.divetym.dive.ui.fragments.SearchListFragment;
 import com.divetym.dive.ui.fragments.TripListFragment;
-import com.divetym.dive.models.DiveSite;
 import com.divetym.dive.ui.view.DateRangeLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -84,6 +88,17 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         });
     }
 
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -116,10 +131,10 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_REFRESH && resultCode == RESULT_OK) {
-            refreshTripList();
-        }
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDailyTripChanged(DailyTripEvent event) {
+        Log.d(TAG, "onDailyTripChanged: " + event);
+        refreshTripList();
+        EventBus.getDefault().removeStickyEvent(event);
     }
 }

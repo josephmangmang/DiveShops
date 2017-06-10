@@ -6,15 +6,14 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.activities.common.Mode;
 import com.divetym.dive.ui.fragments.CreateTripFragment;
 import com.divetym.dive.ui.fragments.EditTripFragment;
-import com.divetym.dive.models.DailyTrip;
 
 import static com.divetym.dive.ui.activities.TripDetailsActivity.EXTRA_DAILY_TRIP;
-import static com.divetym.dive.ui.activities.TripDetailsActivity.REQUEST_EDIT;
 
 /**
  * Created by kali_root on 5/9/2017.
@@ -26,7 +25,7 @@ public class ModifyTripActivity extends AuthenticatedActivity {
         Intent intent = new Intent(context, ModifyTripActivity.class);
         intent.setAction(actionMode.name());
         intent.putExtra(EXTRA_DAILY_TRIP, dailyTrip);
-        context.startActivityForResult(intent, REQUEST_EDIT);
+        context.startActivity(intent);
     }
 
     @Override

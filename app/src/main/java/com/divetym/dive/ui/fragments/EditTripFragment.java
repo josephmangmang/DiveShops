@@ -1,24 +1,23 @@
 package com.divetym.dive.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
-import com.divetym.dive.ui.fragments.common.ModifyTripFragment;
+import com.divetym.dive.event.DailyTripEvent;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.response.DailyTripResponse;
 import com.divetym.dive.rest.ApiClient;
+import com.divetym.dive.ui.fragments.common.ModifyTripFragment;
 import com.divetym.dive.ui.view.ToastAlert;
+
+import org.greenrobot.eventbus.EventBus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
-import static com.divetym.dive.ui.activities.TripDetailsActivity.EXTRA_DAILY_TRIP;
 
 /**
  * Created by kali_root on 5/22/2017.
@@ -67,9 +66,7 @@ public class EditTripFragment extends ModifyTripFragment {
                                 new ToastAlert(mContext)
                                         .setMessage(R.string.toast_saved)
                                         .show();
-                                Intent resturnIntent = new Intent();
-                                resturnIntent.putExtra(EXTRA_DAILY_TRIP, response.body().getDailyTrip());
-                                mContext.setResult(RESULT_OK, resturnIntent);
+                                EventBus.getDefault().postSticky(new DailyTripEvent(response.body().getDailyTrip()));
                                 mContext.finish();
                             }
 

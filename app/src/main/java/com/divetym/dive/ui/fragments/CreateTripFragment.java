@@ -6,11 +6,14 @@ import android.util.Log;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.event.DailyTripEvent;
 import com.divetym.dive.ui.fragments.common.ModifyTripFragment;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.response.DailyTripResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.view.ToastAlert;
+
+import org.greenrobot.eventbus.EventBus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +48,7 @@ public class CreateTripFragment extends ModifyTripFragment {
                                     .setMessage(tripResponse.getMessage())
                                     .show();
                             if (!tripResponse.isError()) {
+                                EventBus.getDefault().postSticky(new DailyTripEvent(tripResponse.getDailyTrip()));
                                 mContext.finish();
                             }
                         }
