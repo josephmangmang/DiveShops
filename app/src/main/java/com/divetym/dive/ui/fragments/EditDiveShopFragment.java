@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.event.DiveShopEvent;
 import com.divetym.dive.ui.activities.SearchMapActivity;
 import com.divetym.dive.models.DiveShopAddress;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
@@ -22,6 +23,8 @@ import com.divetym.dive.models.DiveShop;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 
@@ -165,9 +168,7 @@ public class EditDiveShopFragment extends DiveTymFragment {
                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                         if (response.body() != null) {
                             if (!response.body().isError()) {
-                                Intent resultData = new Intent();
-                                resultData.putExtra(EXTRA_DIVE_SHOP, mDiveShop);
-                                mContext.setResult(RESULT_OK, resultData);
+                                EventBus.getDefault().postSticky(new DiveShopEvent(mDiveShop));
                                 mContext.finish();
                             } else {
                                 Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();

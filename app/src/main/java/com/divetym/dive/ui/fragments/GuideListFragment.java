@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.event.GuideEvent;
+import com.divetym.dive.event.GuideListEvent;
 import com.divetym.dive.ui.activities.AddGuideActivity;
 import com.divetym.dive.ui.activities.GuideDetailsActivity;
 import com.divetym.dive.ui.adapters.GuideListAdapter;
@@ -13,6 +15,10 @@ import com.divetym.dive.ui.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.Guide;
 import com.divetym.dive.models.response.GuideListResponse;
 import com.divetym.dive.ui.view.ToastAlert;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -30,6 +36,7 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
 
     private static final String TAG = GuideListFragment.class.getSimpleName();
     private static final int REQUEST_ADD_GUIDE = 1;
+    private boolean sendBoatEvent;
 
     public static GuideListFragment getInstance(Bundle bundle) {
         GuideListFragment fragment = new GuideListFragment();
@@ -48,19 +55,26 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: ");
-        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_GUIDE) {
-            // refresh the list..
-            mAdapter.resetList();
-            offset = 0;
-            requestData();
-        }
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onGuideChanged(GuideEvent event) {
+        Log.d(TAG, "onGuideChanged: " + event.getGuide());
+        mAdapter.resetList();
+        offset = 0;
+        sendBoatEvent = true;
+        requestData();
+        EventBus.getDefault().removeStickyEvent(event);
+    }
     @Override
     protected void requestData() {
         mApiService.getGuides(shopUid, offset)
@@ -86,8 +100,12 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
     @Override
     protected void onRequestResponse(GuideListResponse response) {
         if (response != null && !response.isError()) {
-            List<Guide> boats = response.getGuides();
-            mAdapter.addData(boats);
+            List<Guide> guides = response.getGuides();
+            mAdapter.addData(guides);
+            if(sendBoatEvent){
+                sendBoatEvent = false;
+                EventBus.getDefault().postSticky(new GuideListEvent(guides));
+            }
         } else if (response != null) {
             ToastAlert.makeText(mContext, response.getMessage(), ToastAlert.LENGTH_SHORT);
         }

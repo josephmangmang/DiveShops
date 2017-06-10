@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.event.DiveShopCourseEvent;
+import com.divetym.dive.event.DiveShopCourseListEvent;
 import com.divetym.dive.ui.activities.AddCourseActivity;
 import com.divetym.dive.ui.activities.CourseDetailsActivity;
 import com.divetym.dive.ui.adapters.CourseListAdapter;
@@ -14,6 +16,10 @@ import com.divetym.dive.ui.fragments.base.DiveTymListFragment;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.response.DiveShopCourseListResponse;
 import com.divetym.dive.ui.view.ToastAlert;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -31,6 +37,7 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         BaseRecyclerAdapter.ItemClickListener<DiveShopCourse> {
     private static final String TAG = CourseListFragment.class.getSimpleName();
     private static final int REQUEST_ADD_COURSE = 1;
+    private boolean sendBoatEvent;
 
     public static CourseListFragment getInstance(Bundle bundle) {
         CourseListFragment fragment = new CourseListFragment();
@@ -62,6 +69,26 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         }
     }
 
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onCourseChanged(DiveShopCourseEvent event) {
+        Log.d(TAG, "onCourseChanged: " + event.getDiveShopCourse());
+        mAdapter.resetList();
+        offset = 0;
+        sendBoatEvent = true;
+        requestData();
+        EventBus.getDefault().removeStickyEvent(event);
+    }
     @Override
     protected void requestData() {
         mApiService.getDiveShopCourses(shopUid, offset)
@@ -90,6 +117,10 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         if (response != null && !response.isError()) {
             List<DiveShopCourse> courses = response.getCourses();
             mAdapter.addData(courses);
+            if (sendBoatEvent) {
+                sendBoatEvent = false;
+                EventBus.getDefault().postSticky(new DiveShopCourseListEvent(courses));
+            }
         } else if (response != null) {
             new ToastAlert(mContext)
                     .setMessage(response.getMessage())

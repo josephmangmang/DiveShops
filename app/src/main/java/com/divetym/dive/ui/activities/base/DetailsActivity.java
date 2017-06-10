@@ -1,6 +1,5 @@
 package com.divetym.dive.ui.activities.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -21,7 +20,7 @@ import butterknife.OnClick;
  * Created by kali_root on 4/15/2017.
  */
 
-public abstract class DetailsActivity extends AuthenticatedActivity {
+public abstract class DetailsActivity<DataType> extends AuthenticatedActivity {
     private static final String TAG = DetailsActivity.class.getSimpleName();
     public static final String EXTRA_DATA = "com.divetym.dive.EXTRA_DATA";
     protected static final int REQUEST_UPDATE_DETAILS = 1;
@@ -36,13 +35,13 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
     @BindView(R.id.image_collapsing_toolbar_background)
     protected ImageView toolbarBackgroundImage;
     private boolean isDiveshop;
+    protected DataType mData;
 
     @OnClick(R.id.fab)
     public void onFabClicked() {
         Log.d(TAG, "onFabClicked");
         onFabClicked(isDiveshop);
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,26 +53,12 @@ public abstract class DetailsActivity extends AuthenticatedActivity {
         if (isDiveshop) {
             fab.setImageResource(R.drawable.ic_edit);
         }
-        setData();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_UPDATE_DETAILS) {
-            // update details
-            if (data != null) updateDetails(data);
-        }
-    }
-
-    private void updateDetails(Intent data) {
-        setIntent(data);
-        setData();
+        setData(getIntent().getParcelableExtra(EXTRA_DATA));
     }
 
     protected abstract void onFabClicked(boolean isDiveShop);
 
-    protected abstract void setData();
+    protected abstract void setData(DataType data);
 
     public void setToolbarTitle(String title) {
         collapsingLayout.setTitle(title);

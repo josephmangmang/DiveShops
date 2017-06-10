@@ -1,11 +1,12 @@
 package com.divetym.dive.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.event.BoatListEvent;
+import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.ui.activities.AddBoatActivity;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.adapters.BoatListAdapter;
@@ -14,13 +15,15 @@ import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.response.BoatListResponse;
 import com.divetym.dive.ui.view.ToastAlert;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by kali_root on 4/15/2017.
@@ -30,6 +33,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     private static final String TAG = BoatListFragment.class.getSimpleName();
     private static final int REQUEST_ADD_BOAT = 1;
+    private boolean sendBoatEvent;
 
     public static BoatListFragment getInstance(Bundle bundle) {
         BoatListFragment fragment = new BoatListFragment();
@@ -39,7 +43,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     @Override
     protected void onFabClicked() {
-        AddBoatActivity.launch(this, null,REQUEST_ADD_BOAT );
+        AddBoatActivity.launch(this, null, REQUEST_ADD_BOAT);
     }
 
     @Override
@@ -48,17 +52,28 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: ");
-        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_BOAT ) {
-            // refresh the list..
-            mAdapter.resetList();
-            offset = 0;
-            requestData();
-        }
+
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onBoatChanged(BoatEvent event) {
+        Log.d(TAG, "onBoatChanged: " + event.getBoat());
+        mAdapter.resetList();
+        offset = 0;
+        sendBoatEvent = true;
+        requestData();
+        EventBus.getDefault().removeStickyEvent(event);
+    }
+
     @Override
     protected void requestData() {
         mApiService.getDiveShopBoats(shopUid, offset)
@@ -86,6 +101,10 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
         if (response != null && !response.isError()) {
             List<Boat> boats = response.getBoats();
             mAdapter.addData(boats);
+            if (sendBoatEvent) {
+                sendBoatEvent = false;
+                EventBus.getDefault().postSticky(new BoatListEvent(boats));
+            }
         } else if (response != null) {
             ToastAlert.makeText(mContext, response.getMessage(), ToastAlert.LENGTH_SHORT);
         }

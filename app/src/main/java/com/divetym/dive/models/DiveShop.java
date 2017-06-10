@@ -14,7 +14,7 @@ import java.util.List;
  * Created by kali_root on 3/27/2017.
  */
 
-public class DiveShop extends User  {
+public class DiveShop extends User {
     private static final String PREVIEW_ACTION_BOAT = "VIEW";
     private static final String PREVIEW_ACTION_COURSE = "BOOK NOW";
 
@@ -174,22 +174,28 @@ public class DiveShop extends User  {
         }
     }
 
-    public List<ListPreview> getCoursePreviews() {
-        if (coursePreviews == null) {
+    public List<ListPreview> getCoursePreviews(boolean reset) {
+        if (reset) {
+            prepareCoursePreviews(courses);
+        } else if (coursePreviews == null) {
             prepareCoursePreviews(courses);
         }
         return coursePreviews;
     }
 
-    public List<ListPreview> getBoatPreviews() {
-        if (boatPreviews == null) {
+    public List<ListPreview> getBoatPreviews(boolean reset) {
+        if (reset) {
+            prepareBoatPreviews(boats);
+        } else if (boatPreviews == null) {
             prepareBoatPreviews(boats);
         }
         return boatPreviews;
     }
 
-    public List<ListPreview> getGuidePreviews() {
-        if (guidePreviews == null) {
+    public List<ListPreview> getGuidePreviews(boolean reset) {
+        if (reset) {
+            prepareGuidePreviews(guides);
+        } else if (guidePreviews == null) {
             prepareGuidePreviews(guides);
         }
         return guidePreviews;

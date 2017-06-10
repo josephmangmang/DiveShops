@@ -13,6 +13,13 @@ import android.view.ViewGroup;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.event.BoatListEvent;
+import com.divetym.dive.event.DiveShopCourseListEvent;
+import com.divetym.dive.event.DiveShopEvent;
+import com.divetym.dive.event.GuideListEvent;
+import com.divetym.dive.models.Boat;
+import com.divetym.dive.models.DiveShopCourse;
+import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
 import com.divetym.dive.ui.activities.CourseListActivity;
@@ -33,6 +40,12 @@ import com.divetym.dive.rest.ApiInterface;
 import com.divetym.dive.ui.view.ListPreviewLayout;
 import com.divetym.dive.ui.view.RobotoTextView;
 import com.divetym.dive.ui.view.ToastAlert;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -152,13 +165,51 @@ public class DiveShopFragment extends DiveTymFragment {
         return view;
     }
 
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_UPDATE && resultCode == RESULT_OK) {
-            mDiveShop = data.getParcelableExtra(EXTRA_DIVE_SHOP);
-            setDiveshop(mDiveShop);
-        }
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDiveShopChanged(DiveShopEvent event) {
+        Log.d(TAG, "onDiveShopChanged: ");
+        mDiveShop = event.getDiveShop();
+        setDiveshop(mDiveShop);
+        removeStickyEvent(event);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onBoatListChanged(BoatListEvent event) {
+        Log.d(TAG, "onBoatListChanged: " + event);
+        mDiveShop.setBoats(event.getBoats());
+        mPreviewBoats.setPreviewList(mDiveShop.getBoatPreviews(true));
+        removeStickyEvent(event);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onCourseListChanged(DiveShopCourseListEvent event) {
+        Log.d(TAG, "onCourseListChanged: " + event);
+        mDiveShop.setCourses(event.getDiveShopCourses());
+        mPreviewCourses.setPreviewList(mDiveShop.getCoursePreviews(true));
+        removeStickyEvent(event);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onGuideListChanged(GuideListEvent event) {
+        Log.d(TAG, "onGuideListChanged: " + event);
+        mDiveShop.setGuides(event.getGuides());
+        mPreviewGuides.setPreviewList(mDiveShop.getGuidePreviews(true));
+        removeStickyEvent(event);
+    }
+
+    private void removeStickyEvent(Object event) {
+        EventBus.getDefault().removeStickyEvent(event);
     }
 
     @Override
@@ -252,12 +303,12 @@ public class DiveShopFragment extends DiveTymFragment {
         specialServiceTextView.setText(diveShop.getSpecialService());
 
         mPreviewCourses.setPreviewTitle(getString(R.string.title_courses));
-        mPreviewCourses.setPreviewList(diveShop.getCoursePreviews());
+        mPreviewCourses.setPreviewList(diveShop.getCoursePreviews(false));
 
         mPreviewBoats.setPreviewTitle(getString(R.string.title_boats));
-        mPreviewBoats.setPreviewList(diveShop.getBoatPreviews());
+        mPreviewBoats.setPreviewList(diveShop.getBoatPreviews(false));
 
         mPreviewGuides.setPreviewTitle(getString(R.string.title_guides));
-        mPreviewGuides.setPreviewList(diveShop.getGuidePreviews());
+        mPreviewGuides.setPreviewList(diveShop.getGuidePreviews(false));
     }
 }

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.divetym.dive.R;
+import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.ui.activities.AddBoatActivity;
 import com.divetym.dive.ui.activities.base.DetailsActivity;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
@@ -22,6 +23,8 @@ import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.response.BoatResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.view.ToastAlert;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -128,17 +131,16 @@ public class AddBoatFragment extends DiveTymFragment {
     }
 
     private void handleResponse(Response<BoatResponse> response) {
-        if (response.body() != null) {
-            if (!response.body().isError()) {
+        BoatResponse body = response.body();
+        if (body != null) {
+            if (!body.isError()) {
                 new ToastAlert(mContext)
-                        .setMessage(response.body().getMessage())
+                        .setMessage(body.getMessage())
                         .show();
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra(DetailsActivity.EXTRA_DATA, response.body().getBoat());
-                mContext.setResult(Activity.RESULT_OK, resultIntent);
+                EventBus.getDefault().postSticky(new BoatEvent(body.getBoat()));
                 mContext.finish();
             } else {
-                Toast.makeText(mContext, "Error adding Boat: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Error adding Boat: " + body.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(mContext, "Error adding Boat: " + response.raw(), Toast.LENGTH_SHORT).show();

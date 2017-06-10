@@ -1,20 +1,25 @@
 package com.divetym.dive.ui.activities;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
+import com.divetym.dive.event.DiveShopCourseEvent;
 import com.divetym.dive.ui.activities.base.DetailsActivity;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.models.DiveShopCourse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by kali_root on 4/15/2017.
  */
 
-public class CourseDetailsActivity extends DetailsActivity {
+public class CourseDetailsActivity extends DetailsActivity<DiveShopCourse> {
     private static final String TAG = CourseDetailsActivity.class.getSimpleName();
-    private DiveShopCourse mCourse;
 
     public static void launch(DiveTymActivity context, DiveShopCourse course) {
         Intent intent = new Intent(context, CourseDetailsActivity.class);
@@ -24,27 +29,46 @@ public class CourseDetailsActivity extends DetailsActivity {
 
     @Override
     protected void onFabClicked(boolean isDiveShop) {
-        if(isDiveShop){
+        if (isDiveShop) {
             // edit
-            AddCourseActivity.launch(this, mCourse, REQUEST_UPDATE_DETAILS);
-        }else{
+            AddCourseActivity.launch(this, mData, REQUEST_UPDATE_DETAILS);
+        } else {
             // do something useful
         }
     }
 
     @Override
-    protected void setData() {
-         mCourse = getIntent().getParcelableExtra(EXTRA_DATA);
-        if (mCourse != null) {
-            setToolbarTitle(mCourse.getName());
-            setToolbarSubtitle(mCourse.getPrice().toString());
-            detailBody.setText(mCourse.getDescription());
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDataChanged(DiveShopCourseEvent diveShopCourseEvent) {
+        Log.d(TAG, "onDataChanged");
+        setData(diveShopCourseEvent.getDiveShopCourse());
+    }
+
+    @Override
+    protected void setData(DiveShopCourse data) {
+        mData = data;
+        if (mData != null) {
+            setToolbarTitle(mData.getName());
+            setToolbarSubtitle(mData.getPrice().toString());
+            detailBody.setText(mData.getDescription());
             GlideApp.with(this)
-                    .load(mCourse.getImageUrl())
+                    .load(mData.getImageUrl())
                     .thumbnail(0.1f)
                     .placeholder(R.drawable.dummy_image_preview)
                     .error(R.drawable.dummy_image_error)
                     .into(toolbarBackgroundImage);
         }
     }
+
 }
