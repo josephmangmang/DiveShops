@@ -32,6 +32,7 @@ import com.divetym.dive.ui.activities.CourseDetailsActivity;
 import com.divetym.dive.ui.activities.DailyTripActivity;
 import com.divetym.dive.ui.activities.DiveShopActivity;
 import com.divetym.dive.ui.activities.EditDiveShopActivity;
+import com.divetym.dive.ui.activities.GuideDetailsActivity;
 import com.divetym.dive.ui.activities.GuideListActivity;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
@@ -85,16 +86,6 @@ public class DiveShopFragment extends DiveTymFragment {
     private DiveShop mDiveShop;
     private int selectedItemPosition;
 
-    private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<ListPreview>() {
-        public void onItemClick(ListPreview object, View view, int i) {
-            Log.d(TAG, "onItemClick " + object.toString());
-        }
-
-        @Override
-        public void onActionClick(ListPreview object, View view) {
-            Log.d(TAG, "onActionClick " + object.toString());
-        }
-    };
     private View.OnClickListener mPreviewGuideMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -126,11 +117,6 @@ public class DiveShopFragment extends DiveTymFragment {
             selectedItemPosition = object.getPosition();
             CourseDetailsActivity.launch(mContext, mDiveShop.getCourses().get(selectedItemPosition));
         }
-
-        @Override
-        public void onActionClick(ListPreview object, View view) {
-            Log.d(TAG, "onActionClick " + object.toString());
-        }
     };
 
     private BaseRecyclerAdapter.ItemClickListener mBoatItemClickListener = new ItemClickListener<ListPreview>() {
@@ -141,13 +127,14 @@ public class DiveShopFragment extends DiveTymFragment {
             BoatDetailsActivity.launch(mContext, mDiveShop.getBoats().get(selectedItemPosition));
         }
 
-        @Override
-        public void onActionClick(ListPreview object, View view) {
-            Log.d(TAG, "onActionClick " + object.toString());
-
+    };
+    private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<ListPreview>() {
+        public void onItemClick(ListPreview object, View view, int i) {
+            Log.d(TAG, "onItemClick " + object.toString());
+            selectedItemPosition = object.getPosition();
+            GuideDetailsActivity.launch(mContext, mDiveShop.getGuides().get(selectedItemPosition));
         }
     };
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
