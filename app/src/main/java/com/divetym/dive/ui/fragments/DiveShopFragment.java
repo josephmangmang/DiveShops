@@ -13,11 +13,16 @@ import android.view.ViewGroup;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.event.BoatListEvent;
+import com.divetym.dive.event.CourseEvent;
+import com.divetym.dive.event.DiveShopCourseEvent;
 import com.divetym.dive.event.DiveShopCourseListEvent;
 import com.divetym.dive.event.DiveShopEvent;
+import com.divetym.dive.event.GuideEvent;
 import com.divetym.dive.event.GuideListEvent;
 import com.divetym.dive.models.Boat;
+import com.divetym.dive.models.Course;
 import com.divetym.dive.models.DiveShopCourse;
 import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
@@ -78,6 +83,7 @@ public class DiveShopFragment extends DiveTymFragment {
     RobotoTextView specialServiceTextView;
     private ApiInterface mApiService;
     private DiveShop mDiveShop;
+    private int selectedItemPosition;
 
     private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<ListPreview>() {
         public void onItemClick(ListPreview object, View view, int i) {
@@ -117,7 +123,8 @@ public class DiveShopFragment extends DiveTymFragment {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
             Log.d(TAG, "onItemClick " + object.toString());
-            CourseDetailsActivity.launch(mContext, mDiveShop.getCourses().get(object.getPosition()));
+            selectedItemPosition = object.getPosition();
+            CourseDetailsActivity.launch(mContext, mDiveShop.getCourses().get(selectedItemPosition));
         }
 
         @Override
@@ -130,7 +137,8 @@ public class DiveShopFragment extends DiveTymFragment {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {
             Log.d(TAG, "onItemClick " + object.toString());
-            BoatDetailsActivity.launch(mContext, mDiveShop.getBoats().get(object.getPosition()));
+            selectedItemPosition = object.getPosition();
+            BoatDetailsActivity.launch(mContext, mDiveShop.getBoats().get(selectedItemPosition));
         }
 
         @Override
@@ -204,6 +212,27 @@ public class DiveShopFragment extends DiveTymFragment {
     public void onGuideListChanged(GuideListEvent event) {
         Log.d(TAG, "onGuideListChanged: " + event);
         mDiveShop.setGuides(event.getGuides());
+        mPreviewGuides.setPreviewList(mDiveShop.getGuidePreviews(true));
+        removeStickyEvent(event);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDataChanged(BoatEvent event) {
+        mDiveShop.getBoats().set(selectedItemPosition, event.getBoat());
+        mPreviewBoats.setPreviewList(mDiveShop.getBoatPreviews(true));
+        removeStickyEvent(event);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDataChanged(DiveShopCourseEvent event) {
+        mDiveShop.getCourses().set(selectedItemPosition, event.getDiveShopCourse());
+        mPreviewCourses.setPreviewList(mDiveShop.getCoursePreviews(true));
+        removeStickyEvent(event);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onDataChanged(GuideEvent event) {
+        mDiveShop.getGuides().set(selectedItemPosition, event.getGuide());
         mPreviewGuides.setPreviewList(mDiveShop.getGuidePreviews(true));
         removeStickyEvent(event);
     }
