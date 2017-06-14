@@ -74,7 +74,12 @@ public class DiverTripActivity extends AuthenticatedActivity implements Navigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        switch (item.getItemId()) {
+            case R.id.nav_logout:
+                logOut();
+                break;
+        }
+        return true;
     }
 
 }
