@@ -3,6 +3,8 @@ package com.divetym.dive.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -41,9 +43,20 @@ public class DiverTripFragment extends DiveTymListFragment<DiverTripAdapter, Dai
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     protected void initializeAdapter() {
         mAdapter = new DiverTripAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.daily_trips, menu);
     }
 
     @Override
@@ -105,6 +118,7 @@ public class DiverTripFragment extends DiveTymListFragment<DiverTripAdapter, Dai
 
     @Override
     protected void onRequestResponse(DailyTripListResponse response) {
+        showProgress(false);
         if (response != null && !response.isError()) {
             Log.d(TAG, "reset: " + reset + " response: " + response.toString());
             if (reset) {
