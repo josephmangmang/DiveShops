@@ -1,4 +1,4 @@
-package com.divetym.dive.ui.fragments;
+package com.divetym.dive.ui.fragments.diver;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

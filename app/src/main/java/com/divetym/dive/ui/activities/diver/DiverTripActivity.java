@@ -10,15 +10,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.divetym.dive.R;
-import com.divetym.dive.models.DiveSite;
-import com.divetym.dive.models.LocationAddress;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
-import com.divetym.dive.ui.fragments.DiverTripFragment;
+import com.divetym.dive.ui.fragments.diver.DiverTripFragment;
 import com.divetym.dive.ui.view.TripFilterLayout;
 import com.divetym.dive.utils.DateUtils;
 import com.google.android.gms.maps.model.LatLng;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
