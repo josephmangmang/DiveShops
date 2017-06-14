@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.divetym.dive.R;
 import com.divetym.dive.event.DiveShopEvent;
 import com.divetym.dive.ui.activities.SearchMapActivity;
-import com.divetym.dive.models.DiveShopAddress;
+import com.divetym.dive.models.LocationAddress;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.models.DiveShop;
 import com.divetym.dive.models.response.Response;
@@ -56,13 +56,13 @@ public class EditDiveShopFragment extends DiveTymFragment {
     EditText specialServiceEditText;
     @BindView(R.id.edit_address)
     EditText addressEditText;
-    private DiveShopAddress mDiveShopAddress;
+    private LocationAddress mDiveShopAddress;
     private DiveShop mDiveShop;
 
     @OnClick(R.id.edit_address)
     public void changedLocationClick() {
         Intent intent = new Intent(mContext, SearchMapActivity.class);
-        intent.putExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS, mDiveShopAddress);
+        intent.putExtra(LocationAddress.EXTRA_DIVE_SHOP_ADDRESS, mDiveShopAddress);
         startActivityForResult(intent, REQUEST_SELECT_LOCATION);
     }
 
@@ -97,7 +97,7 @@ public class EditDiveShopFragment extends DiveTymFragment {
                 pricePerDiveEditText.setText(mDiveShop.getPricePerDive().toString());
                 descriptionEditText.setText(mDiveShop.getDescription());
                 specialServiceEditText.setText(mDiveShop.getSpecialService());
-                mDiveShopAddress = new DiveShopAddress(mDiveShop.getAddress(), new LatLng(mDiveShop.getLatitiude(), mDiveShop.getLongitude()));
+                mDiveShopAddress = new LocationAddress(mDiveShop.getAddress(), new LatLng(mDiveShop.getLatitiude(), mDiveShop.getLongitude()));
             } catch (NullPointerException e) {
                 Log.e(TAG, "Diveshop: " + e.getMessage());
             }
@@ -111,7 +111,7 @@ public class EditDiveShopFragment extends DiveTymFragment {
         if (requestCode == REQUEST_SELECT_LOCATION) {
             if (resultCode == RESULT_OK) {
                 if (data == null) return;
-                mDiveShopAddress = data.getParcelableExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS);
+                mDiveShopAddress = data.getParcelableExtra(LocationAddress.EXTRA_DIVE_SHOP_ADDRESS);
                 addressEditText.setText(mDiveShopAddress.getFullAddress());
                 addressEditText.setSelection(addressEditText.length());
             }

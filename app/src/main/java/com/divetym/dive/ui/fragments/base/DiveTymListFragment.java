@@ -51,7 +51,6 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected Adapter mAdapter;
     protected LinearLayoutManager mLayoutManager;
     protected List<DataType> mDataList;
-    protected ApiInterface mApiService;
     protected int offset = 0;
     protected String shopUid;
     protected boolean showAddButton;
@@ -70,7 +69,6 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         } else {
             mDataList = new ArrayList<>();
         }
-        mApiService = ApiClient.getApiInterface();
         mLayoutManager = new LinearLayoutManager(mContext);
         shopUid = mSessionManager.getDiveShopUid();
     }
@@ -98,13 +96,6 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected abstract void initializeAdapter();
 
     private void loadData() {
-        if (shopUid == null) {
-            new ToastAlert(mContext)
-                    .setMessage(R.string.error_empty_account_details)
-                    .show();
-            ((AuthenticatedActivity) mContext).logOut();
-            return;
-        }
         showProgress(true);
         requestData();
     }

@@ -37,6 +37,8 @@ public class DailyTrip implements Parcelable {
     private BigDecimal price;
     @SerializedName(ApiConstant.PRICE_NOTE)
     private String priceNote;
+    @SerializedName(ApiConstant.NAME)
+    private String diveShopName;
 
     @SerializedName(ApiConstant.DAILY_TRIP_BOATS)
     private List<DailyTripBoat> boats;
@@ -53,6 +55,14 @@ public class DailyTrip implements Parcelable {
     private List<ListPreview> mBoatPreviews;
     private List<ListPreview> mDiveSitePreviews;
     private List<ListPreview> mGuidePreviews;
+
+    public String getDiveShopName() {
+        return diveShopName;
+    }
+
+    public void setDiveShopName(String diveShopName) {
+        this.diveShopName = diveShopName;
+    }
 
     public int getDailyTripId() {
         return dailyTripId;
@@ -267,7 +277,8 @@ public class DailyTrip implements Parcelable {
     @Override
     public String toString() {
         return "DailyTrip{" +
-                "dailyTripId=" + dailyTripId +
+                " diveShopName=" + diveShopName +
+                " dailyTripId=" + dailyTripId +
                 ", diveShopUid='" + diveShopUid + '\'' +
                 ", groupSize=" + groupSize +
                 ", numberOfDive=" + numberOfDive +
@@ -288,6 +299,15 @@ public class DailyTrip implements Parcelable {
                 '}';
     }
 
+    public DailyTrip() {
+    }
+
+    public Calendar getCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mDate);
+        return calendar;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -303,6 +323,7 @@ public class DailyTrip implements Parcelable {
         dest.writeString(this.createTime);
         dest.writeSerializable(this.price);
         dest.writeString(this.priceNote);
+        dest.writeString(this.diveShopName);
         dest.writeTypedList(this.boats);
         dest.writeTypedList(this.sites);
         dest.writeTypedList(this.guides);
@@ -315,9 +336,6 @@ public class DailyTrip implements Parcelable {
         dest.writeTypedList(this.mGuidePreviews);
     }
 
-    public DailyTrip() {
-    }
-
     protected DailyTrip(Parcel in) {
         this.dailyTripId = in.readInt();
         this.diveShopUid = in.readString();
@@ -327,6 +345,7 @@ public class DailyTrip implements Parcelable {
         this.createTime = in.readString();
         this.price = (BigDecimal) in.readSerializable();
         this.priceNote = in.readString();
+        this.diveShopName = in.readString();
         this.boats = in.createTypedArrayList(DailyTripBoat.CREATOR);
         this.sites = in.createTypedArrayList(DailyTripDiveSite.CREATOR);
         this.guides = in.createTypedArrayList(DailyTripGuide.CREATOR);
@@ -351,10 +370,4 @@ public class DailyTrip implements Parcelable {
             return new DailyTrip[size];
         }
     };
-
-    public Calendar getCalendar() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(mDate);
-        return calendar;
-    }
 }

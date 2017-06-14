@@ -21,10 +21,10 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
     private DateRange dateRange;
 
 
-    private OnDateRangeChangedListener onDateRangeChangedListener;
+    private OnDateChangeListener onDateChangeListener;
 
-    public interface OnDateRangeChangedListener {
-        void onDateRangeChanged(DateRange dateRange, Calendar calendar);
+    public interface OnDateChangeListener {
+        void onDateChanged(DateRange dateRange, Calendar calendar);
     }
 
     @Override
@@ -46,16 +46,16 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
         this.dateRange = dateRange;
     }
 
-    public void setOnDateRangeChangedListener(OnDateRangeChangedListener onDateRangeChangedListener) {
-        this.onDateRangeChangedListener = onDateRangeChangedListener;
+    public void setOnDateChangeListener(OnDateChangeListener onDateChangeListener) {
+        this.onDateChangeListener = onDateChangeListener;
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-        if (onDateRangeChangedListener != null) {
+        if (onDateChangeListener != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(y, m, d);
-            onDateRangeChangedListener.onDateRangeChanged(dateRange, calendar);
+            onDateChangeListener.onDateChanged(dateRange, calendar);
         }
     }
 

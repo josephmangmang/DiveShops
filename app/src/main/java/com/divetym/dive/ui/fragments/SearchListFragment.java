@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.DailyTripActivity;
 import com.divetym.dive.ui.adapters.SearchListAdapter;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
@@ -18,8 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.sahildave.widget.SearchViewLayout;
 
-import static com.divetym.dive.ui.fragments.TripListFragment.*;
-
 /**
  * Created by kali_root on 4/21/2017.
  */
@@ -30,7 +29,7 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
     private static final String TAG = SearchListFragment.class.getSimpleName();
     private String searchName = "";
     private boolean searchRequest;
-    private OnRefreshTripListener mOnRefreshTripListener;
+    private OnDiveSiteChangeListener onDiveSiteChangeListener;
 
     public SearchListFragment() {
     }
@@ -45,13 +44,12 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
         mAdapter = new SearchListAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
-        mOnRefreshTripListener = (DailyTripActivity) mContext;
         setEmptyTextMessage(getString(R.string.message_empty_search));
     }
 
     @Override
     protected void requestData() {
-        mApiService.getSites(searchName, offset)
+        ApiClient.getApiInterface().getSites(searchName, offset)
                 .enqueue(new Callback<DiveSiteListResponse>() {
                     @Override
                     public void onResponse(Call<DiveSiteListResponse> call, Response<DiveSiteListResponse> response) {
@@ -103,13 +101,21 @@ public class SearchListFragment extends DiveTymListFragment<SearchListAdapter, D
 
     @Override
     public void onItemClick(DiveSite object, View view, int i) {
-        if (mOnRefreshTripListener != null) {
-            mOnRefreshTripListener.onDiveSiteChanged(object);
+        if (onDiveSiteChangeListener != null) {
+            onDiveSiteChangeListener.onDiveSiteChanged(object);
         }
     }
 
     @Override
     public void onItemLongClick(DiveSite object, View view, int position) {
 
+    }
+
+    public void setOnDiveSiteChangeListener(OnDiveSiteChangeListener onDiveSiteChangeListener) {
+        this.onDiveSiteChangeListener = onDiveSiteChangeListener;
+    }
+
+    public interface OnDiveSiteChangeListener {
+        void onDiveSiteChanged(DiveSite diveSite);
     }
 }

@@ -10,16 +10,16 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by kali_root on 6/6/2017.
  */
 
-public class DiveShopAddress implements Parcelable {
+public class LocationAddress implements Parcelable {
     public static final String EXTRA_DIVE_SHOP_ADDRESS = "com.divetym.dive.EXTRA_DIVE_SHOP_ADDRESS";
     private String fullAddress;
     private LatLng latLng;
 
-    public DiveShopAddress() {
+    public LocationAddress() {
 
     }
 
-    public DiveShopAddress(String fullAddress, LatLng latLng) {
+    public LocationAddress(String fullAddress, LatLng latLng) {
         this.fullAddress = fullAddress;
         this.latLng = latLng;
     }
@@ -51,20 +51,20 @@ public class DiveShopAddress implements Parcelable {
         dest.writeParcelable(this.latLng, flags);
     }
 
-    protected DiveShopAddress(Parcel in) {
+    protected LocationAddress(Parcel in) {
         this.fullAddress = in.readString();
         this.latLng = in.readParcelable(LatLng.class.getClassLoader());
     }
 
-    public static final Creator<DiveShopAddress> CREATOR = new Creator<DiveShopAddress>() {
+    public static final Creator<LocationAddress> CREATOR = new Creator<LocationAddress>() {
         @Override
-        public DiveShopAddress createFromParcel(Parcel source) {
-            return new DiveShopAddress(source);
+        public LocationAddress createFromParcel(Parcel source) {
+            return new LocationAddress(source);
         }
 
         @Override
-        public DiveShopAddress[] newArray(int size) {
-            return new DiveShopAddress[size];
+        public LocationAddress[] newArray(int size) {
+            return new LocationAddress[size];
         }
     };
 }

@@ -28,8 +28,8 @@ import xyz.sahildave.widget.SearchViewLayout;
  * Created by kali_root on 4/21/2017.
  */
 
-public class DailyTripActivity extends AuthenticatedActivity implements
-        TripListFragment.OnRefreshTripListener {
+public class DailyTripActivity extends AuthenticatedActivity implements DateRangeLayout.OnDateRangeChangeListener,
+        SearchListFragment.OnDiveSiteChangeListener {
     private static final String TAG = DailyTripActivity.class.getSimpleName();
     public static final int REQUEST_REFRESH = 1;
     @BindView(R.id.search_view_container)
@@ -50,7 +50,7 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         showBackButton(true);
 
         dateRangeLayout.setContext(this);
-        dateRangeLayout.setOnRefreshTripListener(this);
+        dateRangeLayout.setOnDateRangeChangeListener(this);
 
         mStartDate = dateRangeLayout.getStartCalendar().getTime();
         mEndDate = dateRangeLayout.getEndCalendar().getTime();
@@ -59,6 +59,8 @@ public class DailyTripActivity extends AuthenticatedActivity implements
 
 
         SearchListFragment searchListFragment = new SearchListFragment();
+        searchListFragment.setOnDiveSiteChangeListener(this);
+
         searchViewLayout.setExpandedContentFragment(this, searchListFragment);
         searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
         searchViewLayout.handleToolbarAnimation(getToolbar());
@@ -109,13 +111,13 @@ public class DailyTripActivity extends AuthenticatedActivity implements
         return super.onPrepareOptionsMenu(menu);
     }
 
+
     @Override
-    public void onDateRangedChanged(Calendar startDate, Calendar endDate) {
+    public void onDateRangeChanged(Calendar startDate, Calendar endDate) {
         mStartDate = startDate.getTime();
         mEndDate = endDate.getTime();
         refreshTripList();
     }
-
     @Override
     public void onDiveSiteChanged(DiveSite diveSite) {
         searchViewLayout.showSearchClearIcon(true);

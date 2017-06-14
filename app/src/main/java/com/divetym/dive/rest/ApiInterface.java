@@ -402,4 +402,25 @@ public interface ApiInterface {
     @DELETE("diveshops/{shopUid}/guides/{guideId}")
     Call<Response> deleteGuide(@Path("shopUid") String shopUid);
 
+    /**
+     * Get list of daily trip
+     *
+     * @param startDate
+     * @param endDate
+     * @param diveSiteId
+     * @param offset
+     * @param sort
+     * @param orderBy
+     * @return
+     */
+    @GET("trips")
+    Call<DailyTripListResponse> getTrips(
+            @Query("start_date") String startDate,
+            @Query("end_date") String endDate,
+            @Query("dive_site_id") int diveSiteId,
+            @Query("lat") double lat,
+            @Query("lng") double lng,
+            @Query("offset") int offset,
+            @Query("sort") String sort,
+            @Query("order") String orderBy);
 }

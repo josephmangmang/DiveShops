@@ -115,4 +115,14 @@
     <string name="hint_location">Location</string>
     <string name="title_select_location">Select Location</string>
     <string name="dialog_title_change_profile_cover">Change profile cover</string>
+    <string name="label_result_filter">Result filter</string>
+    <string name="hint_select_dive_shop">Select dive shop</string>
+    <string name="hint_dive_site">Dive Site</string>
+    <string name="hint_dive_shop">Dive Shop</string>
+    <string name="dummy_dive_shop_name">Seaquest</string>
+    <string name="dummy_spot_left">10 spots left</string>
+    <plurals name="remaining_slots">
+        <item quantity="one">1 spot left</item>
+        <item quantity="other">%d spots left</item>
+    </plurals>
 </resources>

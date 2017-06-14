@@ -59,8 +59,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".ui.activities.SearchMapActivity"
-            android:label="@string/title_select_location"/>
+
+        <activity
+            android:name=".ui.activities.SearchMapActivity"
+            android:label="@string/title_select_location"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".ui.activities.diver.DiverTripActivity"
+            android:label="@string/title_daily_trips" />
     </application>
 
 </manifest>

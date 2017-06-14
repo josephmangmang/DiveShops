@@ -8,6 +8,7 @@ import android.view.View;
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.event.DiveShopCourseEvent;
 import com.divetym.dive.event.DiveShopCourseListEvent;
+import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.AddCourseActivity;
 import com.divetym.dive.ui.activities.CourseDetailsActivity;
 import com.divetym.dive.ui.adapters.CourseListAdapter;
@@ -91,7 +92,7 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
     }
     @Override
     protected void requestData() {
-        mApiService.getDiveShopCourses(shopUid, offset)
+        ApiClient.getApiInterface().getDiveShopCourses(shopUid, offset)
                 .enqueue(new Callback<DiveShopCourseListResponse>() {
                     @Override
                     public void onResponse(Call<DiveShopCourseListResponse> call, Response<DiveShopCourseListResponse> response) {

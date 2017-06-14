@@ -18,9 +18,9 @@
             android:text="@string/label_start" />
 
         <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_date_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_date_start"
             android:layout_marginTop="@dimen/margin_small"
             android:text="@string/dummy_date"
             android:textColor="@color/colorAccent"
@@ -40,11 +40,11 @@
             android:text="@string/label_end" />
 
         <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_date_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
             android:text="@string/dummy_date"
-            android:id="@+id/text_date_end"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/roboto_regular_headline"
             app:typeface="roboto_regular" />

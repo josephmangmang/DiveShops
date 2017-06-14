@@ -8,6 +8,7 @@ import android.view.View;
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.event.GuideEvent;
 import com.divetym.dive.event.GuideListEvent;
+import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.AddGuideActivity;
 import com.divetym.dive.ui.activities.GuideDetailsActivity;
 import com.divetym.dive.ui.adapters.GuideListAdapter;
@@ -77,7 +78,7 @@ public class GuideListFragment extends DiveTymListFragment<GuideListAdapter, Gui
     }
     @Override
     protected void requestData() {
-        mApiService.getGuides(shopUid, offset)
+        ApiClient.getApiInterface().getGuides(shopUid, offset)
                 .enqueue(new Callback<GuideListResponse>() {
                     @Override
                     public void onResponse(Call<GuideListResponse> call, Response<GuideListResponse> response) {

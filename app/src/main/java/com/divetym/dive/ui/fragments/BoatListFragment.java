@@ -7,6 +7,7 @@ import android.view.View;
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.event.BoatListEvent;
 import com.divetym.dive.event.BoatEvent;
+import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.AddBoatActivity;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.adapters.BoatListAdapter;
@@ -76,7 +77,7 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     @Override
     protected void requestData() {
-        mApiService.getDiveShopBoats(shopUid, offset)
+        ApiClient.getApiInterface().getDiveShopBoats(shopUid, offset)
                 .enqueue(new Callback<BoatListResponse>() {
                     @Override
                     public void onResponse(Call<BoatListResponse> call, Response<BoatListResponse> response) {

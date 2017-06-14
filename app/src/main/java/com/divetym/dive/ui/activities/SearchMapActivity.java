@@ -16,9 +16,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.R;
+import com.divetym.dive.event.LocationEvent;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.adapters.AddressListAddapter;
-import com.divetym.dive.models.DiveShopAddress;
+import com.divetym.dive.models.LocationAddress;
 import com.divetym.dive.interfaces.ItemClickListener;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
@@ -31,6 +32,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -41,25 +44,36 @@ import java.util.Locale;
  */
 
 public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCallback, PlaceSelectionListener {
-    private static final int MAX_RESULTS = 5;
+    public static final String EXTRA_MAX_RESULTS = "com.divetym.time.SearchMapActivity.EXTRA_MAX_RESULTS";
+    private static int MAX_RESULTS = 5;
     private static final String TAG = SearchMapActivity.class.getSimpleName();
     private static final float DEFAULT_ZOOM = 13.0f;
     private GoogleMap mMap;
     private LatLng mSelectedLocation;
     private Geocoder mGeocoder;
-    private DiveShopAddress mDiveShopAddress;
+    private LocationAddress mLocationAddress;
+
+    public static void launch(DiveTymActivity context, int maxResults) {
+        Intent intent = new Intent(context, SearchMapActivity.class);
+        intent.putExtra(EXTRA_MAX_RESULTS, maxResults);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_map);
         getSupportActionBar().hide();
+        MAX_RESULTS = getIntent().getIntExtra(EXTRA_MAX_RESULTS, MAX_RESULTS);
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.fragment_map);
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.fragment_autocomplete);
         mGeocoder = new Geocoder(this, Locale.getDefault());
 
         if (getIntent() != null) {
-            mDiveShopAddress = getIntent().getParcelableExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS);
+            mLocationAddress = getIntent().getParcelableExtra(LocationAddress.EXTRA_DIVE_SHOP_ADDRESS);
+        }
+        if (mLocationAddress == null) {
+            mLocationAddress = new LocationAddress();
         }
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
@@ -73,13 +87,13 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (mDiveShopAddress != null && mDiveShopAddress.getFullAddress() != null) {
+        if (mLocationAddress != null && mLocationAddress.getFullAddress() != null) {
             MarkerOptions markerOption = new MarkerOptions()
-                    .position(mDiveShopAddress.getLatLng())
-                    .title(mDiveShopAddress.getFullAddress())
+                    .position(mLocationAddress.getLatLng())
+                    .title(mLocationAddress.getFullAddress())
                     .draggable(true);
             mMap.addMarker(markerOption);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDiveShopAddress.getLatLng(), DEFAULT_ZOOM));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocationAddress.getLatLng(), DEFAULT_ZOOM));
         }
         resetMapCamera();
     }
@@ -113,7 +127,33 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
         mMap.setOnMapClickListener(latLng -> {
             mSelectedLocation = latLng;
             try {
-                showAddressSelectionDialog(mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, MAX_RESULTS));
+                if (MAX_RESULTS == 1) {
+                    mMap.clear();
+                    List<Address> fromLocation = mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, 1);
+                    if (fromLocation.size() == 0) {
+                        return;
+                    }
+                    Address address = fromLocation.get(0);
+                    int addressIndex = address.getMaxAddressLineIndex() + 1;
+                    StringBuilder fulladdress = new StringBuilder();
+                    for (int i = 0; i < addressIndex; i++) {
+                        if (address.getAddressLine(i).equals("Unnamed Road")) {
+                            continue;
+                        }
+                        fulladdress.append(address.getAddressLine(i));
+                        fulladdress.append(", ");
+                    }
+                    fulladdress.delete(fulladdress.length() - 2, fulladdress.length());
+                    mLocationAddress.setFullAddress(fulladdress.toString());
+                    mLocationAddress.setLatLng(latLng);
+                    MarkerOptions markerOption = new MarkerOptions()
+                            .position(mLocationAddress.getLatLng())
+                            .title(mLocationAddress.getFullAddress());
+                    mMap.addMarker(markerOption);
+                    notifyLocationChanged();
+                } else {
+                    showAddressSelectionDialog(mGeocoder.getFromLocation(mSelectedLocation.latitude, mSelectedLocation.longitude, MAX_RESULTS));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -123,22 +163,22 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
     private void showAddressSelectionDialog(List<Address> addresses) {
         AddressListAddapter adapter = new AddressListAddapter(this, addresses);
         final AlertDialog listDialog = new AlertDialog.Builder(this).create();
-        adapter.setItemClickListener(new ItemClickListener<DiveShopAddress>() {
+        adapter.setItemClickListener(new ItemClickListener<LocationAddress>() {
             @Override
-            public void onItemClick(DiveShopAddress diveShopAddress, View view, int i) {
+            public void onItemClick(LocationAddress diveShopAddress, View view, int i) {
                 mMap.clear();
                 diveShopAddress.setLatLng(mSelectedLocation);
                 MarkerOptions markerOption = new MarkerOptions()
                         .position(diveShopAddress.getLatLng())
-                        .title(diveShopAddress.getFullAddress())
-                        .draggable(true);
+                        .title(diveShopAddress.getFullAddress());
                 mMap.addMarker(markerOption);
                 listDialog.dismiss();
 
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(diveShopAddress.getLatLng(), DEFAULT_ZOOM));
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra(DiveShopAddress.EXTRA_DIVE_SHOP_ADDRESS, diveShopAddress);
+                resultIntent.putExtra(LocationAddress.EXTRA_DIVE_SHOP_ADDRESS, diveShopAddress);
                 setResult(RESULT_OK, resultIntent);
+                notifyLocationChanged();
             }
         });
         listDialog.setTitle(R.string.dialog_title_select_address);
@@ -157,7 +197,22 @@ public class SearchMapActivity extends DiveTymActivity implements OnMapReadyCall
     public void onPlaceSelected(Place place) {
         if (mMap != null) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), DEFAULT_ZOOM));
+            if (MAX_RESULTS == 1) {
+                mMap.clear();
+                mLocationAddress.setFullAddress((String) place.getAddress());
+                mLocationAddress.setLatLng(place.getLatLng());
+                MarkerOptions markerOption = new MarkerOptions()
+                        .position(mLocationAddress.getLatLng())
+                        .title(mLocationAddress.getFullAddress())
+                        .draggable(true);
+                mMap.addMarker(markerOption);
+                notifyLocationChanged();
+            }
         }
+    }
+
+    private void notifyLocationChanged() {
+        EventBus.getDefault().postSticky(new LocationEvent(mLocationAddress));
     }
 
     @Override

@@ -14,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.divetym.dive.R;
+import com.divetym.dive.common.SessionManager;
+import com.divetym.dive.models.User;
+import com.divetym.dive.ui.activities.DiveShopActivity;
+import com.divetym.dive.ui.activities.diver.DiverTripActivity;
 
 /**
  * Created by kali_root on 3/25/2017.
@@ -97,5 +101,16 @@ public class DiveTymActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void switchScreen() {
+        if (SessionManager.getInstance(this).isLogin()) {
+            if (SessionManager.getInstance(this).getAccountType() == User.AccountType.Dive_Shop) {
+                startActivity(new Intent(this, DiveShopActivity.class));
+            } else {
+                startActivity(new Intent(this, DiverTripActivity.class));
+            }
+            finish();
+        }
     }
 }

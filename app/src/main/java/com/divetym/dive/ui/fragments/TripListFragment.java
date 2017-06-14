@@ -1,6 +1,5 @@
 package com.divetym.dive.ui.fragments;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -12,22 +11,22 @@ import android.view.View;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
+import com.divetym.dive.common.SortOption;
+import com.divetym.dive.models.DailyTrip;
+import com.divetym.dive.models.DiveSite;
+import com.divetym.dive.models.response.DailyTripListResponse;
+import com.divetym.dive.models.response.Response;
+import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.ModifyTripActivity;
 import com.divetym.dive.ui.activities.TripDetailsActivity;
 import com.divetym.dive.ui.activities.common.Mode;
 import com.divetym.dive.ui.adapters.TripListAdapter;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
-import com.divetym.dive.common.SortOption;
 import com.divetym.dive.ui.fragments.base.DiveTymListFragment;
-import com.divetym.dive.models.DailyTrip;
-import com.divetym.dive.models.DiveSite;
-import com.divetym.dive.models.response.DailyTripListResponse;
-import com.divetym.dive.models.response.Response;
-import com.divetym.dive.utils.DateUtils;
 import com.divetym.dive.ui.view.ToastAlert;
+import com.divetym.dive.utils.DateUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -65,11 +64,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         return fragment;
     }
 
-    public interface OnRefreshTripListener {
-        void onDateRangedChanged(Calendar startDate, Calendar endDate);
 
-        void onDiveSiteChanged(DiveSite diveSite);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -160,7 +155,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         for (int i = 0; i < dailyTrips.size(); i++) {
             dailyTripIds.add(dailyTrips.get(i).getDailyTripId());
         }
-        mApiService.deleteDiveShopTrips(shopUid, dailyTripIds)
+        ApiClient.getApiInterface().deleteDiveShopTrips(shopUid, dailyTripIds)
                 .enqueue(new Callback<Response>() {
                     @Override
                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -201,7 +196,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     }
 
     private void requestDiveShopTrips() {
-        mApiService.getDiveShopTrips(shopUid, mDiveSiteId, startDate, endDate,
+        ApiClient.getApiInterface().getDiveShopTrips(shopUid, mDiveSiteId, startDate, endDate,
                 offset, mSortOption.getSort().name(), mSortOption.getOrder().name())
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
