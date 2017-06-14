@@ -30,19 +30,14 @@ public class DiverTripFragment extends DiveTymListFragment<DiverTripAdapter, Dai
     private static final String TAG = DiverTripFragment.class.getSimpleName();
     private String mStartDate;
     private String mEndDate;
-    private LatLng mLocationLatLng;
     private int mDiveSiteId;
     private boolean reset;
-    private SortOption mSortOption;
+    private LatLng mLocationLatLng = new LatLng(0, 0);
+    private SortOption mSortOption = new SortOption(SortOption.Order.date, SortOption.Sort.ASC);
 
     @Override
     protected void onFabClicked() {
 
-    }
-
-    public DiverTripFragment() {
-        mSortOption = new SortOption(SortOption.Order.date, SortOption.Sort.ASC);
-        mLocationLatLng = new LatLng(0, 0);
     }
 
     @Override

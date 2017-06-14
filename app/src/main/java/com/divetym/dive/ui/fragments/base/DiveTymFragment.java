@@ -17,17 +17,16 @@ public class DiveTymFragment extends Fragment {
     protected DiveTymActivity mContext;
     protected SessionManager mSessionManager;
 
+    public DiveTymFragment() {
+        mSessionManager = SessionManager.getInstance(mContext);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = (DiveTymActivity) context;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mSessionManager = SessionManager.getInstance(mContext);
-    }
     protected void showToastAlert(String message) {
         new ToastAlert(mContext)
                 .setMessage(message)

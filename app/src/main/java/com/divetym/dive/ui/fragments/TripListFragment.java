@@ -25,6 +25,7 @@ import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymListFragment;
 import com.divetym.dive.ui.view.ToastAlert;
 import com.divetym.dive.utils.DateUtils;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,39 +47,16 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     public static final String TAG = TripListFragment.class.getSimpleName();
     private static final String BUNDLE_START_DATE = "bundle_start_date";
     private static final String BUNDLE_END_DATE = "bundle_end_date";
-    private String startDate;
-    private String endDate;
+    private String mStartDate;
+    private String mEndDate;
+    private SortOption mSortOption = new SortOption(Order.date, Sort.ASC);
     private int mDiveSiteId;
     private boolean reset;
-    private DiveSite mSelectedDiveSite;
-    private Date mStartDate;
-    private Date mEndDate;
-    private SortOption mSortOption;
-
-    public static TripListFragment getInstance(Date startDate, Date endDate) {
-        TripListFragment fragment = new TripListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putLong(BUNDLE_START_DATE, startDate.getTime());
-        bundle.putLong(BUNDLE_END_DATE, endDate.getTime());
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Bundle args = getArguments();
-        long startDate = args.getLong(BUNDLE_START_DATE);
-        long endDate = args.getLong(BUNDLE_END_DATE);
-        mDiveSiteId = -1;
-        mStartDate = new Date(startDate);
-        mEndDate = new Date(endDate);
-        this.startDate = DateUtils.formatServerDate(mStartDate);
-        this.endDate = DateUtils.formatServerDate(mEndDate);
-        mSortOption = new SortOption(Order.date, Sort.ASC);
     }
 
     @Override
@@ -132,7 +110,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         }
         if (refresh) {
             item.setChecked(true);
-            refreshTripList(mSelectedDiveSite, mStartDate, mEndDate);
+            refreshTripList(mStartDate, mEndDate, mDiveSiteId);
             return true;
         }
         return false;
@@ -170,7 +148,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
                                         .show();
                             }
                         }
-                        refreshTripList(mSelectedDiveSite, mStartDate, mEndDate);
+                        refreshTripList(mStartDate, mEndDate, mDiveSiteId);
                     }
 
                     @Override
@@ -196,7 +174,7 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
     }
 
     private void requestDiveShopTrips() {
-        ApiClient.getApiInterface().getDiveShopTrips(shopUid, mDiveSiteId, startDate, endDate,
+        ApiClient.getApiInterface().getDiveShopTrips(shopUid, mDiveSiteId, mStartDate, mEndDate,
                 offset, mSortOption.getSort().name(), mSortOption.getOrder().name())
                 .enqueue(new Callback<DailyTripListResponse>() {
                     @Override
@@ -225,20 +203,17 @@ public class TripListFragment extends DiveTymListFragment<TripListAdapter, Daily
         reset = false;
         super.onLoadMore(totalItemCount);
     }
-
-    public void refreshTripList(@Nullable DiveSite diveSite, Date startDate, Date endDate) {
-        mSelectedDiveSite = diveSite;
-        mStartDate = startDate;
-        mEndDate = endDate;
+    public void refresh(){
         offset = 0;
         reset = true;
-        if (diveSite != null) {
-            mDiveSiteId = diveSite.getDiveSiteId();
-        } else {
-            mDiveSiteId = -1;
-        }
-        this.startDate = DateUtils.formatServerDate(startDate);
-        this.endDate = DateUtils.formatServerDate(endDate);
+        requestData();
+    }
+    public void refreshTripList(String startDate, String endDate, int diveSiteId) {
+        mStartDate = startDate;
+        mEndDate = endDate;
+        mDiveSiteId = diveSiteId;
+        offset = 0;
+        reset = true;
         requestData();
     }
 

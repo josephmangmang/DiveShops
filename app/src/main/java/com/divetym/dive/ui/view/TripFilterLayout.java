@@ -143,6 +143,14 @@ public class TripFilterLayout extends CardView {
         mContext = context;
     }
 
+    public void showLocationFilter(boolean show) {
+        locationEditText.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    public void showSiteFilter(boolean show) {
+        diveSiteEditText.setVisibility(show ? VISIBLE : GONE);
+    }
+
     public Date getStartDate() {
         return dateRangeLayout.getStartCalendar().getTime();
     }

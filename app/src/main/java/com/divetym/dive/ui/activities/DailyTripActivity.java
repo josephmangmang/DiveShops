@@ -12,6 +12,9 @@ import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
 import com.divetym.dive.ui.fragments.SearchListFragment;
 import com.divetym.dive.ui.fragments.TripListFragment;
 import com.divetym.dive.ui.view.DateRangeLayout;
+import com.divetym.dive.ui.view.TripFilterLayout;
+import com.divetym.dive.utils.DateUtils;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,19 +31,19 @@ import xyz.sahildave.widget.SearchViewLayout;
  * Created by kali_root on 4/21/2017.
  */
 
-public class DailyTripActivity extends AuthenticatedActivity implements DateRangeLayout.OnDateRangeChangeListener,
-        SearchListFragment.OnDiveSiteChangeListener {
+public class DailyTripActivity extends AuthenticatedActivity {
     private static final String TAG = DailyTripActivity.class.getSimpleName();
     public static final int REQUEST_REFRESH = 1;
-    @BindView(R.id.search_view_container)
-    SearchViewLayout searchViewLayout;
-    @BindView(R.id.layout_date_range)
-    DateRangeLayout dateRangeLayout;
-
-    private DiveSite mSelectedDiveSite;
+    @BindView(R.id.trip_filter_layout)
+    TripFilterLayout mTripFilterLayout;
     private TripListFragment mFragment;
-    private Date mStartDate;
-    private Date mEndDate;
+
+    private TripFilterLayout.OnFilterChangeListener onFilterChangeListener = (startDate, endDate, locationAddress, diveSite) -> {
+        mFragment.refreshTripList(
+                DateUtils.formatServerDate(startDate),
+                DateUtils.formatServerDate(endDate),
+                diveSite != null ? diveSite.getDiveSiteId() : -1);
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,45 +52,13 @@ public class DailyTripActivity extends AuthenticatedActivity implements DateRang
         ButterKnife.bind(this);
         showBackButton(true);
 
-        dateRangeLayout.setContext(this);
-        dateRangeLayout.setOnDateRangeChangeListener(this);
-
-        mStartDate = dateRangeLayout.getStartCalendar().getTime();
-        mEndDate = dateRangeLayout.getEndCalendar().getTime();
-
-        mFragment = initFragment(R.id.content, TripListFragment.getInstance(mStartDate, mEndDate));
-
-
-        SearchListFragment searchListFragment = new SearchListFragment();
-        searchListFragment.setOnDiveSiteChangeListener(this);
-
-        searchViewLayout.setExpandedContentFragment(this, searchListFragment);
-        searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
-        searchViewLayout.handleToolbarAnimation(getToolbar());
-        searchViewLayout.setSearchListener(searchListFragment);
-        searchViewLayout.setSearchClearOnClickListener(view -> {
-            searchViewLayout.showSearchClearIcon(false);
-            mSelectedDiveSite = null;
-            searchViewLayout.setHint(getString(R.string.hint_select_dive_site));
-            refreshTripList();
-        });
-        searchViewLayout.setOnToggleAnimationListener(new SearchViewLayout.OnToggleAnimationListener() {
-            @Override
-            public void onStart(boolean expanding) {
-                if (expanding) {
-                    mFragment.showFab(false);
-                    if (mSelectedDiveSite != null)
-                        searchViewLayout.setExpandedText(mSelectedDiveSite.getName());
-                } else {
-                    mFragment.showFab(true);
-                }
-            }
-
-            @Override
-            public void onFinish(boolean expanded) {
-
-            }
-        });
+        mTripFilterLayout.setOnFilterChangeListener(onFilterChangeListener);
+        mTripFilterLayout.showLocationFilter(false);
+        mFragment = initFragment(R.id.content, new TripListFragment());
+        mFragment.refreshTripList(
+                DateUtils.formatServerDate(mTripFilterLayout.getStartDate()),
+                DateUtils.formatServerDate(mTripFilterLayout.getEndDate()),
+                -1);
     }
 
     @Override
@@ -112,31 +83,12 @@ public class DailyTripActivity extends AuthenticatedActivity implements DateRang
     }
 
 
-    @Override
-    public void onDateRangeChanged(Calendar startDate, Calendar endDate) {
-        mStartDate = startDate.getTime();
-        mEndDate = endDate.getTime();
-        refreshTripList();
-    }
-    @Override
-    public void onDiveSiteChanged(DiveSite diveSite) {
-        searchViewLayout.showSearchClearIcon(true);
-        mSelectedDiveSite = diveSite;
-        searchViewLayout.collapse();
-        searchViewLayout.setCollapsedHint(diveSite.getName());
-        refreshTripList();
-    }
-
-    private void refreshTripList() {
-        if (mFragment != null) {
-            mFragment.refreshTripList(mSelectedDiveSite, mStartDate, mEndDate);
-        }
-    }
-
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onDailyTripChanged(DailyTripEvent event) {
         Log.d(TAG, "onDailyTripChanged: " + event);
-        refreshTripList();
+        if (mFragment != null) {
+            mFragment.refresh();
+        }
         EventBus.getDefault().removeStickyEvent(event);
     }
 }

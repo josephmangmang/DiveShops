@@ -55,6 +55,10 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected String shopUid;
     protected boolean showAddButton;
 
+    public DiveTymListFragment() {
+        shopUid = mSessionManager.getDiveShopUid();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +74,6 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
             mDataList = new ArrayList<>();
         }
         mLayoutManager = new LinearLayoutManager(mContext);
-        shopUid = mSessionManager.getDiveShopUid();
     }
 
     @Nullable
