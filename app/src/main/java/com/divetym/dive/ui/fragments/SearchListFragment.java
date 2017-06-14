@@ -6,7 +6,6 @@ import android.view.View;
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.rest.ApiClient;
-import com.divetym.dive.ui.activities.DailyTripActivity;
 import com.divetym.dive.ui.adapters.SearchListAdapter;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymListFragment;

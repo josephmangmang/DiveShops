@@ -7,36 +7,28 @@ import android.view.Menu;
 
 import com.divetym.dive.R;
 import com.divetym.dive.event.DailyTripEvent;
-import com.divetym.dive.models.DiveSite;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
-import com.divetym.dive.ui.fragments.SearchListFragment;
-import com.divetym.dive.ui.fragments.TripListFragment;
-import com.divetym.dive.ui.view.DateRangeLayout;
+import com.divetym.dive.ui.fragments.DiveShopTripFragment;
 import com.divetym.dive.ui.view.TripFilterLayout;
 import com.divetym.dive.utils.DateUtils;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import xyz.sahildave.widget.SearchViewLayout;
 
 /**
  * Created by kali_root on 4/21/2017.
  */
 
-public class DailyTripActivity extends AuthenticatedActivity {
-    private static final String TAG = DailyTripActivity.class.getSimpleName();
+public class DiveShopTripActivity extends AuthenticatedActivity {
+    private static final String TAG = DiveShopTripActivity.class.getSimpleName();
     public static final int REQUEST_REFRESH = 1;
     @BindView(R.id.trip_filter_layout)
     TripFilterLayout mTripFilterLayout;
-    private TripListFragment mFragment;
+    private DiveShopTripFragment mFragment;
 
     private TripFilterLayout.OnFilterChangeListener onFilterChangeListener = (startDate, endDate, locationAddress, diveSite) -> {
         mFragment.refreshTripList(
@@ -54,7 +46,7 @@ public class DailyTripActivity extends AuthenticatedActivity {
 
         mTripFilterLayout.setOnFilterChangeListener(onFilterChangeListener);
         mTripFilterLayout.showLocationFilter(false);
-        mFragment = initFragment(R.id.content, new TripListFragment());
+        mFragment = initFragment(R.id.content, new DiveShopTripFragment());
         mFragment.refreshTripList(
                 DateUtils.formatServerDate(mTripFilterLayout.getStartDate()),
                 DateUtils.formatServerDate(mTripFilterLayout.getEndDate()),

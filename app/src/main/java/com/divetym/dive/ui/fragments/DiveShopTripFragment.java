@@ -13,7 +13,6 @@ import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.common.SortOption;
 import com.divetym.dive.models.DailyTrip;
-import com.divetym.dive.models.DiveSite;
 import com.divetym.dive.models.response.DailyTripListResponse;
 import com.divetym.dive.models.response.Response;
 import com.divetym.dive.rest.ApiClient;
@@ -24,11 +23,8 @@ import com.divetym.dive.ui.adapters.TripListAdapter;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymListFragment;
 import com.divetym.dive.ui.view.ToastAlert;
-import com.divetym.dive.utils.DateUtils;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,9 +38,9 @@ import static com.divetym.dive.common.SortOption.Sort;
  * Created by kali_root on 4/22/2017.
  */
 
-public class TripListFragment extends DiveTymListFragment<TripListAdapter, DailyTrip, DailyTripListResponse>
+public class DiveShopTripFragment extends DiveTymListFragment<TripListAdapter, DailyTrip, DailyTripListResponse>
         implements BaseRecyclerAdapter.MultiSelectListener {
-    public static final String TAG = TripListFragment.class.getSimpleName();
+    public static final String TAG = DiveShopTripFragment.class.getSimpleName();
     private static final String BUNDLE_START_DATE = "bundle_start_date";
     private static final String BUNDLE_END_DATE = "bundle_end_date";
     private String mStartDate;

@@ -15,21 +15,16 @@ import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.event.BoatListEvent;
-import com.divetym.dive.event.CourseEvent;
 import com.divetym.dive.event.DiveShopCourseEvent;
 import com.divetym.dive.event.DiveShopCourseListEvent;
 import com.divetym.dive.event.DiveShopEvent;
 import com.divetym.dive.event.GuideEvent;
 import com.divetym.dive.event.GuideListEvent;
-import com.divetym.dive.models.Boat;
-import com.divetym.dive.models.Course;
-import com.divetym.dive.models.DiveShopCourse;
-import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
 import com.divetym.dive.ui.activities.CourseListActivity;
 import com.divetym.dive.ui.activities.CourseDetailsActivity;
-import com.divetym.dive.ui.activities.DailyTripActivity;
+import com.divetym.dive.ui.activities.DiveShopTripActivity;
 import com.divetym.dive.ui.activities.DiveShopActivity;
 import com.divetym.dive.ui.activities.EditDiveShopActivity;
 import com.divetym.dive.ui.activities.GuideDetailsActivity;
@@ -51,16 +46,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by kali_root on 4/5/2017.
@@ -95,7 +86,7 @@ public class DiveShopFragment extends DiveTymFragment {
 
     @OnClick(R.id.button_view_daily_trips)
     public void onViewDailyTrip() {
-        startActivity(new Intent(mContext, DailyTripActivity.class));
+        startActivity(new Intent(mContext, DiveShopTripActivity.class));
     }
 
     private View.OnClickListener mPreviewCoursesMoreClickListener = new View.OnClickListener() {

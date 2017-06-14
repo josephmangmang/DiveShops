@@ -41,7 +41,7 @@ public class TripDetailsActivity extends AuthenticatedActivity {
     public static void launch(DiveTymActivity context, DailyTrip dailyTrip) {
         Intent intent = new Intent(context, TripDetailsActivity.class);
         intent.putExtra(EXTRA_DAILY_TRIP, dailyTrip);
-        context.startActivityForResult(intent, DailyTripActivity.REQUEST_REFRESH);
+        context.startActivityForResult(intent, DiveShopTripActivity.REQUEST_REFRESH);
     }
 
     @Override
