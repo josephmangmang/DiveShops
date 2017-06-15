@@ -56,28 +56,6 @@ public class DiverDiveShopFragment extends DiveTymFragment {
     @BindView(R.id.info_layout_special_service)
     InfoLayout infoSpecialService;
 
-    private void loadDiveShopData() {
-        if (mDiveShop == null) return;
-        GlideApp.with(mContext)
-                .load(null)// TODO: 6/15/2017 add mapshopshot on diveshop data
-                .placeholder(R.drawable.dummy_image_preview)
-                .error(R.drawable.dummy_image_error)
-                .thumbnail(0.1f)
-                .into(mapSnapshotImage);
-
-        ratingMarkText.setText("9.2 Excellent");
-        numberOfReviewText.setText("193 reviews");
-        addressText.setText(mDiveShop.getAddress());
-        currencyText.setText("PHP");// TODO: 6/15/2017 mapsnapshot, curreny helper,  moneyutils
-        priceText.setText(mDiveShop.getPricePerDive().toString());
-
-        infoDescription.setInfoBody(mDiveShop.getDescription());
-        infoSpecialService.setInfoBody(mDiveShop.getSpecialService());
-
-        previewCourses.setPreviewList(mDiveShop.getCoursePreviews(false));
-        previewBoats.setPreviewList(mDiveShop.getBoatPreviews(false));
-        previewGuide.setGuides(mDiveShop.getGuides());
-    }
 
     @OnClick(R.id.button_view_daily_trips)
     public void onViewDailyTripClick() {
@@ -112,6 +90,28 @@ public class DiverDiveShopFragment extends DiveTymFragment {
         ButterKnife.bind(this, view);
         loadDiveShopData();
         return view;
+    }
+    private void loadDiveShopData() {
+        if (mDiveShop == null) return;
+        GlideApp.with(mContext)
+                .load(null)// TODO: 6/15/2017 add mapshopshot on diveshop data
+                .placeholder(R.drawable.dummy_image_preview)
+                .error(R.drawable.dummy_image_error)
+                .thumbnail(0.1f)
+                .into(mapSnapshotImage);
+
+        ratingMarkText.setText("9.2 Excellent");
+        numberOfReviewText.setText("193 reviews");
+        addressText.setText(mDiveShop.getAddress());
+        currencyText.setText("PHP");// TODO: 6/15/2017 mapsnapshot, curreny helper,  moneyutils
+        priceText.setText(mDiveShop.getPricePerDive().toString() + "/Dive");
+
+        infoDescription.setInfoBody(mDiveShop.getDescription());
+        infoSpecialService.setInfoBody(mDiveShop.getSpecialService());
+
+        previewCourses.setPreviewList(mDiveShop.getCoursePreviews(false));
+        previewBoats.setPreviewList(mDiveShop.getBoatPreviews(false));
+        previewGuide.setGuides(mDiveShop.getGuides());
     }
 
 }
