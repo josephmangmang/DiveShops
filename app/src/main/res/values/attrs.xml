@@ -46,5 +46,8 @@
     <declare-styleable name="ListPreviewLayout">
         <attr name="title" />
     </declare-styleable>
+    <declare-styleable name="InfoLayout">
+        <attr name="title" />
+    </declare-styleable>
     <attr name="title" format="string" />
 </resources>

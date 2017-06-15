@@ -3,13 +3,16 @@ package com.divetym.dive.ui.activities.diver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import com.divetym.dive.R;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.fragments.diver.DiverTripDetailsFragment;
 import com.divetym.dive.ui.view.ImageSlider;
+import com.divetym.dive.ui.view.ToastAlert;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,13 +30,16 @@ public class DiverTripDetailsActivity extends DiveTymActivity {
     ImageSlider mImageSlider;
 
     @OnClick(R.id.fab)
-    public void onFavoriteButtonClick() {
+    public void onFavoriteButtonClick(View view) {
         Log.d(TAG, "onFavoriteButtonClick: ");
+        Snackbar.make(view, "Favorite button click!", Snackbar.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.button_book_now)
-    public void onBookClick() {
+    public void onBookClick(View view) {
         Log.d(TAG, "onBookClick: ");
+        Snackbar.make(view, "Book button click!", Snackbar.LENGTH_LONG)
+                .show();
     }
 
     public static void launch(DiveTymActivity context, DailyTrip dailyTrip) {

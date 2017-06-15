@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.divetym.dive.R;
 import com.divetym.dive.interfaces.ItemClickListener;
@@ -18,6 +19,7 @@ import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
 import com.divetym.dive.ui.activities.GuideDetailsActivity;
 import com.divetym.dive.ui.activities.GuideListActivity;
+import com.divetym.dive.ui.activities.diver.DiverDiveShopActivity;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.ui.view.GuidePreviewLayout;
@@ -26,6 +28,7 @@ import com.divetym.dive.ui.view.RobotoTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.divetym.dive.ui.activities.diver.DiverTripDetailsActivity.EXTRA_DAILY_TRIP;
 
@@ -53,6 +56,13 @@ public class DiverTripDetailsFragment extends DiveTymFragment {
     ListPreviewLayout boatPreviewLayout;
     @BindView(R.id.preview_guides)
     GuidePreviewLayout guidePreviewLayout;
+
+    @OnClick(R.id.text_dive_shop)
+    public void onDiveShopNameClick() {
+        DiverDiveShopActivity.launch(mContext, mDailyTrip.getDiveShopUid());
+    }
+
+
     private BaseRecyclerAdapter.ItemClickListener<ListPreview> mBoatPreviewClickListener = new ItemClickListener<ListPreview>() {
         @Override
         public void onItemClick(ListPreview object, View view, int i) {

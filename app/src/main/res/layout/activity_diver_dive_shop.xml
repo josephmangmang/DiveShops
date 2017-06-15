@@ -2,9 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include layout="@layout/view_toolbar_with_image_slider" />
 
@@ -13,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_gravity="center"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -23,13 +29,4 @@
         app:layout_anchor="@+id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
-
-    <Button
-        android:id="@+id/button_book_now"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="@dimen/margin_tiny"
-        android:text="@string/action_book_now" />
 </android.support.design.widget.CoordinatorLayout>

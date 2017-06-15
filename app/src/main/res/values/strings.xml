@@ -130,6 +130,11 @@
     <string name="DateUtils_minutes_ago">%d min</string>
     <string name="DateUtils_today">Today</string>
     <string name="DateUtils_yesterday">Yesterday</string>
+    <string name="dummy_address">Alona, Panglao, Bohol, Philippines</string>
+    <string name="action_show_more">Show more</string>
+    <string name="title_shop_description">Shop Description</string>
+    <string name="error_something_wrong">Oops. Something went wrong. Please try again.</string>
+    <string name="retry">Retry</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">

@@ -18,6 +18,14 @@ public class ThumbnailEntity implements Parcelable {
     @SerializedName(ApiConstant.IMAGE)
     protected String imageUrl;
 
+    public ThumbnailEntity() {
+    }
+
+    public ThumbnailEntity(String name, String imageUrl) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+    }
+
     public String getName() {
         return name;
     }
@@ -34,8 +42,6 @@ public class ThumbnailEntity implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
-    public ThumbnailEntity() {
-    }
 
     @Override
     public boolean equals(Object obj) {

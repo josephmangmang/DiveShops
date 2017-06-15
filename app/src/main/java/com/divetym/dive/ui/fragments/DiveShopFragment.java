@@ -60,7 +60,7 @@ import retrofit2.Response;
 public class DiveShopFragment extends DiveTymFragment {
     private static final String TAG = DiveShopFragment.class.getSimpleName();
     public static final int REQUEST_UPDATE = 1;
-    public static final String EXTRA_DIVE_SHOP = "com.divetym.dive.EXTRA_DIVE_SHOP";
+    public static final String EXTRA_DIVE_SHOP = "com.divetym.dive.EXTRA_DIVE_SHOP_UID";
     @BindView(R.id.text_description)
     RobotoTextView descriptionTextView;
     @BindView(R.id.text_price_per_dive)

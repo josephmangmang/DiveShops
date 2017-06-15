@@ -31,7 +31,7 @@
                     app:typeface="roboto_bold"
                     tools:text="Seaquest" />
 
-                <android.support.v7.widget.AppCompatRatingBar
+                <RatingBar
                     android:id="@+id/rating"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"

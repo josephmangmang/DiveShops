@@ -39,4 +39,5 @@
     <dimen name="roboto_button_medium">@dimen/button</dimen>
     <dimen name="toolbar_image_height">230dp</dimen>
     <dimen name="toolbar_extended_height">128dp</dimen>
+    <dimen name="map_snapshot_height">160dp</dimen>
 </resources>

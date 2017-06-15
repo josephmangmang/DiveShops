@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_medium"
+                android:paddingTop="@dimen/margin_medium">
+
+
+                <RatingBar
+                    android:id="@+id/rating"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:rating="4.5" />
+
+                <LinearLayout
+                    android:id="@+id/layout_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.divetym.dive.ui.view.RobotoTextView
+                        android:id="@+id/text_rating_mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/blue_400"
+                        app:typeface="roboto_light"
+                        tools:text="9.2 Excellent" />
+
+                    <com.divetym.dive.ui.view.RobotoTextView
+                        android:id="@+id/text_number_of_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                        android:gravity="center_vertical"
+                        app:typeface="roboto_light"
+                        tools:text="239 reviews" />
+                </LinearLayout>
+
+                <com.divetym.dive.ui.view.RobotoTextView
+                    android:id="@+id/text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:textSize="@dimen/roboto_title_medium"
+                    app:typeface="roboto_regular"
+                    tools:text="@string/dummy_address" />
+
+                <ImageView
+                    android:id="@+id/image_map_snapshot"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/map_snapshot_height"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/dummy_image_preview" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium">
+
+                    <com.divetym.dive.ui.view.RobotoTextView
+                        android:id="@+id/text_price_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:textColor="@color/blue_700"
+                        android:textSize="@dimen/roboto_caption_regular"
+                        app:typeface="roboto_light"
+                        tools:text="PHP" />
+
+                    <com.divetym.dive.ui.view.RobotoTextView
+                        android:id="@+id/text_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:textColor="@color/blue_700"
+                        android:textSize="@dimen/roboto_title_medium"
+                        app:typeface="roboto_light"
+                        tools:text="1,200.00/Dive" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/button_view_daily_trips"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/action_view_daily_trips" />
+
+        <com.divetym.dive.ui.view.ListPreviewLayout
+            android:id="@+id/preview_courses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:title="@string/title_courses" />
+
+        <com.divetym.dive.ui.view.ListPreviewLayout
+            android:id="@+id/preview_boats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:title="@string/title_boats" />
+
+        <com.divetym.dive.ui.view.InfoLayout
+            android:id="@+id/info_layout_shop_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
+            app:title="@string/title_shop_description" />
+
+        <com.divetym.dive.ui.view.GuidePreviewLayout
+            android:id="@+id/preview_guides"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:title="@string/title_guides" />
+
+        <com.divetym.dive.ui.view.InfoLayout
+            android:id="@+id/info_layout_special_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_huge"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
+            app:title="@string/title_special_service" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
