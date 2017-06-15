@@ -19,7 +19,7 @@ import java.util.List;
  * Created by kali_root on 4/6/2017.
  */
 
-public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewHolder, ListPreview> {
+public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewAdapter.ListPreviewHolder, ListPreview> {
     private static final String TAG = ListPreviewAdapter.class.getSimpleName();
 
     public ListPreviewAdapter(DiveTymActivity context, List<ListPreview> previewItems) {
@@ -40,37 +40,38 @@ public class ListPreviewAdapter extends BaseRecyclerAdapter<ListPreviewHolder, L
         holder.mItemClickListener = mItemClickListener;
         holder.setData(preview.getTitle(), preview.getSubtitle(), preview.getAction(), preview.getImageUrl());
     }
-}
 
-class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
-    ImageView thumbnail;
-    RobotoTextView title;
-    RobotoTextView subtitle;
-    RobotoTextView btnAction;
+    static class ListPreviewHolder extends DiveTymViewHolder<ListPreview> {
+        ImageView thumbnail;
+        RobotoTextView title;
+        RobotoTextView subtitle;
+        RobotoTextView btnAction;
 
-    public ListPreviewHolder(DiveTymActivity context, View view) {
-        super(context, view);
-        title = (RobotoTextView) view.findViewById(R.id.text_preview_item_title);
-        subtitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_subtitle);
-        thumbnail = (ImageView) view.findViewById(R.id.image_preview_background);
-        btnAction = (RobotoTextView) view.findViewById(R.id.text_button_preview_item_action);
-        btnAction.setOnClickListener(this);
-        view.setOnClickListener(this);
-    }
-
-    public void setData(String title, String subtitle, String action, String imageUrl) {
-        this.title.setText(title);
-        this.subtitle.setText(subtitle);
-        this.btnAction.setText(action);
-        if(TextUtils.isEmpty(action)){
-            this.btnAction.setVisibility(View.GONE);
+        public ListPreviewHolder(DiveTymActivity context, View view) {
+            super(context, view);
+            title = (RobotoTextView) view.findViewById(R.id.text_preview_item_title);
+            subtitle = (RobotoTextView) view.findViewById(R.id.text_preview_item_subtitle);
+            thumbnail = (ImageView) view.findViewById(R.id.image_preview_background);
+            btnAction = (RobotoTextView) view.findViewById(R.id.text_button_preview_item_action);
+            btnAction.setOnClickListener(this);
+            view.setOnClickListener(this);
         }
-        GlideApp.with(mContext)
-                .load(imageUrl)
-                .thumbnail(0.1f)
-                .error(R.drawable.dummy_image_error)
-                .placeholder(R.drawable.dummy_image_preview)
-                .into(thumbnail);
-    }
 
+        public void setData(String title, String subtitle, String action, String imageUrl) {
+            this.title.setText(title);
+            this.subtitle.setText(subtitle);
+            this.btnAction.setText(action);
+            if(TextUtils.isEmpty(action)){
+                this.btnAction.setVisibility(View.GONE);
+            }
+            GlideApp.with(mContext)
+                    .load(imageUrl)
+                    .thumbnail(0.1f)
+                    .error(R.drawable.dummy_image_error)
+                    .placeholder(R.drawable.dummy_image_preview)
+                    .into(thumbnail);
+        }
+
+    }
 }
+

@@ -38,15 +38,16 @@ public class SearchListAdapter extends EndlessListAdapter<DiveSite> {
         holder.mItemClickListener = mItemClickListener;
         holder.title.setText(holder.mData.getName());
     }
-}
 
-class SearchHolder extends DiveTymViewHolder<DiveSite> {
+    static class SearchHolder extends DiveTymViewHolder<DiveSite> {
 
-    RobotoTextView title;
+        RobotoTextView title;
 
-    public SearchHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        title = (RobotoTextView) itemView.findViewById(R.id.text_title);
-        itemView.setOnClickListener(this);
+        public SearchHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            title = (RobotoTextView) itemView.findViewById(R.id.text_title);
+            itemView.setOnClickListener(this);
+        }
     }
 }
+

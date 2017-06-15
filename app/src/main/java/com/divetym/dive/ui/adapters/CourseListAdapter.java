@@ -45,39 +45,39 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
         itemHolder.mItemClickListener = mItemClickListener;
         itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getImageUrl());
     }
-}
 
-class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
-    ImageView thumbnail;
-    RobotoTextView title;
-    RobotoTextView description;
-    RobotoTextView price;
-    Button btnAction;
+    static class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
+        ImageView thumbnail;
+        RobotoTextView title;
+        RobotoTextView description;
+        RobotoTextView price;
+        Button btnAction;
 
-    public CourseHolder(DiveTymActivity context, View view) {
-        super(context, view);
-        thumbnail = (ImageView) view.findViewById(R.id.image_thumbnail);
-        title = (RobotoTextView) view.findViewById(R.id.text_title);
-        description = (RobotoTextView) view.findViewById(R.id.text_description);
-        price = (RobotoTextView) view.findViewById(R.id.text_price);
-        btnAction = (Button) view.findViewById(R.id.button_book_now);
-        btnAction.setOnClickListener(this);
-        view.setOnClickListener(this);
-        if(SessionManager.getInstance(mContext).getAccountType() == User.AccountType.Dive_Shop){
-            btnAction.setVisibility(View.GONE);
+        public CourseHolder(DiveTymActivity context, View view) {
+            super(context, view);
+            thumbnail = (ImageView) view.findViewById(R.id.image_thumbnail);
+            title = (RobotoTextView) view.findViewById(R.id.text_title);
+            description = (RobotoTextView) view.findViewById(R.id.text_description);
+            price = (RobotoTextView) view.findViewById(R.id.text_price);
+            btnAction = (Button) view.findViewById(R.id.button_book_now);
+            btnAction.setOnClickListener(this);
+            view.setOnClickListener(this);
+            if(SessionManager.getInstance(mContext).getAccountType() == User.AccountType.Dive_Shop){
+                btnAction.setVisibility(View.GONE);
+            }
         }
-    }
 
-    public void setData(String title, String description, String price, String imgUrl) {
-        this.title.setText(title);
-        this.description.setText(description);
-        this.price.setText(price);
-        GlideApp.with(mContext)
-                .load(imgUrl)
-                .thumbnail(0.1f)
-                .placeholder(R.drawable.dummy_image_preview)
-                .error(R.drawable.dummy_image_error)
-                .into(thumbnail);
+        public void setData(String title, String description, String price, String imgUrl) {
+            this.title.setText(title);
+            this.description.setText(description);
+            this.price.setText(price);
+            GlideApp.with(mContext)
+                    .load(imgUrl)
+                    .thumbnail(0.1f)
+                    .placeholder(R.drawable.dummy_image_preview)
+                    .error(R.drawable.dummy_image_error)
+                    .into(thumbnail);
+        }
     }
 }
 

@@ -38,30 +38,30 @@ public class GuideListAdapter extends EndlessListAdapter<Guide> {
         holder.mItemClickListener = mItemClickListener;
         holder.setData(object.getName(), object.getDescription(), object.getImageUrl());
     }
-}
 
-class GuideHolder extends DiveTymViewHolder<Guide> {
-    ImageView thumbnail;
-    RobotoTextView title;
-    RobotoTextView description;
+    static class GuideHolder extends DiveTymViewHolder<Guide> {
+        ImageView thumbnail;
+        RobotoTextView title;
+        RobotoTextView description;
 
-    public GuideHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
-        title = (RobotoTextView) itemView.findViewById(R.id.text_title);
-        description = (RobotoTextView) itemView.findViewById(R.id.text_description);
-        itemView.setOnClickListener(this);
-    }
+        public GuideHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
+            title = (RobotoTextView) itemView.findViewById(R.id.text_title);
+            description = (RobotoTextView) itemView.findViewById(R.id.text_description);
+            itemView.setOnClickListener(this);
+        }
 
-    public void setData(String title, String description, String imgUrl) {
-        this.title.setText(title);
-        this.description.setText(description);
-        GlideApp.with(mContext)
-                .load(imgUrl)
-                .thumbnail(0.1f)
-                .placeholder(R.drawable.dummy_image_preview)
-                .error(R.drawable.dummy_image_error)
-                .into(thumbnail);
+        public void setData(String title, String description, String imgUrl) {
+            this.title.setText(title);
+            this.description.setText(description);
+            GlideApp.with(mContext)
+                    .load(imgUrl)
+                    .thumbnail(0.1f)
+                    .placeholder(R.drawable.dummy_image_preview)
+                    .error(R.drawable.dummy_image_error)
+                    .into(thumbnail);
+        }
     }
 }
 

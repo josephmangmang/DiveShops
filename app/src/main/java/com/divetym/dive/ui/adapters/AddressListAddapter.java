@@ -19,7 +19,7 @@ import java.util.List;
  * Created by kali_root on 6/5/2017.
  */
 
-public class AddressListAddapter extends BaseRecyclerAdapter<AddressHolder, Address> {
+public class AddressListAddapter extends BaseRecyclerAdapter<AddressListAddapter.AddressHolder, Address> {
 
     public AddressListAddapter(DiveTymActivity context, List<Address> dataList) {
         super(context, dataList);
@@ -49,14 +49,15 @@ public class AddressListAddapter extends BaseRecyclerAdapter<AddressHolder, Addr
         holder.title.setText(holder.fullAddress);
         holder.mData = new LocationAddress(holder.fullAddress, new LatLng(address.getLatitude(), address.getLongitude()));
     }
-}
 
-class AddressHolder extends DiveTymViewHolder<LocationAddress> {
-    TextView title;
-    String fullAddress;
+    static class AddressHolder extends DiveTymViewHolder<LocationAddress> {
+        TextView title;
+        String fullAddress;
 
-    public AddressHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        title = (TextView) itemView.findViewById(R.id.text_title);
+        public AddressHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            title = (TextView) itemView.findViewById(R.id.text_title);
+        }
     }
 }
+

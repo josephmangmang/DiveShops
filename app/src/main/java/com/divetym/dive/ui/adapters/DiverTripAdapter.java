@@ -46,24 +46,25 @@ public class DiverTripAdapter extends EndlessListAdapter<DailyTrip> {
         holder.spotLeft.setText(mContext.getResources()
                 .getQuantityString(R.plurals.remaining_slots, dailyTrip.getRemainingSlot(), dailyTrip.getRemainingSlot()));
     }
-}
 
-class DiverTripHolder extends DiveTymViewHolder<DailyTrip> {
-    @BindView(R.id.text_dive_shop)
-    RobotoTextView divshopName;
-    @BindView(R.id.text_date)
-    RobotoTextView date;
-    @BindView(R.id.text_time)
-    RobotoTextView time;
-    @BindView(R.id.text_price)
-    RobotoTextView price;
-    @BindView(R.id.text_dive_site)
-    RobotoTextView diveSite;
-    @BindView(R.id.text_spot_left)
-    RobotoTextView spotLeft;
+    static class DiverTripHolder extends DiveTymViewHolder<DailyTrip> {
+        @BindView(R.id.text_dive_shop)
+        RobotoTextView divshopName;
+        @BindView(R.id.text_date)
+        RobotoTextView date;
+        @BindView(R.id.text_time)
+        RobotoTextView time;
+        @BindView(R.id.text_price)
+        RobotoTextView price;
+        @BindView(R.id.text_dive_site)
+        RobotoTextView diveSite;
+        @BindView(R.id.text_spot_left)
+        RobotoTextView spotLeft;
 
-    public DiverTripHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        ButterKnife.bind(this, itemView);
+        public DiverTripHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 }
+

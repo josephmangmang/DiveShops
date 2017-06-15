@@ -58,25 +58,25 @@ public class SearchDialogAdapter<DataType extends ThumbnailEntity> extends Endle
         }
     }
 
-}
+    static class SearchItemHolder extends DiveTymViewHolder {
+        ImageView thumbnail;
+        RobotoTextView title;
+        ImageView selected;
 
-class SearchItemHolder extends DiveTymViewHolder {
-    ImageView thumbnail;
-    RobotoTextView title;
-    ImageView selected;
-
-    public SearchItemHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
-        title = (RobotoTextView) itemView.findViewById(R.id.text_title);
-        selected = (ImageView) itemView.findViewById(R.id.image_selected);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            selected.setColorFilter(context.getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-            selected.setAlpha(0.7f);
-        } else {
-            selected.setColorFilter(context.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-            selected.setAlpha(0.7f);
+        public SearchItemHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
+            title = (RobotoTextView) itemView.findViewById(R.id.text_title);
+            selected = (ImageView) itemView.findViewById(R.id.image_selected);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                selected.setColorFilter(context.getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+                selected.setAlpha(0.7f);
+            } else {
+                selected.setColorFilter(context.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+                selected.setAlpha(0.7f);
+            }
+            itemView.setOnClickListener(this);
         }
-        itemView.setOnClickListener(this);
     }
 }
+

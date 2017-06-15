@@ -120,37 +120,38 @@ public class ListAddMoreAdapter<DataType extends ThumbnailEntity> extends BaseRe
         list.remove(null);
         return list;
     }
-}
 
-class ListAddMoreHolder<DataType extends ThumbnailEntity> extends DiveTymViewHolder {
-    ImageView thumbnail;
-    ImageView remove;
-    RobotoTextView name;
+    static class AddMoreHolder extends DiveTymViewHolder {
+        ImageView add;
 
-    public ListAddMoreHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
-        remove = (ImageView) itemView.findViewById(R.id.image_remove);
-        name = (RobotoTextView) itemView.findViewById(R.id.text_name);
+        public AddMoreHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            add = (ImageView) itemView.findViewById(R.id.image_add_icon);
+        }
+
     }
 
-    public void setData(DataType data) {
-        name.setText(data.getName());
-        GlideApp.with(mContext)
-                .load(data.getImageUrl())
-                .thumbnail(0.1f)
-                .error(R.drawable.dummy_image_error)
-                .placeholder(R.drawable.dummy_image_preview)
-                .into(thumbnail);
+    static class ListAddMoreHolder<DataType extends ThumbnailEntity> extends DiveTymViewHolder {
+        ImageView thumbnail;
+        ImageView remove;
+        RobotoTextView name;
+
+        public ListAddMoreHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            thumbnail = (ImageView) itemView.findViewById(R.id.image_thumbnail);
+            remove = (ImageView) itemView.findViewById(R.id.image_remove);
+            name = (RobotoTextView) itemView.findViewById(R.id.text_name);
+        }
+
+        public void setData(DataType data) {
+            name.setText(data.getName());
+            GlideApp.with(mContext)
+                    .load(data.getImageUrl())
+                    .thumbnail(0.1f)
+                    .error(R.drawable.dummy_image_error)
+                    .placeholder(R.drawable.dummy_image_preview)
+                    .into(thumbnail);
+        }
     }
 }
 
-class AddMoreHolder extends DiveTymViewHolder {
-    ImageView add;
-
-    public AddMoreHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        add = (ImageView) itemView.findViewById(R.id.image_add_icon);
-    }
-
-}

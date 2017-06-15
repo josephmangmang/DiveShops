@@ -56,23 +56,24 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
             holder.selected.setVisibility(View.GONE);
         }
     }
-}
 
-class TripHolder extends DiveTymViewHolder<DailyTrip> {
-    @BindView(R.id.text_date)
-    RobotoTextView date;
-    @BindView(R.id.text_dive_site)
-    RobotoTextView diveSite;
-    @BindView(R.id.text_price)
-    RobotoTextView price;
-    @BindView(R.id.text_time)
-    RobotoTextView time;
-    @BindView(R.id.image_selected)
-    ImageView selected;
+    static class TripHolder extends DiveTymViewHolder<DailyTrip> {
+        @BindView(R.id.text_date)
+        RobotoTextView date;
+        @BindView(R.id.text_dive_site)
+        RobotoTextView diveSite;
+        @BindView(R.id.text_price)
+        RobotoTextView price;
+        @BindView(R.id.text_time)
+        RobotoTextView time;
+        @BindView(R.id.image_selected)
+        ImageView selected;
 
-    public TripHolder(DiveTymActivity context, View itemView) {
-        super(context, itemView);
-        ButterKnife.bind(this, itemView);
-        itemView.setOnClickListener(this);
+        public TripHolder(DiveTymActivity context, View itemView) {
+            super(context, itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
     }
 }
+
