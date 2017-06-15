@@ -49,7 +49,7 @@ public class GuidePreviewLayout extends CardView {
         if (!isInEditMode()) {
             mContext = (DiveTymActivity) context;
         }
-        inflate(context, R.layout.view_list_preview, this);
+        inflate(context, R.layout.view_guides_preview, this);
         previewTitleTextView = (RobotoTextView) findViewById(R.id.text_preview_title);
         previewMoreTextView = (RobotoTextView) findViewById(R.id.text_preview_more);
         emptyItemView = findViewById(R.id.empty_item);
