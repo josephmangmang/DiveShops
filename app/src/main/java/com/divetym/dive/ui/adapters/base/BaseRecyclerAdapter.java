@@ -140,4 +140,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, Da
             setSelected(id, object);
         }
     }
+
+    public boolean isEmpty() {
+        return mDataList.isEmpty();
+    }
 }

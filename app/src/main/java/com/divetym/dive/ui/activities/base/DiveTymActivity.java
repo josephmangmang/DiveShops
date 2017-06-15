@@ -17,6 +17,7 @@ import com.divetym.dive.R;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.models.User;
 import com.divetym.dive.ui.activities.DiveShopActivity;
+import com.divetym.dive.ui.activities.LoginActivity;
 import com.divetym.dive.ui.activities.diver.DiverTripActivity;
 
 /**
@@ -112,5 +113,11 @@ public class DiveTymActivity extends AppCompatActivity {
             }
             finish();
         }
+    }
+
+    public void logOut() {
+        SessionManager.getInstance(this).logout();
+        startActivity(LoginActivity.class);
+        finish();
     }
 }

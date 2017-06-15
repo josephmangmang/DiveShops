@@ -39,4 +39,12 @@
         <enum name="lato_black" value="32" />
         <enum name="lato_black_italic" value="33" />
     </attr>
+    <declare-styleable name="GuidePreviewLayout">
+        <attr name="title" />
+    </declare-styleable>
+
+    <declare-styleable name="ListPreviewLayout">
+        <attr name="title" />
+    </declare-styleable>
+    <attr name="title" format="string" />
 </resources>

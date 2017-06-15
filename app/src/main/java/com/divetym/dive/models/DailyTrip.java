@@ -237,7 +237,7 @@ public class DailyTrip implements Parcelable {
             mBoatPreviews = new ArrayList<>();
             for (int i = 0; i < boats.size(); i++) {
                 DailyTripBoat boat = boats.get(i);
-                ListPreview listPreview = new ListPreview(i, boat.getName(), "VIEW", boat.getImageUrl());
+                ListPreview listPreview = new ListPreview(i, boat.getName(), boat.getImageUrl());
                 mBoatPreviews.add(listPreview);
             }
         } else {
@@ -251,7 +251,7 @@ public class DailyTrip implements Parcelable {
             mDiveSitePreviews = new ArrayList<>();
             for (int i = 0; i < sites.size(); i++) {
                 DailyTripDiveSite diveSite = sites.get(i);
-                ListPreview listPreview = new ListPreview(i, diveSite.getName(), "VIEW", diveSite.getImageUrl());
+                ListPreview listPreview = new ListPreview(i, diveSite.getName(), diveSite.getImageUrl());
                 mDiveSitePreviews.add(listPreview);
             }
         } else {

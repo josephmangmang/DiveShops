@@ -14,6 +14,7 @@ import com.divetym.dive.common.SortOption;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.response.DailyTripListResponse;
 import com.divetym.dive.rest.ApiClient;
+import com.divetym.dive.ui.activities.diver.DiverTripDetailsActivity;
 import com.divetym.dive.ui.adapters.DiverTripAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymListFragment;
 import com.divetym.dive.ui.view.ToastAlert;
@@ -134,7 +135,10 @@ public class DiverTripFragment extends DiveTymListFragment<DiverTripAdapter, Dai
 
     @Override
     public void onItemClick(DailyTrip object, View view, int i) {
-        Log.d(TAG, "onItemClick: " + object);
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onItemClick: " + object);
+        }
+        DiverTripDetailsActivity.launch(mContext, object);
     }
 
     public void refreshTripList(String startDate, String endDate, LatLng locationLatLng, int diveSiteId) {

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.divetym.dive.R;
-import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
 import com.divetym.dive.ui.activities.GuideDetailsActivity;
@@ -19,8 +18,6 @@ import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.ui.view.ListPreviewLayout;
 import com.divetym.dive.ui.view.RobotoTextView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +35,7 @@ public class TripDetailsFragment extends DiveTymFragment {
     RobotoTextView timeTextView;
     @BindView(R.id.text_date)
     RobotoTextView dateTextView;
-    @BindView(R.id.text_number_dives)
+    @BindView(R.id.text_number_of_dives)
     RobotoTextView numberOfDivesTextView;
     @BindView(R.id.text_group_size)
     RobotoTextView groupSizeTextView;

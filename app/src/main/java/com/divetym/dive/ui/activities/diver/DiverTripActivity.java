@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.base.AuthenticatedActivity;
+import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.fragments.diver.DiverTripFragment;
 import com.divetym.dive.ui.view.TripFilterLayout;
 import com.divetym.dive.utils.DateUtils;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by kali_root on 6/10/2017.
  */
 
-public class DiverTripActivity extends AuthenticatedActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DiverTripActivity extends DiveTymActivity implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.trip_filter_layout)
     TripFilterLayout mTripFilterLayout;
     @BindView(R.id.collapsing_toolbar_layout)

@@ -75,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/preview_trip_sites" />
 
         <com.divetym.dive.ui.view.RobotoTextView
-            android:id="@+id/text_number_dives"
+            android:id="@+id/text_number_of_dives"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -92,7 +92,7 @@
             android:layout_marginTop="8dp"
             android:text="Group Size:"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_number_dives" />
+            app:layout_constraintTop_toBottomOf="@+id/text_number_of_dives" />
 
         <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_group_size"
@@ -102,7 +102,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/dummy_group_size"
             app:layout_constraintLeft_toRightOf="@+id/text_label_group_size"
-            app:layout_constraintTop_toBottomOf="@+id/text_number_dives" />
+            app:layout_constraintTop_toBottomOf="@+id/text_number_of_dives" />
 
         <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_label_remaining_slot"

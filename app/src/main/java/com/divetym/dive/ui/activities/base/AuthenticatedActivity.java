@@ -24,10 +24,4 @@ public class AuthenticatedActivity extends DiveTymActivity {
             finish();
         }
     }
-
-    public void logOut() {
-        SessionManager.getInstance(this).logout();
-        startActivity(LoginActivity.class);
-        finish();
-    }
 }

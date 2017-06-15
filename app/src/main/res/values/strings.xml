@@ -52,7 +52,7 @@
     <string name="message_empty_list">No item found</string>
     <string name="message_empty_search">No dive site found</string>
     <string name="action_add_trip">Add trip</string>
-    <string name="label_time">Time</string>
+    <string name="label_time">Time:</string>
     <string name="dummy_location">Balicasag, Alona, Panglao Bohol</string>
     <string name="dummy_guides">1. Joseph Mangmang\n2. Alex Zo</string>
     <string name="dummy_group_size">9</string>
@@ -121,6 +121,21 @@
     <string name="hint_dive_shop">Dive Shop</string>
     <string name="dummy_dive_shop_name">Seaquest</string>
     <string name="dummy_spot_left">10 spots left</string>
+    <string name="label_number_of_dives">Number of dive(s):</string>
+    <string name="label_group_size">Group size:</string>
+    <string name="label_remaining_slots">Remaining slots:</string>
+    <string name="no_guide">No guide</string>
+    <!-- DateUtils -->
+    <string name="DateUtils_now">Now</string>
+    <string name="DateUtils_minutes_ago">%d min</string>
+    <string name="DateUtils_today">Today</string>
+    <string name="DateUtils_yesterday">Yesterday</string>
+
+    <!-- plurals.xml -->
+    <plurals name="hours_ago">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
     <plurals name="remaining_slots">
         <item quantity="one">1 spot left</item>
         <item quantity="other">%d spots left</item>

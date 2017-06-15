@@ -9,39 +9,38 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.divetym.dive.R;
+import com.divetym.dive.models.Guide;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
-import com.divetym.dive.ui.adapters.ListPreviewAdapter;
+import com.divetym.dive.ui.adapters.GuidePreviewAdapter;
 import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
-import com.divetym.dive.models.ListPreview;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by kali_root on 4/6/2017.
+ * Created by kali_root on 6/15/2017.
  */
 
-public class ListPreviewLayout extends CardView {
-    public static final String TAG = ListPreviewLayout.class.getSimpleName();
+public class GuidePreviewLayout extends CardView {
+    public static final String TAG = GuidePreviewLayout.class.getSimpleName();
     private RecyclerView recyclerView;
     private RobotoTextView previewTitleTextView;
     private RobotoTextView previewMoreTextView;
     private View emptyItemView;
-    private ListPreviewAdapter mAdapter;
-    private List<ListPreview> mPreviews;
+    private GuidePreviewAdapter mAdapter;
     private DiveTymActivity mContext;
 
-    public ListPreviewLayout(Context context) {
+    public GuidePreviewLayout(Context context) {
         super(context);
         initialize(context, null);
     }
 
-    public ListPreviewLayout(Context context, AttributeSet attrs) {
+    public GuidePreviewLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize(context, attrs);
     }
 
-    public ListPreviewLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GuidePreviewLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialize(context, attrs);
     }
@@ -57,9 +56,9 @@ public class ListPreviewLayout extends CardView {
         recyclerView = (RecyclerView) findViewById(R.id.list);
 
         if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ListPreviewLayout);
-            if(a.hasValue(R.styleable.ListPreviewLayout_title)){
-                String s = a.getString(R.styleable.ListPreviewLayout_title);
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GuidePreviewLayout);
+            if (a.hasValue(R.styleable.GuidePreviewLayout_title)) {
+                String s = a.getString(R.styleable.GuidePreviewLayout_title);
                 previewTitleTextView.setText(s);
             }
             a.recycle();
@@ -68,16 +67,14 @@ public class ListPreviewLayout extends CardView {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        mPreviews = new ArrayList<>();
-        mAdapter = new ListPreviewAdapter(mContext, mPreviews);
+        mAdapter = new GuidePreviewAdapter(mContext);
         recyclerView.setAdapter(mAdapter);
     }
 
 
-    public void setPreviewList(List<ListPreview> previews) {
-        mPreviews = previews;
-        mAdapter.setDataList(mPreviews);
-        if (previews != null && previews.size() > 0) {
+    public void setGuides(List guides) {
+        mAdapter.setDataList(guides);
+        if (guides != null && guides.size() > 0) {
             emptyItemView.setVisibility(GONE);
         } else {
             emptyItemView.setVisibility(VISIBLE);
@@ -97,6 +94,6 @@ public class ListPreviewLayout extends CardView {
     }
 
     public boolean isEmpty() {
-        return mPreviews.isEmpty();
+        return mAdapter.isEmpty();
     }
 }
