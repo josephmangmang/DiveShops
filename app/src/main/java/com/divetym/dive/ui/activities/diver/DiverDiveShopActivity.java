@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -36,12 +37,14 @@ import retrofit2.Response;
 
 public class DiverDiveShopActivity extends DiveTymActivity {
     public static final String EXTRA_DIVE_SHOP_UID = "com.divetym.dive.EXTRA_DIVE_SHOP_UID";
+    public static final String EXTRA_DIVE_SHOP_NAME = "com.divetym.dive.EXTRA_DIVE_SHOP_NAME";
     public static final String EXTRA_DIVE_SHOP = "com.divetym.dive.EXTRA_DIVE_SHOP";
-
     @BindView(R.id.image_slider)
     ImageSlider imageSlider;
     @BindView(R.id.progress)
     ProgressBar progressBar;
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mToolbarLayout;
 
     public static void launch(Context context, @NonNull String diveShopUid) {
         Intent intent = new Intent(context, DiverDiveShopActivity.class);
@@ -93,7 +96,7 @@ public class DiverDiveShopActivity extends DiveTymActivity {
     private void setDiveShop(DiveShop diveShop) {
         if (diveShop != null) {
             progressBar.setVisibility(View.GONE);
-            setTitle(diveShop.getName());
+            mToolbarLayout.setTitle(diveShop.getName());
             List<ThumbnailEntity> shopImages = new ArrayList<>();
             shopImages.add(new ThumbnailEntity("", diveShop.getImageUrl()));
             imageSlider.setDataList(shopImages);

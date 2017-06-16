@@ -1,5 +1,6 @@
 package com.divetym.dive.ui.fragments.diver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.models.DiveShop;
+import com.divetym.dive.ui.activities.DiveShopTripActivity;
+import com.divetym.dive.ui.activities.diver.DiverDiveShopTripActivity;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.ui.view.GuidePreviewLayout;
 import com.divetym.dive.ui.view.InfoLayout;
@@ -59,7 +62,10 @@ public class DiverDiveShopFragment extends DiveTymFragment {
 
     @OnClick(R.id.button_view_daily_trips)
     public void onViewDailyTripClick() {
-
+        DiverDiveShopTripActivity.launch(
+                mContext,
+                mDiveShop.getDiveShopUid(),
+                mDiveShop.getName());
     }
 
     @OnClick(R.id.layout_review)
