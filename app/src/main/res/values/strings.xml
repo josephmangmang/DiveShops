@@ -18,7 +18,7 @@
     <string name="toast_specify_account_type">Please specify account type</string>
     <string name="action_view_daily_trips">View daily trips</string>
     <string name="dummy_longtext"><![CDATA[Seaquest is one of the longest established and most experienced scuba diving operations in the Philippines. In combination with Oasis Resort in Panglao, Bohol & Sumisid Lodge in Moalboal, Cebu we offer our guest a complete diving holiday. Aside from hotel accommodations we also offer Island hopping, dive safaris, all PADI scuba diving courses in multiple languages, land tours, transfers, domestic flights, everything to suit your holiday needs. You can find all the information about our accommodations, dive centers and safari on this website.  We hope to welcome you soon in one of our locations in Cebu or Bohol.]]></string>
-    <string name="dummy_price">P2000.00</string>
+    <string name="dummy_price">PHP2000.00</string>
     <string name="label_per_dive">Per dive: </string>
     <string name="title_courses">Courses</string>
     <string name="dummy_title">Title</string>
