@@ -27,6 +27,7 @@
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_toRightOf="@+id/image_thumbnail"
             android:ellipsize="marquee"
             android:maxLines="1"
@@ -39,10 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_title"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_toRightOf="@+id/image_thumbnail"
             android:ellipsize="end"
-            android:maxLines="5"
-            android:minLines="5"
+            android:maxLines="4"
+            android:minLines="4"
             android:textSize="@dimen/roboto_body_1_regular"
             tools:text="@string/dummy_longtext" />
 
@@ -60,11 +62,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ellipsize="marquee"
+                android:maxLines="1"
                 android:textColor="@color/blue_700"
                 android:textSize="@dimen/roboto_title_medium"
                 app:typeface="roboto_light"
-                android:ellipsize="marquee"
-                android:maxLines="1"
                 tools:text="@string/dummy_price" />
 
             <Button
