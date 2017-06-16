@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * Created by kali_root on 4/15/2017.
  */
 
-public abstract class DetailsActivity<DataType> extends AuthenticatedActivity {
+public abstract class DetailsActivity<DataType> extends DiveTymActivity {
     private static final String TAG = DetailsActivity.class.getSimpleName();
     public static final String EXTRA_DATA = "com.divetym.dive.EXTRA_DATA";
     protected static final int REQUEST_UPDATE_DETAILS = 1;

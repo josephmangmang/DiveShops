@@ -1,71 +1,60 @@
 package com.divetym.dive.ui.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.models.Boat;
+import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.ui.activities.base.DetailsActivity;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
+import com.divetym.dive.ui.fragments.diver.DiverBoatDetailsFragment;
+import com.divetym.dive.ui.view.ImageSlider;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.divetym.dive.ui.activities.AddBoatActivity.EXTRA_BOAT;
+
 /**
  * Created by kali_root on 4/21/2017.
  */
 
-public class BoatDetailsActivity extends DetailsActivity<Boat> {
+public class BoatDetailsActivity extends DiveTymActivity {
 
     private static final String TAG = BoatDetailsActivity.class.getSimpleName();
+    @BindView(R.id.image_slider)
+    ImageSlider mImageSlider;
 
     public static void launch(DiveTymActivity context, Boat boat) {
         Intent intent = new Intent(context, BoatDetailsActivity.class);
-        intent.putExtra(EXTRA_DATA, boat);
+        intent.putExtra(EXTRA_BOAT, boat);
         context.startActivity(intent);
     }
 
     @Override
-    protected void onFabClicked(boolean isDiveShop) {
-        if (isDiveShop) {
-            AddBoatActivity.launch(this, mData);
-        }
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_boat_details);
+        ButterKnife.bind(this);
+        showBackButton(true);
+        setTitle("");
+        Boat boat = getIntent().getParcelableExtra(EXTRA_BOAT);
+        initFragment(R.id.content, DiverBoatDetailsFragment.newInstance(boat));
+        List<ThumbnailEntity> imgs = new ArrayList<>();
+        imgs.add(new ThumbnailEntity("", boat
+                .getImageUrl()));
+        mImageSlider.setDataList(imgs);
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onDataChanged(BoatEvent boatEvent) {
-        Log.d(TAG, "onDataChanged");
-        setData(boatEvent.getBoat());
-    }
-
-    @Override
-    protected void setData(Boat data) {
-        mData = data;
-        if (mData != null) {
-            setToolbarTitle(mData.getName());
-            detailBody.setText(mData.getDescription());
-            GlideApp.with(this)
-                    .load(mData.getImageUrl())
-                    .thumbnail(0.1f)
-                    .placeholder(R.drawable.dummy_image_preview)
-                    .error(R.drawable.dummy_image_error)
-                    .into(toolbarBackgroundImage);
-        }
-    }
-
 }

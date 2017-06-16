@@ -135,6 +135,8 @@
     <string name="title_shop_description">Shop Description</string>
     <string name="error_something_wrong">Oops. Something went wrong. Please try again.</string>
     <string name="retry">Retry</string>
+    <string name="title_description">Description</string>
+    <string name="title_additional_information">Additional Information</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">
