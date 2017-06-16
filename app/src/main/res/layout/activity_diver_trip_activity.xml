@@ -27,5 +27,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/view_navigation_header"
-        app:menu="@menu/drawer_diveshop" />
+        app:menu="@menu/drawer_diver" />
 </android.support.v4.widget.DrawerLayout>

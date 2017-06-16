@@ -4,8 +4,8 @@
         android:checkableBehavior="none"
         android:menuCategory="secondary">
         <item
-            android:id="@+id/nav_logout"
+            android:id="@+id/nav_login"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/title_logout" />
+            android:title="@string/title_login" />
     </group>
 </menu>

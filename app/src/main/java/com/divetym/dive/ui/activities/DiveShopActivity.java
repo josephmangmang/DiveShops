@@ -108,7 +108,7 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
             case R.id.nav_guides:
                 GuideListActivity.launch(this, null, true);
                 break;
-            case R.id.nav_logout:
+            case R.id.nav_login:
                 logOut();
                 break;
         }

@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.divetym.dive.R;
+import com.divetym.dive.event.SessionEvent;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.models.response.UserResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.rest.ApiInterface;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +82,7 @@ public class LoginFragment extends DiveTymFragment {
                         showToastAlert(userResponse.getMessage());
                     } else {
                         SessionManager.getInstance(mContext).login(userResponse.getUser());
+                        EventBus.getDefault().postSticky(new SessionEvent());
                         mContext.switchScreen();
                     }
                 }

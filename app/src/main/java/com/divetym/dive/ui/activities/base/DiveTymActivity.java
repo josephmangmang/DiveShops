@@ -117,7 +117,9 @@ public class DiveTymActivity extends AppCompatActivity {
 
     public void logOut() {
         SessionManager.getInstance(this).logout();
+    }
+
+    public void logIn() {
         startActivity(LoginActivity.class);
-        finish();
     }
 }

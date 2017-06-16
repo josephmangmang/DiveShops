@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_daily_trips"
+        android:checked="true"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/title_nav_daily_trips" />
+    <item
+        android:id="@+id/nav_courses"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/title_nav_courses" />
+</menu>
