@@ -3,6 +3,7 @@ package com.divetym.dive.ui.fragments.diver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,18 @@ import android.widget.Toast;
 
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
+import com.divetym.dive.interfaces.ItemClickListener;
 import com.divetym.dive.models.DiveShop;
+import com.divetym.dive.models.ListPreview;
+import com.divetym.dive.ui.activities.BoatDetailsActivity;
+import com.divetym.dive.ui.activities.BoatListActivity;
+import com.divetym.dive.ui.activities.CourseDetailsActivity;
+import com.divetym.dive.ui.activities.CourseListActivity;
 import com.divetym.dive.ui.activities.DiveShopTripActivity;
+import com.divetym.dive.ui.activities.GuideDetailsActivity;
+import com.divetym.dive.ui.activities.GuideListActivity;
 import com.divetym.dive.ui.activities.diver.DiverDiveShopTripActivity;
+import com.divetym.dive.ui.adapters.base.BaseRecyclerAdapter;
 import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.ui.view.GuidePreviewLayout;
 import com.divetym.dive.ui.view.InfoLayout;
@@ -58,7 +68,7 @@ public class DiverDiveShopFragment extends DiveTymFragment {
     InfoLayout infoDescription;
     @BindView(R.id.info_layout_special_service)
     InfoLayout infoSpecialService;
-
+    private DiveShop mDiveShop;
 
     @OnClick(R.id.button_view_daily_trips)
     public void onViewDailyTripClick() {
@@ -73,8 +83,6 @@ public class DiverDiveShopFragment extends DiveTymFragment {
         Toast.makeText(mContext, "Review click!", Toast.LENGTH_SHORT).show();
     }
 
-    private DiveShop mDiveShop;
-
     public static DiverDiveShopFragment newInstance(DiveShop diveShop) {
         DiverDiveShopFragment fragment = new DiverDiveShopFragment();
         Bundle bundle = new Bundle();
@@ -82,6 +90,36 @@ public class DiverDiveShopFragment extends DiveTymFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new ItemClickListener<ListPreview>() {
+        @Override
+        public void onItemClick(ListPreview object, View view, int i) {
+            CourseDetailsActivity.launch(mContext, mDiveShop.getCourses().get(object.getPosition()));
+        }
+    };
+
+    private BaseRecyclerAdapter.ItemClickListener mBoatItemClickListener = new ItemClickListener<ListPreview>() {
+        @Override
+        public void onItemClick(ListPreview object, View view, int i) {
+            BoatDetailsActivity.launch(mContext, mDiveShop.getBoats().get(object.getPosition()));
+        }
+
+    };
+    private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<ListPreview>() {
+        public void onItemClick(ListPreview object, View view, int i) {
+            GuideDetailsActivity.launch(mContext, mDiveShop.getGuides().get(object.getPosition()));
+        }
+    };
+
+    private View.OnClickListener mPreviewCoursesMoreClickListener = view -> {
+        CourseListActivity.launch(mContext, mDiveShop.getCourses(), true);
+    };
+    private View.OnClickListener mPreviewBoatsMoreClickListener = view -> {
+        BoatListActivity.launch(mContext, mDiveShop.getBoats(), true);
+    };
+    private View.OnClickListener mPreviewGuideMoreClickListener = view -> {
+        GuideListActivity.launch(mContext, mDiveShop.getGuides(), true);
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,8 +133,20 @@ public class DiverDiveShopFragment extends DiveTymFragment {
         View view = inflater.inflate(R.layout.fragment_diver_dive_shop, container, false);
         ButterKnife.bind(this, view);
         loadDiveShopData();
+        initListener();
         return view;
     }
+
+    private void initListener() {
+        previewCourses.setMoreClickListener(mPreviewCoursesMoreClickListener);
+        previewCourses.setItemClickListener(mCourseItemClickListener);
+        previewBoats.setItemClickListener(mBoatItemClickListener);
+        previewBoats.setMoreClickListener(mPreviewBoatsMoreClickListener);
+        previewGuide.setItemClickListener(mGuideItemClickListener);
+        previewGuide.setMoreClickListener(mPreviewGuideMoreClickListener);
+
+    }
+
     private void loadDiveShopData() {
         if (mDiveShop == null) return;
         GlideApp.with(mContext)
