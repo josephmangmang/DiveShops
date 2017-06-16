@@ -28,7 +28,7 @@ public class DiverTripAdapter extends EndlessListAdapter<DailyTrip> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.view_item_diver_trip, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.view_item_trip, parent, false);
         return new DiverTripHolder(mContext, view);
     }
 

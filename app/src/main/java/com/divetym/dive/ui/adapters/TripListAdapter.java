@@ -34,15 +34,18 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DailyTrip object, int i) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, DailyTrip dailyTrip, int i) {
         TripHolder holder = (TripHolder) viewHolder;
-        holder.mData = object;
+        holder.mData = dailyTrip;
         holder.position = i;
         holder.mItemClickListener = mItemClickListener;
-        holder.date.setText(object.getDateOnly());
-        holder.diveSite.setText(object.getDiveSiteNames());
-        holder.price.setText(object.getPrice().toString());
-        holder.time.setText(object.getTimeOnly());
+        holder.divshopName.setVisibility(View.GONE);
+        holder.date.setText(dailyTrip.getDateOnly());
+        holder.diveSite.setText(dailyTrip.getDiveSiteNames());
+        holder.price.setText("PHP" + dailyTrip.getPrice().toString());
+        holder.time.setText(dailyTrip.getTimeOnly());
+        holder.spotLeft.setText(mContext.getResources()
+                .getQuantityString(R.plurals.remaining_slots, dailyTrip.getRemainingSlot(), dailyTrip.getRemainingSlot()));
         if (isInMultiSelectMode()) {
             holder.selected.setVisibility(View.VISIBLE);
             if (isSelected(i)) {
@@ -60,12 +63,16 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
     static class TripHolder extends DiveTymViewHolder<DailyTrip> {
         @BindView(R.id.text_date)
         RobotoTextView date;
-        @BindView(R.id.text_dive_site)
-        RobotoTextView diveSite;
-        @BindView(R.id.text_price)
-        RobotoTextView price;
         @BindView(R.id.text_time)
         RobotoTextView time;
+        @BindView(R.id.text_price)
+        RobotoTextView price;
+        @BindView(R.id.text_dive_site)
+        RobotoTextView diveSite;
+        @BindView(R.id.text_spot_left)
+        RobotoTextView spotLeft;
+        @BindView(R.id.text_dive_shop)
+        RobotoTextView divshopName;
         @BindView(R.id.image_selected)
         ImageView selected;
 
