@@ -64,7 +64,8 @@ public class TripFilterLayout extends CardView {
         if (context instanceof ContextWrapper) {
             mContext = (DiveTymActivity) ((ContextWrapper) context).getBaseContext();
         }
-        dateRangeLayout.setContext(mContext);
+        mStartDate = getStartDate();
+        mEndDate = getEndDate();
         locationEditText.setHint(context.getString(R.string.hint_location));
         diveSiteEditText.setHint(context.getString(R.string.hint_dive_site));
         locationEditText.setOnClearListener(() -> {

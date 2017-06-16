@@ -86,9 +86,6 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
         });
     }
 
-    public void setContext(DiveTymActivity context) {
-        mContext = context;
-    }
 
     public void setOnDateRangeChangeListener(OnDateRangeChangeListener onDateRangeChangeListener) {
         mOnDateRangeChangeListener = onDateRangeChangeListener;
