@@ -37,7 +37,7 @@ public class SessionManager {
 
     public static SessionManager getInstance(Context context) {
         if (sSessionManager == null) {
-            sSessionManager = new SessionManager(context);
+            sSessionManager = new SessionManager(context.getApplicationContext());
         }
         return sSessionManager;
     }
