@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_medium">
+
+                <com.divetym.dive.ui.view.RobotoTextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:textSize="@dimen/roboto_regular_headline"
+                    app:typeface="roboto_bold"
+                    tools:text="Course Name" />
+
+                <com.divetym.dive.ui.view.RobotoTextView
+                    android:id="@+id/text_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:textColor="@color/blue_700"
+                    android:textSize="@dimen/roboto_title_medium"
+                    app:typeface="roboto_light"
+                    tools:text="PHP 1,200.00" />
+
+                <include layout="@layout/view_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.divetym.dive.ui.view.RobotoTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:maxLines="1"
+                        android:text="@string/label_offered_by" />
+
+                    <com.divetym.dive.ui.view.RobotoTextView
+                        android:id="@+id/text_offered_by"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="2"
+                        android:textColor="@color/blue_500"
+                        app:typeface="roboto_bold"
+                        tools:text="Course Name" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <com.divetym.dive.ui.view.InfoLayout
+            android:id="@+id/info_layout_who_should_take"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_title"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:title="@string/title_who_should_take_this_course" />
+
+        <com.divetym.dive.ui.view.InfoLayout
+            android:id="@+id/info_layout_what_you_learn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:title="@string/title_what_will_you_learn" />
+
+        <com.divetym.dive.ui.view.InfoLayout
+            android:id="@+id/info_layout_what_gear_needed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_huge"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:title="@string/title_what_scuba_gear_will_you_use" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

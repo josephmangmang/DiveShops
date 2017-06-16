@@ -138,6 +138,10 @@
     <string name="title_description">Description</string>
     <string name="title_additional_information">Additional Information</string>
     <string name="title_about_me">About Me</string>
+    <string name="title_who_should_take_this_course">Who should take this course?</string>
+    <string name="title_what_will_you_learn">What will you learn</string>
+    <string name="title_what_scuba_gear_will_you_use">What scuba gear will you use?</string>
+    <string name="label_offered_by">Offered by:</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">

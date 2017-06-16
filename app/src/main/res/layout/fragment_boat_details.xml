@@ -14,9 +14,9 @@
             android:id="@+id/text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginLeft="@dimen/margin_small"
             android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
             android:ellipsize="marquee"
             android:maxLines="2"
             android:textSize="@dimen/roboto_regular_headline"
@@ -36,10 +36,10 @@
             android:id="@+id/info_layout_additional_information"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_huge"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
             app:title="@string/title_additional_information" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

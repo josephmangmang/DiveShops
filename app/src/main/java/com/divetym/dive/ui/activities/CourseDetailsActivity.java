@@ -1,74 +1,51 @@
 package com.divetym.dive.ui.activities;
 
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
-import com.divetym.dive.event.DiveShopCourseEvent;
-import com.divetym.dive.ui.activities.base.DetailsActivity;
-import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.models.DiveShopCourse;
+import com.divetym.dive.models.common.ThumbnailEntity;
+import com.divetym.dive.ui.activities.base.DiveTymActivity;
+import com.divetym.dive.ui.fragments.diver.DiverCourseDetailsFragment;
+import com.divetym.dive.ui.view.ImageSlider;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.divetym.dive.ui.activities.AddCourseActivity.EXTRA_COURSE;
 
 /**
  * Created by kali_root on 4/15/2017.
  */
 
-public class CourseDetailsActivity extends DetailsActivity<DiveShopCourse> {
+public class CourseDetailsActivity extends DiveTymActivity{
     private static final String TAG = CourseDetailsActivity.class.getSimpleName();
-
+    @BindView(R.id.image_slider)
+    ImageSlider mImageSlider;
     public static void launch(DiveTymActivity context, DiveShopCourse course) {
         Intent intent = new Intent(context, CourseDetailsActivity.class);
-        intent.putExtra(EXTRA_DATA, course);
+        intent.putExtra(EXTRA_COURSE, course);
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onFabClicked(boolean isDiveShop) {
-        if (isDiveShop) {
-            // edit
-            AddCourseActivity.launch(this, mData);
-        } else {
-            // do something useful
-        }
-    }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_boat_details);
+        ButterKnife.bind(this);
+        showBackButton(true);
+        setTitle("");
+        DiveShopCourse course = getIntent().getParcelableExtra(EXTRA_COURSE);
+        initFragment(R.id.content, DiverCourseDetailsFragment.newInstance(course));
+        List<ThumbnailEntity> imgs = new ArrayList<>();
+        imgs.add(new ThumbnailEntity("", course
+                .getImageUrl()));
+        mImageSlider.setDataList(imgs);
     }
-
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onDataChanged(DiveShopCourseEvent diveShopCourseEvent) {
-        Log.d(TAG, "onDataChanged");
-        setData(diveShopCourseEvent.getDiveShopCourse());
-    }
-
-    @Override
-    protected void setData(DiveShopCourse data) {
-        mData = data;
-        if (mData != null) {
-            setToolbarTitle(mData.getName());
-            setToolbarSubtitle(mData.getPrice().toString());
-            detailBody.setText(mData.getDescription());
-            GlideApp.with(this)
-                    .load(mData.getImageUrl())
-                    .thumbnail(0.1f)
-                    .placeholder(R.drawable.dummy_image_preview)
-                    .error(R.drawable.dummy_image_error)
-                    .into(toolbarBackgroundImage);
-        }
-    }
-
 }
