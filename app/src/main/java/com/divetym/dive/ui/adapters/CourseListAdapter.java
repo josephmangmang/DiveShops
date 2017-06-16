@@ -62,7 +62,7 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
             btnAction = (Button) view.findViewById(R.id.button_book_now);
             btnAction.setOnClickListener(this);
             view.setOnClickListener(this);
-            if(SessionManager.getInstance(mContext).getAccountType() == User.AccountType.Dive_Shop){
+            if (SessionManager.getInstance(mContext).getAccountType() == User.AccountType.Dive_Shop) {
                 btnAction.setVisibility(View.GONE);
             }
         }
@@ -70,7 +70,7 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
         public void setData(String title, String description, String price, String imgUrl) {
             this.title.setText(title);
             this.description.setText(description);
-            this.price.setText(price);
+            this.price.setText("PHP" + price);
             GlideApp.with(mContext)
                     .load(imgUrl)
                     .thumbnail(0.1f)

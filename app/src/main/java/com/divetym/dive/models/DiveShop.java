@@ -159,7 +159,7 @@ public class DiveShop extends User {
         if (courses != null) {
             for (int i = 0; i < courses.size(); i++) {
                 DiveShopCourse course = courses.get(i);
-                coursePreviews.add(new ListPreview(i, course.getName(), course.getPrice().toString(), PREVIEW_ACTION_COURSE, course.getImageUrl()));
+                coursePreviews.add(new ListPreview(i, course.getName(), "PHP" + course.getPrice().toString(), PREVIEW_ACTION_COURSE, course.getImageUrl()));
             }
         }
     }

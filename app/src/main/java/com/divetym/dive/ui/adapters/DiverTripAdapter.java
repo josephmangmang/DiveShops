@@ -41,7 +41,7 @@ public class DiverTripAdapter extends EndlessListAdapter<DailyTrip> {
         holder.divshopName.setText(dailyTrip.getDiveShopName());
         holder.date.setText(dailyTrip.getDateOnly());
         holder.time.setText(dailyTrip.getTimeOnly());
-        holder.price.setText("P" + dailyTrip.getPrice().toString());
+        holder.price.setText("PHP" + dailyTrip.getPrice().toString());
         holder.diveSite.setText(dailyTrip.getDiveSiteNames());
         holder.spotLeft.setText(mContext.getResources()
                 .getQuantityString(R.plurals.remaining_slots, dailyTrip.getRemainingSlot(), dailyTrip.getRemainingSlot()));
