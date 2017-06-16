@@ -86,7 +86,8 @@
                 android:layout_height="2dp"
                 android:layout_below="@id/text_price"
                 android:layout_marginTop="@dimen/margin_small"
-                android:background="@color/grey_500" />
+                android:background="@color/grey_300" />
+
 
             <com.divetym.dive.ui.view.RobotoTextView
                 android:id="@+id/text_spot_left"
