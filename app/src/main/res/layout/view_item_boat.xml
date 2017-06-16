@@ -8,17 +8,16 @@
     android:layout_marginBottom="@dimen/margin_small"
     android:layout_marginLeft="@dimen/margin_small"
     android:layout_marginRight="@dimen/margin_small"
-    android:layout_marginTop="@dimen/margin_small"
-    app:cardCornerRadius="4dp">
+    android:layout_marginTop="@dimen/margin_small">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/list_thumbnails_height">
 
         <ImageView
             android:id="@+id/image_thumbnail"
-            android:layout_width="115dp"
-            android:layout_height="125dp"
+            android:layout_width="@dimen/list_thumbnails_width"
+            android:layout_height="@dimen/list_thumbnails_height"
             android:layout_marginRight="@dimen/margin_small"
             android:scaleType="centerCrop"
             tools:src="@drawable/dummy_image_preview" />
@@ -28,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/image_thumbnail"
+            android:ellipsize="marquee"
+            android:maxLines="1"
             android:textSize="@dimen/roboto_title_medium"
             app:typeface="roboto_medium"
             tools:text="@string/dummy_title" />
@@ -35,7 +36,8 @@
         <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_height="match_parent"
             android:layout_below="@+id/text_title"
             android:layout_toRightOf="@+id/image_thumbnail"
             android:ellipsize="end"
