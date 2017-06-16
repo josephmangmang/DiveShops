@@ -137,6 +137,7 @@
     <string name="retry">Retry</string>
     <string name="title_description">Description</string>
     <string name="title_additional_information">Additional Information</string>
+    <string name="title_about_me">About Me</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">
