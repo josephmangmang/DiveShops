@@ -15,6 +15,7 @@ import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.interfaces.ItemClickListener;
 import com.divetym.dive.models.DiveShop;
+import com.divetym.dive.models.Guide;
 import com.divetym.dive.models.ListPreview;
 import com.divetym.dive.ui.activities.BoatDetailsActivity;
 import com.divetym.dive.ui.activities.BoatListActivity;
@@ -105,9 +106,9 @@ public class DiverDiveShopFragment extends DiveTymFragment {
         }
 
     };
-    private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<ListPreview>() {
-        public void onItemClick(ListPreview object, View view, int i) {
-            GuideDetailsActivity.launch(mContext, mDiveShop.getGuides().get(object.getPosition()));
+    private BaseRecyclerAdapter.ItemClickListener mGuideItemClickListener = new ItemClickListener<Guide>() {
+        public void onItemClick(Guide object, View view, int i) {
+            GuideDetailsActivity.launch(mContext, mDiveShop.getGuides().get(i));
         }
     };
 
