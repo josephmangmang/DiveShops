@@ -12,8 +12,10 @@ import com.divetym.dive.ui.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.ui.adapters.base.EndlessListAdapter;
 import com.divetym.dive.models.DailyTrip;
 import com.divetym.dive.ui.view.RobotoTextView;
+import com.divetym.dive.utils.DateUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +48,8 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
         holder.time.setText(dailyTrip.getTimeOnly());
         holder.spotLeft.setText(mContext.getResources()
                 .getQuantityString(R.plurals.remaining_slots, dailyTrip.getRemainingSlot(), dailyTrip.getRemainingSlot()));
+        holder.dayInMonth.setText(DateUtils.getDayInMonth(dailyTrip.getDateObject().getTime(), Locale.getDefault()));
+        holder.dayInWeek.setText(DateUtils.getDayInWeek(dailyTrip.getDateObject().getTime(), Locale.getDefault()));
         if (isInMultiSelectMode()) {
             holder.selected.setVisibility(View.VISIBLE);
             if (isSelected(i)) {
@@ -75,6 +79,10 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
         RobotoTextView divshopName;
         @BindView(R.id.image_selected)
         ImageView selected;
+        @BindView(R.id.text_day_in_week)
+        RobotoTextView dayInWeek;
+        @BindView(R.id.text_day_in_month)
+        RobotoTextView dayInMonth;
 
         public TripHolder(DiveTymActivity context, View itemView) {
             super(context, itemView);

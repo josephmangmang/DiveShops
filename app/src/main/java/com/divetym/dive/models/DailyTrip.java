@@ -205,6 +205,18 @@ public class DailyTrip implements Parcelable {
         return mTimeFormat.format(mDate).toLowerCase();
     }
 
+    public Date getDateObject() {
+        if (mDate == null) {
+            try {
+                mDate = new SimpleDateFormat(FORMAT_DATE_SERVER).parse(this.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return new Date();
+            }
+        }
+        return mDate;
+    }
+
     public String getGuestNames() {
         StringBuilder stringBuilder = new StringBuilder();
         if (guests != null) {

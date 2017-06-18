@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
 /**
  * Created by kali_root on 4/24/2017.
  */
@@ -73,16 +74,16 @@ public class DateUtils extends android.text.format.DateUtils {
         if (isWithin(timestamp, 1, TimeUnit.MINUTES)) {
             return c.getString(R.string.DateUtils_now);
         } else if (isWithin(timestamp, 1, TimeUnit.HOURS)) {
-            int mins = (int)TimeUnit.MINUTES.convert(System.currentTimeMillis() - timestamp, TimeUnit.MILLISECONDS);
+            int mins = (int) TimeUnit.MINUTES.convert(System.currentTimeMillis() - timestamp, TimeUnit.MILLISECONDS);
             return c.getResources().getString(R.string.DateUtils_minutes_ago, mins);
         } else {
             StringBuilder format = new StringBuilder();
-            if      (isWithin(timestamp,   6, TimeUnit.DAYS)) format.append("EEE ");
+            if (isWithin(timestamp, 6, TimeUnit.DAYS)) format.append("EEE ");
             else if (isWithin(timestamp, 365, TimeUnit.DAYS)) format.append("MMM d, ");
-            else                                              format.append("MMM d, yyyy, ");
+            else format.append("MMM d, yyyy, ");
 
             if (DateFormat.is24HourFormat(c)) format.append("HH:mm");
-            else                              format.append("hh:mm a");
+            else format.append("hh:mm a");
 
             return getFormattedDateTime(timestamp, format.toString(), locale);
         }
@@ -102,8 +103,7 @@ public class DateUtils extends android.text.format.DateUtils {
 
     public static String getRelativeDate(@NonNull Context context,
                                          @NonNull Locale locale,
-                                         long timestamp)
-    {
+                                         long timestamp) {
         if (isToday(timestamp)) {
             return context.getString(R.string.DateUtils_today);
         } else if (isYesterday(timestamp)) {
@@ -119,5 +119,13 @@ public class DateUtils extends android.text.format.DateUtils {
         } else {
             return new SimpleDateFormat(template, locale).toLocalizedPattern();
         }
+    }
+
+    public static String getDayInMonth(long timestamp, Locale locale) {
+        return getFormattedDateTime(timestamp, "dd", locale);
+    }
+
+    public static String getDayInWeek(long timestamp, Locale locale) {
+        return getFormattedDateTime(timestamp, "EEE", locale);
     }
 }
