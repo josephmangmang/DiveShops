@@ -113,13 +113,13 @@ public class DiverDiveShopFragment extends DiveTymFragment {
     };
 
     private View.OnClickListener mPreviewCoursesMoreClickListener = view -> {
-        CourseListActivity.launch(mContext, mDiveShop.getCourses(), true);
+        CourseListActivity.launch(mContext, mDiveShop.getCourses(), mDiveShop.getDiveShopUid(), false);
     };
     private View.OnClickListener mPreviewBoatsMoreClickListener = view -> {
-        BoatListActivity.launch(mContext, mDiveShop.getBoats(), true);
+        BoatListActivity.launch(mContext, mDiveShop.getBoats(), mDiveShop.getDiveShopUid(), false);
     };
     private View.OnClickListener mPreviewGuideMoreClickListener = view -> {
-        GuideListActivity.launch(mContext, mDiveShop.getGuides(), true);
+        GuideListActivity.launch(mContext, mDiveShop.getGuides(), mDiveShop.getDiveShopUid(), false);
     };
 
     @Override

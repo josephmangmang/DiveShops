@@ -1,10 +1,12 @@
 package com.divetym.dive.ui.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.R;
 import com.divetym.dive.event.BoatListEvent;
 import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.rest.ApiClient;
@@ -77,6 +79,10 @@ public class BoatListFragment extends DiveTymListFragment<BoatListAdapter, Boat,
 
     @Override
     protected void requestData() {
+        if (shopUid == null) {
+            Snackbar.make(getView(), R.string.error_something_wrong, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
         ApiClient.getApiInterface().getDiveShopBoats(shopUid, offset)
                 .enqueue(new Callback<BoatListResponse>() {
                     @Override

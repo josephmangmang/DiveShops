@@ -30,6 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.divetym.dive.ui.activities.diver.DiverDiveShopActivity.EXTRA_DIVE_SHOP_UID;
+
 /**
  * Created by kali_root on 4/15/2017.
  */
@@ -56,7 +58,6 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     protected boolean showAddButton;
 
     public DiveTymListFragment() {
-        shopUid = mSessionManager.getDiveShopUid();
     }
 
     @Override
@@ -66,6 +67,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
         if (args != null) {
             mDataList = args.getParcelableArrayList(EXTRA_LIST);
             showAddButton = args.getBoolean(EXTRA_ADD_BUTTON, false);
+            shopUid = args.getString(EXTRA_DIVE_SHOP_UID, "");
             if (mDataList == null) {
                 mDataList = new ArrayList<>();
             }

@@ -100,13 +100,13 @@ public class DiveShopActivity extends AuthenticatedActivity implements Navigatio
                 startActivity(DiveShopTripActivity.class);
                 break;
             case R.id.nav_courses:
-                CourseListActivity.launch(this, null, true);
+               // CourseListActivity.launch(this, null, true);
                 break;
             case R.id.nav_boats:
-                BoatListActivity.launch(this, null, true);
+                //BoatListActivity.launch(this, null,  true);
                 break;
             case R.id.nav_guides:
-                GuideListActivity.launch(this, null, true);
+                //GuideListActivity.launch(this, null, true);
                 break;
             case R.id.nav_login:
                 logOut();

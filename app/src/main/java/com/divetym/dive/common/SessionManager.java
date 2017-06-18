@@ -87,6 +87,8 @@ public class SessionManager {
             return User.AccountType.valueOf(mPreferences.getString(ApiConstant.ACCOUNT_TYPE, null));
         } catch (IllegalArgumentException e) {
             return null;
+        }catch (NullPointerException e){
+            return null;
         }
     }
 

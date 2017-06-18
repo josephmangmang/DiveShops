@@ -142,6 +142,7 @@
     <string name="title_what_will_you_learn">What will you learn</string>
     <string name="title_what_scuba_gear_will_you_use">What scuba gear will you use?</string>
     <string name="label_offered_by">Offered by:</string>
+    <string name="action_take">Take</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">

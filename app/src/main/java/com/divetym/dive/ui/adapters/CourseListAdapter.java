@@ -27,6 +27,8 @@ import java.util.List;
 public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implements OnLoadMoreListener {
 
     private static final String TAG = CourseListAdapter.class.getSimpleName();
+    private String actionText = "";
+    private boolean showActionButton;
 
     public CourseListAdapter(DiveTymActivity context, List<DiveShopCourse> dataList, RecyclerView recyclerView) {
         super(context, dataList, recyclerView);
@@ -44,6 +46,16 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
         itemHolder.mData = course;
         itemHolder.mItemClickListener = mItemClickListener;
         itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getImageUrl());
+        itemHolder.btnAction.setText(actionText);
+        itemHolder.btnAction.setVisibility(showActionButton ? View.VISIBLE : View.GONE);
+    }
+
+    public void setActionButton(String actionText) {
+        this.actionText = actionText;
+    }
+
+    public void showActionButton(boolean show) {
+        this.showActionButton = show;
     }
 
     static class CourseHolder extends DiveTymViewHolder<DiveShopCourse> {
@@ -62,9 +74,6 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
             btnAction = (Button) view.findViewById(R.id.button_book_now);
             btnAction.setOnClickListener(this);
             view.setOnClickListener(this);
-            if (SessionManager.getInstance(mContext).getAccountType() == User.AccountType.Dive_Shop) {
-                btnAction.setVisibility(View.GONE);
-            }
         }
 
         public void setData(String title, String description, String price, String imgUrl) {

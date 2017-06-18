@@ -15,6 +15,7 @@ import com.divetym.dive.models.DiveShopCourse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.divetym.dive.ui.activities.diver.DiverDiveShopActivity.EXTRA_DIVE_SHOP_UID;
 import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_ADD_BUTTON;
 import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_LIST;
 
@@ -22,14 +23,15 @@ import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_LIST;
  * Created by kali_root on 4/9/2017.
  */
 
-public class CourseListActivity extends AuthenticatedActivity {
+public class CourseListActivity extends DiveTymActivity {
 
     private static final String TAG = CourseListActivity.class.getSimpleName();
 
-    public static void launch(DiveTymActivity context, @Nullable List<DiveShopCourse> courses, boolean showFab) {
+    public static void launch(DiveTymActivity context, @Nullable List<DiveShopCourse> courses, String shopUid, boolean showFab) {
         Log.d(TAG, "lauching...");
         Intent intent = new Intent(context, CourseListActivity.class);
         intent.putParcelableArrayListExtra(EXTRA_LIST, (ArrayList<? extends Parcelable>) courses);
+        intent.putExtra(EXTRA_DIVE_SHOP_UID, shopUid);
         intent.putExtra(EXTRA_ADD_BUTTON, showFab);
         context.startActivity(intent);
     }

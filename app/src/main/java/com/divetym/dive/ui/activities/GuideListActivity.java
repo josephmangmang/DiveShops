@@ -14,6 +14,7 @@ import com.divetym.dive.models.Guide;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.divetym.dive.ui.activities.diver.DiverDiveShopActivity.EXTRA_DIVE_SHOP_UID;
 import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_ADD_BUTTON;
 import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_LIST;
 
@@ -21,11 +22,12 @@ import static com.divetym.dive.ui.fragments.base.DiveTymListFragment.EXTRA_LIST;
  * Created by kali_root on 5/24/2017.
  */
 
-public class GuideListActivity extends AuthenticatedActivity {
+public class GuideListActivity extends DiveTymActivity {
 
-    public static void launch(DiveTymActivity context, @Nullable List guides, boolean showFab) {
+    public static void launch(DiveTymActivity context, @Nullable List guides, String shopUid, boolean showFab) {
         Intent intent = new Intent(context, GuideListActivity.class);
         intent.putParcelableArrayListExtra(EXTRA_LIST, (ArrayList<? extends Parcelable>) guides);
+        intent.putExtra(EXTRA_DIVE_SHOP_UID, shopUid);
         intent.putExtra(EXTRA_ADD_BUTTON, showFab);
         context.startActivity(intent);
     }

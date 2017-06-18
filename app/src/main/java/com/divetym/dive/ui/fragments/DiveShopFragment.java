@@ -80,7 +80,7 @@ public class DiveShopFragment extends DiveTymFragment {
     private View.OnClickListener mPreviewGuideMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            GuideListActivity.launch(mContext, mDiveShop.getGuides(), true);
+            GuideListActivity.launch(mContext, mDiveShop.getGuides(), mDiveShop.getDiveShopUid(), true);
         }
     };
 
@@ -92,13 +92,13 @@ public class DiveShopFragment extends DiveTymFragment {
     private View.OnClickListener mPreviewCoursesMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            CourseListActivity.launch(mContext, mDiveShop.getCourses(), true);
+            CourseListActivity.launch(mContext, mDiveShop.getCourses(), mDiveShop.getDiveShopUid(), true);
         }
     };
     private View.OnClickListener mPreviewBoatsMoreClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            BoatListActivity.launch(mContext, mDiveShop.getBoats(), true);
+            BoatListActivity.launch(mContext, mDiveShop.getBoats(), mDiveShop.getDiveShopUid(), true);
         }
     };
     private BaseRecyclerAdapter.ItemClickListener mCourseItemClickListener = new ItemClickListener<ListPreview>() {
@@ -126,6 +126,7 @@ public class DiveShopFragment extends DiveTymFragment {
             GuideDetailsActivity.launch(mContext, mDiveShop.getGuides().get(selectedItemPosition));
         }
     };
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

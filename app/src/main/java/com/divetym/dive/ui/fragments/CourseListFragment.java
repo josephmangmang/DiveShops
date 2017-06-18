@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.divetym.dive.BuildConfig;
+import com.divetym.dive.R;
 import com.divetym.dive.event.DiveShopCourseEvent;
 import com.divetym.dive.event.DiveShopCourseListEvent;
+import com.divetym.dive.models.User;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.AddCourseActivity;
 import com.divetym.dive.ui.activities.CourseDetailsActivity;
@@ -56,13 +58,15 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         mAdapter = new CourseListAdapter(mContext, mDataList, mRecyclerView);
         mAdapter.setItemClickListener(this);
         mAdapter.setLoadMoreListener(this);
+        mAdapter.setActionButton(getString(R.string.action_take));
+        mAdapter.showActionButton(mSessionManager.getAccountType() == User.AccountType.Diver);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: ");
-        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_COURSE ) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD_COURSE) {
             // refresh the list..
             mAdapter.resetList();
             offset = 0;
@@ -90,6 +94,7 @@ public class CourseListFragment extends DiveTymListFragment<CourseListAdapter, D
         requestData();
         EventBus.getDefault().removeStickyEvent(event);
     }
+
     @Override
     protected void requestData() {
         ApiClient.getApiInterface().getDiveShopCourses(shopUid, offset)

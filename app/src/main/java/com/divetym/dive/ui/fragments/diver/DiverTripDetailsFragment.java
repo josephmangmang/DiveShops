@@ -111,13 +111,13 @@ public class DiverTripDetailsFragment extends DiveTymFragment {
         boatPreviewLayout.setItemClickListener(mBoatPreviewClickListener);
         boatPreviewLayout.setMoreClickListener(view12 -> {
             if (!boatPreviewLayout.isEmpty()) {
-                BoatListActivity.launch(mContext, mDailyTrip.getBoats(), false);
+                BoatListActivity.launch(mContext, mDailyTrip.getBoats(), mDailyTrip.getDiveShopUid(), false);
             }
         });
         guidePreviewLayout.setItemClickListener(mGuidePreviewClickListener);
         guidePreviewLayout.setMoreClickListener(view1 -> {
             if (!guidePreviewLayout.isEmpty()) {
-                GuideListActivity.launch(mContext, mDailyTrip.getGuides(), false);
+                GuideListActivity.launch(mContext, mDailyTrip.getGuides(), mDailyTrip.getDiveShopUid(), false);
             }
         });
         return view;
