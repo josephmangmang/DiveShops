@@ -12,10 +12,8 @@ import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.adapters.base.DiveTymViewHolder;
 import com.divetym.dive.ui.adapters.base.EndlessListAdapter;
-import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.interfaces.OnLoadMoreListener;
 import com.divetym.dive.models.DiveShopCourse;
-import com.divetym.dive.models.User;
 import com.divetym.dive.ui.view.RobotoTextView;
 
 import java.util.List;
@@ -45,7 +43,7 @@ public class CourseListAdapter extends EndlessListAdapter<DiveShopCourse> implem
         CourseHolder itemHolder = (CourseHolder) viewHolder;
         itemHolder.mData = course;
         itemHolder.mItemClickListener = mItemClickListener;
-        itemHolder.setData(course.getName(), course.getDescription(), course.getPrice().toString(), course.getImageUrl());
+        itemHolder.setData(course.getName(), course.getWhatYouWillLearn(), course.getPrice().toString(), course.getImageUrl());
         itemHolder.btnAction.setText(actionText);
         itemHolder.btnAction.setVisibility(showActionButton ? View.VISIBLE : View.GONE);
     }

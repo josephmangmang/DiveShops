@@ -1,7 +1,6 @@
 package com.divetym.dive.models;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.divetym.dive.models.common.ThumbnailEntity;
 import com.divetym.dive.rest.constants.ApiConstant;
@@ -11,14 +10,33 @@ import com.google.gson.annotations.SerializedName;
  * Created by kali_root on 3/27/2017.
  */
 
-public class Course extends ThumbnailEntity{
+public class Course extends ThumbnailEntity {
     @SerializedName(ApiConstant.COURSE_ID)
     private int courseId;
-    @SerializedName(ApiConstant.DESCRIPTION)
-    private String description;
+    @SerializedName(ApiConstant.WHAT_YOU_WILL_LEARN)
+    private String whatYouWillLearn;
+    @SerializedName(ApiConstant.WHO_SHOULD_TAKE_THIS_COURSE)
+    private String whoShouldTakeThisCourse;
+    @SerializedName(ApiConstant.SCUBA_GEAR_YOU_WILL_USE)
+    private String scubaGearYouWillUse;
     @SerializedName(ApiConstant.OFFERED_BY)
     private String offeredBy;
 
+    public String getWhoShouldTakeThisCourse() {
+        return whoShouldTakeThisCourse;
+    }
+
+    public void setWhoShouldTakeThisCourse(String whoShouldTakeThisCourse) {
+        this.whoShouldTakeThisCourse = whoShouldTakeThisCourse;
+    }
+
+    public String getScubaGearYouWillUse() {
+        return scubaGearYouWillUse;
+    }
+
+    public void setScubaGearYouWillUse(String scubaGearYouWillUse) {
+        this.scubaGearYouWillUse = scubaGearYouWillUse;
+    }
 
     public int getCourseId() {
         return courseId;
@@ -28,12 +46,12 @@ public class Course extends ThumbnailEntity{
         this.courseId = courseId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getWhatYouWillLearn() {
+        return whatYouWillLearn;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setWhatYouWillLearn(String whatYouWillLearn) {
+        this.whatYouWillLearn = whatYouWillLearn;
     }
 
     public String getOfferedBy() {
@@ -48,9 +66,9 @@ public class Course extends ThumbnailEntity{
     public String toString() {
         return "Course{" +
                 "courseId=" + courseId +
-                ", description=" + description +
-                ", name=" + name +
-                ", image=" + imageUrl +
+                ", whatYouWillLearn='" + whatYouWillLearn + '\'' +
+                ", whoShouldTakeThisCourse='" + whoShouldTakeThisCourse + '\'' +
+                ", scubaGearYouWillUse='" + scubaGearYouWillUse + '\'' +
                 ", offeredBy='" + offeredBy + '\'' +
                 '}';
     }
@@ -67,14 +85,18 @@ public class Course extends ThumbnailEntity{
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(this.courseId);
-        dest.writeString(this.description);
+        dest.writeString(this.whatYouWillLearn);
+        dest.writeString(this.whoShouldTakeThisCourse);
+        dest.writeString(this.scubaGearYouWillUse);
         dest.writeString(this.offeredBy);
     }
 
     protected Course(Parcel in) {
         super(in);
         this.courseId = in.readInt();
-        this.description = in.readString();
+        this.whatYouWillLearn = in.readString();
+        this.whoShouldTakeThisCourse = in.readString();
+        this.scubaGearYouWillUse = in.readString();
         this.offeredBy = in.readString();
     }
 

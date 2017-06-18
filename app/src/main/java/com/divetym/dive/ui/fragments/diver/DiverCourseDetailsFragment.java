@@ -66,7 +66,9 @@ public class DiverCourseDetailsFragment extends DiveTymFragment {
             nameText.setText(mCourse.getName());
             priceText.setText("PHP" + mCourse.getPrice().toString());
             offeredByText.setText(mCourse.getOfferedBy());
-            whatYouLearn.setInfoBody(mCourse.getDescription());
+            whoShouldTake.setInfoBody(mCourse.getWhoShouldTakeThisCourse());
+            whatYouLearn.setInfoBody(mCourse.getWhatYouWillLearn());
+            whatGearNeeded.setInfoBody(mCourse.getScubaGearYouWillUse());
         }
     }
 }
