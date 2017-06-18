@@ -65,6 +65,6 @@ public class DiverBoatDetailsFragment extends DiveTymFragment {
         if (mBoat == null) return;
         nameText.setText(mBoat.getName());
         description.setInfoBody(mBoat.getDescription());
-        //additionalInfo.setInfoTitle("");// TODO: 6/16/2017 add additional info and list of boat image on boat field
+        additionalInfo.setInfoBody(mBoat.getAdditionalInformation());
     }
 }

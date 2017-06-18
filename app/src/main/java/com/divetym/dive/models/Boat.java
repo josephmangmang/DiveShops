@@ -18,7 +18,8 @@ public class Boat extends ThumbnailEntity{
     private String diveShopUid;
     @SerializedName(ApiConstant.DESCRIPTION)
     private String description;
-
+    @SerializedName(ApiConstant.ADDITIONAL_INFORMATION)
+    private String additionalInformation;
 
     public int getBoatId() {
         return boatId;
@@ -45,13 +46,21 @@ public class Boat extends ThumbnailEntity{
         this.description = description;
     }
 
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    public void setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+    }
+
     @Override
     public String toString() {
         return "Boat{" +
                 "boatId=" + boatId +
-                ", diveShopUid=" + diveShopUid +
-                ", name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", diveShopUid='" + diveShopUid + '\'' +
+                ", description='" + description + '\'' +
+                ", additionalInformation='" + additionalInformation + '\'' +
                 '}';
     }
 
@@ -69,6 +78,7 @@ public class Boat extends ThumbnailEntity{
         dest.writeInt(this.boatId);
         dest.writeString(this.diveShopUid);
         dest.writeString(this.description);
+        dest.writeString(this.additionalInformation);
     }
 
     protected Boat(Parcel in) {
@@ -76,6 +86,7 @@ public class Boat extends ThumbnailEntity{
         this.boatId = in.readInt();
         this.diveShopUid = in.readString();
         this.description = in.readString();
+        this.additionalInformation = in.readString();
     }
 
     public static final Creator<Boat> CREATOR = new Creator<Boat>() {

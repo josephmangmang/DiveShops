@@ -62,4 +62,5 @@ public class ApiConstant {
     public static final String WHAT_YOU_WILL_LEARN = "what_you_will_learn";
     public static final String WHO_SHOULD_TAKE_THIS_COURSE = "who_should_take_this_course";
     public static final String SCUBA_GEAR_YOU_WILL_USE = "scuba_gear_you_will_use";
+    public static final String ADDITIONAL_INFORMATION = "additional_information";
 }
