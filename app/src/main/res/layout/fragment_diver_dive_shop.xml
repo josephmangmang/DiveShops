@@ -74,12 +74,15 @@
                     app:typeface="roboto_regular"
                     tools:text="@string/dummy_address" />
 
-                <ImageView
-                    android:id="@+id/image_map_snapshot"
+                <fragment
+                    android:id="@+id/map_snapshot"
+                    class="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/map_snapshot_height"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/dummy_image_preview" />
+                    app:liteMode="true" />
+
+                <include
+                    layout="@layout/view_divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

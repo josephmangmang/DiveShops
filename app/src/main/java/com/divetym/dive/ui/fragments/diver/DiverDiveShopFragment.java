@@ -31,6 +31,12 @@ import com.divetym.dive.ui.view.GuidePreviewLayout;
 import com.divetym.dive.ui.view.InfoLayout;
 import com.divetym.dive.ui.view.ListPreviewLayout;
 import com.divetym.dive.ui.view.RobotoTextView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +58,6 @@ public class DiverDiveShopFragment extends DiveTymFragment {
     RobotoTextView numberOfReviewText; // 239 reviews
     @BindView(R.id.text_address)
     RobotoTextView addressText;
-    @BindView(R.id.image_map_snapshot)
-    ImageView mapSnapshotImage;
     @BindView(R.id.text_price_currency)
     RobotoTextView currencyText;
     @BindView(R.id.text_price)
@@ -150,17 +154,22 @@ public class DiverDiveShopFragment extends DiveTymFragment {
 
     private void loadDiveShopData() {
         if (mDiveShop == null) return;
-        GlideApp.with(mContext)
-                .load(null)// TODO: 6/15/2017 add mapshopshot on diveshop data
-                .placeholder(R.drawable.dummy_image_preview)
-                .error(R.drawable.dummy_image_error)
-                .thumbnail(0.1f)
-                .into(mapSnapshotImage);
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_snapshot);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(googleMap -> {
+                if (googleMap != null) {
+                    LatLng latLang = new LatLng(mDiveShop.getLatitiude(), mDiveShop.getLongitude());
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(latLang)
+                            .title(mDiveShop.getAddress()));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLang, 13f));
+                }
+            });
+        }
         ratingMarkText.setText("9.2 Excellent");
         numberOfReviewText.setText("193 reviews");
         addressText.setText(mDiveShop.getAddress());
-        currencyText.setText("PHP");// TODO: 6/15/2017 mapsnapshot, curreny helper,  moneyutils
+        currencyText.setText("PHP");// TODO: 6/15/2017 curreny helper,  moneyutils
         priceText.setText(mDiveShop.getPricePerDive().toString() + "/Dive");
 
         infoDescription.setInfoBody(mDiveShop.getDescription());
