@@ -1,12 +1,12 @@
 package com.divetym.dive.ui.activities.base;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -59,7 +59,7 @@ public class DiveTymActivity extends AppCompatActivity {
     }
 
     protected <T extends Fragment> T initFragment(@IdRes int target, @NonNull T fragment) {
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .replace(target, fragment, fragment.getClass().getSimpleName())
                 .commit();
