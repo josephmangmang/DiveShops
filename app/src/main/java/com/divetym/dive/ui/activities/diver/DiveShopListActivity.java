@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
@@ -47,7 +48,7 @@ public class DiveShopListActivity extends DiveTymActivity {
 
     @OnClick(R.id.button_sort_filter)
     public void onSortFilterButtonClick(View view) {
-
+        Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -75,7 +76,7 @@ public class DiveShopListActivity extends DiveTymActivity {
         } else {
             mapButtonVisible = true;
             mapSwitchButton.setText(R.string.action_map);
-            mapSwitchButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_map_black_24dp, 0,0,0);
+            mapSwitchButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_map_black_24dp, 0, 0, 0);
             getSupportFragmentManager().popBackStackImmediate();
         }
     }
