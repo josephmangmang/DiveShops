@@ -81,7 +81,7 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        View view = getFragmentLayout(inflater, container);
         ButterKnife.bind(this, view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -94,6 +94,10 @@ public abstract class DiveTymListFragment<Adapter extends BaseRecyclerAdapter, D
             loadData();
         }
         return view;
+    }
+
+    protected View getFragmentLayout(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     protected abstract void onFabClicked();

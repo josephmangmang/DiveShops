@@ -73,6 +73,8 @@
         <activity android:name=".ui.activities.diver.DiverTripDetailsActivity" />
         <activity android:name=".ui.activities.diver.DiverDiveShopActivity" />
         <activity android:name=".ui.activities.diver.DiverDiveShopTripActivity" />
+        <activity android:name=".ui.activities.diver.DiveShopListActivity"
+            android:label="@string/title_dive_shops"/>
     </application>
 
 </manifest>

@@ -108,10 +108,11 @@ public class DiverTripActivity extends DiveTymActivity implements NavigationView
                 }
                 invalidateLoginButton();
                 break;
-            case R.id.nav_courses:
-
+            case R.id.nav_dive_shops:
+                startActivity(DiveShopListActivity.class);
                 break;
         }
+        drawerLayout.closeDrawers();
         return true;
     }
 

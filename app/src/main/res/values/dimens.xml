@@ -42,4 +42,5 @@
     <dimen name="map_snapshot_height">160dp</dimen>
     <dimen name="list_thumbnails_width">120dp</dimen>
     <dimen name="list_thumbnails_height">160dp</dimen>
+    <dimen name="list_dive_shop_height">185dp</dimen>
 </resources>

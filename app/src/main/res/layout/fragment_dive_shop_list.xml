@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/view_item_diveshop"
+        android:layout_below="@+id/progress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <com.divetym.dive.ui.view.RobotoTextView
+        android:id="@+id/text_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawableTop="@drawable/ic_search"
+        android:text="@string/message_empty_list"
+        android:textSize="@dimen/roboto_regular_headline"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:typeface="roboto_regular" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:text="@string/action_add"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_add" />
+</RelativeLayout>

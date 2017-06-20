@@ -108,8 +108,18 @@ public interface ApiInterface {
      * @return
      */
     @GET("diveshops")
-    Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng, @Query("radius") int radius,
-                                            @Query("offset") int offset);
+    Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng,
+                                            @Query("radius") int radius, @Query("offset") int offset);
+
+    @GET("diveshops")
+    Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng,
+                                            @Query("radius") int radius, @Query("offset") int offset,
+                                            @Query("q") String q);
+    @GET("diveshops")
+    Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng,
+                                            @Query("radius") int radius, @Query("offset") int offset,
+                                            @Query("q") String q, @Query("sort") String sort,
+                                            @Query("order") String orderBy);
 
     /**
      * Get dive shop informations

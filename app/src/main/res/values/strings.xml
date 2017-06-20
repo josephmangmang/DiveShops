@@ -143,6 +143,12 @@
     <string name="title_what_scuba_gear_will_you_use">What scuba gear will you use?</string>
     <string name="label_offered_by">Offered by:</string>
     <string name="action_take">Take</string>
+    <string name="action_map">Map</string>
+    <string name="action_sort_filter">Sort/Filter</string>
+    <string name="title_dive_shops">Dive Shops</string>
+    <string name="title_nav_dive_shops">Dive Shops</string>
+    <string name="menu_search">Search</string>
+    <string name="action_list">List</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">
