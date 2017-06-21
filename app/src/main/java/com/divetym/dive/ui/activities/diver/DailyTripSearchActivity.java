@@ -1,18 +1,14 @@
 package com.divetym.dive.ui.activities.diver;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
@@ -64,6 +60,13 @@ public class DailyTripSearchActivity extends DiveTymActivity
     private void initializeNavigation() {
         navigationView.inflateMenu(R.menu.drawer_login);
         loginItem = navigationView.getMenu().findItem(R.id.nav_login);
+        if (BuildConfig.DEBUG) {
+            navigationView.inflateMenu(R.menu.server_source);
+            MenuItem s = navigationView.getMenu().findItem(R.id.nav_server_source);
+            boolean serverLocal = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("server_local", true);
+            ApiClient.sServerLocal = serverLocal;
+            s.setTitle(serverLocal ? "Server Local" : "Server Online");
+        }
         invalidateLoginButton();
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);
@@ -117,6 +120,20 @@ public class DailyTripSearchActivity extends DiveTymActivity
                 break;
             case R.id.nav_dive_shops:
                 startActivity(DiveShopListActivity.class);
+                break;
+            case R.id.nav_server_source:
+                if (item.getTitle().equals("Server Local")) {
+                    item.setTitle("Server Online");
+                    PreferenceManager.getDefaultSharedPreferences(this)
+                            .edit().putBoolean("server_local", false).commit();
+                    ApiClient.sServerLocal = false;
+                } else {
+                    item.setTitle("Server Local");
+                    PreferenceManager.getDefaultSharedPreferences(this)
+                            .edit().putBoolean("server_local", true).commit();
+                    ApiClient.sServerLocal = true;
+                }
+                ApiClient.sUpdateRetrofit = true;
                 break;
         }
         return true;

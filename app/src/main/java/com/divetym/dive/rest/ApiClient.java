@@ -8,15 +8,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    public static final String BASE_ENDPOINT_URL = "http://192.168.254.6/v1/";
+    private static final String BASE_ENDPOINT_URL_LOCAL = "http://192.168.254.6/v1/";
+    private static final String BASE_ENPOINT_URL_ONLINE = "http://128.199.101.93/v1/";
+    public static boolean sServerLocal = true;
+    public static boolean sUpdateRetrofit = false;
+
     private static Retrofit sRetrofit = null;
 
     public static Retrofit getClient() {
-        if (sRetrofit == null) {
+        if (sRetrofit == null || sUpdateRetrofit) {
             sRetrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_ENDPOINT_URL)
+                    .baseUrl(sServerLocal ? BASE_ENDPOINT_URL_LOCAL : BASE_ENPOINT_URL_ONLINE)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+            sUpdateRetrofit = false;
         }
         return sRetrofit;
     }
