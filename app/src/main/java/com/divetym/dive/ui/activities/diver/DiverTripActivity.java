@@ -99,6 +99,7 @@ public class DiverTripActivity extends DiveTymActivity implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        drawerLayout.closeDrawers();
         switch (item.getItemId()) {
             case R.id.nav_login:
                 if (SessionManager.getInstance(this).isLogin()) {
@@ -112,7 +113,6 @@ public class DiverTripActivity extends DiveTymActivity implements NavigationView
                 startActivity(DiveShopListActivity.class);
                 break;
         }
-        drawerLayout.closeDrawers();
         return true;
     }
 
