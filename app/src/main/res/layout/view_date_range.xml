@@ -58,6 +58,8 @@
     <View
         android:layout_width="2dp"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
         android:background="@color/grey_300" />
 
     <RelativeLayout

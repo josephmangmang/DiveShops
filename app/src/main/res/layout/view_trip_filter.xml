@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_small"
+    android:paddingLeft="@dimen/margin_small"
+    android:paddingRight="@dimen/margin_small"
+    android:paddingTop="?attr/actionBarSize">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/margin_medium"
+        app:cardCornerRadius="20dp">
+
+        <Button
+            android:id="@+id/text_result_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_swap_vert_white_24dp"
+            android:gravity="center"
+            android:text="@string/action_filter"
+            android:textColor="@color/grey_900"
+            android:textSize="@dimen/roboto_button_medium" />
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/layout_filter_option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:animateLayoutChanges="true"
         android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <com.divetym.dive.ui.view.DateRangeLayout
             android:id="@+id/layout_date_range"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            app:label_color="@color/grey_200"
+            app:month_color="@color/grey_200"
+            app:week_color="@color/grey_400" />
+
+        <com.divetym.dive.ui.view.ClearableEditText
+            android:id="@+id/edit_location"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.divetym.dive.ui.view.RobotoTextView
-            android:id="@+id/text_result_filter"
+        <com.divetym.dive.ui.view.ClearableEditText
+            android:id="@+id/edit_dive_site"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/ic_expand_more_24dp"
-            android:text="@string/label_result_filter"
-            android:textColor="@color/grey_50"
-            android:textSize="@dimen/roboto_title_medium"
-            app:typeface="roboto_regular" />
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:id="@+id/layout_filter_option"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"
-            android:layout_marginTop="@dimen/margin_small"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <com.divetym.dive.ui.view.ClearableEditText
-                android:id="@+id/edit_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.divetym.dive.ui.view.ClearableEditText
-                android:id="@+id/edit_dive_site"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-
-        </LinearLayout>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</LinearLayout>

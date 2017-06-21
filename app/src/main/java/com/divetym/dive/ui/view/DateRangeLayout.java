@@ -2,7 +2,9 @@ package com.divetym.dive.ui.view;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -28,6 +30,8 @@ import static com.divetym.dive.ui.view.DateRangeLayout.DateRange.StartDate;
 
 public class DateRangeLayout extends LinearLayout implements DatePickerFragment.OnDateChangeListener {
     public static final String TAG = DateRangeLayout.class.getSimpleName();
+    @BindView(R.id.text_label_start)
+    RobotoTextView startLabelText;
     @BindView(R.id.text_date_start_day)
     RobotoTextView startDayText;
     @BindView(R.id.text_date_start_month)
@@ -35,6 +39,8 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
     @BindView(R.id.text_date_start_week)
     RobotoTextView startWeekText;
 
+    @BindView(R.id.text_label_end)
+    RobotoTextView endLabelText;
     @BindView(R.id.text_date_end_day)
     RobotoTextView endDayText;
     @BindView(R.id.text_date_end_month)
@@ -77,20 +83,20 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
 
     public DateRangeLayout(Context context) {
         super(context);
-        initialize(context);
+        initialize(context, null);
     }
 
     public DateRangeLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initialize(context);
+        initialize(context, attrs);
     }
 
     public DateRangeLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initialize(context);
+        initialize(context, attrs);
     }
 
-    private void initialize(Context context) {
+    private void initialize(Context context, AttributeSet attrs) {
         inflate(context, R.layout.view_date_range, this);
         if (context instanceof DiveTymActivity) {
             mContext = (DiveTymActivity) context;
@@ -105,6 +111,31 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
             }
         }
         ButterKnife.bind(this);
+
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DateRangeLayout);
+            if (a.hasValue(R.styleable.DateRangeLayout_label_color)) {
+                int color = a.getColor(R.styleable.DateRangeLayout_label_color, ContextCompat.getColor(context, R.color.grey_700));
+                startLabelText.setTextColor(color);
+                endLabelText.setTextColor(color);
+            }
+            if (a.hasValue(R.styleable.DateRangeLayout_day_color)) {
+                int color = a.getColor(R.styleable.DateRangeLayout_day_color, ContextCompat.getColor(context, R.color.colorAccent));
+                startDayText.setTextColor(color);
+                endDayText.setTextColor(color);
+            }
+            if (a.hasValue(R.styleable.DateRangeLayout_month_color)) {
+                int color = a.getColor(R.styleable.DateRangeLayout_month_color, ContextCompat.getColor(context, R.color.grey_800));
+                endMonthText.setTextColor(color);
+                startMonthText.setTextColor(color);
+            }
+            if (a.hasValue(R.styleable.DateRangeLayout_week_color)) {
+                int color = a.getColor(R.styleable.DateRangeLayout_week_color, ContextCompat.getColor(context, R.color.grey_600));
+                startWeekText.setTextColor(color);
+                endWeekText.setTextColor(color);
+            }
+
+        }
 
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();

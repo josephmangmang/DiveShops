@@ -150,6 +150,9 @@
     <string name="menu_search">Search</string>
     <string name="action_list">List</string>
     <string name="action_search">Search</string>
+    <string name="action_show_filter">Show Filter</string>
+    <string name="action_hide_filter">Hide Filter</string>
+    <string name="action_filter">FIlter</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">

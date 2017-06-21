@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 
 import com.divetym.dive.R;
 import com.divetym.dive.event.LocationEvent;
@@ -35,7 +36,7 @@ public class TripFilterLayout extends CardView {
     @BindView(R.id.layout_date_range)
     DateRangeLayout dateRangeLayout;
     @BindView(R.id.text_result_filter)
-    RobotoTextView resultFilterTextView;
+    Button showFIlterButton;
     @BindView(R.id.edit_location)
     ClearableEditText locationEditText;
     @BindView(R.id.edit_dive_site)
@@ -78,12 +79,10 @@ public class TripFilterLayout extends CardView {
             notifyFilterChanged();
         });
 
-        resultFilterTextView.setOnClickListener(view1 -> {
+        showFIlterButton.setOnClickListener(view1 -> {
             if (filterOptionLayout.isShown()) {
                 filterOptionLayout.setVisibility(GONE);
-                resultFilterTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_more_24dp, 0);
             } else {
-                resultFilterTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_less_24dp, 0);
                 filterOptionLayout.setVisibility(VISIBLE);
             }
         });
