@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -116,7 +117,7 @@ public class TripFilterLayout extends CardView {
         });
     }
 
-    private void notifyFilterChanged() {
+    public void notifyFilterChanged() {
         if (mOnFilterChangeListener != null)
             mOnFilterChangeListener.onFilterChanged(mStartDate, mEndDate, mLocation, mDiveSite);
     }
@@ -162,6 +163,38 @@ public class TripFilterLayout extends CardView {
 
     public void setOnFilterChangeListener(OnFilterChangeListener onFilterChangeListener) {
         mOnFilterChangeListener = onFilterChangeListener;
+    }
+
+    public void setLocation(LocationAddress location) {
+        this.mLocation = location;
+        if (mLocation != null) {
+            locationEditText.setText(mLocation.getFullAddress());
+        }
+    }
+
+    public void setDiveSite(DiveSite diveSite) {
+        this.mDiveSite = diveSite;
+        if (mDiveSite != null) {
+            diveSiteEditText.setText(mDiveSite.getName());
+        }
+    }
+
+    public void setStartDate(Date startDate) {
+        this.mStartDate = startDate;
+        Calendar calendar = Calendar.getInstance();
+        if (mStartDate != null) {
+            calendar.setTime(mStartDate);
+        }
+        dateRangeLayout.setStartCalendar(calendar);
+    }
+
+    public void setEndDate(Date endDate) {
+        this.mEndDate = endDate;
+        Calendar calendar = Calendar.getInstance();
+        if (mEndDate != null) {
+            calendar.setTime(mEndDate);
+        }
+        dateRangeLayout.setEndCalendar(calendar);
     }
 
     public interface OnFilterChangeListener {

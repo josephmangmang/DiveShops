@@ -18,7 +18,7 @@ import com.divetym.dive.common.SessionManager;
 import com.divetym.dive.models.User;
 import com.divetym.dive.ui.activities.DiveShopActivity;
 import com.divetym.dive.ui.activities.LoginActivity;
-import com.divetym.dive.ui.activities.diver.DiverTripActivity;
+import com.divetym.dive.ui.activities.diver.DailyTripSearchActivity;
 
 /**
  * Created by kali_root on 3/25/2017.
@@ -109,7 +109,7 @@ public class DiveTymActivity extends AppCompatActivity {
             if (SessionManager.getInstance(this).getAccountType() == User.AccountType.Dive_Shop) {
                 startActivity(new Intent(this, DiveShopActivity.class));
             } else {
-                startActivity(new Intent(this, DiverTripActivity.class));
+                startActivity(new Intent(this, DailyTripSearchActivity.class));
             }
             finish();
         }

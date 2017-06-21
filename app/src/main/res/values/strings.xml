@@ -149,6 +149,7 @@
     <string name="title_nav_dive_shops">Dive Shops</string>
     <string name="menu_search">Search</string>
     <string name="action_list">List</string>
+    <string name="action_search">Search</string>
 
     <!-- plurals.xml -->
     <plurals name="hours_ago">

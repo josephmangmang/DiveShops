@@ -8,6 +8,7 @@ import android.text.format.DateFormat;
 import com.divetym.dive.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -125,7 +126,16 @@ public class DateUtils extends android.text.format.DateUtils {
         return getFormattedDateTime(timestamp, "dd", locale);
     }
 
-    public static String getDayInWeek(long timestamp, Locale locale) {
+    public static String getDayNameInWeek(long timestamp, Locale locale) {
         return getFormattedDateTime(timestamp, "EEE", locale);
+    }
+
+    public static String getMonthInYearWithYear(long timestamp, Locale locale, boolean showYear) {
+        return showYear ? getFormattedDateTime(timestamp, "MMM'yy", locale)
+                : getFormattedDateTime(timestamp, "MMM", locale);
+    }
+
+    public static boolean isThisYear(Calendar calendar) {
+        return Calendar.getInstance().get(Calendar.YEAR) == calendar.get(Calendar.YEAR);
     }
 }

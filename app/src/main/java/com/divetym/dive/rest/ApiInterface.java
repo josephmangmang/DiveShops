@@ -88,6 +88,11 @@ public interface ApiInterface {
     @GET("sites")
     Call<DiveSiteListResponse> getSites(@Query("lat") double lat, @Query("lng") double lng, @Query("radius") int radius, @Query("offset") int offset);
 
+    @GET("sites")
+    Call<DiveSiteListResponse> getSites(@Query("lat") double lat,
+                                        @Query("lng") double lng, @Query("radius") int radius,
+                                        @Query("offset") int offset, @Query("max") int max);
+
     /**
      * Get a list of Dive Site base on name
      *
@@ -97,6 +102,10 @@ public interface ApiInterface {
      */
     @GET("sites")
     Call<DiveSiteListResponse> getSites(@Query("q") String searchName, @Query("offset") int offset);
+
+    @GET("sites")
+    Call<DiveSiteListResponse> getSites(@Query("q") String searchName, @Query("offset") int offset,
+                                        @Query("max") int max);
 
     /**
      * Get a list of Dive Shop
@@ -115,6 +124,7 @@ public interface ApiInterface {
     Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng,
                                             @Query("radius") int radius, @Query("offset") int offset,
                                             @Query("q") String q);
+
     @GET("diveshops")
     Call<DiveShopListResponse> getDiveShops(@Query("lat") double lat, @Query("lng") double lng,
                                             @Query("radius") int radius, @Query("offset") int offset,

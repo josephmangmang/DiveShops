@@ -6,4 +6,5 @@
 
     <color name="text_button">@color/light_blue_A400</color>
     <color name="backgound_light">#FAFAFA</color>
+    <color name="black_opacity">#be000000</color>
 </resources>

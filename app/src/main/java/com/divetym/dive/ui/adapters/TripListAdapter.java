@@ -49,7 +49,7 @@ public class TripListAdapter extends EndlessListAdapter<DailyTrip> {
         holder.spotLeft.setText(mContext.getResources()
                 .getQuantityString(R.plurals.remaining_slots, dailyTrip.getRemainingSlot(), dailyTrip.getRemainingSlot()));
         holder.dayInMonth.setText(DateUtils.getDayInMonth(dailyTrip.getDateObject().getTime(), Locale.getDefault()));
-        holder.dayInWeek.setText(DateUtils.getDayInWeek(dailyTrip.getDateObject().getTime(), Locale.getDefault()));
+        holder.dayInWeek.setText(DateUtils.getDayNameInWeek(dailyTrip.getDateObject().getTime(), Locale.getDefault()));
         if (isInMultiSelectMode()) {
             holder.selected.setVisibility(View.VISIBLE);
             if (isSelected(i)) {

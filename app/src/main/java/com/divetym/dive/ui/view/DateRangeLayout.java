@@ -6,12 +6,19 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
+import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.ui.fragments.common.DatePickerFragment;
+import com.divetym.dive.utils.DateUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.divetym.dive.ui.view.DateRangeLayout.DateRange.StartDate;
 
@@ -21,16 +28,51 @@ import static com.divetym.dive.ui.view.DateRangeLayout.DateRange.StartDate;
 
 public class DateRangeLayout extends LinearLayout implements DatePickerFragment.OnDateChangeListener {
     public static final String TAG = DateRangeLayout.class.getSimpleName();
-    private RobotoTextView dateStartTextView;
-    private RobotoTextView dateEndTextView;
+    @BindView(R.id.text_date_start_day)
+    RobotoTextView startDayText;
+    @BindView(R.id.text_date_start_month)
+    RobotoTextView startMonthText;
+    @BindView(R.id.text_date_start_week)
+    RobotoTextView startWeekText;
+
+    @BindView(R.id.text_date_end_day)
+    RobotoTextView endDayText;
+    @BindView(R.id.text_date_end_month)
+    RobotoTextView endMonthText;
+    @BindView(R.id.text_date_end_week)
+    RobotoTextView endWeekText;
+
     private DiveTymActivity mContext;
-    private SimpleDateFormat mDateFormat;
     private Calendar startCalendar;
     private Calendar endCalendar;
     private OnDateRangeChangeListener mOnDateRangeChangeListener;
 
     public enum DateRange {
         StartDate, EndDate
+    }
+
+    @OnClick(R.id.layout_start_date)
+    public void onStartDateClick() {
+        if (mContext == null) {
+            return;
+        }
+        DatePickerFragment datePicker = new DatePickerFragment();
+        datePicker.setDateRange(StartDate);
+        datePicker.setCalendar(startCalendar);
+        datePicker.setOnDateChangeListener(DateRangeLayout.this);
+        datePicker.show(mContext.getFragmentManager(), "startdatepicker");
+    }
+
+    @OnClick(R.id.layout_end_date)
+    public void onEndDateClick() {
+        if (mContext == null) {
+            return;
+        }
+        DatePickerFragment datePicker = new DatePickerFragment();
+        datePicker.setDateRange(DateRange.EndDate);
+        datePicker.setCalendar(endCalendar);
+        datePicker.setOnDateChangeListener(DateRangeLayout.this);
+        datePicker.show(mContext.getFragmentManager(), "enddatepicker");
     }
 
     public DateRangeLayout(Context context) {
@@ -50,45 +92,66 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
 
     private void initialize(Context context) {
         inflate(context, R.layout.view_date_range, this);
-        if(context instanceof ContextWrapper) {
-            mContext = (DiveTymActivity) ((ContextWrapper)context).getBaseContext();
+        if (context instanceof DiveTymActivity) {
+            mContext = (DiveTymActivity) context;
+        } else if (context instanceof ContextWrapper) {
+            try {
+                Context baseContext = ((ContextWrapper) context).getBaseContext();
+                mContext = (DiveTymActivity) baseContext;
+            } catch (ClassCastException e) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
+            }
         }
-        dateStartTextView = (RobotoTextView) findViewById(R.id.text_date_start);
-        dateEndTextView = (RobotoTextView) findViewById(R.id.text_date_end);
+        ButterKnife.bind(this);
 
-        mDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
         endCalendar.add(Calendar.DAY_OF_MONTH, 30);
 
-        dateStartTextView.setText(mDateFormat.format(startCalendar.getTime()));
-        dateEndTextView.setText(mDateFormat.format(endCalendar.getTime()));
+        updateStartDate();
+        updateEndDate();
+    }
 
-        dateStartTextView.setOnClickListener(view -> {
-            if (mContext == null) {
-                return;
-            }
-            DatePickerFragment datePicker = new DatePickerFragment();
-            datePicker.setDateRange(StartDate);
-            datePicker.setCalendar(startCalendar);
-            datePicker.setOnDateChangeListener(DateRangeLayout.this);
-            datePicker.show(mContext.getFragmentManager(), "startdatepicker");
-        });
-        dateEndTextView.setOnClickListener(view -> {
-            if (mContext == null) {
-                return;
-            }
-            DatePickerFragment datePicker = new DatePickerFragment();
-            datePicker.setDateRange(DateRange.EndDate);
-            datePicker.setCalendar(endCalendar);
-            datePicker.setOnDateChangeListener(DateRangeLayout.this);
-            datePicker.show(mContext.getFragmentManager(), "enddatepicker");
-        });
+    public void setContext(DiveTymActivity context) {
+        this.mContext = context;
+    }
+
+    private void updateEndDate() {
+        endDayText.setText(DateUtils.getDayInMonth(endCalendar.getTime().getTime(), Locale.getDefault()));
+        endWeekText.setText(DateUtils.getDayNameInWeek(endCalendar.getTimeInMillis(), Locale.getDefault()));
+        endMonthText.setText(
+                DateUtils.getMonthInYearWithYear(
+                        endCalendar.getTimeInMillis(),
+                        Locale.getDefault(),
+                        DateUtils.isThisYear(startCalendar)));
+    }
+
+    private void updateStartDate() {
+        startDayText.setText(DateUtils.getDayInMonth(startCalendar.getTimeInMillis(), Locale.getDefault()));
+        startWeekText.setText(DateUtils.getDayNameInWeek(startCalendar.getTimeInMillis(), Locale.getDefault()));
+        startMonthText.setText(
+                DateUtils.getMonthInYearWithYear(
+                        startCalendar.getTimeInMillis(),
+                        Locale.getDefault(),
+                        DateUtils.isThisYear(startCalendar)));
+
     }
 
 
     public void setOnDateRangeChangeListener(OnDateRangeChangeListener onDateRangeChangeListener) {
         mOnDateRangeChangeListener = onDateRangeChangeListener;
+    }
+
+    public void setStartCalendar(Calendar startCalendar) {
+        this.startCalendar = startCalendar;
+        updateStartDate();
+    }
+
+    public void setEndCalendar(Calendar endCalendar) {
+        this.endCalendar = endCalendar;
+        updateEndDate();
     }
 
     public Calendar getStartCalendar() {
@@ -104,17 +167,18 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
         switch (dateRange) {
             case StartDate:
                 startCalendar = calendar;
-                dateStartTextView.setText(mDateFormat.format(calendar.getTime()));
+                updateStartDate();
                 break;
             case EndDate:
                 endCalendar = calendar;
-                dateEndTextView.setText(mDateFormat.format(calendar.getTime()));
+                updateEndDate();
                 break;
         }
         if (mOnDateRangeChangeListener != null) {
             mOnDateRangeChangeListener.onDateRangeChanged(startCalendar, endCalendar);
         }
     }
+
     public interface OnDateRangeChangeListener {
         void onDateRangeChanged(Calendar startDate, Calendar endDate);
     }

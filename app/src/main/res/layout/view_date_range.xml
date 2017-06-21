@@ -1,53 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:padding="@dimen/margin_medium">
 
         <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_label_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_start" />
 
         <com.divetym.dive.ui.view.RobotoTextView
-            android:id="@+id/text_date_start"
+            android:id="@+id/text_date_start_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/text_label_start"
+            android:layout_marginRight="@dimen/margin_tiny"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="@string/dummy_date"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/roboto_regular_headline"
-            app:typeface="roboto_regular" />
-    </LinearLayout>
+            android:textSize="@dimen/roboto_display_2_regular"
+            app:typeface="roboto_regular"
+            tools:text="06" />
 
-    <LinearLayout
+        <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_date_start_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_label_start"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@+id/text_date_start_day"
+            android:textColor="@color/grey_800"
+            android:textSize="@dimen/roboto_title_medium"
+            tools:text="Jun" />
+
+        <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_date_start_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_date_start_month"
+            android:layout_marginTop="@dimen/margin_tiny"
+            android:layout_toRightOf="@+id/text_date_start_day"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/roboto_title_medium"
+            tools:text="Wed" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/grey_300" />
+
+    <RelativeLayout
+        android:id="@+id/layout_end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:padding="@dimen/margin_medium">
 
         <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_label_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_end" />
+            android:text="@string/label_start" />
 
         <com.divetym.dive.ui.view.RobotoTextView
-            android:id="@+id/text_date_end"
+            android:id="@+id/text_date_end_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/text_label_end"
+            android:layout_marginRight="@dimen/margin_tiny"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="@string/dummy_date"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/roboto_regular_headline"
-            app:typeface="roboto_regular" />
-    </LinearLayout>
+            android:textSize="@dimen/roboto_display_2_regular"
+            app:typeface="roboto_regular"
+            tools:text="06" />
+
+        <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_date_end_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_label_end"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toRightOf="@+id/text_date_end_day"
+            android:textColor="@color/grey_800"
+            android:textSize="@dimen/roboto_title_medium"
+            tools:text="Jun" />
+
+        <com.divetym.dive.ui.view.RobotoTextView
+            android:id="@+id/text_date_end_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_date_end_month"
+            android:layout_marginTop="@dimen/margin_tiny"
+            android:layout_toRightOf="@+id/text_date_end_day"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/roboto_title_medium"
+            tools:text="Wed" />
+    </RelativeLayout>
+
 
 </LinearLayout>
