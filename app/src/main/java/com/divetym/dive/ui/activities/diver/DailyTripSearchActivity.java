@@ -52,9 +52,9 @@ public class DailyTripSearchActivity extends DiveTymActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diver_trip_search_activity);
         ButterKnife.bind(this);
-        requestImages();
         initFragment(R.id.content, new DailyTripSearchFragment());
         initializeNavigation();
+        requestImages();
     }
 
     private void initializeNavigation() {
@@ -133,7 +133,7 @@ public class DailyTripSearchActivity extends DiveTymActivity
                             .edit().putBoolean("server_local", true).commit();
                     ApiClient.sServerLocal = true;
                 }
-                ApiClient.sUpdateRetrofit = true;
+                ApiClient.reCreate();
                 break;
         }
         return true;
