@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 
+import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
 import com.divetym.dive.event.LocationEvent;
 import com.divetym.dive.models.DiveSite;
@@ -63,8 +64,17 @@ public class TripFilterLayout extends CardView {
     private void init(Context context) {
         inflate(context, R.layout.view_trip_filter, this);
         ButterKnife.bind(this, this);
-        if (context instanceof ContextWrapper) {
-            mContext = (DiveTymActivity) ((ContextWrapper) context).getBaseContext();
+        if (context instanceof DiveTymActivity) {
+            mContext = (DiveTymActivity) context;
+        } else if (context instanceof ContextWrapper) {
+            try {
+                Context baseContext = ((ContextWrapper) context).getBaseContext();
+                mContext = (DiveTymActivity) baseContext;
+            } catch (ClassCastException e) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
+            }
         }
         mStartDate = getStartDate();
         mEndDate = getEndDate();
