@@ -156,7 +156,7 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
                 DateUtils.getMonthInYearWithYear(
                         endCalendar.getTimeInMillis(),
                         Locale.getDefault(),
-                        DateUtils.isThisYear(startCalendar)));
+                        !DateUtils.isThisYear(endCalendar)));
     }
 
     private void updateStartDate() {
@@ -166,7 +166,7 @@ public class DateRangeLayout extends LinearLayout implements DatePickerFragment.
                 DateUtils.getMonthInYearWithYear(
                         startCalendar.getTimeInMillis(),
                         Locale.getDefault(),
-                        DateUtils.isThisYear(startCalendar)));
+                        !DateUtils.isThisYear(startCalendar)));
 
     }
 

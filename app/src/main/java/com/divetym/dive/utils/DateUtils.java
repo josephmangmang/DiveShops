@@ -131,7 +131,7 @@ public class DateUtils extends android.text.format.DateUtils {
     }
 
     public static String getMonthInYearWithYear(long timestamp, Locale locale, boolean showYear) {
-        return showYear ? getFormattedDateTime(timestamp, "MMM'yy", locale)
+        return showYear ? getFormattedDateTime(timestamp, "MMM''yy", locale)
                 : getFormattedDateTime(timestamp, "MMM", locale);
     }
 
