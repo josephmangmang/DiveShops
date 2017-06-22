@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.view.View;
 
 import com.divetym.dive.R;
 import com.divetym.dive.models.DiveSite;
@@ -19,7 +22,9 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.divetym.dive.ui.fragments.diver.DailyTripSearchFragment.*;
+import static android.support.design.widget.BottomSheetBehavior.STATE_COLLAPSED;
+import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
+import static com.divetym.dive.ui.activities.diver.DailyTripSearchActivity.*;
 
 
 /**
@@ -30,6 +35,7 @@ public class DiverTripActivity extends DiveTymActivity {
     @BindView(R.id.trip_filter_layout)
     TripFilterLayout mTripFilterLayout;
     DiverTripFragment fragment;
+    private BottomSheetBehavior<TripFilterLayout> mBottomSheet;
 
     public static void launch(Context context, Bundle bundle) {
         Intent intent = new Intent(context, DiverTripActivity.class);
@@ -65,12 +71,25 @@ public class DiverTripActivity extends DiveTymActivity {
             start = mTripFilterLayout.getStartDate();
             end = mTripFilterLayout.getEndDate();
         }
+
+        mBottomSheet = BottomSheetBehavior.from(mTripFilterLayout);
+        mBottomSheet.setPeekHeight(120);
+
         mTripFilterLayout.setOnFilterChangeListener(onFilterChangeListener);
         mTripFilterLayout.setStartDate(start);
         mTripFilterLayout.setEndDate(end);
         mTripFilterLayout.setDiveSite(diveSite);
         mTripFilterLayout.setLocation(location);
         mTripFilterLayout.notifyFilterChanged();
+        mTripFilterLayout.setFilterButtonClickListener(view -> {
+            switch (mBottomSheet.getState()) {
+                case STATE_EXPANDED:
+                    mBottomSheet.setState(STATE_COLLAPSED);
+                    break;
+                case STATE_COLLAPSED:
+                    mBottomSheet.setState(STATE_EXPANDED);
+            }
+        });
     }
 
 

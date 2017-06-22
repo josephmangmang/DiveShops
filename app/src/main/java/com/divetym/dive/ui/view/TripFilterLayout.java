@@ -2,11 +2,13 @@ package com.divetym.dive.ui.view;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.divetym.dive.BuildConfig;
 import com.divetym.dive.R;
@@ -33,35 +35,37 @@ import butterknife.ButterKnife;
  * Created by kali_root on 6/11/2017.
  */
 
-public class TripFilterLayout extends CardView {
+public class TripFilterLayout extends LinearLayout {
     @BindView(R.id.layout_date_range)
     DateRangeLayout dateRangeLayout;
-    @BindView(R.id.text_result_filter)
-    Button showFIlterButton;
-    @BindView(R.id.edit_location)
-    ClearableEditText locationEditText;
-    @BindView(R.id.edit_dive_site)
-    ClearableEditText diveSiteEditText;
-    @BindView(R.id.layout_filter_option)
-    View filterOptionLayout;
+    @BindView(R.id.text_location)
+    ClearableTextView locationText;
+    @BindView(R.id.text_dive_site)
+    ClearableTextView diveSiteText;
+    @BindView(R.id.card_filter)
+    CardView filterCard;
+    @BindView(R.id.action_button)
+    Button actionButton;
+
     private DiveTymActivity mContext;
     private LocationAddress mLocation;
     private DiveSite mDiveSite;
     private Date mStartDate;
     private Date mEndDate;
     private OnFilterChangeListener mOnFilterChangeListener;
+    private OnActionClickListener onActionClickListener;
 
     public TripFilterLayout(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public TripFilterLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
         inflate(context, R.layout.view_trip_filter, this);
         ButterKnife.bind(this, this);
         if (context instanceof DiveTymActivity) {
@@ -76,34 +80,45 @@ public class TripFilterLayout extends CardView {
                 }
             }
         }
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TripFilterLayout);
+            if (a.hasValue(R.styleable.TripFilterLayout_show_filter_button)) {
+                boolean show = a.getBoolean(R.styleable.TripFilterLayout_show_filter_button, true);
+                filterCard.setVisibility(show ? VISIBLE : GONE);
+            }
+            if (a.hasValue(R.styleable.TripFilterLayout_action_text)) {
+                CharSequence text = a.getText(R.styleable.TripFilterLayout_action_text);
+                actionButton.setText(text);
+            }
+        }
         mStartDate = getStartDate();
         mEndDate = getEndDate();
-        locationEditText.setHint(context.getString(R.string.hint_location));
-        diveSiteEditText.setHint(context.getString(R.string.hint_dive_site));
-        locationEditText.setOnClearListener(() -> {
+        locationText.setOnClearListener(() -> {
             mLocation = null;
             notifyFilterChanged();
         });
-        diveSiteEditText.setOnClearListener(() -> {
+        diveSiteText.setOnClearListener(() -> {
             mDiveSite = null;
             notifyFilterChanged();
         });
 
-        showFIlterButton.setOnClickListener(view1 -> {
-            if (filterOptionLayout.isShown()) {
-                filterOptionLayout.setVisibility(GONE);
-            } else {
-                filterOptionLayout.setVisibility(VISIBLE);
+        actionButton.setOnClickListener(view -> {
+            if (onActionClickListener != null) {
+                onActionClickListener
+                        .onActionClick(
+                                mStartDate,
+                                mEndDate,
+                                mLocation,
+                                mDiveSite);
             }
         });
-
-        locationEditText.setOnClickListener(view1 -> {
+        locationText.setOnClickListener(view1 -> {
             if (mContext != null) {
                 SearchMapActivity.launch(mContext, 1);
             }
         });
 
-        diveSiteEditText.setOnClickListener(view1 -> {
+        diveSiteText.setOnClickListener(view1 -> {
             DiveSitesDialog diveSitesDialog = new DiveSitesDialog();
             diveSitesDialog.show(mContext.getFragmentManager(), DiveSitesDialog.class.getSimpleName());
             diveSitesDialog.setMultiSelectEnable(false);
@@ -113,7 +128,7 @@ public class TripFilterLayout extends CardView {
                 if (list.size() > 0) {
                     mDiveSite = list.get(0);
                     if (mDiveSite != null) {
-                        diveSiteEditText.setText(mDiveSite.getName());
+                        diveSiteText.setText(mDiveSite.getName());
                     }
                     notifyFilterChanged();
                 }
@@ -146,7 +161,8 @@ public class TripFilterLayout extends CardView {
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onLocationChanged(LocationEvent event) {
         mLocation = event.getLocationAddress();
-        locationEditText.setText(mLocation.getFullAddress());
+        locationText.setText(mLocation.getFullAddress());
+        EventBus.getDefault().removeStickyEvent(event);
         notifyFilterChanged();
     }
 
@@ -155,11 +171,11 @@ public class TripFilterLayout extends CardView {
     }
 
     public void showLocationFilter(boolean show) {
-        locationEditText.setVisibility(show ? VISIBLE : GONE);
+        locationText.setVisibility(show ? VISIBLE : GONE);
     }
 
     public void showSiteFilter(boolean show) {
-        diveSiteEditText.setVisibility(show ? VISIBLE : GONE);
+        diveSiteText.setVisibility(show ? VISIBLE : GONE);
     }
 
     public Date getStartDate() {
@@ -174,17 +190,21 @@ public class TripFilterLayout extends CardView {
         mOnFilterChangeListener = onFilterChangeListener;
     }
 
+    public void setOnActionClickListener(OnActionClickListener onActionClickListener) {
+        this.onActionClickListener = onActionClickListener;
+    }
+
     public void setLocation(LocationAddress location) {
         this.mLocation = location;
         if (mLocation != null) {
-            locationEditText.setText(mLocation.getFullAddress());
+            locationText.setText(mLocation.getFullAddress());
         }
     }
 
     public void setDiveSite(DiveSite diveSite) {
         this.mDiveSite = diveSite;
         if (mDiveSite != null) {
-            diveSiteEditText.setText(mDiveSite.getName());
+            diveSiteText.setText(mDiveSite.getName());
         }
     }
 
@@ -205,8 +225,18 @@ public class TripFilterLayout extends CardView {
         }
         dateRangeLayout.setEndCalendar(calendar);
     }
+    public int getHightForPeek(){
+       return filterCard.getHeight();
+    }
+    public void setFilterButtonClickListener(OnClickListener clickListener) {
+        findViewById(R.id.button_filter).setOnClickListener(clickListener);
+    }
 
     public interface OnFilterChangeListener {
         void onFilterChanged(Date startDate, Date endDate, @Nullable LocationAddress locationAddress, @Nullable DiveSite diveSite);
+    }
+
+    public interface OnActionClickListener {
+        void onActionClick(Date startDate, Date endDate, @Nullable LocationAddress locationAddress, @Nullable DiveSite diveSite);
     }
 }

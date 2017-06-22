@@ -17,8 +17,8 @@ import com.divetym.dive.event.SessionEvent;
 import com.divetym.dive.models.response.DiveSiteListResponse;
 import com.divetym.dive.rest.ApiClient;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
-import com.divetym.dive.ui.fragments.diver.DailyTripSearchFragment;
 import com.divetym.dive.ui.view.ImageSlider;
+import com.divetym.dive.ui.view.TripFilterLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,21 +38,37 @@ public class DailyTripSearchActivity extends DiveTymActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = DailyTripSearchActivity.class.getSimpleName();
+    public static final String BUNDLE_START_DATE = "bundle_start_date";
+    public static final String BUNDLE_END_DATE = "bundle_end_date";
+    public static final String BUNDLE_LOCATION = "bundle_location";
+    public static final String BUNDLE_DIVE_SITE = "bundle_dive_sited";
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.image_slider)
     ImageSlider imageSlider;
+    @BindView(R.id.trip_filter_layout)
+    TripFilterLayout mTripFilterLayout;
+
     private ActionBarDrawerToggle mDrawerToggle;
     private MenuItem loginItem;
+
+    private TripFilterLayout.OnActionClickListener onActionClickListener = (startDate, endDate, locationAddress, diveSite) -> {
+        Bundle bundle = new Bundle();
+        bundle.putLong(BUNDLE_START_DATE, startDate != null ? startDate.getTime() : 0);
+        bundle.putLong(BUNDLE_END_DATE, endDate != null ? endDate.getTime() : 0);
+        bundle.putParcelable(BUNDLE_LOCATION, locationAddress);
+        bundle.putParcelable(BUNDLE_DIVE_SITE, diveSite);
+        DiverTripActivity.launch(DailyTripSearchActivity.this, bundle);
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diver_trip_search_activity);
         ButterKnife.bind(this);
-        initFragment(R.id.content, new DailyTripSearchFragment());
+        mTripFilterLayout.setOnActionClickListener(onActionClickListener);
         initializeNavigation();
         requestImages();
     }

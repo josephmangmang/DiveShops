@@ -51,9 +51,23 @@
     </declare-styleable>
     <attr name="title" format="string" />
     <declare-styleable name="DateRangeLayout">
-        <attr name="label_color" format="color" />
-        <attr name="day_color" format="color" />
-        <attr name="month_color" format="color" />
-        <attr name="week_color" format="color" />
+        <attr name="label_color" />
+        <attr name="day_color" />
+        <attr name="month_color" />
+        <attr name="week_color" />
+    </declare-styleable>
+    <attr name="label_color" format="color" />
+    <attr name="day_color" format="color" />
+    <attr name="month_color" format="color" />
+    <attr name="week_color" format="color" />
+    <declare-styleable name="ClearableTextView">
+        <attr name="text_hint" />
+        <attr name="text_icon" />
+    </declare-styleable>
+    <attr name="text_hint" format="string" />
+    <attr name="text_icon" format="reference" />
+    <declare-styleable name="TripFilterLayout">
+        <attr name="show_filter_button" format="boolean" />
+        <attr name="action_text" format="string" />
     </declare-styleable>
 </resources>
