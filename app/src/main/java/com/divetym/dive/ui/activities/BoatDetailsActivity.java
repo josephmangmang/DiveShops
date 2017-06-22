@@ -3,21 +3,13 @@ package com.divetym.dive.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
-import com.divetym.dive.event.BoatEvent;
 import com.divetym.dive.models.Boat;
 import com.divetym.dive.models.common.ThumbnailEntity;
-import com.divetym.dive.ui.activities.base.DetailsActivity;
 import com.divetym.dive.ui.activities.base.DiveTymActivity;
 import com.divetym.dive.ui.fragments.diver.DiverBoatDetailsFragment;
 import com.divetym.dive.ui.view.ImageSlider;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
