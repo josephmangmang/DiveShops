@@ -75,7 +75,7 @@
             android:id="@+id/text_label_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_start" />
+            android:text="@string/label_end" />
 
         <com.divetym.dive.ui.view.RobotoTextView
             android:id="@+id/text_date_end_day"
