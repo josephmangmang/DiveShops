@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.divetym.dive.GlideApp;
 import com.divetym.dive.R;
 import com.divetym.dive.models.common.ThumbnailEntity;
-import com.divetym.dive.ui.view.RobotoTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ public class SliderAdapter<DataType extends ThumbnailEntity> extends PagerAdapte
     private List<DataType> dataList;
     private LayoutInflater mInflater;
     private Context context;
-    private boolean showTitle = true;
 
     public SliderAdapter(Context context) {
         this(context, null);
@@ -45,19 +43,20 @@ public class SliderAdapter<DataType extends ThumbnailEntity> extends PagerAdapte
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        return dataList.size() > 0 ? dataList.get(position).getName() : "";
+    }
+
+    @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = mInflater.inflate(R.layout.view_slider, container, false);
+        ImageView view = (ImageView) mInflater.inflate(R.layout.view_slider, container, false);
         DataType data = dataList.get(position);
-        ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        RobotoTextView titleText = (RobotoTextView) view.findViewById(R.id.text_title);
-        titleText.setText(data.getName());
-        titleText.setVisibility(showTitle ? View.VISIBLE : View.GONE);
         GlideApp.with(context)
                 .load(data.getImageUrl())
                 .thumbnail(0.1f)
                 .placeholder(R.drawable.dummy_image_preview)
                 .error(R.drawable.dummy_image_error)
-                .into(imageView);
+                .into(view);
         container.addView(view);
         return view;
     }
@@ -77,8 +76,4 @@ public class SliderAdapter<DataType extends ThumbnailEntity> extends PagerAdapte
         notifyDataSetChanged();
     }
 
-    public void setShowTitle(boolean showTitle) {
-        this.showTitle = showTitle;
-        notifyDataSetChanged();
-    }
 }

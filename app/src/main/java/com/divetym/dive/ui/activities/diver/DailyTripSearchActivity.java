@@ -69,6 +69,8 @@ public class DailyTripSearchActivity extends DiveTymActivity
         setContentView(R.layout.activity_diver_trip_search_activity);
         ButterKnife.bind(this);
         mTripFilterLayout.setOnActionClickListener(onActionClickListener);
+        imageSlider.showCircleIndicator(true);
+        imageSlider.showTextIndicator(false);
         initializeNavigation();
         requestImages();
     }

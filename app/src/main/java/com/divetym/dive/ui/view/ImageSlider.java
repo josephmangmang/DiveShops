@@ -19,9 +19,30 @@ import me.relex.circleindicator.CircleIndicator;
  */
 
 public class ImageSlider extends RelativeLayout {
+    private static final String TAG = ImageSlider.class.getSimpleName();
+    private RobotoTextView titleText;
+    private RobotoTextView textIndicator;
     private ViewPager viewPager;
     private SliderAdapter adapter;
-    private CircleIndicator indicator;
+    private CircleIndicator circleIndicator;
+
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            titleText.setText(adapter.getPageTitle(position));
+            textIndicator.setText(position + 1 + "/" + adapter.getCount());
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
 
     public ImageSlider(Context context) {
         super(context);
@@ -41,20 +62,37 @@ public class ImageSlider extends RelativeLayout {
     private void init(Context context) {
         inflate(context, R.layout.view_image_slider, this);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
+        titleText = (RobotoTextView) findViewById(R.id.text_title);
+        textIndicator = (RobotoTextView) findViewById(R.id.text_indicator_right_top);
+        circleIndicator = (CircleIndicator) findViewById(R.id.indicator);
+
         adapter = new SliderAdapter(context);
+
         viewPager.setAdapter(adapter);
-        indicator = (CircleIndicator) findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
-        adapter.registerDataSetObserver(indicator.getDataSetObserver());
+        viewPager.addOnPageChangeListener(onPageChangeListener);
+        circleIndicator.setViewPager(viewPager);
+        adapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
     }
 
     @Override
     protected void onDetachedFromWindow() {
-        adapter.unregisterDataSetObserver(indicator.getDataSetObserver());
+        adapter.unregisterDataSetObserver(circleIndicator.getDataSetObserver());
         super.onDetachedFromWindow();
     }
 
     public <DataType extends ThumbnailEntity> void setDataList(List<DataType> dataList) {
         adapter.setDataList(dataList);
+        onPageChangeListener.onPageSelected(viewPager.getCurrentItem());
+    }
+
+    public void showCircleIndicator(boolean show) {
+        circleIndicator.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    public void showTextIndicator(boolean show) {
+        textIndicator.setVisibility(show ? VISIBLE : GONE);
+    }
+    public void showTitle(boolean show){
+        titleText.setVisibility(show? VISIBLE:GONE);
     }
 }
