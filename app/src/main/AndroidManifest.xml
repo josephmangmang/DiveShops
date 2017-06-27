@@ -76,6 +76,9 @@
         <activity
             android:name=".ui.activities.diver.DiveShopListActivity"
             android:label="@string/title_dive_shops" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a89208734c3645081feefd320955c15e6783dab3" />
     </application>
 
 </manifest>

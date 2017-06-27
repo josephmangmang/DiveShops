@@ -81,7 +81,7 @@ public class DailyTripSearchActivity extends DiveTymActivity
         if (BuildConfig.DEBUG) {
             navigationView.inflateMenu(R.menu.server_source);
             MenuItem s = navigationView.getMenu().findItem(R.id.nav_server_source);
-            boolean serverLocal = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("server_local", true);
+            boolean serverLocal = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("server_local", false);
             ApiClient.sServerLocal = serverLocal;
             s.setTitle(serverLocal ? "Server Local" : "Server Online");
         }
