@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">DiveTym</string>
+    <string name="app_name">DiveSched</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="mantra">DiveTym Mantra</string>
+    <string name="mantra">DiveSched Mantra</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="label_login_as">Login as</string>
