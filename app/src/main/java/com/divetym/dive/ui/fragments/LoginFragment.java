@@ -1,6 +1,5 @@
 package com.divetym.dive.ui.fragments;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -8,21 +7,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.divetym.dive.R;
-import com.divetym.dive.event.SessionEvent;
-import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 import com.divetym.dive.common.SessionManager;
+import com.divetym.dive.event.SessionEvent;
 import com.divetym.dive.models.response.UserResponse;
 import com.divetym.dive.rest.ApiClient;
-import com.divetym.dive.rest.ApiInterface;
+import com.divetym.dive.ui.fragments.base.DiveTymFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,42 +35,52 @@ public class LoginFragment extends DiveTymFragment {
     EditText emailEditText;
     @BindView(R.id.edit_password)
     EditText passwordEditText;
-    @BindView(R.id.button_login)
-    Button loginButton;
-    @BindView(R.id.button_signup)
-    Button signUpButton;
 
-    private ApiInterface mApiService;
-
-    private View.OnClickListener mLoginButtonClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String email = emailEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            boolean error = false;
-            if (TextUtils.isEmpty(email)) {
-                emailEditText.setError(getString(R.string.error_field_required));
-                emailEditText.requestFocus();
-                error = true;
-            } else if (TextUtils.isEmpty(password)) {
-                passwordEditText.setError(getString(R.string.error_field_required));
-                passwordEditText.requestFocus();
-                error = true;
-            }
-            if (!error) {
+    @OnClick({R.id.button_login, R.id.button_signup})
+    public void onButtonClick(View view) {
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        boolean error = false;
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError(getString(R.string.error_field_required));
+            emailEditText.requestFocus();
+            error = true;
+        } else if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError(getString(R.string.error_field_required));
+            passwordEditText.requestFocus();
+            error = true;
+        }
+        if (!error) {
+            if (view.getId() == R.id.button_login) {
                 login(email, password);
+            } else {
+                register(email, password);
             }
         }
-    };
+    }
 
-    private View.OnClickListener mSignUpButtonClick = view -> getFragmentManager().beginTransaction()
-            .replace(R.id.content, new RegistrationFragment())
-            .addToBackStack(null)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit();
+    private void register(String email, String password) {
+        ApiClient.getApiInterface().register(email, password, "diver")
+                .enqueue(new Callback<com.divetym.dive.models.response.Response>() {
+                    @Override
+                    public void onResponse(Call<com.divetym.dive.models.response.Response> call, retrofit2.Response<com.divetym.dive.models.response.Response> response) {
+                        com.divetym.dive.models.response.Response respnse = response.body();
+                        if (respnse != null) {
+                            Log.d(TAG, "register response: " + respnse.toString());
+                            showToastAlert(respnse.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<com.divetym.dive.models.response.Response> call, Throwable t) {
+                        Log.e(TAG, "register response: " + t.getMessage());
+                        showToastAlert(t.getMessage());
+                    }
+                });
+    }
 
     private void login(String email, String password) {
-        mApiService.login(email, password).enqueue(new Callback<UserResponse>() {
+        ApiClient.getApiInterface().login(email, password).enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 UserResponse userResponse = response.body();
@@ -96,25 +104,13 @@ public class LoginFragment extends DiveTymFragment {
         });
     }
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mApiService = ApiClient.getApiInterface();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        mContext.setTitle(R.string.title_login);
         ButterKnife.bind(this, view);
-        initializeResources();
         return view;
-    }
-
-    private void initializeResources() {
-        loginButton.setOnClickListener(mLoginButtonClick);
-        signUpButton.setOnClickListener(mSignUpButtonClick);
     }
 
 }

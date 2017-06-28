@@ -17,6 +17,7 @@ public class LoginActivity extends DiveTymActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showBackButton(true);
         initFragment(R.id.content, new LoginFragment());
     }
 }
