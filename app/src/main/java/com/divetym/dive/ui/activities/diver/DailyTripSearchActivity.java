@@ -78,13 +78,13 @@ public class DailyTripSearchActivity extends DiveTymActivity
     private void initializeNavigation() {
         navigationView.inflateMenu(R.menu.drawer_login);
         loginItem = navigationView.getMenu().findItem(R.id.nav_login);
-
+/*
         navigationView.inflateMenu(R.menu.server_source);
         MenuItem s = navigationView.getMenu().findItem(R.id.nav_server_source);
         boolean serverLocal = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("server_local", false);
         ApiClient.sServerLocal = serverLocal;
         s.setTitle(serverLocal ? "Server Local" : "Server Online");
-
+*/
         invalidateLoginButton();
         mDrawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, getToolbar(), R.string.drawer_open, R.string.drawer_close);

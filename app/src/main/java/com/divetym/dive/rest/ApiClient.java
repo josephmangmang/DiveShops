@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    private static final String BASE_ENDPOINT_URL_LOCAL = "http://192.168.254.6/v1/";
-    private static final String BASE_ENPOINT_URL_ONLINE = "http://128.199.101.93/v1/";
-    public static boolean sServerLocal = false;
+    private static final String BASE_ENDPOINT_URL_LOCAL = "http://192.168.254.100/v1/";
+    private static final String BASE_ENPOINT_URL_ONLINE = "http://www.yourserver.com/v1/";
+    public static boolean sServerLocal = true;
 
     private static Retrofit sRetrofit = null;
 
